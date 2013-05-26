@@ -1,0 +1,2 @@
+To enable this component the following files need to be placed here:
+calendar-en.js, calendar-setup.js, calendar-system.css, calendar.js

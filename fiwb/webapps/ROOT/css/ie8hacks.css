@@ -1,0 +1,21 @@
+.tablehead2 + div > .flTable2 {
+	position: relative;
+	top: -25px;
+}
+
+DIV.tablehead2 + TABLE.flTable2 {
+    position: relative;
+    top: -25px;
+}
+
+DIV.tablefoot {
+	margin-top: -25px;
+}
+
+DIV.overflowTable{
+    overflow-y: inherit !important;
+}
+
+.flTable2 .label {
+	width: 99.9% !important;
+}

@@ -1,0 +1,71 @@
+__NOTOC__
+
+== Projects grouped by region ==
+
+{| style="width: 100%"
+|-
+| style="width: 20%" |
+{{ #widget : HeatMap
+  | input = 'regionname'
+  | output = {{ 'sumGrant' }}
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?regionname WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant .
+      ?role <http://research.data.gov.uk/def/project/region> ?region . 
+      ?region <http://ammap.com/region/name> ?regionname .
+      }
+    GROUP BY ?regionname'
+  | map = 'united_kingdom_regions'
+}}
+|
+{{ #widget : BarChart
+  | input = 'region'
+  | output = {{ 'sumGrant' }}
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?region WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant .
+      ?role <http://research.data.gov.uk/def/project/region> ?region . 
+      ?region <http://ammap.com/region/name> ?regionname .
+      }
+    GROUP BY ?region'
+}}
+
+|-
+|}
+
+== Project funding timeline ==
+{{ #widget : StockChart
+  | input = 'start'
+  | output = {{ 'sumGrant' }}
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?start WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant . 
+      ?role <http://research.data.gov.uk/def/project/project> ?project . 
+      ?project <http://purl.org/stuff/project/startDate> ?start . 
+      ?role <http://research.data.gov.uk/def/project/region> ?region . }
+    GROUP BY ?start'
+  | settings = 'Settings:stock.countdaily'
+}}
+
+
+
+<br/>
+
+== Ratio of live and closed projects ==
+
+{{ #widget : PieChart
+  | input = 'status'
+  | output = {{ 'countProject' }}
+  | query = 'SELECT (COUNT(?project) AS ?countProject) ?status WHERE {
+      ?project research:projectStatus ?status . }
+    GROUP BY ?status'
+  | title = 'Research'
+}}
+
+== Overview of all projects in Database ==
+
+{{
+#widget: TableResult
+  | query='SELECT ?Project ?Subject WHERE {
+       ?Project rdf:type ?? .
+       ?Project dcterms:subject ?Subject .
+     }' 
+}}
+

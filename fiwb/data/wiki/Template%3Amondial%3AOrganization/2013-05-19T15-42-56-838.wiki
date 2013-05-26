@@ -1,0 +1,6 @@
+{{#widget: TableResult |
+ query = 'SELECT DISTINCT ?CountryName WHERE{
+   ?Country mondial:isMember ?? .
+   ?Country mondial:name ?CountryName}
+   ORDER BY ASC(?CountryName)'
+}}

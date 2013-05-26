@@ -1,0 +1,22 @@
+== Authoring ==
+
+In this section you will learn about the authoring widgets.  These are a subset of widgets that allow you to manipulate data: add new instances and facts, modify existing data, and retrieve relevant data according to structured or unstructured queries.
+
+The following widgets fall into this category.
+{|class="wikitable"
+|-
+!Name
+!Description
+|-
+| [[ Help:DataInput | DataInput ]]
+| Customized instance creation and instance management.
+|-
+| [[ Help:NewInstance | NewInstance ]]
+| Creates new instances of an entity. 
+|-
+| [[ Help:SearchWidget | SearchWidget ]]
+| Allows the user to parameterize predefined search patterns.
+|-
+| [[ Help:TripleEditor | TripleEditor ]]
+| Allows adding, editing, and deleting data associated with an instance.
+|}

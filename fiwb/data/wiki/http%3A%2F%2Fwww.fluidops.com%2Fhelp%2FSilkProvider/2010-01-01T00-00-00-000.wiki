@@ -1,0 +1,145 @@
+=== Silk Provider ===
+
+==== Functionality ====
+The Silk Link Discovery Engine is a rule-based framework for discovering links between resources. The classical use case is the generation of owl:sameAs links, identifying resources in the data-set that contain information about the same resource. The Silk provider of the Information Workbench exposes a subset of this functionality, allowing for link generation and entity reconciliation on top of the Information Workbench's internal database.
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.SilkProvider
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Providers | Providers ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.SilkProvider
+}}
+===== Dataset Configuration =====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.SilkProvider$DataSetConfig
+}}
+
+
+==== Example ====
+The basic idea of the Silk framework is to identify links between two subsets of resources. The Silk provider follows this idea. Its configuration builds upon two sets of values, a set of source and a set of target values, extracted via SPARQL queries from the underlying database. Values from these two sets are then interlinked using sophisticated linkage rules implemented in Silk, which can make use of transformations, various string metrics, etc.
+
+===== Provider Configuration =====
+We describe the provider functionality by means of a simple example. Assume we have a database containing two types of persons. Assume that the first type of persons is typed with ''foaf:Person'', the second one is typed with ''fluidops:Employee''.
+
+<div style="width:48%;float:left;">
+'''Information in ldap context:'''
+<source>
+Person1 rdf:type foaf:Person .
+Person1 foaf:firstName "John" .
+Person1 rdf:lastName "Doe" .
+Person1 foaf:mbox "john.doe@fluidops.com" .
+
+Person2 rdf:type foaf:Person .
+Person2 foaf:firstName "Pete" .
+Person2 rdf:lastName "Doe" .
+Person2 rdf:lastName "pete.doe@fluidops.com" .
+</source>
+</div>
+<div style="width:48%;float:left;margin-left:4%;">
+'''Information in xls context:'''
+<source>
+P1 rdf:type fluidops:Employee .
+P1 rdfs:label "John Doe" .
+P1 foaf:mbox "john.doe@fluidops.com" .
+
+P2 rdf:type fluidops:Employee .
+P2 rdfs:label "Jane Doe" .
+P2 rdf:lastName "jane.doe@fluidops.com" .
+</source>
+</div>
+
+<div style="clear:both;" />
+
+As witnessed by the identical email address, the resources '''Person1''' and '''P1''' (although represented by different URIs) describe the same resource. With the Silk Provider we can interlink such resources. In the following we describe a sample provider configuration that uses the Silk Provider to create an '''owl:sameAs''' link between the two persons.
+
+====== Parameter sourceDataset ======
+The ''sourceDataset'' parameter defines the first set of values that are considered as candidates for interlinking. In this case, we are interested in extracting all the resources typed with ''foaf:Person''. The ''sourceDataset'' parameter is defined by two sub-parameters:
+
+* Parameter ''restrictTo'' is a SPARQL query body which extracts the set of all persons
+* Parameter ''variable'' defines a projection on the (single) input variable from the latter SPARQL query that we are interested in
+
+In our example above, we define
+
+<source>
+restrictTo := ?person1 rdf:type foaf:Person
+variable   := ?person1
+</source>
+
+which extracts all resources that are typed with ''foaf:Person''.
+
+====== Parameter targetDataset ======
+The ''targetDataset'' parameter defines the second set of values that are considered as candidates for interlinking. In this case, we are interested in extracting all the resources typed with ''fluidops:Employee''. Like ''sourceDataset'', the ''targetDataset'' parameter is defined by the two sub-parameters ''restrictTo'' and ''variable'', having the same semantics as described before.
+
+In our running example above, we thus define
+
+<source>
+restrictTo := ?person2 rdf:type fluidops:Employee
+variable   := ?person2
+</source>
+
+which extracts all resources that are typed with ''fluidops:Employee''. Note that we use a different variable name as in the ''sourceDataset'' specification: we will later on in the configuration refer back to these variables, so it is necessary to use distinct names.
+
+====== Parameter linkageRule ======
+The ''linkageRule'' specifies, how the two data-sets are interlinked. For this linkage rule, we fall back on the Silk specification at [http://www.assembla.com/wiki/show/silk/Link_Specification_Language]. The syntax for the linkage rule (specified in XML) can be pasted into the following section: http://www.assembla.com/wiki/show/silk/Linkage_Rule. As an example, in our running example we set up a linkage rule that compares the ''foaf:mbox'' properties of the ''sourceDataset'' and the ''targetDataset'':
+
+<source>
+<Compare metric="equality">
+  <Input path="?person1/foaf:mbox" />
+  <Input path="?person2/foaf:mbox" />
+</Compare>
+</source>
+
+What we do here is comparing the ''foaf:mbox'' properties of the two ''variable''s defined in the data-sets before, using the compare metric ''equality'' (note that Silk offers a bunch of other compare metrics, transformation functions, and other advanced features as parts of the linkage rule definition). 
+
+====== Parameter linkType ======
+The link type specifies the property with which resources from the source and target data-set that have been interlinked are connected. The default is using the property ''owl:sameAs'', stating that the properties are identical. However, using Silk we can establish any (possibly user-defined) relationships between the resources. In our running example, we leave the configuration parameter blank, thus using the default ''owl:sameAs''.
+
+====== Parameter filterThreshold ======
+This parameter (which defaults to 1.0) is specified as an integer in the range from 0 to 1. It is relevant when using metrics other than ''equality'' in the ''linkageRule'', which return a double (rather than 1.0 for match/0.0 for no match) describing the degree of compliance between the source and target resources. In our running example, we use the ''filterThreshold'' blank.
+
+====== Parameter mappingType ======
+Finally, the mappingType defines how the extracted mapping statements are processed. The dropdown box in the provider configuration offers two alternative options:
+
+* ''MATERIALIZE_MAPPING'': the links that are computed by Silk are added to the database ''as is''
+* ''MERGE_MAPPED_RESOURCES'': the links are interpreted as ''owl:sameAs'' links and the links are ''applied'' to the database. This means that the source URIs and target URIs that are connected via links are unified. More concretely, whenever Silk extracts a link (A,<LINK>,B), every occurrence of B in the database is replaced with A.
+
+To wrap up the discussion, let's see what the result of Silk is in our running example, depending on the mappingType. First note, that in both cases, our provider setup extracts a single link, stating that
+
+<source>
+Person1 owl:sameAs P1 .
+</source>
+
+Assuming that ''MATERIALIZE_MAPPING'' is set, this link is simply added to the database, such that the two resources are now interconnected. The more complex case is that ''MERGE_MAPPED_RESOURCES'' is used as ''mappingType''. In that case, every occurrence of ''P1'' in the database is replaced with ''Person1''. As a result, the original database is modified; once the provider run has finished, it will look as follows:
+
+<source>
+Person1 rdf:type foaf:Person .
+Person1 foaf:firstName "John" .
+Person1 rdf:lastName "Doe" .
+Person1 foaf:mbox "john.doe@fluidops.com" .
+
+Person2 rdf:type foaf:Person .
+Person2 foaf:firstName "Pete" .
+Person2 rdf:lastName "Doe" .
+Person2 rdf:lastName "pete.doe@fluidops.com" .
+
+Person1 rdf:type fluidops:Employee .
+Person1 rdfs:label "John Doe" .
+Person1 foaf:mbox "john.doe@fluidops.com" .
+
+P2 rdf:type fluidops:Employee .
+P2 rdfs:label "Jane Doe" .
+P2 rdf:lastName "jane.doe@fluidops.com" .
+</source>
+
+===== Acknowledgments =====
+The SILK link discovery engine was developed from Freie UniversitГ¤t Berlin, supported in part by Vulcan Inc. as part of its Project Halo and by the EU FP7 project LOD2 - Creating Knowledge out of Interlinked Data. Contributors of the SILK project are:
+
+* Robert Isele (Freie UniversitГ¤t Berlin)
+* Anja Jentzsch (Freie UniversitГ¤t Berlin)
+* Chris Bizer (Freie UniversitГ¤t Berlin)
+* Julius Volz (Google)

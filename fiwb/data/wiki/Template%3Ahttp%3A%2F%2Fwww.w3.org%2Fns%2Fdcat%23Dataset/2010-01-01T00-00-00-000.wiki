@@ -1,0 +1,75 @@
+<span style="font-family:'Times New Roman',Times,serif; font-size: 300%">$this.label$</span>
+
+<br/>
+
+== Description ==
+$this.dcterms:description$
+
+== Details ==
+
+{| class="sortable wikitable" style="width:100%; float:left; margin:2em 0 5em 0; font-size:95%;"
+|-
+!style="background-color: #89CFF0"| Property
+!style="background-color: #89CFF0" width 26%| Value
+|-
+|-
+|style="background-color: honeydew"| Title
+|style="background-color: honeydew"| $this.dcterms:title$
+|-
+|style="background-color: white"| Creator
+|style="background-color: white"| $this.dcterms:creator$
+|-
+|style="background-color: honeydew"| Contributor
+|style="background-color: honeydew"| $this.dcterms:contributor$
+|-
+|style="background-color: white"| Triples 
+|style="background-color: white"| $this.void:triples$
+|-
+|style="background-color: honeydew"| Namespace
+|style="background-color: honeydew"| $this.void:uriSpace$
+|-
+|style="background-color: white"| Homepage
+|style="background-color: white"| $this.foaf:homepage[URL]$
+|-
+|style="background-color: honeydew"| License
+|style="background-color: honeydew"| $this.dcterms:rights[URL]$
+|-
+|}
+
+== Distributions ==
+
+{{#widget: com.fluidops.iwb.widget.ActionableResultWidget
+| query = 'SELECT ?Distribution ?Format WHERE { ?? dcat:distribution ?Distribution . ?Distribution dcterms:format ?Format}'
+| rowActions = {{ 
+        {{ label = "Deploy" |
+           clazz = "com.fluidops.iwb.widget.CodeExecutionWidget" |
+           method = "testMe3" |
+           args = {{ 'Distribution' }} |
+           render = "btn"
+        }}
+    }}
+}}
+
+<br/>
+== Links to other Datasets from $this.label$==
+
+{{#widget: TableResult |
+query='SELECT ?dataset WHERE { 
+?? dcat:linksTo ?dataset}'
+}}
+
+<br/>
+== Other Datasets linking to $this.label$ ==
+
+{{#widget: TableResult |
+query='SELECT ?dataset WHERE { 
+?dataset dcat:linksTo ??}'
+}}
+
+<br/>
+== Keywords for $this.label$ ==
+
+{{#widget: TableResult |
+query='SELECT ?keyword WHERE { 
+?? dcat:keyword ?keyword }'
+}}

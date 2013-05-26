@@ -1,0 +1,6 @@
+= Wiki Management <sup>[[Help:WikiManagement | <img width="19" src="../images/navigation/help_start.png" />]]</sup>=
+
+The wiki page management facility allows to create backups or delete revisions of the wiki pages deployed in the underlying system. Detailed user documentation can be found [[Help:WikiManagement|here]].
+<br/><br/>
+
+{{#widget: com.fluidops.iwb.widget.admin.WikiManagementWidget }}

@@ -1,0 +1,3 @@
+= Invalid Page =
+
+The page name contains invalid characters (invalid URI).

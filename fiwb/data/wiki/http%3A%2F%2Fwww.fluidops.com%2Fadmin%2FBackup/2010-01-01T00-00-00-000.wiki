@@ -1,0 +1,3 @@
+= Backup <sup>[[ Help:BackupDatabase | <img width="19" src="../images/navigation/help_start.png" />]]</sup> =
+
+The backup functionality is available only in the Enterprise Edition.

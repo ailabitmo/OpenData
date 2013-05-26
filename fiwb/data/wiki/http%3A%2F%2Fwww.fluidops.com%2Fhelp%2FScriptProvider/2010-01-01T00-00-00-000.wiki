@@ -1,0 +1,373 @@
+=== Script Provider ===
+
+==== Functionality ==== 
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.ScriptProvider
+| type = 'DESCRIPTION'
+}}
+
+Using the groovy provider allows you to load data from a data source, transform it into RDF and import it into the Information Workbench.  We demonstrate how this can be done with an example using a CSV file as input.
+
+Go back to [[Help:Providers | Providers ]]
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.ScriptProvider
+}}
+
+==== Example ====
+
+To demonstrate the use of the Script Provider we consider the following example.  Assume, we have a spreadsheet of people storing each person's ''name'', ''surname'', ''address'' and ''age'', similar to the one below:
+
+{|class="wikitable sortable"
+|-
+!name
+!surname
+!address
+!age
+!friend
+!organization
+|-
+| Joe 
+| Smith 
+| 123 Seal Street, York
+| 41
+| Alice
+| fluid Operations
+|-
+| Alice 
+| Smith 
+| 123 Seal Street, York
+| 43 
+| Joe
+|
+|}
+
+The first step that needs to be performed is to save this spreadsheet as a comma separated values (CSV) file (alternatively, it can be stored in a relational database, see below for information about how to access relational databases).  We save the file as 'people.csv' in the scripts folder of the Information Workbench installation. The content of ''scripts/people.csv'' looks as follows:
+
+<source>
+Joe;Smith;123 Seal Street, York;41;Alice;fluid Operations
+Alice;Smith;123 Seal Street, York;43;Joe;
+</source>
+
+The next step is to set up a Groovy script that reads the data from the file, converts it into RDF and returns the RDF to be imported into the Information Workbench database. The following code shows the content of our script, which is saved as ''person.groovy'' in the scripts directory of the Information Workbench installation:
+
+<source>
+import com.fluidops.iwb.mapping.*;
+
+stringData = StringData.createFromUrl( "file:scripts/people.csv" );
+tableData = stringData.toTable(1,"name","surname","address","age", "friend", "organization");
+tableData.project("name", "surname", "address", "age", "friend");
+tableData.renameColumn("name","Person/name");
+tableData.renameColumn("surname","Person/surname");
+tableData.renameColumn("age","Person/age");
+tableData.renameColumn("friend","Person/friend");
+tableData.setColumnType("Person/friend",TableData.PropertyType.OBJECT_PROPERTY);
+tableData.splitCol("address", "Person/address", "Person/city", ",", true);
+tableData.replaceInCols("York", "York, Pennsylvania", "Person/city");
+tableData.trim();
+
+graphData = tableData.toGraph( "Person/name" );
+rdfData = graphData.toRdf();
+</source>
+
+''person.groovy'' uses the class StringData to read and store the data from the file provided, in this case read the data from ''people.csv''.  The data is then converted into a table, and the names of the columns are changed.  The table data is then converted into a graph, and finally from this graph we convert to an RDF graph saving the result in the variable ''rdfData''.  ''rdfData'' is the RDF graph representation of the data from the file we loaded, and it is this that is stored in the Information Workbench when using the ScriptProvider.
+
+Let us go through the script from above and see what each line does.
+
+<source>
+import com.fluidops.iwb.mapping.*;
+</source>
+
+Import the needed classes.
+
+<source>
+stringData = StringData.createFromUrl( "file:scripts/people.csv" );
+</source>
+
+Read data from the CSV file using the URL of the file.
+
+<source>
+tableData = stringData.toTable("name","surname","address","age", "friend");
+</source>
+
+Convert the string data into a table data with the defined columns. The '''tableData''' is an instance of the class '''TableData'''. It implements a number of useful [[#TableData_Methods_Overview | methods]] that can be applied to manipulate columns, rows and values of the corresponding table and convert the contained data into RDF.
+
+<source>
+tableData.project("name", "surname", "address", "age", "friend");
+</source>
+
+Select the needed columns. In this case, we decided to drop the organization column, which we assume is not of further interest.
+
+{|class="wikitable sortable"
+|-
+!name
+!surname
+!address
+!age
+!friend
+|-
+| Joe 
+| Smith 
+| 123 Seal Street, York
+| 41
+| Alice
+|-
+| Alice 
+| Smith 
+| 123 Seal Street, York
+| 43 
+| Joe
+|}
+
+Next, we give sensible names to columns by renaming them:
+
+<source>
+tableData.renameColumn("name","Person/name");
+tableData.renameColumn("surname","Person/surname");
+tableData.renameColumn("age","Person/age");
+tableData.renameColumn("friend","Person/friend");
+</source>
+
+The column names will be used to create the properties connecting the column values when converting the data into RDF. In this case the new names of the columns will be appended to the default namespace to build a property URI. 
+The data in our tabel after this step looks as follows:
+
+{|class="wikitable sortable"
+|-
+!Person/name
+!Person/surname
+!address
+!Person/age
+!Person/friend
+|-
+| Joe 
+| Smith 
+| 123 Seal Street, York
+| 41
+| Alice
+|-
+| Alice 
+| Smith 
+| 123 Seal Street, York
+| 43 
+| Joe
+|}
+
+Note that the system will use the internal mechanism for creating properties out of the column names. This means, by default a URI consisting of <tt>DEFAULT_NAMESPACE</tt> + <tt>PROPERTY_NAME</tt> will be generated (such as, e.g., <tt>http://www.fluidops.com/resource/Person/age</tt> for the <tt>Person/age</tt> column). Alternatively, you may use column names denoting uris in prefix notation. For instance, when labeling the column <tt>foaf:knows</tt>, where <tt>foaf</tt> is a namespace prefix defined in ''namespaces.prop'' as <tt>foaf=http://xmlns.com/foaf/0.1/</tt>, then the system will generate the corresponding full URI <tt>foaf=http://xmlns.com/foaf/0.1/knows</tt>.
+
+If needed, as exemplified in the next line of the script, the type of the property that results from a column header can be explicitely set:
+
+<source>
+tableData.setColumnType("Person/friend",TableData.PropertyType.OBJECT_PROPERTY);
+</source>
+
+In this case we define that the property 'Person/friend' is defined object property to connect a friend of a person as a URI (i.e., another object) and not as a literal. 
+
+In the next step, we split the column '''address''' into two new columns to keep the city value separately and delete the old column. 
+
+<source>
+tableData.splitCol("address", "Person/address", "Person/city", ",", true);
+</source>
+
+Similarly, it is also possible to merge, expand and create columns using the corresponding [[#TableData_Methods_Overview | methods of the TableData]]. 
+
+The resulting table looks as follows:
+
+{|class="wikitable sortable"
+|-
+!Person/name
+!Person/surname
+!Person/address
+!Person/city
+!Person/age
+!Person/friend
+|-
+| Joe 
+| Smith 
+| 123 Seal Street
+|  York
+| 41
+| Alice
+|-
+| Alice 
+| Smith 
+| 123 Seal Street
+|  York
+| 43 
+| Joe
+|}
+<source>
+tableData.replaceInCols("York", "York, Pennsylvania", "Person/city");
+</source>
+
+Replace value "York" by the value "York, Pennsylvania" in the column '''Person/city''' to specify which place exactly is meant. You can apply various string manipulations on the values like replacing, appending, prepending values using the corresponding [[#TableData_Methods_Overview | methods of the TableData]].
+
+The resulting table:
+
+{|class="wikitable sortable"
+|-
+!Person/name
+!Person/surname
+!Person/address
+!Person/city
+!Person/age
+!Person/friend
+|-
+| Joe 
+| Smith 
+| 123 Seal Street
+|  York, Pennsylvania
+| 41
+| Alice
+|-
+| Alice 
+| Smith 
+| 123 Seal Street
+|  York, Pennsylvania
+| 43 
+| Joe
+|}
+<source>
+tableData.trim();
+</source>
+
+Delete possible trailing empty spaces values.
+
+The resulting table:
+
+{|class="wikitable sortable"
+|-
+!Person/name
+!Person/surname
+!Person/address
+!Person/city
+!Person/age
+!Person/friend
+|-
+| Joe 
+| Smith 
+| 123 Seal Street
+| York, Pennsylvania
+| 41
+| Alice
+|-
+| Alice 
+| Smith 
+| 123 Seal Street
+| York, Pennsylvania
+| 43 
+| Joe
+|}
+
+
+<source>
+graphData = tableData.toGraph( "Person/name" );
+</source>
+
+Convert table to graph. The values of the given columns (in this case '''Person/name''') are the subjects in the graph. Other table headers will be used as predicates that will connect the subjects with the objects (the values of the other columns).
+
+<source>
+rdfData = graphData.toRdf();
+</source>
+
+Convert the graph into RDF. This will generate the following set of triples (which will be imported directly into the system according to the provider concept):
+
+<source>
+<http://www.fluidops.com/resource/Alice> <http://www.fluidops.com/resource/Person/friend> <http://www.fluidops.com/resource/Joe> .
+<http://www.fluidops.com/resource/Alice> <http://www.fluidops.com/resource/Person/age> "43" .
+<http://www.fluidops.com/resource/Alice> <http://www.fluidops.com/resource/Person/address> "123 Seal Street" .
+<http://www.fluidops.com/resource/Alice> <http://www.fluidops.com/resource/Person/surname> "Smith" .
+<http://www.fluidops.com/resource/Alice> <http://www.fluidops.com/resource/Person/city> "York, Pennsylvania" .
+<http://www.fluidops.com/resource/Joe> <http://www.fluidops.com/resource/Person/friend> <http://www.fluidops.com/resource/Alice> .
+<http://www.fluidops.com/resource/Joe> <http://www.fluidops.com/resource/Person/age> "41" .
+<http://www.fluidops.com/resource/Joe> <http://www.fluidops.com/resource/Person/address> "123 Seal Street" .
+<http://www.fluidops.com/resource/Joe> <http://www.fluidops.com/resource/Person/surname> "Smith" .
+<http://www.fluidops.com/resource/Joe> <http://www.fluidops.com/resource/Person/city> "York, Pennsylvania" .
+</source>
+
+Note that the <tt>friend</tt> link point to URIs, as we defined the respective column to be an object property in one of the previous steps. All other predicates point to literals.
+
+We are now done with the script, so next we must set up the provider this is simple now we have all of the prerequisites in place.  
+
+First navigate to Admin:Providers, click on 'Add provider' and select ScriptProvide from the menu.  There are three values that must be provided, the Identifier, Poll Interval, and the path to the groovy script to execute.  We enter the following values and click 'Run Provider'.
+
+<img src="../images/help/ScriptProvider/SP-setup.png" width="384px" />
+
+After the provider has been run the context containing the data from the spreadsheet has been saved into the Information Workbench database.  This can be verified by clicking on the name of the provider, "personProvider", to navigate to the context overview page.
+
+==== SQL Database as a data source ====
+
+In the example above we demonstrated how to set up a script provider that reads data from a CSV file.  Here we will learn how to establish a connection to an SQL database in the groovy script and create table data using SQL-queries. The following excerpt of a groovy script serves as an example. 
+
+In order to establish a connection to the database the script will need the driver class, the URL to the database and the credentials for the access. The following example exemplifies the connection settings for a MySQL database called ''myDatabase'' with user ''myUser'' and password ''myPass'', running on the server machine.
+
+<source>
+driverClass = "com.mysql.jdbc.Driver";
+serverUrl = "jdbc:mysql://localhost/myDatabase";
+user = "myUser";
+pass = "myPass";
+</source>
+
+Note that the JDBC driver is '''not''' shipped with the platform, thus you have to download the .jar file and copy it to the ''lib/extensions'' folder of your installation (a restart will be required). Having established the connection to the database we can now create a TableData object by submitting an SQL query that retrieves the respective data, for instance:
+
+<source>
+
+personInformationQuery = "SELECT * FROM persons";
+TableData personInformation = new TableData(Table.jdbc2table(driverClass, serverUrl, user, pass, personInformationQuery));
+</source>
+
+At this point we can apply all neccessary [[#TableData_Methods_Overview | methods of the TableData]] to edit the columns and the values in the columns as described in the [[#Example | previous example]] and import the converted data into the Information Workbench database.
+
+==== TableData Methods Overview ====
+
+{|class="wikitable sortable"
+|-
+! Method
+! Description
+|-
+| project(String... args)
+| Select columns 
+|-
+| setColumnType( String column, PropertyType propertyType)
+| Define the type of the property resulting from the name of the column (PropertyType.OBJECT_PROPERTY, PropertyType.DATATYPE_PROPERTY or PropertyType.OBJECT_PROPERTY_INVERSE)
+|-
+| prependToCol( String column, String prefix )
+| Prepend a string to the values of the given column
+|-
+| appendToCol( String column, String postfix )
+| Append a string to the values of the given column
+|-
+| replaceInCells(String oldValue, String newValue)
+| Replace a string by another string in the table
+|-
+| replaceInCols( String oldValue, String newValue, String... columns )
+| Replace a string by another string in the given columns
+|-
+| trim()
+| Eliminate alll leading and trailing whitespaces 
+|-
+| concat( TableData... tables )
+| Join tables into one table
+|-
+| renameColumn(String oldName, String newName)
+| Rename column
+|-
+| newColFromRegexp(String column, String regex, String newColumn)
+| Create a new column based on an old column using a regular expression
+|-
+| newConstantCol(String predicate, String constant)
+| Create a new column filled with a constant value
+|-
+| newMergeCol(String prefix, String column1, String midfix, String column2, String suffix, String newcolumn)
+| Create a new column by merging two columns
+|-
+| expandColumn(String column1, String column2, String separator)
+| Expand column with the values from another column
+|-
+| addConditionalCol(String fromColumn, String newColumn, Map<String,String> condition, boolean conditionAsRegex, String defaultValue)
+| Create a column based on an old column with a condition
+|-
+| splitCol(String oldColumn, String newColumn1, String newColumn2, String separator, boolean removeOld)
+| Split column into two new columns
+
+|}

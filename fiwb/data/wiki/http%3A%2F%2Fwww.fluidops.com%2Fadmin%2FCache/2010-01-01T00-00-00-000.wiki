@@ -1,0 +1,71 @@
+= Cache Invalidation <sup>[[Help:Cache | <img width="19" src="../images/navigation/help_start.png" />]]</sup> =
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear ContextCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'ContextCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear ImageFileCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'ImageFileCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear InstanceCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'InstanceCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear InversePropertyCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'InversePropertyCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear LabelCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'LabelCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear PropertyCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'PropertyCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear TypeCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'TypeCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear AutoSuggestionCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'AutoSuggestionCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear NodeNeighborhoodCache'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'NodeNeighborhoodCache' }}
+}}
+
+{{#widget: com.fluidops.iwb.widget.CodeExecutionWidget 
+| label = 'Clear all caches'
+| clazz = 'com.fluidops.iwb.service.CacheInvalidationService'
+| method = 'invalidateCache'
+| args = {{ 'All' }}
+}}

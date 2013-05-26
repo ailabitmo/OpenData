@@ -1,0 +1,28 @@
+== Widget Configuration == 
+The Admin:Widgets pages consists of a table containing the widgets that are currently used in the running Information Workbench instance.
+ 
+<img src="../images/help/widgetConfig.png" width="1024px" />
+
+With the help of this UI widgets can be set up, edited and deleted. To add a widget click the button ''"add widget"''. An editing form show up where all configuration parameters can be selected or entered.  
+To add a widget the following parameters should be specified:
+
+#The name of the widget, that should be applied 
+#The value, that the widget should be applied to, by specifying its URI. The URI ''<nowiki>"http://www.w3.org/2000/01/rdf-schema#Resource"</nowiki>'' stands for all resources. This configuration will be executed as default if a more specific configuration for the resource is not found.
+#Whether the widget should be applied on the value itself or its instances (by setting the parameter 'applyToInstances' to true or false)
+#The widget configuration parameters (depending on the widget)
+
+
+Here is an example of GraphWidget configuration in the [[ Admin:Widgets | Widgets Configuration ]] edit form:
+<div style="width:80%;margin:auto;">
+
+<img src="../images/help/widgetsUI.png" width="535px" />
+
+</div>
+
+
+According to this configuration a graph of the type 'hypertree' is defined for all resources. You can change this configuration parameter by selecting a different graph type from the dropdown list in the field '''graphtype'''. The sparql query in the text area field '''query''' defines how exactly the graph should be constructed. The parameter '''maxDepth''' is set to 2, which means that the graph should have two edge levels. The '''spreadFactor''' defines the maximum number of edges for a node. The parameter '''thumbnails''' is set to false. That means that the images of the resources should not be used to display the nodes of the graph. The way a resource is visualized in [[Help:Views | Graph View]] is defined by the GraphWidget Configuration. More specific configurations for a resource will overwrite the default configuration.
+
+The '''precondition''' parameter gives a possibility to check if the widget configuration would make sense for the resource with the help of an ASK-query. If the query result is ''true'', the widget configuration will be applied on the resource. In the example above the field is left empty. So the widget configuration should be always applied.
+
+
+The widgets configured by the UI are saved in the ''widgets-user.xml'' file, located in the ''config'' folder of the installation directory. Learn more about widgets in [[Help:Widgets | Help:Widgets]]

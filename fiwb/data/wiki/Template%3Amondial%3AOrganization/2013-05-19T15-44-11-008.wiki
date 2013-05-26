@@ -1,0 +1,15 @@
+{{#widget: TableResult |
+ query = 'SELECT DISTINCT ?CountryName WHERE{
+   ?Country mondial:isMember ?? .
+   ?Country mondial:name ?CountryName}
+   ORDER BY ASC(?CountryName)'
+}}
+
+{{#widget: TableResult |
+  query = 'SELECT DISTINCT ?RiverName ?Length WHERE{
+    ?River rdf:type mondial:River .
+    ?? mondial:hasHeadq ?Headquarters .
+    ?Headquarters mondial:locatedAt ?River .
+    ?River mondial:name ?RiverName .
+    ?River mondial:length ?Length }'
+}}

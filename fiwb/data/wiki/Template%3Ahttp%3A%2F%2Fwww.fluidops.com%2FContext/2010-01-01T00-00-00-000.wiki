@@ -1,0 +1,74 @@
+= Context $this$ =
+
+== General Information ==
+
+* Source: $this.System:contextSrc$
+* Label: $this.label$
+* Creation Date: $this.dc:date$
+* Editable: $this.System:editable$
+
+{{ #widget: com.fluidops.iwb.widget.VoIDWidget }}
+
+{|
+| <H2>Ontology Classes</H2>
+| <H2>Ontology Properties</H2>
+|-
+|{{ #widget: TagCloud
+  | query = 'SELECT ?class ?entities WHERE {
+        ?? rdf:type void:Dataset .
+        ?? void:classPartition ?classPartition .
+        ?classPartition void:class ?class . 
+        ?classPartition void:entities ?entities  }'
+  | noDataMessage = 'There is currently no information about ontology classes available. Please calculate VoID statistics using the button above for collecting the necessary information.'
+}}
+| {{ #widget: TagCloud
+  | query = 'SELECT ?property ?entities WHERE {
+        ?? rdf:type void:Dataset .
+        ?? void:propertyPartition ?propertyPartition .
+        ?propertyPartition void:property ?property . 
+        ?propertyPartition void:entities ?entities }'
+  | noDataMessage = 'There is currently no information about ontology properties available. Please calculate VoID statistics using the button above for collecting the necessary information.'
+}}
+|}
+
+== Class Hierarchy ==
+
+{{#widget: TreeResult | 
+ rootNode = 
+   {{ 
+        query = 'SELECT DISTINCT ?class WHERE {
+        ?? void:classPartition ?classPartition .
+        ?classPartition void:class ?class .
+      FILTER NOT EXISTS { ?class rdfs:subClassOf ?superClass }
+      FILTER ( !isBLANK(?class) )}
+      ORDER BY ASC(?class)'
+   }} | 
+ childNodes = 
+   {{  
+     {{
+        predicate='rdfs:subClassOf' | 
+        direction='IN'| 
+     }}
+   }} |
+treeName = 'Class Hierarchy' |
+  noDataMessage = 'There is currently no information about the class hierarchy available. Please calculate VoID statistics using the button above for collecting the necessary information.'
+ }}
+
+== Properties by range and domain ==
+
+The table below lists all properties by their range and domain.
+
+{{
+#widget:TableResult|query='SELECT ?Property ?Domain ?Range WHERE {
+        ?? rdf:type void:Dataset .
+        ?? void:propertyPartition ?propertyPartition .
+        ?propertyPartition void:property ?Property . 
+      OPTIONAL { ?Property rdfs:range ?Range } 
+      OPTIONAL { ?Property rdfs:domain ?Domain } }'
+}}
+
+== Triples == 
+
+The following triples are contained in this context. Please note, that the number of triples retrieved is limited to 10,000.
+
+{{#widget:TableResult|query='select ?s ?p ?o where { graph ?? {?s ?p ?o} } LIMIT 10000'}}

@@ -1,0 +1,76 @@
+== A Brief Introduction to RDF & SPARQL ==
+In order to understand the example scenarios in this document it is necessary to understand the underlying ideas of [http://www.w3.org/RDF/ RDF (Resource Description Framework)] data model and the associated query language [http://www.w3.org/TR/rdf-sparql-query/ SPARQL (SPARQL Protocol And RDF Query Language)]. In this section we give a (very) brief introduction to these technologies.
+
+
+=== The Data Format: RDF ===
+The basic idea of the data format RDF is to represent information as triples of resources. These triples remind of sentences in natural language and they are finished by a full stop.
+<source>
+Alsace isA Region.
+Alsace locatedIn France.
+Anna loves Alsace.
+</source>
+
+Different data providers may use the resource name Anna although they do not refer to the same physical resource. To disambiguate naming in RDF every resource name must be a URI. In this example we use the URI prefix <nowiki>http://www.fluidops.com/resource/</nowiki>. 
+<source>
+http://www.fluidops.com/Alsace http://www.fluidops.com/isA http://www.fluidops.com/Region.
+http://www.fluidops.com/Alsace http://www.fluidops.com/locatedIn http://www.fluidops.com/France.
+http://www.fluidops.com/Anna http://www.fluidops.com/loves http://www.fluidops.com/Alsace.
+</source>
+
+In order to avoid this lengthy notation, we may use abbreviations for common parts of a resource's name. These are called namespaces. In the following example the namespace <nowiki>fops:</nowiki> is defined as an abbreviation for <nowiki>http://www.fluidops.com/resource/</nowiki>. Note that the example encodes exactly the same information as the previous one.
+<source>
+@prefix fops: <http://www.fluidops.com/> .
+
+fops:Alsace fops:isA fops:Region.
+fops:Alsace fops:locatedIn fops:France.
+fops:Anna fops:loves fops:Alsace.
+</source>
+
+You may use several namespaces in the same RDF document and even in the same RDF triple.
+<source>
+@prefix fops: <http://www.fluidops.com/> .
+@prefix abc: <http://example.com/exampleOntology#> .
+
+fops:Alsace abc:isA fops:Region.
+</source>
+
+We end the presentation of the RDF data format at this point. The information provided is sufficient to understand the rest of this tutorial. A more detailed discussion on RDF can be found [http://www.w3.org/RDF/ here].
+
+=== The Query Language: SPARQL ===
+
+The query language SPARQL was designed to query RDF data sources. The following simple example return all wines that have a maker specified in the database.
+
+
+<source>
+SELECT ?region
+WHERE
+{
+?wine <http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasMaker> ?maker .
+}
+</source>
+
+SPARQL queries have certain similarities to SQL queries: they have a SELECT and a WHERE part. The SELECT part specifies that the bindings to the ?wine variable will be returned to the user. The WHERE part specifies that we are interested in all resources ?wine  that have an outgoing edge <nowiki><http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasMaker></nowiki> that is connected to some other resource ?maker. We may add the DISTINCT keyword to eliminate duplicates in our result list.
+
+
+<source>
+SELECT DISTINCT ?region
+WHERE
+{
+?wine <http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasMaker> ?maker .
+}
+</source>
+
+Thus, this query returns the same result as the query before except that duplicate results are removed.
+
+In SQL more complicated queries can be built using a join operation. In SPARQL we have no explicit keyword for join, however a join is expressed by using the same variable again. The following example query asks for all distinct wines, their flavors and their makers.
+
+<source>
+SELECT DISTINCT ?wine ?flavor ?maker
+WHERE
+{
+?wine <http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasFlavor> ?flavor .
+?wine <http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasMaker> ?maker .
+}
+</source>
+
+SPARQL supports other operators like UNION, OPTIONAL and FILTER. A more detailed introduction can be found [http://www.w3.org/TR/rdf-sparql-query/ here].

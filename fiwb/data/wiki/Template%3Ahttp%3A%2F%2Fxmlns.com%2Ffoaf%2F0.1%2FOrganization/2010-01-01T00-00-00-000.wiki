@@ -1,0 +1,14 @@
+<span style="font-family:'Times New Roman',Times,serif; font-size: 300%">$this.label$</span>
+
+== Address ==
+$this.patent:address$
+
+== Patents owned by $this.label$ ==
+
+{{#widget: TableResult |
+query='SELECT ?Patent ?PatentID ?PatentFillingDate WHERE { 
+?Patent patent:agent ?? .
+?Patent patent:filingDate ?PatentFillingDate .
+?Patent patent:patentID ?PatentID .
+}'
+}}

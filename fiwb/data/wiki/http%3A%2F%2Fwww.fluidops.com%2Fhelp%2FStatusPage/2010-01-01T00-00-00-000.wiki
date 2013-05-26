@@ -1,0 +1,12 @@
+== System Status ==
+
+The <a href="../status">system status page</a> provides general information about the current system state and can be used for automatic monitoring.
+
+<br/>
+<img src="../images/help/status_page.png" width="470px" />
+
+'''Details'''
+
+The status page summarizes general system information such as the exact ''application name'' and the ''application version'', as well as the ''hostname'' of the underlying server. In addition, this page depicts the state of the underlying triple store(s) depending on the system configuration. In a typical configuration you find information about the ''read/write'' capabilities of the global triple store.
+
+If the system is in an inconsistent state (e.g., if the underlying triple store cannot be accessed), this is reflected on the status page. Note that in such case the web server returns a HTTP 500 error code to enable automatic monitoring of the Information Workbench.

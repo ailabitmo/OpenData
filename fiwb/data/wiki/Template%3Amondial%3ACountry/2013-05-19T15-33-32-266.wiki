@@ -1,0 +1,10 @@
+== $this.mondial:name$ ==
+Type of government: $this.mondial:government$
+
+{{#widget: TableResult | 
+  query = 'SELECT DISTINCT ?Abbreviation ?Name WHERE {
+            ?? mondial:isMember ?Organization .
+            ?Organization mondial:abbrev ?Abbreviation .
+            ?Organization mondial:name ?Name }
+            ORDER BY ASC(?Abbreviation)'
+}}

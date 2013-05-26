@@ -1,0 +1,60 @@
+== Content Overview ==
+[[Admin:ContentOverview | The content overview page]] provides information about the data stored in your Information Workbench. It contains information about classes, properties, contexts and general statistics about your data. Before you have imported any data to the Information Workbench the content overview page contains hardly any information. All statistics must be explicitly generated, thus, on the first visit,  the page will look similar to this:
+
+<img src="../images/help/content-overview-initial.png" width="1024px" />
+
+=== Statistics of Imported Datasets === 
+<img src="../images/help/content-overview1.png" width="700px" />
+
+When you [[Admin:Import | import some datasets]] and afterwards click on the "Calculate statistics" button your view on the page will change. Statistics on all datasets available in the Information Workbench will be calculated. Depending on the dataset that you imported your view of the upper part of the page will look similar to the page on the right side. 
+
+The different sections contain statistical data about the RDF triples stored in the database. We give a brief overview of them.
+
+* '''VoID Statistics''' ''(Vocabulary of Interlinked Data)'': Basic facts about the RDF data in the database is listed, like the number of triples, classes, properties, entities, subjects and objects. The two buttons below can be used to recalculate all statistical data when you import new data sources and to delete all statistical data completely. 
+* '''Ontology Classes''': Depicts the most frequent classes in the RDF data as a tag cloud.
+* '''Ontology Properties''': Depicts the most frequent properties in the RDF data as a tag cloud.
+
+
+=== Class Hierarchy ===
+
+A class hierarchy makes the classes and their subclass relationships visible. It is depicted in a tree representation. This means that every subclass of a class appears as indented text below the class itself. In the example picture you can verify that "Port" is a subclass of "RedWine". By clicking on the "+" or "-" signs you can make subclasses visible or hide them completely. 
+
+<img src="../images/help/content-overview4.png" width="140px" />
+
+=== Properties by Range and Domain ===
+
+This table lists domain and range specifications for all properties listed in the database. Properties that do not have range or domain classes specified, are listed in the table, but the corresponding values are empty. The data in the table can be sorted according to every column and  filters can be used to search in the list of contexts.
+
+<img src="../images/help/content-overview2.png" width="800px" />
+
+=== Context Overview ===
+
+The context overview gives an overview of all available contexts. Contexts are used to group data internally from specific sources, e.g. a single context can contain data obtained form a provider run, a wiki edit, an imported RDF file and so on.
+
+<img src="../images/help/content-overview3.png" width="1000px" />
+
+The following details about contexts are listed in the overview:
+
+* the context's resource name,
+* the context type, i.e. information if the context was created in a file upload, RDF data import, ...
+* the context source, i.e. the creator of the context,
+* the creation date,
+* the value of an associated flag which is set to true if the data in the context can be edited by a user,
+* a button to delete the whole context. 
+
+The entries in the context overview table can be sorted according to each of these categories, e.g. creation date. In addition, filters can be used to search in the list of contexts or the context type, e.g. "import".
+
+=== Individual Context Pages ===
+
+The Context column in the overview table links to the details page of the respective context. The structure of the context page is similar to the content overview, listing information related to that context:
+
+* VoID statistics (see above),
+* ontology classes (see above),
+* ontology properties (see above),
+* class hierarchy (see above),
+* properties by range and domain (see above), and
+* a table listing the triples that are associated with that context.
+
+The triple table contains three columns s(ubject), p(redicate), o(bject) and can be sorted by these columns. Filters can be applied to search the triple table.
+
+<img src="../images/help/content-overview5.png" width="1000px" />

@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+
+<head>
+<title>Showcase for Components</title>
+
+<script type="text/javascript" src="ajax.js"></script>
+<link rel="stylesheet" type="text/css" href="/ajax/stylesheet_fajax.css"/>
+
+
+<!-- following stuff is needed for the calendar application -->
+	<link rel="stylesheet" type="text/css" href="/ajax/calendar/calendar-system.css" />
+	<script type="text/javascript" src="/ajax/calendar/calendar.js"></script> 
+	<script type="text/javascript" src="/ajax/calendar/calendar-en.js"></script> 
+	<script type="text/javascript" src="/ajax/calendar/calendar-setup.js"></script> 
+
+</head>
+
+<body onload="javascript:fluInit()">
+
+<noscript>
+<p style="color: #f00; font-size:20px;">
+This web site requires JavaScript.
+</p>
+</noscript>
+
+<!-- Just a small test how to embed configuration data in a script tag -->
+<!-- First define the configuration parameters in a script tag with a user defined language -->
+<!-- script language="jena" id="jenaconfig">
+<config>
+  <tree id="mytree" icons="true" />
+</config>
+</script -->
+
+<!-- Second access the script tag content using its ID and the innerHTML property -->
+<!-- script type="text/javascript">
+var sc = window.document.getElementById("jenaconfig");
+if(sc == null)
+  alert("No configuration found!");
+else
+  alert(sc.innerHTML);
+</script -->
+
+<p id="text01">
+Component Overview
+</p>
+
+<div id="tabPane0" class="flTab">
+<ul>
+<li id="popup0" onmouseover="evt_mouseover(event,'popup0',1000)" onmouseout="evt_mouseout(event,'popup0')">Table demo</li>
+<li>Autocompletion demo</li>
+<li>Tree demo</li>
+<li>Calendar Demo</li>
+<li>Tool-Tip Demo</li>
+<li>Other Schtuff</li>
+</ul>
+</div>
+
+<div id="tabPane0.content" class="flTabContent"></div>
+
+<div id="tabPane0.hidden" style="display:none;">
+
+<div id="tabPane0.0">
+	<p>Demo of a sortable, server-based table:</p>
+	<div id="tableWidget0" style="width: 500px;"></div>
+	<button id="prev" type="button" onclick="javascript:catchEvent(this,1)">&lt;&lt;&lt;</button>
+	<button id="next" type="button" onclick="javascript:catchEvent(this,1)">&gt;&gt;&gt;</button>
+	<div id="postext">0</div>
+</div>
+
+<div id="tabPane0.1">
+	<p>Here you can enter a number textually (one, two, ...):
+	<div id="autocomplete0" class="flAutoComplete"></div>
+	</p>
+
+	<p>And here enter the number itself (1, 2, ...):
+	<div id="autocomplete1" class="flAutoComplete"></div>
+	</p>
+	
+</div>
+
+
+<div id="tabPane0.2">
+
+	<p>Demo of a file browser tree:</p>
+	<div style="overflow-y: scroll; width: 400px; height: 600px;">
+		<div id="tree0" class="flTree"></div>
+	</div>
+
+</div>
+
+<div id="tabPane0.3">
+
+	<p>Demo of a date-pick calendar:</p>
+	
+	<div id="calendarDemo" style="width: 600px;" ></div>
+	
+
+</div>
+
+<div id="tabPane0.4">
+
+	<p>Tool-Tip Demo:</p>
+	
+	<ol>
+		<li>none</li>
+		<li id="tooltip">Tooltop</li>
+		<li>none</li>
+	</ol>
+
+</div>
+
+<div id="tabPane0.5">
+
+	<p>Some other stuff I can't really place right now:</p>
+	
+	<div id="popup0.popup" style="display:none; background: #f88; position:absolute; border=solid 2px #000;">
+This is a cute<br/>
+popup that you can<br/>
+just show everywhere<br/>
+you want!!!
+</div>
+
+
+
+<div id="container"></div>
+
+<div id="jdbc"></div>
+
+<div id="ta"></div>
+
+</div>
+
+</div>	
+
+
+
+</body>
+</html>

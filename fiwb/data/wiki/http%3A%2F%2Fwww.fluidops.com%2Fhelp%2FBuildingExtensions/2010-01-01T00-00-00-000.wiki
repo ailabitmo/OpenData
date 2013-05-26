@@ -1,0 +1,85 @@
+== Building Extensions ==
+
+Extensions are located in '''&lt;WORKSPACE_LOC&gt;/fiwb/solutions/&lt;SOLUTION_NAME&gt;''' and may contain any product relevant feature (e.g., source code, additional libraries, configuration files, wiki pages, etc.). During the build process artifacts for each extension are created which can be deployed in compatible product installations.
+
+=== Creating a New Extension in the SDK ===
+
+To create a new extension project (identified by &lt;mySolution&gt; below), perform the following steps.
+
+1) Copy the following project definition snippet into the file '''solutions/&lt;mySolution&gt;/.project''' and adjust the the '''name''' setting:
+
+<source>
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name><mySolution></name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>		
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+</projectDescription>
+</source>
+
+2) Copy the following class path definition into the file '''solutions/&lt;mySolution&gt;/.classpath'''
+
+<source>
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fiwb"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
+</source>
+
+3) Create the source directories '''solutions/&lt;mySolution&gt;/src''' and '''solutions/&lt;mySolution&gt;/test'''
+
+4) Add a new launch configuration to your project which starts your solution integrated into the main application. Note that the launch configuration changes the working directory to "fiwb" and thus applies the data and configuration as defined in the shipped SDK.
+
+Copy the following snippet to '''solutions/&lt;mySolution&gt;/Solution_&lt;mySolution&gt;_Start.launch''' and adjust the PROJECT_ATTR setting:
+
+<source>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/fiwb/src/com/fluidops/iwb/IwbStart.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.fluidops.iwb.IwbStart"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="<mySolution>"/>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:fiwb}"/>
+</launchConfiguration>
+</source>
+
+5) Implement your extension (see [[#Implementing extensions| here]])
+
+
+=== Implementing Extensions ===
+
+Extension can comprise various types, including
+
+* wiki pages
+* data bootstrap
+* configuration (e.g. additional namespaces)
+* Java code (e.g. [[Help:WidgetSDK| custom widgets]])
+
+Hint: to add wiki pages to a solution, it is most convenient to create them in a running Information Workbench instance and then using the [[Help:WikiManagement| wikipage export]] functionality.
+
+Details to the layout of the extension project and the possible extension files are discussed [[Help:Extensions| here]].
+
+Consider the [[Help:Developers| Getting Started]] example for a documentation of how to start and test your solution locally (see "Building your first extension")
+
+=== Deploying Extensions ===
+
+Once the extension is implemented and ready for productive use, it can be build with the provided ANT script (see '''build/build.xml''') and deployed in a compatible Information Workbench instance. The build process generates a zip artifact for each extension in '''&lt;WORKSPACE_LOC&gt;/fiwb/solutions/*''' called '''&lt;solutionName&gt;.zip'''. This zip artifact can be deployed to the '''&lt;IWB_HOME&gt;/apps/''' directory of any compatible instance. After a restart of the instance the extension is automatically installed.

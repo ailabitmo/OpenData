@@ -1,0 +1,10 @@
+= File: $this.dc:title$ =
+Here you can go back to the [[Admin:Upload|list of all uploaded files]] including meta information. 
+
+== Download ==
+{{#widget: com.fluidops.iwb.widget.DownloadWidget}}
+
+== Properties ==
+{{#widget: TableResult |
+query = 'SELECT * WHERE { ?? ?p ?o }'
+}} 

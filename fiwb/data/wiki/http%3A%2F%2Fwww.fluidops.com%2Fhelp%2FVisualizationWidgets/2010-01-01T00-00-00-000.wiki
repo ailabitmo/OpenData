@@ -1,0 +1,52 @@
+== Visualization ==
+
+In this section you will learn about the <b>visualization</b> widgets, a class of widgets that are dedicated to displaying data.  The set of widgets we consider are listed in the table below.
+{|class="wikitable"
+|-
+! Name
+! Description
+|-
+| [[ Help:GMap | GMap ]]
+| Visualization
+| Displays a map, which can be populated by database resources.
+|-
+| [[ Help:GraphWidget | Graph ]]
+| Visualization
+| Configuration options of the graph.
+|-
+| [[ Help:IFrame | IFrame ]]
+| Visualization
+| Adds an iframe to a wiki page showing the content from the specified source URL.
+|-
+| [[ Help:Image | Image ]]
+| Visualization
+| Displays images in wiki pages.
+|-
+| [[Help:PivotWidget | Pivot]]
+| Visualization
+| Provides an interactive way of browsing in collection of items visualized as images
+|-
+| [[ Help:QueryResult | QueryResult ]]
+| Visualization
+| Visualizing SPARQL query results (fully customizable).
+|-
+| [[ Help:TableResult | TableResult ]]
+| Visualization
+| Visualizing SPARQL query results in tabular form.
+|-
+| [[ Help:TagCloud | TagCloud ]]
+| Visualization
+| Displays database entries in a tag cloud.
+|-
+| [[ Help:TreeResult | TreeResult ]]
+| Visualization
+| Visualizes database entries in a tree model.
+|-
+| [[ Help:Timeline | Timeline ]]
+| Visualization
+| Displays temporal data on a timeline.
+|-
+| [[ Help:Timeplot | Timeplot ]]
+| Visualization
+| Plots temporal and quantitative data on a timeplot.
+|}

@@ -1,0 +1,93 @@
+= Searching and Querying =
+
+The Information Workbench offers a flexible and extendible set of semantic search paradigms. The implemented search paradigms cover both full text and structured search as well as hybrid search using the structured query language SPARQL. The search functionality is powered by LuceneSail, a full text index above the RDF storage layer. 
+
+The same search request can be sent to several ''query targets'' which can support queries of a given type (e.g., SPARQL or a list of keywords). For instance, a full-text keyword search can be sent both to the RDF repository and the wiki pages. To specify, which query targets should be used by default, the configuration parameter ''defaultQueryTargets'' has to be added to the configuration properties file. By default, this parameter is set to RDF,WIKI. This means that e.g., a keyword search request will be sent to both the main data repository (RDF) and the collection of wiki pages (WIKI). As both of them can return results for a keyword query, these results will be merged and displayed together in the specified order: i.e., results from the main data store will be shown first (specifying the targets as WIKI,RDF will reverse this order). These default settings, however, can be overridden in the definition of any custom [[Help:SearchWidget | search widget ]] added to a wiki page. More information on this can be found on the [[Help:SearchWidget]] wiki page.
+
+== Full Text Search ==
+
+Full text keyword search is a well known and easy to use search paradigm. The user enters the keywords he is looking for into the search field on the top right-hand corner. The Information Workbench returns all entities for which the keywords occur either in an attribute of the entity or in the unstructured wiki content associated to this entity.
+The [http://lucene.apache.org/core/old_versioned_docs/versions/3_5_0/queryparsersyntax.html Lucene query syntax] can be used for full text search:
+
+* Keywords can be grouped to a phrase using double quotes, e.g. <tt>"information workbench"</tt>.
+* The wildcards ''?'' (for any single character) and ''*'' (for any sequence of characters, including the empty string) are allowed within keywords, e.g. <tt>te?t</tt> finds both ''text'' and ''test''.
+* Keywords may be prefixed by the modifiers plus ''+'' (for must occur) or minus ''-'' (for must not occur), e.g. <tt>+jobs -steve</tt>.
+* Terms can be combined using the boolean operators ''AND'', ''OR'', and ''NOT''. The symbols ''&&'', ''||'', and ''!'' can be used in place of the operators AND, OR, and NOT.
+* To control the logic of boolean operators, terms can be grouped using parentheses, e.g. <tt>(fluidOps OR "fluid Operations") AND website</tt>.
+
+Note: To escape a special character insert ''\'' before the character. You cannot use a wildcard (* or ?) as the first character of a search keyword. Unless otherwise stated, keywords are combined through the AND operator.
+
+== Structured Search ==
+
+For advanced users, the SPARQL search interface allows formulating sophisticated queries which are evaluated on the structured data present in the Information Workbench's data store. SPARQL is a declarative RDF query language syntactically similar to the well-known database query language SQL. A SPARQL query defines graph patterns which are matched against the underlying data. The user can submit the query using the SPARQL endpoint (http://localhost:8888/sparql, assuming the server is running on localhost). The result of such a query is a subgraph fulfilling all constraints given by the defined graph patterns. For more information about the query language SPARQL see the official [http://www.w3.org/TR/sparql11-query/ SPARQL specification]. More details on the use of the Information Workbench SPARQL endpoint are available [[Help:SPARQLEndpoint | here]].
+
+== Hybrid Search ==
+
+The hybrid search paradigm combines the flexibility of full text search with the expressiveness of SPARQL queries. This allows the usage of powerful search features such as stemming, fuzzy search, and result ranking in structured queries.
+
+For Sesame Native and Memory stores, you can use the [http://dev.nepomuk.semanticdesktop.org/wiki/LuceneSail LuceneSail query language] to search within literals. For example, the following query returns all resources with an rdfs:label that contains the string "person":
+
+<source>
+PREFIX search: <http://www.openrdf.org/contrib/lucenesail#> 
+SELECT ?Subject ?Property ?Value 
+WHERE { 
+  ?Subject search:matches ?match . 
+  ?match search:query "person" ; 
+         search:property rdfs:label ; 
+         search:snippet ?Value ; 
+         search:score ?score . 
+} ORDER BY DESC(?score) LIMIT 1000 
+</source>
+
+If you use another repository that provides full text search capabilities, you can configure the Information Workbench to use these search capabilities. See the [[Help:SearchConfiguration#Full_Text_Search | search configuration]] help page for further details. For example, the following search query can be used with OWLIM:
+
+<source>
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#> 
+SELECT DISTINCT ?Subject ?Property ?Value ?Type 
+WHERE { 
+?Value luc:luceneIndex "person" . 
+?Subject ?Property ?Value . 
+OPTIONAL { ?Subject rdf:type ?Type . } 
+} LIMIT 1000
+</source>
+
+==Visualization of Query Results==
+
+Depending on the query parameters and the type of returned data, results of structured SPARQL SELECT queries can be presented using different widgets. 
+Currently available options are:
+* ''Chart''. For this, the query has to return at least two fields, one of which is a string and another one is numeric. Available charts are:
+** Bar chart
+** Line chart 
+** Pie chart
+* ''Timeline''. To display a timeline, the query has to return at least one string field together with a date/time one.
+
+The type of fields in the query results is guessed based on:
+* the query itself: e.g., if some variable is cast to a specific datatype.
+<source>
+SELECT ?a ?b (xsd:dateTime(?c) AS ?c1) WHERE {
+...
+}
+</source>
+* meta-data from the domain ontology: e.g., if in the following example the predicate ''example:someNumericProperty'' is declared to have a range ''xsd:double'', then the variable ?a is treated as numeric. 
+<source>
+PREFIX example: <http://example.org#> 
+SELECT ?uri ?a WHERE {
+?uri example:someNumericProperty ?a .
+}
+</source>
+* actual values returned by the query: e.g., if values for some variable are declared as string literals, but can all be converted into the date/time type, the variable is treated as a date/time one.
+
+Suitable widgets can be selected using the tabs on the left-hand side. Then, the configuration of widgets can be changed using the ''Edit widget'' button in the toolbar on the top right-hand side. When the configuration form is updated, corresponding widget gets immediately redrawn. Both the query itself and the configuration of the widget can be saved to clipboard using ''Copy query'' and ''Copy widget'' buttons.
+
+For example, if the query
+<source>
+SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+</source>
+is submitted using the SPARQL query interface, its results are shown as a table by default, but can also be visualized using a bar chart, line chart, or a pie chart. Selecting the bar chart option shows the following chart:
+
+<img src="../images/help/adhocsearchvis-example.png" width="500" />

@@ -1,0 +1,17 @@
+{{ #widget : Search
+  | queries = {{
+   {{ queryPattern = 'PREFIX search: <http://www.openrdf.org/contrib/lucenesail#>
+       SELECT ?Page ?Snippet
+       WHERE {
+         { SELECT ?Page ?Snippet
+           WHERE {
+             ?Page search:matches ?match .
+             ?match search:query ?:Keywords ;
+                    search:property System:wiki ;
+                    search:snippet ?Snippet ;
+                    search:score ?score .
+           } ORDER BY DESC(?score) LIMIT 1000
+         }
+         FILTER(STRSTARTS(STR(?Page), "http://www.fluidops.com/help/"))
+       }' | parameters = {{  {{ name = 'Keywords' | parameterType = 'LUCENE' | componentType = 'TEXTFIELD'}} }} | queryTargets = 'WIKI'}} }}
+}}

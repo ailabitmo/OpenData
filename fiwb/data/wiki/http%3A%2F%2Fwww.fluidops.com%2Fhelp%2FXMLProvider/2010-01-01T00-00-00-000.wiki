@@ -1,0 +1,211 @@
+=== XML Provider ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.XMLProvider
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Providers | Providers ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.XMLProvider
+}}
+
+==== Example ====
+
+===== Mapping File =====
+The mapping file describes how data is mapped from the XML input document to the RDF data format. A mapping file is itself specified in XML and must cohere to the following DTD:
+
+<source>
+<!DOCTYPE mappingSpec [ 
+
+<!ELEMENT mappingSpec (rule+)>
+<!ELEMENT rule ((datatypePropertyMapping | objectPropertyMapping)+)>
+<!ELEMENT datatypePropertyMapping EMPTY>
+<!ELEMENT objectPropertyMapping   EMPTY>
+
+<!ATTLIST rule id                CDATA #REQUIRED
+               nodeBase          CDATA #REQUIRED
+               instanceNamespace CDATA #IMPLIED
+               owlType           CDATA #REQUIRED
+               objectId          CDATA #REQUIRED
+               objectLabel       CDATA #REQUIRED>
+
+<!ATTLIST datatypePropertyMapping value             CDATA #REQUIRED 
+                                  owlProperty       CDATA #REQUIRED 
+                                  useNodeName       CDATA #IMPLIED 
+                                  ignoreIfMatches   CDATA #IMPLIED
+                                  manipulator       CDATA #REQUIRED>
+
+<!ATTLIST objectPropertyMapping nodeBase          CDATA #REQUIRED
+                                value             CDATA #REQUIRED 
+                                owlProperty       CDATA #REQUIRED 
+                                referredRule      CDATA #IMPLIED 
+                                instanceNamespace CDATA #IMPLIED 
+                                hashValue         CDATA #IMPLIED 
+                                useNodeName       CDATA #IMPLIED 
+                                ignoreIfMatches   CDATA #IMPLIED>
+]>
+</source>
+
+Thus, a mapping specification has the top-level tag '''mappingSpec''', which encompasses a sequence of '''rule''' tags (where the order of the rule tags has no impact on the outcome). Each rule specifies, for a set of XML nodes, how these nodes are translated into RDF. In the following we describe the structure of rules in more detail.
+
+'''Note:''' The XML Provider uses XPath as a general-purpose language for selecting XML nodes. The XPath expressions used in the examples below are fairly simple (consisting of simple child-axis and descendant-axis tag and attribute access); though, in your real mapping you can build upon the full power of XPath, including all forward and reverse axes, conditions, negation, union, etc.
+
+===== Basic Rules =====
+We discuss the rules by an example. Assume we have an XML document 
+
+<source>
+<doc>
+  <companies>
+    <company id="fluidOps" name="fluid Operation" />
+  </companies>
+  <persons>
+    <person email="john@doe.com" firstName="John" lastName="Doe" yob="1976" worksFor="fluidOps" />
+    <person email="jane@doe.com" firstName="Jane" lastName="Doe" />
+  </persons>
+</doc>
+</source>
+
+describing a single company, fluid Operations, and two persons, John and Jane Doe, where John Doe works for fluid Operations. Note that the attribute '''worksFor''' within the '''person''' tag refers to the '''id''' field of the company.
+
+To get started, assume that we want to write a rule that extracts all persons from this XML file. Such a rule would look as follows:
+
+<source>
+<rule id="person" nodeBase="//person" owlType="Person" objectId="person-{./@email}" objectLabel="{./@firstName} {./@lastName}" />
+</source>
+
+The attributes of the rule have the following semantics:
+* '''id''': An ID for the rule (i.e., two rules must have distinct IDs). The ID can be used to refer to the rule from within another rule.
+* '''nodeBase''': The node base is an XPath expression that determines, which nodes in the XML document will be mapped to RDF. In the above example the rule applies to all '''person''' tags in the database (addressed by the XPath expression ''//person''). The rule will iteratively process all person tags, thereby creating one instance for each '''person''' tag.
+* '''owlType''': The ontology type (rdf:type) for newly created instances. In the example above, the instances generated will be of type ''Person''. Note that you can also use a comma-separated list of types here (all of which will be applied then).
+* '''instanceNamespace''': An (optional) RDF namespace in which the created instances will be stored. If provided, the namespace must be a namespace that is registered in the system (i.e., it must have been manually added to the system configuration file ''namespaces.prop''). If the parameter is not specified, the instances will be created in the default namespace.
+* '''objectId''': A parameterized expression that determines a unique ID of the generated instance. The ID will typically be composed by the help of one or more XPath expressions, enclosed in {}-brackets, all of which are evaluated relative to the context node. Outside the brackets you can include any constant strings to become part of each identifier, such as separators, prefixes or suffixes. For example, if the first node
+
+<source>
+<person email="john@doe.com" firstName="John" lastName="Doe" yob="1976" worksFor="fluidOps" />
+</source>
+
+is processed, then the objectId "''person-{./@email}''" will be evaluated relative to this node, thus creating the ID "''person-john@doe.com''". Please note that you can also leave the '''objectId''' field empty. In this case, a random ID (obtained by hashing the subtrees spanned by the referred XML node) will be created. Note that non-valid URI characters (such as white-spaces) are replaced by an underscore.
+* '''objectLabel''': A parameterized expression that determines the label (rdfs:label) of the generated instance. The label will be shown to the end user in the UI as the title of the generated instance. It does not need to be unique. Just like the id, the label will typically be composed by the help of XPath expressions, enclosed in {}-brackets, which are evaluated relative to the context node. For example, if the first node
+
+<source>
+<person email="john@doe.com" firstName="John" lastName="Doe" yob="1976" worksFor="fluidOps" />
+</source>
+
+is processed, then the objectLabel "''{./@firstName} {./@lastName}''" will be evaluated relative to this node, thus creating the label "''John Doe''".
+
+In summary, the rule above applied to the XML document from the beginning will result in the creation of the following RDF triples (we omit namespaces for readability):
+
+<source>
+person-john@doe.com rdf:type Person .
+person-john@doe.com rdfs:label "John Doe" .
+person-jane@doe.com rdf:type Person .
+person-jane@doe.com rdfs:label "Jane Doe" .
+</source>
+
+===== Modeling datatype properties (literal values) =====
+So far, the rule presented above transforms persons from XML to RDF, but these persons have (apart from the type and the label) no describing properties. Assume now that we want to map the year of birth of the persons, which is stored in the XML attribute '''yob'''. To do so, we need to extend our rule from before by a datatype property mapping as follows:
+
+<source>
+<rule id="person" nodeBase="//person" owlType="Person" objectId="person-{./@email}" objectLabel="{./@firstName} {./@lastName}">
+    <datatypePropertyMapping value="Year {./@yob}" owlProperty="yearOfBirth" />
+</rule>
+</source>
+
+The two attributes, '''value''' and '''owlProperty''' used in the datatype property mapping have the following semantics:
+
+* '''value''': A parametrized expression that determines the (literal) value that is created. Just like before, this will typically be created by the help of {}-enclosed XPath expressions that are evaluated relative to the context node. In our running example, the XPath expression ''"Year {./@yob}"'' evaluated against the context node
+
+<source>
+<person email="john@doe.com" firstName="John" lastName="Doe" yob="1976" worksFor="fluidOps" />
+</source>
+
+will result in the literal value ''Year 1976''. Evaluating the same rule against the context node
+
+<source>
+<person email="jane@doe.com" firstName="Jane" lastName="Doe" />
+</source>
+
+will have no effect, since there is no '''yob''' attribute for this node.
+
+* '''owlProperty''': This parameter determines the name of the property that connects the resources generated by the rule to the respective literal. You may also use namespace prefixes here, such as '''foaf:yearOfBirth'''.
+
+In summary, in our running example, the datatype property mapping will thus generate the following triples (we omit namespaces for readability):
+
+<source>
+person-john@doe.com rdf:type Person .
+person-john@doe.com rdfs:label "John Doe" .
+person-john@doe.com yob "Year 1976" .
+person-jane@doe.com rdf:type Person .
+person-jane@doe.com rdfs:label "Jane Doe" .
+</source>
+
+In addition to the two parameters described above, we can use the following two attributes inside datatype property mappings:
+
+* '''useNodeName''': If this parameter is set to "''true''", all XPath expressions that are used inside the parameterized expression '''value''' will be resolved as the node name (e.g., the tag name) instead of the textual content of the node. For instance, when referring to a tag '''<myTag>''', then the '''value''' itself is ignored and the property mapping will map to '''myTag''' instead. This is particularly useful if an XPath expression refers to a tag rather than an attribute and the tag name itself is to be represented in RDF.
+* '''ignoreIfMatches''': The parameter ignoreIfMatches can be used to set up conditional mappings for datatype property mappings. Assume, for instance, that we have XML tags that contain the value "''unknown''" in the '''yob''' tag and we do not want to transform such attributes to RDF (but rather ignore them in the mapping). In that case, you can simply set the attribute '''ignoreIfMatches''' to ''"unknown"'' in the datatype property mapping. Note that the value of the parameter '''ignoreIfMatches''' can be any Java regular expression, which allows you to exclude any patterns from the mapping.
+* '''manipulator''': Currently, we support the ''toLowerCase'' and ''toUpperCase'' manipulators, allowing to transform the literal to lower or to upper case, respectively.
+
+===== Modeling object properties (links between resources) ===== 
+In addition to datatype properties we may want to create ''object properties'' as well. As opposed to datatype properties, which describe literal (e.g., textual or numerical) elementary properties of a resource, object properties interlink resources by ''referring'' to them. While it is adequate for simple values (such as names or dates) to be added as elementary datatype properties, more complex information (such as, e.g., relations to other persons) would be poorly represented in that way. Instead, we would want to link to that other entity's (e.g., the other person's) resource to be able to later access and explore all their associated information as well.
+
+For the following discussion, we start with the a mapping specification, which extracts all persons and all companies in the database:
+
+<source>
+<mappingSpec>
+    <rule id="person" nodeBase="//person" owlType="Person" objectId="person-{./@email}" objectLabel="{./@firstName} {./@lastName}">
+        <datatypePropertyMapping value="Year {./@yob}" owlProperty="yearOfBirth" />
+    </rule>
+    <rule id="company" nodeBase="//company" owlType="Organization" objectId="{./@id}" objectLabel="{./@name}" />
+</mappingSpec>
+</source>
+
+As described before, this rule - when applied to the XML document from the beginning - results in the following RDF triples (we omit namespaces for readability):
+
+<source>
+person-john@doe.com rdf:type Person .
+person-john@doe.com rdfs:label "John Doe" .
+person-john@doe.com yob "Year 1976" .
+person-jane@doe.com rdf:type Person .
+person-jane@doe.com rdfs:label "Jane Doe" .
+fluidOps rdf:type Organization .
+fluidOps rdfs:label "fluid Operation" .
+</source>
+
+Obviously, so far there is no link between persons and the companies they are working for, which - in the XML document - is provided by the attribute '''worksFor''', referring to the ID of the company. To incorporate such a link, we extend the first rule by an object property mapping, obtaining the following mapping specification:
+
+<source>
+<mappingSpec>
+    <rule id="person" nodeBase="//person" owlType="Person" objectId="person-{./@email}" objectLabel="{./@firstName} {./@lastName}">
+        <datatypePropertyMapping value="Year {./@yob}" owlProperty="yearOfBirth" />
+        <objectPropertyMapping nodeBase="." value="{./@worksFor}" owlProperty="company" referredRule="company" />
+    </rule>
+    <rule id="company" nodeBase="//company" owlType="Organization" objectId="{./@id}" objectLabel="{./@name}" />
+</mappingSpec>
+</source>
+
+The semantics of the fields is as follows:
+* '''nodeBase''': Relative to the node base in the rule tag. An XPath expression to specify the tag on which we base ID generation for the reference. This may typically be ''"."'' for the current node, one of its children, or its parent. 
+* '''value''': The value of an object property is the URI of the resource we reference. That is, we need to generate values, which are exact matches of the URIs (objectId) of the referenced resource. 
+* '''owlProperty''': Defined the same way as in the context of datatype properties. A property to use as reference predicate.
+* '''referredRule''': There are two options to specify the target space of the reference. You can provide the id of the another rule as the referredRule. If you do so, the values you generate in this object property must match the objectId's of this referred rule. The namespace will then be automatically detected and prepended to the reference. Instead, you may specify the namespace of the reference target manually (see below).
+* '''instanceNamespace''': If you cannot specify your reference's target by its rule, you may specify the target namespace manually instead. This need might arise if the reference, which you refer to is not defined within the same mapping file or if your references' the instances are being generated by several rules.
+* '''hashValue''': Optional. If the property '''hashValue''' is set, then the values referred to by nodeBase are hashed from the XML representation of the referred node instead of resulting from evaluating the '''value''' property. This is useful to create links to nodes where no primary key is computable/provided in the XML document, i.e. then the primary key is obtained by subtree hashing.
+* '''useNodeName''': defined as in the context of datatype property mappings
+* '''ignoreIfMatches''': defined as in the context of datatype property mappings
+
+To wrap up, when applied to our XML document, the mapping specification from before yields the following RDF triples (where the identifier of John Doe is now linked to the identifier of fluid Operations), where we omit namespaces for readability:
+
+<source>
+person-john@doe.com rdf:type Person .
+person-john@doe.com rdfs:label "John Doe" .
+person-john@doe.com yob "Year 1976" .
+person-john@doe.com company fluidOps .
+person-jane@doe.com rdf:type Person .
+person-jane@doe.com rdfs:label "Jane Doe" .
+fluidOps rdf:type Organization .
+fluidOps rdfs:label "fluid Operation" .
+</source>

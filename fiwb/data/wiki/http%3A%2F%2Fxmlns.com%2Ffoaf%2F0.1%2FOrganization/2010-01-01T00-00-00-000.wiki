@@ -1,0 +1,21 @@
+== Overview of all Organizations ==
+
+{{
+#widget: TableResult
+  | query='SELECT ?Organization ?Address WHERE {
+       ?Organization rdf:type ??.
+     }'
+}}
+
+== Funding Organizations ==
+
+
+{{ #widget : BarChart
+  | input = 'Funder'
+  | output = {{ 'sumGrants' }}
+  | query = 'SELECT ?Funder (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?Grant)) AS ?sumGrants) WHERE {
+      ?Project research:funder ?Funder .
+      ?Project research:grant ?Grant . }
+    GROUP BY ?Funder'
+  | type = 'BAR_HORIZONTAL'
+}}

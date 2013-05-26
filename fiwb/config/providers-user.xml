@@ -1,0 +1,36 @@
+<list>
+  <com.fluidops.iwb.provider.RDFProvider>
+    <config class="com.fluidops.iwb.provider.RDFProvider$Config">
+      <url>http://www.dbis.informatik.uni-goettingen.de/Mondial/Mondial-RDF/mondial-europe.rdf</url>
+      <streaming>false</streaming>
+    </config>
+    <pollInterval>86400000</pollInterval>
+    <lastUpdate>2013-05-26 14:37:51.27 MSK</lastUpdate>
+    <lastDuration>9355</lastDuration>
+    <providerID class="org.openrdf.model.impl.URIImpl">
+      <uriString>urn:mondial</uriString>
+      <localNameIdx>4</localNameIdx>
+    </providerID>
+    <size>30407</size>
+    <providerDataEditable>false</providerDataEditable>
+    <userModified>true</userModified>
+    <deleted>false</deleted>
+  </com.fluidops.iwb.provider.RDFProvider>
+  <com.fluidops.iwb.provider.RDFProvider>
+    <config class="com.fluidops.iwb.provider.RDFProvider$Config">
+      <url>http://www.dbis.informatik.uni-goettingen.de/Mondial/Mondial-RDF/mondial-meta.rdf</url>
+      <streaming>false</streaming>
+    </config>
+    <pollInterval>86400000</pollInterval>
+    <lastUpdate>2013-05-26 14:37:51.758 MSK</lastUpdate>
+    <lastDuration>707</lastDuration>
+    <providerID class="org.openrdf.model.impl.URIImpl">
+      <uriString>urn:mondialMeta</uriString>
+      <localNameIdx>4</localNameIdx>
+    </providerID>
+    <size>547</size>
+    <providerDataEditable>false</providerDataEditable>
+    <userModified>true</userModified>
+    <deleted>false</deleted>
+  </com.fluidops.iwb.provider.RDFProvider>
+</list>

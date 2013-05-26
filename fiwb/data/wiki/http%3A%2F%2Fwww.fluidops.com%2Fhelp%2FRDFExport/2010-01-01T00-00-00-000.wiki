@@ -1,0 +1,31 @@
+== Exporting RDF Data ==
+
+The Information Workbench provides a user interface to export RDF data either as a file in a certain format or into a remote repository. The interface is available at [[Admin:Export]]. Note that depending on the system configuration this page is only accessible for administrators.
+
+<img src="../images/help/RDFExport.png" />
+
+=== Configuration ===
+
+As a first step, a set of contexts can be selected by clicking the '''select''' button. This action shows a pop-up window (similar to the one depicted below), where all available contexts are listed.
+
+<img src="../images/help/RDFExportContexts.png" />
+
+
+In order to export the selected data to a file, just select the RDF format in the ''File type'' dropdown box and click the export button.
+ 
+If you want to export the set of contexts into a Sesame remote repository, the ''target context'', ''target repository name'' and ''server'' need to be defined. Please consult the Sesame documentation for further details on the repository access URLs. By checking ''use source context as target context'', the original contexts from the data are preserved during the export.
+
+{| class="sortable wikitable" 
+!Configuration
+!Argument
+|-
+| Source Context || Context(s) of the data in the source repository. 'Default' stands for data with no specified context. (Required)
+|-
+| File type || The format for the exported file. The supported formats are RDF/XML, NTRIPLES, N3, TRIX, TRIG, TURTLE. The default format is RDF/XML.
+|-
+| Target Context || The context for the exported data in the target repository (Required).
+|-
+| Target repository name || The identifying name of the target repository (Required).
+|-
+| Target repository server || The URL of the target repository server (Required).
+|}

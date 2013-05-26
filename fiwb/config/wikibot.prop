@@ -1,0 +1,3 @@
+# ':' and '=' must be escaped with '\'
+
+http\://dbpedia.org/resource/=http\://en.wikipedia.org/w/

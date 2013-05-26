@@ -1,0 +1,160 @@
+=== Triple Editor Widget ===
+
+==== Functionality ====
+The TripleEditorWidget gives the functionality to view, add, edit and delete the structured RDF data that is associated with a resource. Each resource in the Information Workbench is already associated with a default instance of the TripleEditorWidget in the Table View, which can be customized at [[Admin:Widgets]].
+
+In many cases, however, you may wish to add one or more instances with a ''specific'' configuration to a wiki page or wiki template.
+You can include such specifically configured TripleWidgetEditor instances just like any other widget to appear ''within'' the wiki page.
+With the specific, individual configuration of your instance, you could accomplish, among others, the following aims:
+
+* Provide an edit form for a specific subset of the resource's properties
+* Include a view or and editing form for the current data (or any subset thereof) right in the wiki page
+* Offer limited, tailored viewing or editing capabilities to users with no general data editing/viewing permissions
+* Improve editing user-experience by customizing auto suggestions or by defining specific input methods for some of the properties, e.g., by replacing the standard input field with a larger text input area or a dropdown menu (parameter ''inputComponent'')
+* Constrain the permitted input of some of the properties to certain data types, values, or cardinalities
+
+In the following we give a brief overview of the configuration options that are available.
+
+==== Configuration Settings ====
+{{ 
+    #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+    | clazz = com.fluidops.iwb.widget.TripleEditorWidget
+}}
+
+In the Information Workbench the Triple Editor Widget is configured as the default component for presenting triples associated to a given resource in a structured tabular view (see [[Help:Views| here]] for details). The configuration of the tabular view can be customized at [[Admin:Widgets]].
+
+In addition, the TripleEditorWidget can be used as an embedded component within wiki pages to allow for viewing and authoring of a given set of properties (associated to the page's resource). The configuration of such an embedded triple editor can easily be done by means of the [[Help:Widgets| widget configuration UI]] available in the edit view of the wiki page. The following screenshot illustrates this configuration interface (note that more properties can be configured by clicking the "+" icon):
+
+<img src="../images/help/TripleEditor-configuration.png" />
+
+
+==== Example ====
+
+In the following we cover a broad range of examples illustrating typical use cases.
+
+===== Edit Form for a set of Properties =====
+
+A typical use case is to provide an edit form for a set of properties. The properties to be displayed in the edit form can be configured as so called ''propertyConfiguration'' items (compare configuration UI above). Each of those property configurations require a valid URI in the ''property'' field, corresponding to the property. Consider as an example a scenario in which you want to edit the ''rdfs:label'' of the current resource, as well as ''myProperty'':
+
+<source>
+{{ #widget : TripleEditor
+  | propertyConfiguration = {{
+   {{ property = 'rdfs:label' }} |
+   {{ property = 'myProperty' }}
+  }}
+}}
+</source>
+
+By default, the displayed properties in the embedded triple editor are limited to those specifically configured in the widget configuration, i.e. only the properties configured in the ''propertyConfiguration'' parameter will appear, even if the current resource has more values for other properties. In case all available properties of the given resource shall be displayed, ''limitProperties'' can be set to false. Please note that new properties can only be added if ''limitProperties' is turned to false.
+
+
+===== Auto Suggestions based on a Query Pattern =====
+
+As you might have noticed, the property configuration provides various other options. The ''queryPattern'' for instance can be used to define those items to be suggested to the user, that match the given query.
+
+Consider as an example a '':participant'' property, for which you might want to have all persons in the system (e.g., all resources typed as ''foaf:Person'') as suggestions for the user. This can be expressed with the following triple editor configuration.
+
+<source>
+{{ #widget : TripleEditor
+    | propertyConfiguration = {{
+    {{ property = ':participant' | queryPattern = 'SELECT ?p WHERE { ?p a foaf:Person }'}} }}
+}}
+</source>
+
+
+===== Drop Down Component for a set of Fixed Choices =====
+
+You may want to replace the standard input field with a drop down menu for some property to offer the user a fixed set of choices. Consider as example the '':color'' property, for which you may want to offer the values ''red'', ''green'' and ''blue''.
+
+This can be achieved by setting ''componentType'' to 'DROPDOWN' and the ''values'' property to the list of items to appear, e.g. a list of colors as RDF literals, as is it done below:
+
+<source>
+{{ #widget : TripleEditor
+  | propertyConfiguration = {{
+   {{ property = ':color' | values = {{ '"red"' | '"green"' | '"blue"' }} | componentType = 'DROPDOWN'}} }}
+}}
+</source>
+
+Note: if you want to suggest URI resources instead, please use one of the valid representations for URIs, e.g., 'default:myRedColor'. See [[Help:AdvancedWidgetConfiguration| here]] for further details).
+
+''Hint:''
+Instead of listing values manually, you might as well specify a ''queryPattern'' to return all the values you wish to have in your dropdown. This corresponds to suggesting auto-completion values with a query pattern (see example above). 
+
+
+===== Adjusting the target Datatype of a Property (including validation) =====
+
+The Triple Editor supports the XML Schema datatypes and offers validation support. To configure that a certain property should be of some specific XML Schema type, e.g. xsd:Integer, simply set the datatype of the given property to one of the available options. All values for the property entered into the edit form are then validated against the given datatype and stored into the database using this type, e.g., as Integer literal. The following configuration illustrates this functionality:
+
+<source>
+{{ #widget : TripleEditor
+  | propertyConfiguration = {{
+   {{ property = ':myInteger' | datatype = 'xsd:integer'}} }}
+}}
+</source>
+
+
+===== UI support for Date and Time Properties =====
+
+The Triple Editor provides UI support for date/time properties, i.e., those with range ''xsd:datetime'' or ''xsd:date''. By setting the ''componentType'' to either ''DATEPICKER'' or ''DATETIMEPICKER'' the user gets a nice UI component for specifying the data, as illustrated below:
+
+<img src="../images/help/TripleEditor-dateTime.png" />
+
+===== Constraining the Cardinality of Properties =====
+
+In some cases you may want to restrict the cardinality of a given property to a certain value, e.g. for the property ''gender'' it makes sense to only have one value in the database. In the triple editor this can be configured by using the ''maxCardinality'' setting. If cardinality constraints are defined for a property, the user is only allowed to save if the constraints are satisfied. Note that the UI does not provide support for adding new values if these constraints are set (i.e., the ''new Entry'' link for the property is not shown).
+
+===== Ontology Based Input Form =====
+
+Depending on the expressiveness of your ontology/vocabulary, the data in your system may already suggest certain input values and data types for some of your properties based on the range and domain definitions. These are automatically considered by the TripleEditorWidget as suggestions. However, by default only properties with at least one associated value are displayed.
+
+If you wish to automatically display all properties derived from the ontology, set parameter ''showUnfilledProperties'' to "true".
+
+This results in the following configuration:
+
+<source>
+{{ #widget : TripleEditor
+  | showUnfilledProperties = true
+}}
+</source>
+
+===== Clustering Of Properties =====
+
+The triple editor supports the clustering of statements by the domain (outgoing statements) or the range (incoming statements) of the respective property. By default ''clusterByDomain'' is enabled. If neither domain nor range are available in the ontology, the statement is put into the ''Resource'' cluster. The clustered mode heavily depends on the underlying ontology. If ''clusterByDomain'' is disabled, the statements all appear in a simple table.
+
+Example:
+
+Assume there is a statement <source>(:Person1 person-owl:age "25")</source> and from the underlying ontology it is known that the domain of the property ''person-owl:age'' is a ''person-owl:Person''. In this case, the respective statement is clustered into a ''person-owl:Person'' cluster (represented by its label).
+
+===== Read-Only View =====
+
+To include a view of some or all data with no editing capabilities, set parameter ''editMode'' to "''READ_ONLY''".
+
+This results in the following configuration:
+<source>
+{{ #widget : TripleEditor
+  | editMode = 'READ_ONLY'
+}}
+</source>
+
+Note that by default the triple editor is limited to the configured properties (i.e., ''limitProperties'' is "true"). Turn this setting to false to show all properties associated with the given resource.
+
+
+===== Edit Modes =====
+
+Similar to setting the read only mode (see previous example) it is possible to specify one of the following edit modes to change the 
+
+* ''PAGE_AT_ONCE'' (default):  this setting activates a transactional mode, where all changes can be stored at once using the ''Save Changes'' button in a single transaction
+* ''GROUPWISE'': the edit mode can be used to make changes to statements, there is no global save button. See screenshot below
+* ''COMBINED'': a combination of ''PAGE_AT_ONCE'' and ''GROUPWISE'', with the possibility to save changes either globally or for each statement
+
+<img src="../images/help/TE-groupWise.png" />
+
+===== Edit a Resource Other Than the Current One =====
+
+Occasionally, you may include a widget to edit or view triples from a resource other than the one currently displayed. You may achieve this by specifying the URI of the other resource in the ''uri'' parameter, e.g.
+
+<source>
+{{ #widget : TripleEditor
+  | uri = ':mySpecialResource'
+}}
+</source>

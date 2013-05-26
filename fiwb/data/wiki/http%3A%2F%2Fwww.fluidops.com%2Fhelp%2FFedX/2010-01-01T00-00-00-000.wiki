@@ -1,0 +1,59 @@
+== FedX ==
+
+[http://www.fluidops.com/FedX FedX] is a framework to transparently evaluate queries against virtually integrated Linked Data sources. The framework is embedded natively in the Information Workbench enterprise edition and can be used as described in the following.
+
+=== Using FedX in the Information Workbench ===
+
+The Information Workbench enterprise edition ships with the FedX framework and provides a seamless integration. 
+
+'''Important remark:''' the integration of FedX into the Information Workbench is still in beta phase. Integration will be improved in terms of UI support and performance in the upcoming versions.
+
+'''FedX can be configured using the following steps:'''
+
+1) In the config folder, create a file keeping the FedX configuration, e.g. %IWB_HOME%/config/fedx_config.prop
+
+<source>
+# the dataConfig to be used for initial federation setup
+dataConfig = config/fedx_dataConfig.ttl
+
+# fedX cache location. if not set, "cache.db" file is used
+cacheLocation = config/cache.db
+</source>
+
+Note: detailed documentation about configuration parameters can be found in the FedX documentation.
+
+2) Create the ''dataConfig'' file to specify the federation members, e.g. %IWB_HOME%/config/fedx_dataConfig.ttl
+
+<source>
+@prefix fluid: <http://fluidops.org/config#>.
+
+<http://dbpedia> fluid:store "SPARQLEndpoint";
+fluid:SPARQLEndpoint "http://dbpedia.org/sparql" .
+
+<http://nytimes> fluid:store "SPARQLEndpoint";
+fluid:SPARQLEndpoint "http://api.talis.com/stores/nytimes/services/sparql" .
+</source>
+
+Note: again for a detailed documentation and configuration options, please refer to the FedX documentation. Please keep in mind that performance of federated query processing strongly depends on the individual endpoints, in particular their latency and load.
+
+3) Configure the Information Workbench to use FedX as an underlying virtualization layer in %IWB_HOME%/config.prop
+
+<source>
+...
+repositoryType=fedx
+fedxConfig=config/fedx_config.prop
+</source>
+
+After a restart of the Information Workbench the configured (remote) data sources are used during query evaluation.
+
+=== Managing the Federation at Runtime ===
+
+The Information Workbench provides an [[Admin:Federation| administration UI]] for managing the federation at runtime. This includes the management of the federation members (add/remove) as well as some statistics.
+
+The UI allows to add the following types of endpoints to the federation:
+
+* SPARQL endpoint: a standards-compliant public SPARQL endpoint
+* Remote repository: a Sesame Workbench exposed remote repository
+* NativeStore: a local Sesame NativeStore repository
+
+<img src="../images/help/Help_FedX-Ui.png" width="1024px" />

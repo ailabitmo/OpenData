@@ -1,0 +1,54 @@
+<source lang="xml">
+<settings>
+
+<marginLeft>50</marginLeft>
+<marginTop>50</marginTop>
+<borderColor>#ffffff</borderColor>
+<startDuration>2</startDuration>
+<font>Verdana</font>
+<radius>35%</radius>
+
+<background>
+	<border_color>#000000</border_color>
+	<border_alpha>10</border_alpha>
+</background>
+
+<plot_area>
+	<margins>
+	<left>70</left>
+	<top>60</top>
+	<right>40</right>
+	<bottom>65</bottom>
+	</margins>
+</plot_area>
+
+<axes>
+	<value>
+		<gridThickness>1</gridThickness>
+		<axisThickness>1</axisThickness>
+		<axisAlpha>50</axisAlpha>
+		<axisColor>#000000</axisColor>
+        <minimum>0</minimum>
+        <dashLength>2</dashLength>
+        <axisTitleOffset>10</axisTitleOffset>
+        <gridCount>5</gridCount>
+        <gridAlpha>50</gridAlpha>
+        <gridColor>#000000</gridColor>
+        <gridType>polygons</gridType>
+	</value>
+</axes>
+
+<legend>
+	<enabled>false</enabled>
+</legend>
+
+<graphs>
+	$graphs$
+</graphs>
+
+<line>
+	<bullet>bubble</bullet>
+	<balloonText>$balloonText$</balloonText>
+</line>
+</settings>
+</source>

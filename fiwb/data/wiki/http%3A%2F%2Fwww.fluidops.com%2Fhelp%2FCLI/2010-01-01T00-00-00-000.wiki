@@ -1,0 +1,83 @@
+== CLI ==
+The CLI provides a convenient command line interface for the configuration of the Information Workbench as well as data management access.
+
+The CLI is started by running the cli.cmd (or cli.sh) command in the root folder of the Information Workbench.
+
+
+<img src="../images/help/iwbCli.png" width="900px" />
+
+=== Usage of the CLI ===
+
+The command line interface of the Information Workbench is highly flexible and can be used to access exposed functionality of the API and services. In the following the functionality of the command line interface is illustrated.
+
+<pre>
+>cli --help
+CLI runtime environment.
+usage: cli %option% %*
+ --l, --login      explicit login to the system e.g. 'cli --login user password'
+ --h, --host       define the host to be used, e.g. --host localhost
+ --o, --output     define the output format, options: [PRINTER, XML, JSON]
+ --p, --protocol   define the protocol to be used, options: [RMI, JSONRpc, XMLRpc]
+
+ --help            print this help
+ myMethod -help    print help for myMethod
+
+Examples:
+ cli
+ cli helloWorld
+ cli getSum -a 1 -b 2
+ cli getSum -help
+ cli testComplexObject -complexObject {a:1;b:2}
+ cli getSumFromSumWrapper @sumWrapper mySumwrapper.xml
+ cli subApi fctInSubApi -p1 myParam
+ cli --login user password helloWorld
+ cli --l user password --o PRINTER helloWorld
+</pre>
+
+=== Passing arguments to the CLI ===
+
+Some exposed methods expect non-primitive types as arguments. In the following, we document how these can be specified.
+
+==== URI ====
+
+URI object can be passed using the following notations
+
+<source>
+<http://example.org/fullURI> - a full URI
+localName - a URI with "localName" in the default namespace
+:localName - same as above
+test:localName - a URI with "localName" in the test namespace
+</source>
+
+=== Common Examples ===
+
+In the following we provide some examples that might commonly be performed.
+
+==== '''load''' ====
+The CLI can be used to load RDF in various formats.
+Example: 
+<source>load -filename myfile.nt -format NTRIPLES -source urn:myfile</source>
+
+==== '''add''' ====
+Adds a triple to the database
+
+Example:
+<source>add -statement "{class: \"com.fluidops.iwb.api.helper.RDFStatement\", \"s\": \"<http://test.org/s>\", \"p\": \"<http://test.org/p>\", \"o\": \"<http://test.org/o>\"}"</source>
+
+==== '''updateKeywordIndex''' ====
+Update the Information Workbench keyword index
+
+Example:
+<source>updateKeywordIndex -indexWiki true</source>
+
+==== '''getProviders''' ====
+List the configured providers and their metadata
+
+Example:
+<source>getProviderService getProviders</source>
+
+==== Running a provider from the CLI ====
+
+Assuming a provider with id MyProvider exists (e.g., was created from the UI), it can be started with the following command:
+
+<source>getProviderService runProvider -provider MyProvider</source>

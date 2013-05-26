@@ -1,0 +1,19 @@
+=== Constraint Validation ===
+
+The constraint validation page gives you an overview of all triples that do not conform to the ontology stored in the repository. Note that this feature is experimental only.
+
+To give a concrete example, assume that our repository contains exactly the following triples:
+
+<source>
+:Adam :knows :Eve.
+:knows rdfs:domain :Human.
+:knows rdfs:range :Human.
+</source>
+
+The ontology implies that both :Adam and :Eve are of rdf:type :Human. However, this is not materialized in the data. Therefore, our constraint validation page would list the triple :Adam :knows :Eve.
+
+As the constraint validation page scans the whole repository for non-conforming triples, the page may take a while to load.
+
+<p> <br/></p>
+
+<img src="../images/help/constraints.png" width="1000px" />

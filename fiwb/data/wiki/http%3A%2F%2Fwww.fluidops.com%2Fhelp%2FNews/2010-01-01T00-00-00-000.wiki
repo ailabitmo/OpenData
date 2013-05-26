@@ -1,0 +1,29 @@
+=== News Widget ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.NewsWidget
+| type = 'DESCRIPTION'
+}}
+
+'''Important note:''' this widget requires New York Times data to be present in the triple store, which is not available by default in the Information Workbench.  The data sets can be downloaded from [http://data.nytimes.com/ data.nytimes.com] and loaded into the Information Workbench using the  [[Help:CLI]]
+
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Example ====
+
+The news feed is automatically added at the right side of the page of any New York Times entity. For example open the page of resource ''<nowiki>http://data.nytimes.com/N80076340859393646013</nowiki>''. (You can open this page by copying ''<nowiki>?uri=http://data.nytimes.com/N80076340859393646013</nowiki>'' behind ''../resource/'' of your address bar.) This page will show a news feed of Usain Bolt, as the screen shot below demonstrates.
+
+<img src="../images/help/bolt-newsWidget.png" width="950px" />
+
+It is also possible to incorporate a news feed on an arbitrary wiki page. Simply open the page of the New York Times entity, whose news feed you are interested in and add an object property having predicate ''owl:sameAs'' and subject the resource, on which the feed shall be displayed. For example if you add the following statement to ''<nowiki>http://data.nytimes.com/N80076340859393646013</nowiki>'', MyResource will display a news feed of Usain Bolt.
+
+{| border="1"
+|-
+!scope="col"| Predicate
+!scope="col"| Value
+|-
+| owl:sameAs|| MyResource
+|}
+
+[http://data.nytimes.com/ data.nytimes.com] contains an overview of all available New York Times entities.

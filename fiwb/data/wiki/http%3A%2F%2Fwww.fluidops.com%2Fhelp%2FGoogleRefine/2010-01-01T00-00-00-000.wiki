@@ -1,0 +1,33 @@
+== Google Refine ==
+The Information Workbench enables you to import data from a Google Refine project, where the data can be cleaned, transformed into RDF and integrated into the Information Workbench with ease. Google Refine is a data conversion and clean-up tool that allows one to transform messy data from a variety of formats into different formats.
+
+<!--  Google Refine supports export of RDF data after installing an extension like e.g. the [http://refine.deri.ie/ GRefine RDF Extension]. For more information about how to use and install Google Refine visit the [http://code.google.com/p/google-refine/ Google Refine project page]. 
+
+ -->
+
+=== Using Google Refine ===
+
+# Download [http://code.google.com/p/google-refine/ Google Refinee] and install it following the Google Refine [http://code.google.com/p/google-refine/wiki/InstallationInstructions installation instructions].
+# Download the [http://refine.deri.ie/ GRefine RDF Extension], extract the downloaded zip file to the '''extensions''' folder (in your Google Refine workspace) and restart Google Refine.
+# Import your data file into Google Refine (e.g. in Excel, CSV, XML, RDF/XML, or in JSON format). You can clean, transform and augment your data in Google Refine as described in [http://code.google.com/p/google-refine/wiki/DocumentationForUsers Google Refine Documentation].
+# Define an RDF Skeleton to prepare your data for RDF export following the [http://refine.deri.ie/rdfExportDocs instructions] and the [http://refine.deri.ie/rdfExport example]. 
+
+=== Importing Data from Google Refine ===
+
+To import the data from a Google Refine project into the Information Workbench make the Google Refine is running and follow the steps:
+
+* Navigate to '''Admin:Import''', and click on the '''Google Refine''' tab.
+* Enter a valid name for the value of '''context''' e.g. ''<nowiki>http://myRefinedData.com</nowiki>''.
+* Enter the number of the project into the '''Project''' input field. The project number is the last part of the google refine projects url.
+
+
+<img src="../images/help/googleRefine.png" />
+
+
+* Enter a valid '''Post Request URL'''. For local installations on port 3333 this is ''<nowiki>http://127.0.0.1:3333/command/core/export-rows/</nowiki>''.
+
+
+<img src="../images/help/importGoogleRefine.png" />
+
+
+* Click on '''Import RDF Data'''.

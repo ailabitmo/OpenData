@@ -1,0 +1,11 @@
+{{ #widget : PieChart
+  | input = 'CountryName'
+  | output = {{ 'Population' }}
+  | query = '
+    SELECT DISTINCT ?CountryName ?Population WHERE {
+     ?Country rdf:type mondial:Country .
+     ?Country mondial:name ?CountryName .
+     ?Country mondial:population ?Population}
+     ORDER BY DESC(?Population)
+     LIMIT 10 '
+}}

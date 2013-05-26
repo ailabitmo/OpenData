@@ -1,0 +1,38 @@
+<error-page>
+    <error-code>404</error-code>
+    <location>/error</location>
+</error-page>
+
+<error-page>
+    <error-code>403</error-code>
+    <location>/error</location>
+</error-page>
+
+<error-page>
+    <error-code>400</error-code>
+    <location>/error</location>
+</error-page>
+
+<error-page>
+    <error-code>500</error-code>
+    <location>/error</location>
+</error-page>
+
+<error-page>
+    <exception-type>java.lang.Throwable</exception-type >
+    <location>/error</location>
+</error-page>
+
+<servlet>
+	<servlet-name>ERRORHANDLER</servlet-name>
+	<servlet-class>com.fluidops.servlet.ErrorServlet</servlet-class>
+	<init-param>
+		<param-name>template</param-name>
+		<param-value>com/fluidops/iwb/server/errorPage</param-value>
+	</init-param>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>ERRORHANDLER</servlet-name>
+	<url-pattern>/error</url-pattern>
+</servlet-mapping>

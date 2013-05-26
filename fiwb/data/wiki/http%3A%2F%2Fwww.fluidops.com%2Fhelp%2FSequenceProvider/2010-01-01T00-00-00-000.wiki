@@ -1,0 +1,28 @@
+=== Sequence Provider ===
+
+==== Functionality ====
+The sequence provider allows to trigger a series of registered providers in sequence. This can be particularly helpful when using data mapping providers such as the [[Help:SilkProvider|Silk Provider]] or the [[Help:ValueBasedDataMappingProvider|Value Based Data Mapping Provider]], which are capable of manipulating the data base itself (rather than simply adding some triples).
+
+Go back to [[Help:Providers | Providers ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.SequenceProvider
+}}
+
+==== Example ====
+
+
+As an example, assume we have three providers registered:
+
+# A provider ''p1'', extracting persons from some data source
+# A provider ''p2'', extracting a (partially overlapping) set of persons from another data source, thereby generating different URIs for the persons than provider ''p1''
+# A [[Help:SilkProvider|Silk Provider]] ''sp'', which aligns the person URIs by discovering links between the resources extracted from ''p1'' and ''p2''
+
+In that case, we may want to enforce that the three providers always run in sequence 'p1'' -> ''p2'' -> ''sp'', i.e. with the mapping carried out at the end of the provider runs. Such settings can easily be configured using the Sequence Provider:
+
+# Create your providers ''p1'', ''p2'', and ''sp'' (we assume that ''p1'', ''p2'', and ''sp'' are the identifiers of the respective providers). Set to poll interval of all three providers to 0 (which means DISABLED).
+# Create a sequence provider and enter the three provider identifiers (''p1'', ''p2'', and ''sp'') in order in the ''providers'' configuration parameter of the Sequence Provider.
+
+The poll interval of the Sequence Provider instance then determines in which intervals the original providers are triggered. Note that the three providers will be triggered in sequence, i.e. the subsequent provider is started after the previous provider run has finished.

@@ -1,0 +1,8 @@
+== Special Pages ==
+
+In the Information Workbench special pages serve purposes that do not fit in any other administrative page like e.g. getting an overview of all broken widgets in the system.
+
+Currently, we have separate help pages for the following special pages:
+
+* [[Help:Constraints|Constraint Validation]]
+* [[Help:WikiDiagnostics|Wiki Diagnostics]]

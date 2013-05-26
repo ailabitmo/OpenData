@@ -1,0 +1,31 @@
+=== Pivot Widget ===
+
+==== Functionality ====
+
+The widget offers an interactive way of browsing in collection of items visualized as images. The user can easily sort and filter the results by items facets. You need to have the [http://www.silverlight.net/learn/data-networking/pivot-viewer/pivotviewer-control silverlight plugin]  installed to use the widget. The pivot widget can be found in one of the [[Help:Views | wiki views ]]. Click the pivot view tab to see it.
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.PivotWidget
+}}
+
+==== Example ====
+
+The pivot view can be configured in [[Admin:Widgets]]. Here is an example:
+
+<div style="width:540px;margin:auto;margin-top:20px;margin-bottom:20px;">
+
+<img src="../images/help/pivot-configuration.png" width="540px" />
+
+</div>
+
+According to this configuration instances (maximum 1000) of a class and their facets (maximum 20) will be visualized in the pivot view of the page associated with a resource of the type ''owl:Class''. So, if you have instances of ''dbpedia:Album'' in your repository the pivot widget in the pivot view of the page of ''dbpedia:Album'' will look similar to this:
+
+<div style="width:540px;margin:auto;margin-top:20px;margin-bottom:20px;">
+
+<img src="../images/help/pivot-widget.png" width="600px" />
+
+</div>
+
+In [[Help:WidgetConfiguration | Help:WidgetConfiguration]] you can learn more about how to create a widget configuration in [[Admin:Widgets | Widgets UI]]. 

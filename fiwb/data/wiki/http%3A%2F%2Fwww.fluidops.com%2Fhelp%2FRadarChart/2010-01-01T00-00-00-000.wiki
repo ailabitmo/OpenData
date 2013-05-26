@@ -1,0 +1,69 @@
+=== Radar Chart Widget ===
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.RadarChartWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.RadarChartWidget
+}}
+
+==== Examples ====
+===== Polygons =====
+<source>
+{{ #widget : RadarChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Th.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | gridType = 'polygons'
+  | bullet = 'bubble'
+  | bulletSize = '12'
+  | colors = {{ '#FF5CB8' }}
+}}
+</source>
+
+<img src="../images/help/RadarChart/Polygons.PNG" width="800px" />
+
+===== Circles =====
+Same configuration as above but with "gridType = 'circles'".
+
+<img src="../images/help/RadarChart/Circles.PNG" width="800px" />
+
+===== Clustered =====
+The Radar Chart widget can handle multiple output dimensions.
+
+<source>
+{{ #widget : RadarChart
+  | query = '
+      SELECT ?org (COUNT(?project)+20 AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^T.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org HAVING (?outgoingLinks < 100)'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | gridType = 'polygons'
+  | bullet = 'round'
+  | colors = {{ '#71BA6B' | '#C10F3F' }}
+}}
+</source>
+
+<img src="../images/help/RadarChart/Clustered.PNG" width="800px" />

@@ -1,0 +1,27 @@
+==== Settings Files for BAR_VERTICAL Charts ====
+
+===== Settings:barvertical =====
+Settings file available at : [[Settings:barvertical | Settings:barvertical]]
+Plot a variable in a vertical bar chart. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/BAR_VERTICAL-settings.PNG" width="1024px" />
+
+====== Code ======
+<source>
+{{ #widget : BarChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | height = '400'
+  | type = 'BAR_VERTICAL'
+  | settings = 'Settings:barvertical'
+}}
+</source>

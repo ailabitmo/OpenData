@@ -1,0 +1,23 @@
+=== CKAN Provider ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.CkanProvider
+| type = 'DESCRIPTION'
+}}
+
+Available metadata information (e.g. of datasets from the LOD cloud) is extracted and information is stored as RDF using the DCAT and VoiD vocabulary.
+
+Go back to [[Help:Providers | Providers ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+ | clazz = com.fluidops.iwb.provider.CkanProvider
+}}
+
+==== Example ====
+
+On [[Admin:Providers]] you can add a new CKAN provider using a valid CKAN repository URL, e.g. ''<nowiki>http://ckan.net/api/rest/group/lodcloud</nowiki>''
+
+<img src="../images/help/Provider_Ckan.png" />

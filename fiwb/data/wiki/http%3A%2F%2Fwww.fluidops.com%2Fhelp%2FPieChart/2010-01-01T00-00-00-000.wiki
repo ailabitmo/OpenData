@@ -1,0 +1,58 @@
+=== Pie Chart Widget ===
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.PieChartWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.PieChartWidget
+}}
+==== Examples ==== 
+
+===== Bounce multi-colored =====
+<source> 
+{{ #widget : PieChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | colors = {{ '#07BF41' | '#1E8099' | '#F7D709' | '#59DEE0' | '#F97D2A' | '#F265F2' | '#69EF74' }}
+  | startEffect = 'bounce'
+}}
+</source>
+
+<img src="../images/help/PieChart/BounceMulti-colored.PNG" width="800px" />
+
+===== Donut =====
+Defined as above but with '''innerRadius''' set to 90.
+
+
+<img src="../images/help/PieChart/Donut.PNG" width="800px" />
+
+===== Simple =====
+
+<source>
+{{ #widget : PieChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | startEffect = '>'
+}}
+</source>
+
+<img src="../images/help/PieChart/Simple.PNG" width="800px" />

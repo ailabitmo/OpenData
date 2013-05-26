@@ -1,0 +1,6 @@
+= Information Workbench Demo Solution =
+
+
+This is a start page of the demo solution with a MyDemoWidget from the extension:
+
+{{#widget: com.fluidops.iwb.demo.MyDemoWidget | labelText = 'Enter your name' }}

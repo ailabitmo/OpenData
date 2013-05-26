@@ -1,0 +1,94 @@
+=== Line Chart Widget ===
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.LineChartWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.LineChartWidget
+}}
+
+==== Examples ====
+===== Simple =====
+<source>
+{{ #widget : LineChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^T.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | height = '300'
+}}
+</source>
+
+<img src="../images/help/LineChart/Simple.PNG" width="1024px" />
+
+===== Smoothed line =====
+Same settings as above but with lineType = 'smoothedLine'.
+<img src="../images/help/LineChart/SmoothedLine.PNG" width="1024px" />
+===== Clustered =====
+<source>
+{{ #widget : LineChart
+  | query = '
+      SELECT ?org (COUNT(?project) AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^Te.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | height = '350'
+  | lineType = 'step'
+  | bullet = 'round'
+  | colors = {{ '#71BA6B' | '#C10F3F' }}
+}}
+</source>
+
+<img src="../images/help/LineChart/Clustered.PNG" width="1024px" />
+
+==== Custom bullet ====
+
+Same configuration as simple line chart with additional parameter '''customBullet''' set.  The value of custom bullet is the relative path to an image to be used as the bullet graphic.  For example "customBullet = '/path/to/image/custom_bullet.png'".
+
+<img src="../images/help/LineChart/CustomBullet.PNG" width="1024px" />
+
+==== Time Graph with Line widget ====
+
+<source>
+{{ #widget : LineChart
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?start WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant . 
+      ?role <http://research.data.gov.uk/def/project/project> ?project . 
+      ?project <http://purl.org/stuff/project/startDate> ?start . 
+      ?role <http://research.data.gov.uk/def/project/region> ?region . }
+    GROUP BY ?start'
+  | input = 'start'
+  | output = {{ 'sumGrant' }}
+  | lineType = 'step'
+  | bullet = 'square'
+  | colors = {{ '#EF350B' }}
+}}
+</source>
+
+<img src="../images/help/LineChart/TimeGraphWithLineWidget.PNG" width="1024px" />
+
+==== Columns ====
+Same configuration as the simple chart but with "lineType = 'column'".
+
+<img src="../images/help/LineChart/Columns.PNG" width="1024px" />

@@ -1,0 +1,123 @@
+= Installation =
+				
+Installing the Information Workbench on Windows can be done easily using the Windows installer. Alternatively, it can be installed manually from the distribution:
+
+1) Download the distribution of the Information Workbench.
+
+2) Unpack the distribution into a directory of your choice  (e.g. /opt/fluidOps/iwb). In the following, we will refer to the absolute pathname of this directory by &lt;IWB_HOME_DIRECTORY&gt;.
+
+== Installing the Information Workbench ==
+
+The Information Workbench supports both Windows and Linux based operating systems.
+
+=== Windows===
+
+It is recommended to use a 64bit Windows operating system with a 64Bit Java SE Runtime Environment in version 1.7 (taken from the JDK). The reference version shipped with this release is JRE SE ''1.7.0_05 64bit''. This is also the version used in steps a) and b) below.</p>
+
+
+==== a) Running the installed service ====
+
+
+If you installed the Information Workbench as a service with the provided installer, you can start/stop the application using the Windows ''services'' configuration tool (i.e. Start->Run->services.msc). The Information Workbench service is called ''fluid Operations Information Workbench''.</p>
+
+	
+==== b) Running the Information Workbench as executable ====
+	
+If you downloaded the distribution or if you want to execute the Information Workbench manually, we provide a ''start.cmd'' script in the Information Workbench home directory (i.e. the install location).
+
+==== c) Running the Information Workbench on a 32bit Windows operating system ====
+		
+The Information Workbench can be run on a 32bit Windows operating system by following the steps below:
+
+		
+* Download and install [http://www.oracle.com/technetwork/java/javase/downloads/index.html Java SE 32-Bit JDK version 1.7]
+* Set the path of java.exe in the file <IWB_HOME_DIRECTORY>/fiwb/backend.conf, examples:
+*:*''wrapper.java.command=C:\Program Files\Java\jdk1.7.0_05\bin\java.exe'' (absolute path)
+*:*''wrapper.java.command=java'' (if the java command is in the Path environment)
+* Execute the Information Workbench using option a) or b).
+
+Once the Information Workbench is running (which may take up to a few minutes), navigate to the application entry page:
+
+'''[http://localhost:8888]'''
+
+=== Linux===
+
+To run the Information Workbench under Linux a Java SE Runtime Environment version 1.7 (taken from the JDK) must be installed. Note that the Information Workbench does not ship a reference version bundled with the release.
+
+* Download and install [http://www.oracle.com/technetwork/java/javase/downloads/index.html Java SE 32-Bit or 64-Bit JDK version 1.7].
+* Make sure the java command is added to the command-path of the user root.
+
+
+====a) Running as service====
+
+* Create a user under which the iwb shall run, e.g. "fluid" (in the following we will refer to this user as <IWB_USER>).
+* If you did not choose "fluid" as user, the script &lt;IWB_HOME_DIRECTORY&gt;/fiwb/iwb.sh has to be adapted accordingly:
+** Search for "RUN_AS_USER=fluid" and replace fluid by &lt;IWB_USER&gt;
+* Execute the script linux-install.sh in <IWB_HOME_DIRECTORY> as user root, like follows: 
+  bash -eu linux-install.sh &lt;IWB_USER&gt;
+		
+
+This installs an init-script as <code>/etc/init.d/iwb</code> and starts the application. To make sure this script is executed on reboot create corresponding links in the run-level specific directories.  Depending on your distribution, this can be done with: 
+<code>chkconfig -a iwb</code> or with <code>insserv iwb</code>
+
+====b) Running the Information Workbench as executable====
+
+* Make sure all script are executable by executing in <IWB_HOME_DIRECTORY>:
+			
+  chmod +x *.sh fiwb/*.sh fiwb/wrapper-linux*
+* If you do not want to run the Information Workbench as user "fluid", the script &lt;IWB_HOME_DIRECTORY&gt;/fiwb/iwb.sh has to be adapted accordingly:
+** Search for "RUN_AS_USER=fluid" and replace fluid by your preferred user (this user must exist on your system)
+* Execute <code>start.sh</code> in &lt;IWB_HOME_DIRECTORY&gt;.
+		
+
+=== Opening the Information Workbench===
+
+Once the Information Workbench is running (which may take up to a few minutes), it can be accessed at [http://localhost:8888]. On the default start page you can find a tutorial with some first steps as well as links to important pages (such as the detailed user documentation).
+
+By default, an administrator account with credentials '''admin/iwb''' is created. It is highly recommended to change the password in the Admin area after the first login.
+		
+== Non-standard Installations ==
+
+This section contains some information about how to configure and run the Information Workbench using special configurations.
+
+=== Running Two Instances on the Same Host ===
+
+The following configuration settings need to be adjusted to run two Information Workbench instances on the same host.
+
+Steps for running two instances on the same host
+
+# In %iwb%/fiwb/etc/jetty.xml: change ports for http and https (e.g. 8888->9999, 8443->9443), 3 places
+# In config.prop: serverUrl=<nowiki>http://localhost:9999</nowiki>, RMIPort=2099
+
+=== Extending the Application Through a Customization Artifact ===
+
+After startup the application installs a customization artifact found in the application's <code>apps</code> folder. A detailed documentation can be found [[Help:Extensions|here]].
+
+
+== Using the Information Workbench SDK in Eclipse ==
+
+For the following steps we assume the reader to be familiar with the development platform Eclipse. Please refer to the user documentation for details
+
+# Open Eclipse and create a new workspace
+# Select "File -> Import -> General -> Existing Projects into Workspace"
+# Check "Select archive file" and browse for the IWB zip archive
+# Choose the "fiwb" project in the "Projects" listing and click "Finish"
+# The project can be started using the launch configuration "Start_IWB.launch": right-click on the file and select "Run As"
+    
+Details about SDK development can be found on the ''Help:Developers'' page in a running system.
+    	
+'''Note: a recent version of the Eclipse IDE is required, i.e. Eclipse Helios or newer'''
+
+== Troubleshooting ==
+				
+'''Where can I find additional information''' 
+		
+The Information Workbench is configured to write logging output to ''&lt;IWB_HOME_DIRECTORY&gt;/fiwb/logs/''. Runtime logs of the Information Workbench can be found in service.log, while output of the wrapper is written to ''wrapper.log''. Please consider these files as a first source for further information. Note that the logging level can be configured in ''&lt;IWB_HOME_DIRECTORY&gt;/fiwb/etc/log4j.properties''.</p>
+
+==Important Notes==
+=== Shutting Down the Information Workbench ===
+
+* '''Windows Service:''' Go to the Services configuration tool and stop the service
+* '''Linux Daemon:''' Invoke /etc/init.d/iwb stop
+* '''Command line:''' Exit the Information Workbench by clicking in the command line window and pressing Ctrl + c.
+* '''IMPORTANT:''' Never exit the Information Workbench by closing the command line window without proper shutdown. This can result in corrupting the data store and loss of data.

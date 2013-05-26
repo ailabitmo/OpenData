@@ -1,0 +1,7 @@
+= All available Datasets =
+{{#widget: TableResult |
+query = '
+SELECT ?Dataset WHERE { 
+  ?Dataset rdf:type ?? .  
+}'
+}}

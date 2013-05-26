@@ -1,0 +1,199 @@
+<span style="font-family:'Times New Roman',Times,serif; font-size: 300%">$this.label$ (Drug)</span>
+
+<br/>
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:midnightblue">Definition</span> ==
+
+$this.drugbank_ns:description$
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:midnightblue">Mechanism of Action</span>  ==
+
+$this.drugbank_ns:mechanismOfAction$
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:midnightblue">Pharmacology</span> ==
+
+$this.drugbank_ns:pharmacology$
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:teal">Specific Data & Identifiers of ''$this.label$'' </span> ==
+
+<br/>
+
+{| class="sortable wikitable" style="width:100%; float:left; margin:0 0 0.5em 1em; font-size:95%"
+|-
+!style="background-color: seagreen"| Property
+!style="background-color: seagreen" width 26% |Value
+|-
+|style="background-color: honeydew"| Drugbank ID:
+|style="background-color: white"| $this.drugbank_ns:primaryAccessionNo$
+|-
+|style="background-color: white"| KEGG Drug ID:
+|style="background-color: honeydew"| $this.drugbank_ns:keggDrugId$
+|-
+|style="background-color: honeydew"| KEGG Compound ID:
+|style="background-color: white"| $this.drugbank_ns:keggCompoundId$
+|-
+|style="background-color: white"| Pharmgkb ID:
+|style="background-color: honeydew"| $this.drugbank_ns:pharmgkbId$
+|-
+|style="background-color: honeydew"| PDB Experimental ID:
+|style="background-color: white"| $this.drugbank_ns:pdbExperimentalId$
+|-
+|style="background-color: white"| Cheb ID:
+|style="background-color: honeydew"| $this.drugbank_ns:chebiId$
+|-
+|style="background-color: honeydew"| DPD Drug ID Number:
+|style="background-color: white"| $this.drugbank_ns:dpdDrugIdNumber$
+|-
+|style="background-color: white"| PubChem Substance ID:
+|style="background-color: honeydew"| $this.drugbank_ns:pubchemSubstanceId$
+|-
+|style="background-color: honeydew"| PubChem Compound ID:
+|style="background-color: white"| $this.drugbank_ns:pubchemCompoundId$
+|}
+
+<br/>
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:teal">Chemical Data of ''$this.label$'' </span> ==
+
+<br/>
+
+{| class="sortable wikitable" style="width:100%; float:left; margin:0 0 0.5em 1em; font-size:95%;"
+|-
+!style="background-color: seagreen"| Property
+!style="background-color: seagreen" width 26%| Value
+|-
+|style="background-color: white"| Molecular Weight: 
+|style="background-color: honeydew"| $this.drugbank_ns:molecularWeightAverage$
+|-
+|style="background-color: honeydew"| Smiles-Code: 
+|style="background-color: white"| <span style="color:darkred">$this.drugbank_ns:smilesStringCanonical$</span>
+|-
+|style="background-color: white"| CAS-Registry-Code: 
+|style="background-color: honeydew"| $this.drugbank_ns:casRegistryNumber$
+|-
+|style="background-color: honeydew"| Formula:
+|style="background-color: white"| $this.drugbank_ns:chemicalFormula$
+|-
+|style="background-color: white"| Chemical IUPAC Name:
+|style="background-color: honeydew"| $this.drugbank_ns:chemicalIupacName$
+|-
+|style="background-color: honeydew"| State:
+|style="background-color: white"| $this.drugbank_ns:state$
+|-
+|style="background-color: white"| Experimental LogP Hydrophobicity: 
+|style="background-color: honeydew"| $this.drugbank_ns:experimentalLogpHydrophobicity$
+|--
+|style="background-color: honeydew"| Predicted LogP Hydrophobicity: 
+|style="background-color: white"| $this.drugbank_ns:predictedLogpHydrophobicity$	
+|-
+|style="background-color: white"| Predicted Logs: 
+|style="background-color: honeydew"| $this.drugbank_ns:predictedLogs$
+|-
+|style="background-color: honeydew"| Experimental Water Solubility:
+|style="background-color: white"| $this.drugbank_ns:experimentalWaterSolubility$
+|-
+|style="background-color: white"| Predicted Water Solubility:
+|style="background-color: honeydew"| $this.drugbank_ns:predictedWaterSolubility$
+|-
+|style="background-color: honeydew"| pka Isoelectric Point:
+|style="background-color: white"| $this.drugbank_ns:pkaIsoelectricPoint$
+|-
+|style="background-color: white"| Melting Point:
+|style="background-color: honeydew"| $this.drugbank_ns:meltingPoint$
+|}
+
+<br/>
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:teal">Biological & Medical Data of ''$this.label$'' </span> ==
+
+<br/>
+
+{| class="sortable wikitable" style="width:100%; float:left; margin:0 0 0.5em 1em; font-size:95%;"
+|-
+!style="background-color: seagreen"| Property
+!style="background-color: seagreen" width 26%| Value
+|-
+|-
+|style="background-color: honeydew"| Affected Organism
+|style="background-color: white"| $this.drugbank_ns:affectedOrganism$
+|-
+|style="background-color: white"| Toxicity: 
+|style="background-color: honeydew"| $this.drugbank_ns:toxicity$
+|-
+|style="background-color: honeydew"| Half Life
+|style="background-color: white"| $this.drugbank_ns:halfLife$
+|-
+|style="background-color: white"| Enzyme:
+|style="background-color: honeydew"| $this.drugbank_ns:enzyme$
+|-
+|style="background-color: honeydew"| Biotransformation:
+|style="background-color: white"| $this.drugbank_ns:biotransformation$
+|-
+|style="background-color: white"| Absorption:
+|style="background-color: honeydew"| $this.drugbank_ns:absorption$
+|-
+|style="background-color: honeydew"| Indication:
+|style="background-color: white"| $this.drugbank_ns:indication$
+|-
+|style="background-color: white"| Food Interaction:
+|style="background-color: honeydew"| $this.drugbank_ns:foodInteraction$
+|}
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:darkslategray">Dosage Forms of ''$this.label$''</span> ==
+
+<br/>
+
+{{#widget: TableResult |
+query='SELECT ?DosageForm WHERE {
+?? <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/dosageForm> ?DosageForm . }'
+}}
+
+<br/>
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:darkred">Interaction drugs for ''$this.label$''</span> ==
+
+<br/>
+
+{{#widget: TableResult |
+query='SELECT ?Drug ?TypeOfInteraction WHERE { 
+?interaction <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/interactionDrug1> ?Drug. 
+?interaction <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/interactionDrug2> ?? . 
+?interaction <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/text> ?TypeOfInteraction }'
+}}
+
+<br/>
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:chocolate">MoleculeMass of Interaction drugs of ''$this.label$''</span> ==
+
+{{ #widget : BarChart
+  | input = 'Drug'
+  | output = {{ 'MolecularWeightAverage' }}
+  | query = '
+SELECT ?Drug ?MolecularWeightAverage WHERE {
+?interaction <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/interactionDrug1> ?Drug. 
+?interaction <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/interactionDrug2> ?? . 
+?Drug <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/molecularWeightAverage> ?MolecularWeightAverage }
+ORDER BY DESC(?MolecularWeightAverage)
+'
+  | type = 'BAR_CLUSTERED'
+  | historic = false
+}}
+
+<br/>
+
+== <span style="font-family:'Times New Roman',Times,serif; font-size: 150%; color:indigo">Experimental logP of Interaction drugs of ''$this.label$''</span> ==
+
+{{ #widget : LineChart
+  | input = 'drug'
+  | output = {{ 'logP' }}
+  | query = '
+SELECT ?drug ?logP WHERE { 
+?interaction <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/interactionDrug1> ?drug. 
+?interaction <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/interactionDrug2> ?? . 
+?drug <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/experimentalLogpHydrophobicity> ?logP  }
+ORDER BY DESC(?logP)
+'
+  | historic = false
+}}

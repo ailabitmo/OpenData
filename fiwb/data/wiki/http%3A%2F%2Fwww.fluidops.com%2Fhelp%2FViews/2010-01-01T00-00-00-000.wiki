@@ -1,0 +1,32 @@
+== Views and Navigation ==
+The user interface of the Information Workbench follows a resource-centric presentation scheme, i.e. every resource has exactly one page associated that displays resource-related data in a transparent way. Each such resource page offers four different views on the resource content. The view can be switched through the four navigation buttons on the left:
+
+<img src="../images/navigation/wiki_hover.png" />  <img src="../images/navigation/table_hover.png" />  <img src="../images/navigation/graph_hover.png" />  <img src="../images/navigation/pivot_hover.png" />
+
+The four views offer (partially overlapping) information related to the resource, while implementing different interaction paradigms, namely (i) a Semantic Wiki that allows to quickly edit and annotate resources, (ii) a table view that provides a good survey on available structured data and supports the completion of incomplete data, (iii) a graph view that visualizes the underlying data graph and is useful for browsing the data repository, and (iv) a Microsoft Pivot interface that allows to interactively explore the data set. The following subsections explain the characteristics and features of the different views in more detail.
+
+=== Semantic Wiki ===
+The Semantic Wiki<img src="../images/navigation/wiki_hover.png" /> view allows the user to create wiki-style documentation using standard wiki markup syntax, but also to create semantic links between resources in the database. It is particularly useful to add free-text documentation, possibly in combination with semantic annotations. Due to its prominent role, the wiki is described in more detail in the section [[Help:Wiki|Using the Semantic Wiki]].
+
+=== Structured Data View  ===
+The Triple Editor <img src="../images/navigation/table_hover.png" /> buttons are used.
+
+The data table, below, offers a tabular survey over all attributes of the current resource, including their values: the first column in the table contains the attribute and the second contains the value for each respective attribute.  On mouse over, the information button, <img src="../images/info.gif"  width="20px"/>, next to each value displays meta information for the data, including; how the data was entered, who entered the data, and when it was entered.  The editor splits data associated to a resource into groups, making the managing of the data much more easily.
+
+<br/>
+<img src="../images/help/TripleEditor-default.png"  width="950px"/>
+<br/><br/>
+
+By clicking the <img src="../images/help/TE-edit.png" /> button at the top of the page, the edit view is displayed.  The format of this is much the same as the data table view, with attributes and values displayed in the same format the difference is that values can be edited and properties can be removed or added.  Data that is read-only, i.e. can not be edited in any way is outlined by a red dotted box, data that is editable is highlighted by a black dotted box.  Data can be easily edited in this form in a very intuitive way.
+
+<br/>
+<img src="../images/help/TripleEditor-edit.png"  width="950px"/>
+<br/><br/>
+
+For more information about authoring semantic data with the triple editor please read the [[Help:TripleEditor|authoring semantic data]] section.
+
+=== Graph View ===
+The data graph <img src="../images/navigation/graph_hover.png" />  is a two-dimensional view on the data that displays all explicit links between the current resource and connected resources, where the link labels represents the type of connection. The active resource, which represents the current web page, is centered in the middle of the graph. The graph view does not only visualize the connections between data, but may also be used to navigate through the data: when clicking on some graph node, the page of the chosen resource is loaded.
+
+=== Pivot View  ===
+The Microsoft Pivot viewer <img src="../images/navigation/pivot_hover.png" /> opens up novel data interaction paradigms, allowing the effective exploration of large data-sets by filtering the results with faceted search, drilling down a heterogeneous intermediate result set by any attribute and grouping a result set by different aspects. The Pivot View is fed with data related to the current resource. We refer the interested user to [http://www.silverlight.net/learn/data-networking/pivot-viewer/pivotviewer-control] for downloading the Pivot browser plugin and more information about how to utilize the PivotViewer. PivotView can be used and configured as a standard widget on a wiki page. See [[Help:PivotWidget | PivotWidget]] for more details.

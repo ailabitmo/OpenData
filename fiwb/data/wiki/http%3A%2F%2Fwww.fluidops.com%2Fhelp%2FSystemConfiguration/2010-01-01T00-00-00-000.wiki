@@ -1,0 +1,3 @@
+== System Configuration ==
+
+The Information workbench can be configured by changing the config.prop file or, alternatively, using the Admin:Config page.  This page allows you to easily configure your installation, giving explanations on the page to help you achieve the effects you are looking for.

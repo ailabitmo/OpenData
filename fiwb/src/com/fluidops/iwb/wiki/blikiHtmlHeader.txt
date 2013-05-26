@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="alternate" type="application/rss+xml" title="Wikipedia RSS Feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=rss" />
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom Feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom" />
+
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "http://www.wikipedia.org/skins-1.5/common/shared.css?156";
+			@import "http://www.wikipedia.org/skins-1.5/monobook/main.css?156";
+		/*]]>*/</style>
+
+<script type="text/javascript" src="http://www.wikipedia.org/skins-1.5/common/wikibits.js?156"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+		<script type="text/javascript" src="http://www.wikipedia.org/skins-1.5/common/ajax.js?156"></script>
+		<script type="text/javascript" src="http://www.wikipedia.org/skins-1.5/common/mwsuggest.js?156"></script>
+		<script type="text/javascript" src="http://www.wikipedia.org/w/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+
+		<style type="text/css">/*<![CDATA[*/
+@import "http://www.wikipedia.org/w/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=2678400";
+@import "http://www.wikipedia.org/w/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=2678400";
+@import "http://www.wikipedia.org/w/index.php?title=-&action=raw&gen=css&maxage=2678400";
+/*]]>*/</style>

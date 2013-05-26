@@ -1,0 +1,25 @@
+==== Settings Files for LINE Charts ====
+
+===== line.default =====
+File available at: [[Settings:line.default | line.default]]
+Plot a single variable using a line diagram, values are connected by lines. Example:
+
+====== Example Chart ======
+<img src="../images/help/LINE-settings.PNG" width="1024px" />
+====== Code ======
+<source>
+{{
+#widget: LineChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$")
+    }
+    GROUP BY ?org'
+  | settings = 'Settings:line.default'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+}}
+</source>

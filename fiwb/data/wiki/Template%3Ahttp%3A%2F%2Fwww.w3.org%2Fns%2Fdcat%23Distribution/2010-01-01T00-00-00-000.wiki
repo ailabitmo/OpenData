@@ -1,0 +1,18 @@
+<span style="font-family:'Times New Roman',Times,serif; font-size: 300%">Dataset Distribution: $this.label$</span>
+
+{| class="sortable wikitable" style="width:100%; float:left; margin:2em 0 5em 0; font-size:95%;"
+|-
+!style="background-color: #89CFF0"| Property
+!style="background-color: #89CFF0" width 26%| Value
+|-
+|-
+|style="background-color: honeydew"| Distribution of
+|style="background-color: honeydew"| $dcat:distribution.this$
+|-
+|style="background-color: white"| Access dataset here
+|style="background-color: white"| $this.dcat:accessURL$
+|-
+|style="background-color: white"| Format
+|style="background-color: honeydew"| $this.dcterms:format$
+|-
+|}

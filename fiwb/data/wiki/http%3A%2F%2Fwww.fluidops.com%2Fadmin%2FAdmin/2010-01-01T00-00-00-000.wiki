@@ -1,0 +1,38 @@
+<div class="start">
+<h1> Administration [[Help:Admin | <img width="19" src="../images/navigation/help_start.png" />]] </h1>
+</div>
+On this page you can administer your Information Workbench installation.  If you are unsure how to perform a task consult the help pages, by clicking the question mark button next to the title.  Each page linked below has a similar button.
+
+<table class="start" style="border-spacing: 20px 20px; width:100%">
+
+	<tr>
+<td valign="top" cellspacing-left="20" style="width:50%;">
+<h2> Configuration </h2>
+<div>
+* [[Admin:Widgets|Widgets Configuration]]
+* [[Admin:Config|System Configuration]]
+* [[Admin:Namespaces| Namespace Configuration]]
+* [[Admin:UserManagement|User Management]]
+* [[Admin:Providers|Data Provider Setup]]
+* <a href="../status">System Status</a>
+
+</div></td>
+
+<td valign="top" cellspacing-left="20" style="width:50%;">
+<div>
+		<h2> 
+Data Management
+		</h2>
+* [[Admin:Backup|Database Backup]]
+* [[Admin:Import|Data Import]]
+* [[Admin:Export|Data Export]]
+* [[Admin:Cache|Manual Cache Invalidation]]
+* [[Admin:Upload|File Upload]]
+* [[Admin:WikiManagement|Wiki Management]]
+* [[history:History|Historical Data]]
+* [[Admin:ContentOverview|Content Overview Page]]
+* [[Admin:SpecialPages|Special Pages]]
+</div>
+
+	</tr>
+</table>

@@ -1,0 +1,54 @@
+=== LDAP All User Information Provider ===
+
+==== Functionality ====
+
+Imports user (objects of class organizationalPerson) information from an LDAP server. The user information includes account name, e-mail address, 
+registration time, last log on time etc.
+
+Go back to [[Help:Providers | Providers ]]
+
+==== Configuration Settings ====
+
+{| class="sortable wikitable" 
+|-
+!Parameter
+!Description
+!Required
+|-
+| Username
+| User name of the LDAP server administrator. Used to connect to the server and retrieve information for "all" users.
+| 
+|-
+| Password
+| Password of the LDAP administrator account.
+| 
+|-
+| host
+| Hostname of the LDAP server. 
+| &#10004;
+|-
+| port
+| Port of the LDAP server. Defaults to 389. 
+| 
+|-
+| root
+| Root-node below which user information is searched for. Typically something like o=<org>. 
+| &#10004;
+|-
+| customKey
+| LDAP attribute that is used for generation of a key that identifies an user. The key acts as subject in the 
+generated triples. Defaults to "sAMAccountName".  
+| 
+|}
+
+==== Example ====
+
+The LDAPAllUserInfoProvider is simple to set up as usual this process starts by navigating to Admin:Providers and selecting 'LdapAllUserInfo' from the list of providers.
+
+<img src="../images/help/LDAPProvider.png" width="384px" />
+
+There are several fields that must be filled in including the usual Identifier and Poll Interval fields, these can be filled in with any valid identifier (url) and integer respectively.
+
+The two important fields that must be filled in are 'host' and 'root'.  The value for 'host' must be the URL of the LDAP server that you want the information to be extracted from for example if your host is called "myHost" the value of server should be "ldap://myHost". 'root' is the root node under which the provider will search and extract information from.
+
+Optionally, if your LDAP server listens on a custom port (other than the default) this can be defined in 'port', the default value for this is 389.

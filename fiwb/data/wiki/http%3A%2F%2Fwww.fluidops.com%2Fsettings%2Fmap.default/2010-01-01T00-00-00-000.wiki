@@ -1,0 +1,35 @@
+<source lang="xml">
+<settings>
+  <redraw>true</redraw>                                       
+  <color_change_time_start>0.5</color_change_time_start> 
+  
+  <zoom>
+    <outline_color>DDDDDD</outline_color>
+    <min>50</min>
+    <background_zooms_to_top>true</background_zooms_to_top>
+  </zoom>
+  
+  <small_map>
+    <enabled>false</enabled>
+  </small_map>
+  
+  <navigation_path>
+    <enabled>false</enabled>
+  </navigation_path>
+  
+  <area>
+    <balloon_text>
+      <![CDATA[{value}]]>
+    </balloon_text>
+    <color_hover>#CC0000</color_hover>
+    <color_selected></color_selected>
+    <disable_when_clicked>true</disable_when_clicked>
+  </area>  
+  
+  <label>
+    <balloon_text>                                            
+      <![CDATA[]]>
+    </balloon_text>
+  </label>
+</settings>
+</source>

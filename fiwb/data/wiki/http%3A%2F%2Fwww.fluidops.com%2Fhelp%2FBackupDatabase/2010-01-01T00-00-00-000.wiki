@@ -1,0 +1,30 @@
+== Backup the Database ==
+The backup mechanism allows for saving the database at any time and restoring it when needed. You can save the history repository or the central database by selecting the type of backup. There is also an option to make a diagnostic feedback backup. The diagonstic backup will save the database, the history repository, wiki pages, config folder and the config.prop file. This can be kept for later use or downloaded for making a diagnose about the application. The backup functionality is available only in the Enterprise Edition.
+
+=== The Backup Page ===
+The Backup Database page is shown below.
+
+<img src="../images/help/DatabaseBackup/dbPage.png" width="950px" />
+
+=== The Backing Up Process ===
+
+The backup process is fairly straight forward.  
+
+Step 1. The first step is to select the database which will be backed up from the menu, 
+
+<br/>
+<img src="../images/help/DatabaseBackup/selectDatabase.png" />
+<br/>
+
+as stated above there are two possible databases that can be backed up;
+
+# dbmodel : the main database where imported and authored triples are stored.
+# historymodel: database that stores the historical data that is created by the historical data provider.
+
+We select dbmodel.
+
+Step 2.  Click the 'Backup' button.  The backup of the database will now be available and can be used in future to restore the database to the current state or be downloaded as a .trig file.
+
+<img src="../images/help/DatabaseBackup/AvailableBackups-populated.png" width="1000px" />
+
+The same process can be completed for 'Full Backups' which save all data, pages and configuration of the Information Workbench.

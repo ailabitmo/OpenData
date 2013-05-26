@@ -1,0 +1,158 @@
+==== Settings Files for Stock Charts ====
+
+===== Settings:stock.line =====
+Setting file available at: [[Settings:stock.line | Settings:stock.line]]
+Plot a single variable over time using a line diagram, values are connected by lines. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/STOCK-settings/SettingsStockLine.PNG" width="1024px" />
+
+
+====== Code ======
+<source>
+{{ #widget : StockChart
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?start WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant . 
+      ?role <http://research.data.gov.uk/def/project/project> ?project . 
+      ?project <http://purl.org/stuff/project/startDate> ?start . 
+      ?role <http://research.data.gov.uk/def/project/region> ?region . }
+    GROUP BY ?start'
+  | lineType = 'step'
+  | input = 'start'
+  | output = {{ 'sumGrant'}}
+  | settings = 'Settings:stock.line'
+}}
+</source>
+
+===== Settings:stock.step =====
+Setting file available at: [[Settings:stock.step | Settings:stock.step]]
+Plot a single variable that counts an entity; points are connected, but with a step scheme, i.e. no increasing/decreasing lines. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/STOCK-settings/SettingsStockStep.PNG" width="1024px" />
+
+====== Code ======
+<source>
+{{ #widget : StockChart
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?start WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant . 
+      ?role <http://research.data.gov.uk/def/project/project> ?project . 
+      ?project <http://purl.org/stuff/project/startDate> ?start . 
+      ?role <http://research.data.gov.uk/def/project/region> ?region . }
+    GROUP BY ?start'
+  | lineType = 'step'
+  | input = 'start'
+  | output = {{ 'sumGrant'}}
+  | settings = 'Settings:stock.step'
+}}
+</source>
+
+===== Settings:stock.countdaily =====
+
+Setting file available at:[[Settings:stock.countdaily | Settings:stock.countdaily]]
+Plot a single variable that counts an entity; points are connected, but with a step scheme, i.e. no increasing/decreasing lines. Values are aggregated on a daily basis. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/STOCK-settings/SettingsStockCountdaily.PNG" width="1024px" />
+
+====== Code ======
+<source>
+{{ #widget : StockChart
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?start WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant . 
+      ?role <http://research.data.gov.uk/def/project/project> ?project . 
+      ?project <http://purl.org/stuff/project/startDate> ?start . 
+      ?role <http://research.data.gov.uk/def/project/region> ?region . }
+    GROUP BY ?start'
+  | lineType = 'step'
+  | input = 'start'
+  | output = {{ 'sumGrant'}}
+  | settings = 'Settings:stock.countdaily'
+}}
+</source>
+
+===== Multiple Variables in One Graph =====
+
+====== Settings:stock.multi.line ======
+Setting file available at:[[Settings:stock.multi.line | Settings:stock.multi.line]]
+Plot up to five variables over time using a line diagram, values are connected by lines. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/STOCK-settings/SettingsStockMultiline.PNG" width="1024px" />
+
+
+====== Code ======
+
+<source>
+{{ #widget : StockChart
+  | query = 'SELECT ?start
+         (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grantLondon)) AS ?sumLondon)
+         (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grantWales)) AS ?sumWales) 
+         (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grantSouthEast)) AS ?sumSouthEast) WHERE { 
+     ?role rdf:type research:ProjectRole .
+     ?role research:project ?project .
+     ?project purl:startDate ?start . 
+     {
+     ?role research:region <http://research.data.gov.uk/regions/rda/London> .
+     ?role research:grant ?grantLondon .
+     }
+     UNION
+     {
+     ?role research:region <http://research.data.gov.uk/regions/rda/Wales> .
+     ?role research:grant ?grantWales .
+     }
+     UNION
+     {
+     ?role research:region <http://research.data.gov.uk/regions/rda/SouthEast> .
+     ?role research:grant ?grantSouthEast .
+     } }
+     GROUP BY ?start'
+  | input = 'start'
+  | output = {{ 'sumLondon' | 'sumWales' | 'sumSouthEast' }}
+  | settings = 'Settings:stock.multi.line'
+}}
+</source>
+
+
+===== Settings:stock.multi.landscape =====
+Setting file available at: [[Settings:stock.multi.landscape | Settings:stock.multi.landscape]]
+Plots up to five variables in a stacked diagram. Example:
+
+====== Example Chart ======
+<img src="../images/help/STOCK-settings/SettingsStockMultiLandscape.PNG" width="1024px" />
+
+====== Code ======
+<source>
+{{ #widget : StockChart
+  | query = 'SELECT ?start
+         (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grantLondon)) AS ?sumLondon)
+         (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grantWales)) AS ?sumWales) 
+         (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grantSouthEast)) AS ?sumSouthEast) WHERE { 
+     ?role rdf:type research:ProjectRole .
+     ?role research:project ?project .
+     ?project purl:startDate ?start . 
+     {
+     ?role research:region <http://research.data.gov.uk/regions/rda/London> .
+     ?role research:grant ?grantLondon .
+     }
+     UNION
+     {
+     ?role research:region <http://research.data.gov.uk/regions/rda/Wales> .
+     ?role research:grant ?grantWales .
+     }
+     UNION
+     {
+     ?role research:region <http://research.data.gov.uk/regions/rda/SouthEast> .
+     ?role research:grant ?grantSouthEast .
+     } }
+     GROUP BY ?start'
+  | input = 'start'
+  | output = {{ 'sumLondon' | 'sumWales' | 'sumSouthEast' }}
+  | settings = 'Settings:stock.multi.landscape'
+}}
+</source>
+

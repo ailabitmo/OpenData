@@ -1,0 +1,2 @@
+== $this.mondial:name$ ==
+Type of government: $this.mondial:government$

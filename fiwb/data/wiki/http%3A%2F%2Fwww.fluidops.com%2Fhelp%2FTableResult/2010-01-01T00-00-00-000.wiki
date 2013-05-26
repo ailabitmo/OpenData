@@ -1,0 +1,179 @@
+=== Table Result Widget ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.TableResultWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.TableResultWidget
+}}
+
+===== Supported Predicates for Image Embedding =====
+
+{|class="wikitable sortable"
+|-
+!Supported predicates
+|-
+| foaf:img
+|-
+| thumbnail (dbpedia:thumbnail)
+|- 
+| foaf:logo
+|-
+| foaf:depiction
+|-
+| foaf:thumbnail
+|}
+
+
+===== Supported Datatypes for Column Configurations =====
+
+{| class="sortable wikitable" 
+|-
+!Argument
+!Description
+|-
+| xsd:boolean || Values in this column are sorted as booleans.
+|-
+| xsd:decimal || Values in this column are sorted as decimals.
+|-
+| xsd:double || Values in this column are sorted as doubles.
+|-
+| xsd:float || Values in this column are sorted as floats.
+|-
+| xsd:integer || Values in this column are sorted as integers.
+|-
+| xsd:string || Values in this column are sorted according to string order.
+|}
+
+
+==== Example ====
+
+<source>
+{{
+#widget: TableResult
+| query = 'SELECT ?resource ?type WHERE { ?resource rdf:type ?type } LIMIT 10'
+}}
+</source>
+
+<img src="../images/help/TableResult.PNG" width="1024px" />
+
+
+This is the body of a TableResult widget, which displays the query in tabular form. In the example above, we give one key-value pair, namely the query string (key query). The query string contains the SPARQL query that is evaluated against the repository; here, we use a simple SPARQL query that extracts 10 typed resources including their types.
+
+===== Image Embedding =====
+
+Resources and values returned in a TableResult widget may also be displayed as images. There are different ways to incorporate this feature for resources and values of datatype properties.
+
+In the first case we assume, that we want to display the value of a datatype property by an image instead of a character string. Please note, that only values of the type String may be replaced in this way. Whenever such a specific value is returned in a TableResult widget, it is displayed as a picture instead of a character string. For a brief example add the following datatype property to any wikipage.
+
+{| border="1"
+|-
+!scope="col"| Predicate
+!scope="col"| Value
+|-
+| IWB 
+| InformationWorkbench
+|}
+
+Then incorporate the TableWidget definition below into the page to query the datatype property you have just entered.
+
+<source>
+{{
+#widget: TableResult
+ | query = 'SELECT * WHERE { ?? ?p ?o }'
+ | imageFile = 'images.prop'
+}}
+</source>
+
+The table displayed resolves the Literal ''InformationWorkbench'' into the Information Workbench logo. Including the line '' | imageFile = 'images.prop' '' enables this feature. ''images.prop'' is a file located in the ''config'' folder of your Information Workbench installation. Of course you can specify any property file here. This property file is also the starting point, if you want to embed your own images in a TableResult widget. Open ''images.prop'' to get an overview of all Literals, which are currently resolvable by images. There will be a line reading
+
+<source>
+InformationWorkbench=/images/iwb_logo.png
+</source>
+
+On the left side of the equal sign you specify the Literal, which is resolved, and on the right side the location of the image by which it is replaced. You can reference image files by relative path names. Pictures can either be referenced from ''../fiwb/webapps'' or ''../fiwb/webapps/ROOT''. It is also possible to provide full pathnames. This can be useful, if you want to display an image, which is located on a specific Internet site.
+
+<source>
+UsainBolt=http://upload.wikimedia.org/wikipedia/commons/c/c3/Usain_Bolt_smiling_Berlin_2009.JPG
+</source>
+
+You can also reference images by using the local address of your Information Workbench. If you run Information Workbench on you local computer, you could reference its logo also by including the line
+
+<source>
+InformationWorkbench=http://localhost:8888/images/iwb.png
+</source>
+
+in your image property file.
+
+The second possibility of displaying images is substituting a resource represented by a character string with a picture. In this case the resource must be associated to an image via an object property. You can find a list of supported predicates in the ''Configuration Settings'' section. If this is the case, a resource can be displayed as image by including the line ''| imageByProperty = 'true'' in the widget. Try out the following example. Add these object properties to any wiki page.
+
+{| border="1"
+|-
+!scope="col"| Predicate
+!scope="col"| Value
+|-
+| rdf:type || ImageTestPage
+|-
+| thumbnail || http://upload.wikimedia.org/wikipedia/commons/c/c3/Usain_Bolt_smiling_Berlin_2009.JPG
+|}
+
+Then include the widget definition below into the wiki page.
+
+<source>
+{{
+#widget: TableResult
+ | query = 'SELECT ?this WHERE { ?this rdf:type :ImageTestPage }'
+ | imageByProperty = 'true'
+}}
+</source>
+
+Your page should now contain a table having one entry displaying Usain Bolt.
+
+===== Value Resolver =====
+
+The TableResult widget is also able to convert property values into another format. We will explain this feature by resolving a UNIX time stamps into a human readable date. The next example can be included on an arbitrary wiki page. First, add the property date with an UNIX time stamp to the wiki page for example by adding the line 
+
+<source>
+[[date:=1294743512]]
+ </source>
+
+in the Edit Tab of Wiki View. Then incorporate the following widget definition into the page.
+
+<source>
+{{
+#widget: TableResult
+ | query = 'SELECT ?date WHERE { ?? :date ?date }'
+ | valueResolver = 'date=S_TIMESTAMP2DATE'
+}}
+</source>
+
+The widget returns the value for the predicate date specifically related to this page and translates the UNIX timestamp using seconds. The command ''valueResolver'' does the actual conversion. Here we specify which variable is supposed to be translated by which transformation. Arguments may be provided in a comma separated list, if you want to convert multiple result variables. For other supported translations have a look at the [[ Help:ValueResolvers | Value Resolver ]] section.
+
+===== Column Configurations =====
+
+Columns in a table result can be optionally configured with custom display values for column names and sort orders. These sort orders are only applied when a user clicks on the respective column. Initially, when the page is loaded in the browser the sort order is determined by the order in the SPARQL query result.
+An example how sort orders and column display values can be specified is given in the following:
+
+<source>
+{{ #widget : TableResult
+   | query = 'select ?object ?lat ?lng 
+              where {
+                ?object :latitude  ?lat.
+                ?object :longitude ?lng.
+              }' 
+   | columnConfiguration = {{
+                             {{variableName='object' | columnName='Name of Location'}} |
+                             {{variableName='lat'    | datatype='xsd:double'}} |
+                             {{variableName='lng'    | columnName='Longitude'  | datatype='xsd:double'}}
+                           }}
+}}
+</source>
+
+The variable ''object'' from the query is associated with the column name "Name of Location", i.e. the column title is displayed as "Name of Location". For the variable ''lat'', only a sort order according to the datatype ''xsd:double'' is specified.
+The variable ''lng'' is associated with both a display value and a sort order according to ''xsd:double''.

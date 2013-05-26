@@ -1,0 +1,80 @@
+==  File Management ==
+
+<img src="../images/help/FileUpload.png" width="1024px" />
+
+
+=== Uploading Files ===
+You can upload files into the Information Workbench or manage your uploaded files using theВ 
+[[Admin:Upload | file upload page]].В 
+
+# Prepare the file(s) for upload.
+# Click "Choose" (just below the dropdown box for the extractors).
+# Choose the files you want to upload into the Information Workbench in the "Choose" dialogue. You may select several files at a time for upload.
+# Click "Open" and the selected files are automatically uploaded to the server.
+# Depending on the size of your files to be uploaded, this step may take a while.
+
+Additionally you can select an extractor. Extractors are used to compute metadata from your uploaded files. 
+* The Basic extractor works on any file-type and extract minimal metadata like the filename and an upload timestamp.
+* [http://openup.tso.co.uk/ OpenUp] and [http://www.temis.com/ Luxid] extractors work on files of the following file types: 
+** .pdf (requires additional libraries) 
+** .docx
+** .pptx
+** .html
+** .txt
+In every case, text is extracted from your files and forwarded to the corresponding web service. The metadata returned by these services is stored in the local store. The system needs to be properly configured to use these services. See the [[Help:Configuration | configuration help page]] for the relevant parameters.
+
+=== Overview of Uploaded Files ===
+
+Below the controls to upload new files the file upload page lists all files that you have uploaded into the Information Workbench along with:
+
+* a link to the associated resource (only links to a meaningful page if the ''Basic Extractor'' was used),
+* the media type,
+* a last modification timestamp,
+* the size,
+* a link to download the file,
+
+
+=== Deleting Uploaded Files ===
+
+The delete button below the table along with the checkboxes in the left-most column can be used to delete individual files.
+
+=== Using Uploaded Files in a Wiki Page ===
+
+==== Embedding Images ====
+
+If you want to embed uploaded images into your pages you can also use the general  [ http://www.mediawiki.org/wiki/Help:Images media wiki syntax ]. This would be probably the best way to display images that you have uploaded using the [[Admin:Upload | File Upload UI]]. E.g. if the name of your uploaded image is ''DemoImage.png'' you can embed this file as an image (you can use the image symbol from the editor menu for assistance) like this:
+<source>
+[[File:DemoImage.png]]
+</source> 
+
+==== Linking Other Types of Files  ====
+
+A central feature has considerably contributed to the success of wikis is the possibility to interlink information. While classical wikis are restricted to support simple (internal and external) HTML links, the Semantic Wiki that is integrated in the Information Workbench also allows users to annotate resources and to create semantically meaningful associations between entities, so-called semantic links. As a benefit compared to classical links, these semantic annotations and associations are stored directly in the database, together with the remaining structured information, and are later considered when answering structured queries over the data.
+
+
+===== Classical Links =====
+Syntactically, standard (non-semantic) links are created by enclosing the name of the uploaded file we want to link to into squared brackets:
+
+<pre>More information can be found in [[File:DemoText.txt]].</pre>
+
+This text is then translated into the following HTML code: ''More information can be found in [[File:DemoText.txt]].''
+
+It is also possible to change the text that is displayed, by separating it with a | symbol:
+
+<pre>More information can be found in [[File:DemoText.txt|this document]].</pre>
+
+The latter variant of the link yields the following HTML code (which links to exactly the same location as in the previous example): ''More information can be found in [[File:DemoText.txt|this document]].''
+
+A comprehensive description of other link types (like page-internal or wiki-external links) is beyond the scope of this manual, but can be found on the MediaWiki links help page at [http://www.mediawiki.org/wiki/Help:Links www.mediawiki.org/wiki/Help:Links].
+
+
+===== Semantic Links =====
+In contrast to classical HTML links, semantic links differ in that they carry a label that identifies the type of link. To give some examples, semantic links may be used to type resources or to add missing information (like connections between hardware resources that are not detected by the data providers). Fitting in the underlying RDF data model, the idea (and also major benefit) of semantic wikis is that such semantic links can be integrated into the database, so that the information immediately becomes accessible and queryable.
+
+Creating a semantic link is simple. All that needs to be known is the name of the attribute and the value we want to link to. As an example, let us assume we want to create a semantic link that links to associated help topics in an uploaded file. Further let us assume, the property we want to use for such a link is called ''relatedTo''. Then the semantic link can be created as follows:
+
+<pre>This Wiki page is related to the file [[relatedTo::File:DemoText.txt]].</pre>
+
+This text translates into the following HTML: ''This Wiki page is related to the file [[relatedTo::File:DemoText.txt]].'' 
+
+The interesting thing here is that, when saving this Wiki page, the semantic link will be stored in the database. In particular, when changing from the Wiki view to the structured data view (the second button at the left), you can observe that there is now an entry in the table displaying the information that this page is related to  [[File:DemoText.txt]]. This makes it possible to query this data later on, e.g. to extract all pairs of help pages and files that are related to each other.

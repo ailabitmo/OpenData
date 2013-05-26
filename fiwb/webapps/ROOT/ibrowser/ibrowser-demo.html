@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>IBrowser Graph Demo</title>
+        <script src="raphael-min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="ibrowser.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+
+    <body onLoad='javascript:drawGraph("holder",1280,1024,"Solar System\nfr: Système solaire\nde: Sonnensystem",
+    	new Array(
+    	{"text":"Mars","rel":"isPlanetOf"},
+    	{"text":"Earth","rel":"isPlanetOf"},
+    	{"text":"Jupiter","rel":"isPlanetOf"},
+    	{"text":"Saturn","rel":"isPlanetOf"},
+    	{"text":"Neptune","rel":"isPlanetOf"},
+    	{"text":"Halley","rel":"isCometOf"}),
+    	new Array({"text":"Sun","rel":"hasCentralInstance"},
+    	{"text":"Supernova","rel":"willHappenSoon"}))'>
+        <p>Below you should see a graph showing facts about the solar system</p>
+        <div id="holder"></div>
+    </body>
+    
+</html>

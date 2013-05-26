@@ -1,0 +1,1961 @@
+<% response.setContentType( "text/css" ); %>/*
+body{
+	font-family: Trebuchet MS, Lucida Sans Unicode, Arial, sans-serif;
+	font-size: 12px;
+}*/
+
+/*
+p{
+	margin-bottom:0px;
+	font-weight:normal;
+	font-size: 12px;
+}*/
+
+/* styles for checkbox label FCheckBox */
+
+
+.cb_enabled span{
+    
+}
+
+.cb_disabled span{
+    color: grey;
+}
+
+
+/* table styles */
+.flTable
+{
+	background: #fff;
+	cursor: pointer;
+/*	font-family:arial; */
+	font-size:11px;	
+
+	/* make sure to inherit all size settings of the parent div */
+	width: 100%;
+	min-width: inherit;
+	height: inherit;
+	min-height: inherit;		
+}
+	
+.flTable thead, .flTable tbody
+{
+	position: relative;
+}
+	
+.flTable td
+{
+	margin:0px;
+	padding:1px;
+	border-bottom:1px solid #ccc;		
+	border-right:1px solid #ccc;
+	
+	/* For IE 6:
+	   use with care! Will slow down everything dramatically. */
+	/* hover:expression(this.onmouseover=new Function("this.style.background='#cea';"),this.onmouseout=new Function("this.style.background='#ffffff';")); */				
+}
+
+.flTable th
+{
+	margin:0px;
+	padding:2px;
+	border-bottom:3px solid #888;
+	border-right:1px solid #888;
+	background-color: #444;	
+	color: white;		
+
+	/* For IE 6:
+	   use with care! Will slow down everything dramatically. */
+	/* hover:expression(this.onmouseover=new Function("this.style.background='#693';"),this.onmouseout=new Function("this.style.background='#262';")); */				
+}
+
+.flTable th:hover
+{
+	background-color: #aaa;		
+}
+
+.flTable caption
+{
+	margin:0px;
+	padding:5px;
+	background-color: #435370;
+	color: white;	
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.flAutoComplete
+{
+
+}
+	
+.flAutoComplete div
+{
+	background:#FFFFFF none repeat scroll 0%;
+	border:1px solid #aca;	
+	/* overflow:hidden; */
+	overflow-x: hidden;
+	overflow-y: auto;
+	position:absolute;
+	width:300px;
+	z-index:9050;
+}
+
+.flAutoComplete ul
+{
+	margin:0pt;
+	padding:0pt;
+	width:100%;
+	max-height:400px;
+}
+
+.flAutoComplete li
+{
+	cursor:default;
+	margin:0pt;
+	padding:2px 5px;
+	white-space:nowrap;
+	
+	/* For IE 6:
+	   use with care! Will slow down everything dramatically. */
+	/* hover:expression(this.onmouseover=new Function("this.style.background='#cea';"),this.onmouseout=new Function("this.style.background='#ffffff';")); */				
+}
+
+.flAutoComplete li:hover
+{
+	background: #cea;
+}
+
+/**
+* basic tree component FTree
+*/
+.flTree
+{
+
+}
+
+.flTree div
+{
+
+}
+
+/**
+* child element of the FTree
+*/
+.flTree TABLE.flTreeElement
+{
+	font-family:arial;
+	font-size: 1em;
+	padding: 0;
+	border: none;
+	border-spacing: 0;
+}
+
+.flTree td
+{
+	width: auto;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.flTree a:link {text-decoration:none;}
+
+.flTree a:visited {text-decoration:none; }
+
+.flTree a:hover {text-decoration:underline; cursor: hand;}
+
+/* not used (yet) */
+.flTree a.folder
+{
+	font-family=arial;
+	font-size: 9pt;
+	padding:0px;
+	font-family : cursive;
+}
+
+/* not used (yet) */
+.flTree a.leaf
+{
+	font-family : cursive;
+	padding:0px;
+	cursor: hand;
+	font-size : 9pt;                             
+}
+
+/* Tabs -- TODO: clean up / renaming required! */
+.flTab
+{
+}
+
+.flTab > ul
+{
+	font-size: 11px;
+	font-weight: bold;
+	list-style-type: none;
+	cursor: pointer;
+}
+
+.flTab .flTabActive
+{
+	color: #fff;
+}
+
+.flTab > ul > li
+{
+	display: inline;
+	color: #000;
+	padding: 4px;
+}
+	
+.flTabContent
+{
+	padding: 12px;
+}
+
+.flFactMenuIcon
+{
+	text-decoration: none;
+	color: black;
+}
+
+.flFactMenuIcon span.flFactMenuIconSpan
+{
+	visibility: hidden;
+}
+
+.flFactMenuIcon:hover span.flFactMenuIconSpan
+{
+	visibility: visible;
+	color: blue;	
+}
+
+.flModalDialogBackground
+{
+	background: #888 none repeat scroll 0%;
+	height: 100%; width: 100%;
+	bottom: 0px; top: 0px; right: 0px; left: 0px;
+	z-index: 200;
+	opacity: 0.5;
+	filter:alpha(opacity=50);
+	position: fixed;
+	display: block;	
+}
+/*
+*	Positioning and coloring of popup window
+*/
+.flDialog
+{
+	border: 1px solid #000000;
+	z-index: 900; /* popup over navigation bar (z, but under loading icon (z-index 999) */
+
+	top: 5%;
+	left: 60%;
+	width: 33%;
+	/*	height: 80%; */
+	/*	right: 25%; */
+	/*	bottom: 25%; */
+			
+	margin-left:auto;
+	margin-right:auto;
+	padding-top:0;
+	position: absolute;
+	text-align:left;
+	/*	overflow-y: scroll; */
+	/*	overflow-x: hidden; */
+	
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	
+	
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);;
+    moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);;
+    webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);;
+}
+
+.flDesktopWindow
+{
+	background: #f8f8f8 none repeat scroll 0%;
+	border: 2px solid #aaa;
+	z-index: 201;
+			
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:1em;
+	padding-top:0;
+	text-align:left;
+	/*	overflow-y: scroll; */
+	/*	overflow-x: hidden; */
+}
+
+/*
+* Header of popupwindow
+*/
+.flDialogHeader
+{
+	background-color:#435370;
+	background:-moz-linear-gradient(top, #9EACBF, #4E6382);
+	background:-webkit-gradient(linear, left top, left bottom, from(#667D9D), to(#4E6382)); /* Safari, Chrome */
+	
+	color:#FFFFFF;
+	font-size:12px;
+	font-weight:bold;
+	padding:10px 20px;
+	border-bottom: 1px solid black;
+	
+	border-radius: 10px 10px 0px 0px;
+	-moz-border-radius: 10px 10px 0px 0px;
+	-webkit-border-radius: 10px 10px 0px 0px;
+}
+
+/*
+*	Content of popup window
+*/
+.flDialogContent
+{
+	padding:20px;
+	/*	position: absolute; */
+	overflow: auto;
+	background:#ffffff;
+	background:-moz-linear-gradient(top, #F5F6F8, #B0BBCC);
+	background:-webkit-gradient(linear, left top, left bottom, from(#F5F6F8), to(#B0BBCC)); /* Safari, Chrome */
+	
+	border-radius: 0 0 10px 10px;
+	-moz-border-radius: 0 0 10px 10px;
+	-webkit-border-radius: 0 0 10px 10px;
+	
+}
+
+/*
+*	Form of popup window
+*/ 
+.flDialogContent fieldset{
+	border-radius: 5px; 
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid lightgrey;
+	padding: 15px;
+	
+}
+
+.flDialogContent input{
+	color:#444
+	
+}
+.flDialogContent input[type=button]{
+	color:#000
+}
+/*
+* 	Close button (x in header)
+*/
+.flDialogCloseButton a div{
+	position:absolute;
+	right:15px;
+	top:8px;
+	visibility:visible;
+	width:19px;
+	height:19px;
+	cursor:pointer;
+	background-image:url('<%=request.getContextPath()%>/ajax/icons/cb.png');
+}
+.flDialogCloseButton a div:hover{
+	background-image:url('<%=request.getContextPath()%>/ajax/icons/cb2.png');
+}
+
+.flWikiContent, .toc
+{
+	background-color:#F9F9F9;
+	border:1px solid #AAAAAA;
+	font-size:95%;
+	padding:5px;
+	padding-right: 1.5em;
+	margin-bottom: 0.5em;
+}
+
+.flWikiContent p
+{
+	font-weight: bold;
+}
+
+.flWikiContent ul, .toc ul
+{
+	list-style-image:none;
+	list-style-type:none;
+	text-align:left;
+	padding-left: 1.5em;
+}
+
+.type-thumb
+{
+	background-color:#F9F9F9;
+	border:1px solid #AAAAAA;
+	font-size:95%;
+	padding:5px;
+	margin-bottom: 0.5em;
+}
+
+.flWikiImageRight, .location-right, .location-none
+{
+	clear:right;
+	float:right;
+	margin-left: 0.5em;
+}
+
+.flWikiImageLeft, .location-left
+{
+	clear:left;
+	float:left;
+	margin-right: 0.5em;
+}
+
+
+.flDiffDelete1, .flDiffChange1
+{
+	background-color: #f88;
+}
+
+.flDiffMove1, .flDiffMoveTo2
+{
+	background-color: #cff;
+}
+
+.flDiffInsert2, .flDiffAppend2, .flDiffChange2
+{
+	background-color: #8f8;
+}
+
+.flDiffMatch1, .flDiffMatch2
+{
+	background-color: #ffc;
+}
+
+
+.tlabel
+{
+	background-color:#435370;
+	color:#FFFFFF;
+	font-weight:bold;
+	padding:5px 16px 5px 6px;
+}
+
+.trow
+{
+
+}
+
+.tleftcell
+{
+	background-color:#DDDDDD;
+	/*	padding-left: 8px; */
+	/*	padding-top: 4px; */
+	width: 25%;
+	vertical-align: top;
+	border-bottom-color:#999999;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+}
+
+.trightcell
+{
+	/*	padding-bottom: 4px; */
+	/*	padding-top: 4px; */
+	background-color: #FFFFFF; 
+	width: 75%;
+	vertical-align: top;
+	border-bottom-color:#999999;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+}
+
+/**
+ * Defines the CSS styles for the web desktop / layout manager.
+ *
+ * @author Uli
+ **/
+.flWindowOpaque
+{
+	opacity: 0.75;
+	filter:alpha(opacity=75);
+}
+
+.flWindowPlaceholder
+{
+	background: #eee none repeat scroll 0%;
+	border: 2px dashed #888;
+	margin-bottom: 1em;
+}
+
+.flResizer
+{
+	border: 2px dashed #ccc;
+	margin: 0;
+}
+
+.flWindowHeader {
+	/*background: url(sbhead-r.png) no-repeat top right;*/
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.flWindowHeader h2 {
+	/*background: url(sbhead-l.gif) no-repeat top left;*/
+	margin: 0;
+	color: white; 
+	font-weight: bold; 
+	font-size: 1.2em; 
+	line-height: 1em;
+	text-shadow: rgba(0,0,0,.4) 0px 2px 5px; /* Safari-only, but cool */
+}
+.flWindowContent {
+	/*background: url(sbbody-l.gif) no-repeat bottom left;*/
+	margin: 0;
+	padding: 5px 0 0;
+	width: 100%;
+}
+.flWindow, .flWindowOpaque {
+	margin: 0;
+	/*background: url(sbbody-r.png) no-repeat bottom right;*/
+	font-size: 100%;
+}
+
+/****************************************************************************
+ * 
+ *  Necessary style classes for FTable2 component (FTable2)
+ *   
+ ****************************************************************************/
+
+.keywordHighlighting {
+    background-color: #ffd700;	
+}
+
+.container
+{
+	border: 1px solid #e9e9e9;
+}
+
+.flTable2 {
+    width:           100%;
+    padding:         0 5px;
+    text-align:      left;
+    overflow:        hidden;
+    border-collapse: collapse;
+    font-size:       1em;
+    min-width:  inherit;
+    height:     inherit;
+    min-height: inherit;
+}
+
+.flTable2.highlightrow tr:hover {
+	background-color: #dde;
+}
+
+    
+.flTable2 td {
+    padding: 2px 5px;
+}
+
+
+.flTable2 th {
+    border-collapse:    collapse;
+    border:             0;
+    background:         url('<%=request.getContextPath()%>/ajax/icons/table_head.gif') repeat-x;
+    color:              #0f3f6d;
+    font-weight:        bold;
+    cursor:             default;
+    margin:             0px;
+    text-align:         left;
+    border-right:       1px solid #e9e9e9 !important;
+    padding:            0 5px 0 5px;
+}
+
+.flTable2.sortable th:hover {
+    cursor: pointer;    
+}
+
+.flTable2 caption {
+    margin:0px;
+    padding:5px;
+    background-color: #435370;
+    color: white;   
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.flTable2.sortable th.unsorted .label {
+   background:        transparent url('<%=request.getContextPath()%>/ajax/icons/sort_arrow_undecided.gif') no-repeat right;
+}
+
+.flTable2.sortable th.sortasc .label{
+   background:        transparent url('<%=request.getContextPath()%>/ajax/icons/sort_arrow_up.gif') no-repeat right;
+}
+
+.flTable2.sortable th.sortdesc .label {
+   background:        transparent url('<%=request.getContextPath()%>/ajax/icons/sort_arrow_down.gif') no-repeat right;
+}
+
+.flTable2 .label {
+    display:block;
+    position:relative;
+    width:100%;
+    padding: 2px 0px 2px 0px;
+}
+
+.flTable2 .splitter {
+    background:transparent none repeat scroll 0 0;
+    float:left;
+    height:15px;
+    margin-bottom:-2px;
+    margin-right:0px;
+    margin-top:0px;
+    margin-left:-6px;
+    position:relative;
+    width:1px;
+    cursor: col-resize;
+    background-color: #f2f2f2;
+    border-right: 1px solid #b0b0b0;
+    z-index:1;
+    
+}
+
+.flTable2.resizeable .splitter:hover {
+    cursor: e-resize;
+}
+
+.tablefoot .nItems {
+    float:left;
+	padding-left:10px;
+}
+
+.flTable2 table{
+    font-size: inherit;
+    padding: inherit;
+    text-align: inherit;
+}
+
+.tablefoot {
+	width: 100%;
+    border: 1px solid #e9e9e9;
+    height: 15px;
+    background-color: #eee;
+    padding: 0px;
+    font-size: 9px;
+    height: 24px;
+    margin-top: -1px;
+    width: inherit;
+
+    border-width: 1px;
+    border-style: solid;
+    border-right-color: #8A8A8A;
+    border-bottom-color: #A3A3A3;
+    border-left-color: #DADADA;
+    border-top: none;
+    border-spacing: 0;
+    border-collapse: separate;
+    
+    background-image: url('<%=request.getContextPath()%>/ajax/icons/silver_thead_2.png');
+    background-repeat: repeat-x; 
+}
+
+.tablefoot .leftBlock {
+    float: left;
+    margin: 0px;
+}
+
+.tablefoot .rightBlock {
+    float: right;
+    margin-right: 3px;
+}
+.tablefoot .rightBlockInput{
+	margin-top:1px;
+}
+.tablefoot .rightBlockFilter{
+	padding-top:7px;
+}
+
+.tablefoot .rightBlockFilterIcon{
+	margin-top:4px;
+}
+.tablefoot input {
+	font-size:9px;
+    background:transparent none repeat scroll 0 0;
+    border: 0;
+    margin:0;
+    padding:0 1px;
+    text-align:center;
+    vertical-align:center;
+    color: #000000 !important;
+    font-family: Arial !important;
+}
+
+.tablefoot .inp {
+    width: 20px;
+}
+
+.tablefoot .inp:focus, .tablefoot .inpFocus, .tablefoot .nItems .inp {
+    background: white;
+    border: 1px solid #cccccc !important;
+}
+
+.tablefoot select {
+    font-size:9px;
+    height:12px;
+    margin:0;
+    padding:0 1px;
+    color: #000000 !important;
+    font-family: Arial !important;
+}
+
+.tablefoot .tableControlFirstPage, .tablefoot .tableControlPrevPage, .tablefoot .tableControlNextPage, .tablefoot .tableControlLastPage {
+	background-repeat: no-repeat;
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+	margin: 0 1px;
+	background-image: url('<%=request.getContextPath()%>/ajax/icons/tablecontrol.png');
+	background-color: #CACACA; /* default background of table navigation buttons */
+}
+
+
+.tablefoot .tableControlFirstPage {
+    background-position: 0px top;
+}
+.tablefoot .tableControlPrevPage {
+    background-position: -18px top;
+}
+.tablefoot .tableControlNextPage {
+    background-position: -36px top;
+}
+.tablefoot .tableControlLastPage {
+    background-position: -54px top;
+}
+.tablefoot .tableControlNumberOfItems {
+    background-position: -72px top;
+}
+.tablefoot .tableControlFirstPage:hover {
+    background-position: 0px bottom;
+}
+.tablefoot .tableControlPrevPage:hover {
+    background-position: -18px bottom;
+}
+.tablefoot .tableControlNextPage:hover {
+    background-position: -36px bottom;
+}
+.tablefoot .tableControlLastPage:hover {
+    background-position: -54px bottom;
+}
+.tablefoot .tableControlNumberOfItems:hover {
+    background-position: -72px bottom;
+}
+
+.tablefoot > div {
+    height: 18px;
+    padding-top: 4px;
+}
+
+.tablefoot .leftBlockPages{
+	padding-top:3px;
+}
+
+.tablefoot .leftBlockShowRows{
+	padding-top:3px;
+}
+
+
+/********************  FLTABLE2 END ******************************/
+
+
+
+
+
+
+/****************************************************************************
+ * 
+ *  Necessary style classes for FTextInput2 component 
+ *   
+ ****************************************************************************/
+
+.flSuggestionDropDown li {
+    background: #ffffff;
+}
+
+.flSuggestionDropDown li:hover, .flSuggestionDropDown li.selected {
+    background: #cea;
+    cursor: pointer;
+}
+
+
+/******************************************************************************
+*
+*	Necessary style elements for FDropdownMenu component
+*
+*******************************************************************************/
+
+.flmenu ul, .flmenu ul ul  {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+.flmenu ul li {
+	list-style-image: none;
+}
+
+.flmenu ul a {
+	font-size: 0.86em;
+	font-weight: bold;
+}
+
+.flmenu ul a:hover {
+	text-decoration:none;
+}
+
+.flmenu ul >li {
+	background-color:#E9E9E9;
+	border:1px solid;
+	float:left;
+	height:21px;
+	margin-bottom:0;
+	margin-left:-1px;
+	margin-top:-1px;
+	padding-bottom:0;
+	padding-right:3px;
+	padding-top:5px;
+	text-align:center;
+	width:90px;
+}
+
+.flmenu ul li ul {
+	margin-top:6px;
+	margin-left: -1px;
+	display:none;
+}
+
+.flmenu ul li ul li {
+	background-color:#EEEEEE;
+	padding:6px 0 6px 8px;
+	border-bottom:1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	text-align:left;
+	width:130px;
+	margin-left:0px;
+}
+
+.flmenu ul li:hover {
+	background-color: #666666;
+}
+
+.flmenu ul li:hover ul {
+	display:block; 
+}
+
+/******************************************************************************
+*
+*   Necessary style elements for FDropdownMenuT component
+*
+*******************************************************************************/
+
+.flmenu3 ul, .flmenu ul ul  {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    list-style-image: none;
+}
+
+.flmenu3 ul li div ul li {
+    background-color:#ABCDEF;
+    border: 1px solid black;
+    text-align:center;
+    width:120px;
+    margin-left: -1px;
+    list-style-image: none;
+
+}
+
+.flmenu3 ul li {
+    list-style-image: none;
+}
+
+.flmenu3 ul li div ul li div ul li {
+	background-color:#ABC;
+    border-bottom: none;
+    border-top: 1px solid black;
+    border-left: none;
+    border-right: none;
+    width: 120px;
+    margin-left: 0px;
+}
+
+.flmenu3 .hover {
+    background-color: #666666;
+    cursor: pointer;
+
+}
+
+.flmenu3 ul li ul {
+    display:block; 
+}
+
+.flmenu3 .l1 {
+    padding: 10px;
+    display: block;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.flmenu3 .l2 {
+    padding: 3px;
+    display: block;
+}
+
+.flmenu3 .item_l1 {
+    font-weight: normal;
+    font-size: 1em;
+}
+
+.flmenu3 .item_l2 {
+    font-size: 0.8em;
+    width: 120px;
+}
+
+
+/******************************************************************************
+*
+*   Necessary style elements for FDropdownMenu2 component
+*
+*******************************************************************************/
+
+.flmenu2 ul, .flmenu ul ul  {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+.flmenu2 ul li {
+	list-style-image: none;
+	border: none;
+	width:150px;
+}
+
+.flmenu2 ul li {
+	background-color:#E9E9E9;
+	border: 1px solid black;
+	float:left;
+	text-align:center;
+	width:120px;
+	margin-left: -1px;
+}
+
+.flmenu2 ul li ul {
+	display:none;
+}
+
+.flmenu2 ul li ul li {
+	border-bottom: none;
+	border-top: 1px solid black;
+	border-left: none;
+	border-right: none;
+	width: 120px;
+	margin-left: 0px;
+}
+
+.flmenu2 .hover {
+	background-color: #666666;
+	cursor: pointer;
+
+}
+
+.flmenu2 ul li ul {
+	display:block; 
+}
+
+.flmenu2 .l1 {
+	padding: 10px;
+	display: block;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+.flmenu2 .l2 {
+	padding: 3px;
+	display: block;
+}
+
+.flmenu2 .item_l1 {
+	font-weight: normal;
+	font-size: 1em;
+}
+
+
+
+.flmenu2 .item_l2 {
+	font-size: 0.8em;
+	width: 120px;
+}
+
+
+/*************************************
+*
+*			Style for FErrorMessage
+*
+****************************************/
+
+.errorMsgBox {
+	width: 95%;
+	border: 3px solid red;
+	padding: 2px;
+	height: auto;
+}
+	
+.errorMsgBox .inner { 
+	border: 1px dotted red;
+	height: auto;
+	background: transparent url(<%=request.getContextPath()%>/ajax/icons/warning.png) no-repeat 10px 25px;
+	min-height: 130px;
+}
+
+.errorMsgBox .title {
+	font-size:1.3em;
+	font-weight:bold;
+	height:auto;
+	padding-left:20px;
+	padding-top:10px;
+	width:100%;
+}
+
+.errorMsgBox .img {
+	float: left;
+	width: 123px;
+	height: 100px;
+}
+
+.errorMsgBox .text {
+    padding-left: 120px;
+}
+
+
+
+
+/*************************************
+*
+*           Style for FChart
+*
+****************************************/
+
+
+.flChart .legend {
+    float:left;
+    margin-left: 40px; 
+    margin-top: 30px;
+    width:150px; 
+    height: auto; 
+    border: 1px solid black
+}
+
+.flChart .legend .legendItem {
+    display: block;
+    width: 100%;
+    line-height: 20px;
+}
+
+.flChart .legend .legendTitle {
+    display: block;
+    line-height: 20px;
+    padding-left: 15px;
+    font-weight: bold;    
+}
+
+
+.flChart .legend .legendColor {
+    border:1px solid black;
+    display:block;
+    float:left;
+    height:8px;
+    margin:5px 8px;
+    width:12px;
+}
+
+#tooltip2 {
+	position: absolute;
+	background-image: url('<%=request.getContextPath()%>/ajax/icons/tt2_bg.png');
+	padding: 5px 10px;
+	visibility: hidden;
+	top: -1000px;
+	left: -1000px;
+	border: 1px solid black;
+	z-index: 999;
+}
+.tooltip2 {
+	border-bottom: 1px #515f91 dashed;
+}
+
+fieldset > legend {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+fieldset > * > label, fieldset > label {
+	float: left;
+	margin: 5px;
+	text-align: right;
+	width: 10em;
+}
+.annotation {
+	margin: 5px;
+	padding: 2px;
+	float: left;
+}
+.valid {
+	border: 1px solid #209317 !important;
+	background-color: #cfc;
+}
+.invalid {
+	border: 1px dashed #d01712 !important;
+	background-color: #fcc;
+}
+fieldset div > div > br {
+	clear: left;
+}
+fieldset div > div > br.noclear {
+	clear: none;
+}
+fieldset div > div > br.nofloat {
+	float: none;
+}
+/******************************************************************************
+*
+*	Necessary style elements for FDropdownMenu2 component
+*
+*******************************************************************************/
+
+#extendable {
+	display: none;	
+}
+
+/******************************************************************************
+*
+*	Necessary style elements for FDragNDrop component
+*
+*******************************************************************************/
+
+#dragNdrop {
+	position: absolute;	
+}
+
+.outerwizard .list{
+	list-style-type: none;
+	text-align: left;
+	top: 30px;
+}
+
+.outerwizard .wizardList{
+    float: left;
+    width: 29.9%; /** due to browser miscalculation can't have 30%+70% in total here*/
+}
+
+.outerwizard li{
+
+	text-align: left;
+}
+.outerwizard div{
+
+	text-align: left;
+}
+.outerwizard input{
+
+	text-align: left;
+}
+
+.outerwizard{
+	position: relative;
+}
+
+.site{
+	float: left;
+	width: 70%;
+	margin-top: 10px;
+}
+
+.outerwizard .buttonbar{
+	position: relative;
+	left: 0;
+	font-size: 0.7em;
+	height: 27px;
+}
+
+.outerwizard .buttonbar div{
+	display: inline;
+	font-style: italic;
+	color: red;
+	font-size: medium;
+}
+
+.listbutton{
+	background-color: transparent;
+	border: none;
+    padding: 0 2px; /* left and right 2px */	
+}
+
+DIV.listitem .listbutton{
+    cursor: pointer;	
+}
+
+.listitem{
+	margin-bottom: 1px;
+	margin-top: 1px;
+	text-align: left;
+
+}
+
+.listitemactive .listbutton{
+	cursor: pointer;
+}
+
+.listiteminactive{
+	margin-bottom: 1px;
+	margin-top: 1px;
+}
+
+.listitemactive{
+	background-position: left;
+	margin-bottom: 1px;
+	margin-top: 1px;
+}
+
+/* FTreeTable
+ odd even --> table row highlighting
+ White Red --> tree depths
+ */
+
+.flRowOddWhite{
+    background-color: #DEF;
+}
+
+.flRowEvenWhite{
+    background-color: #FFF;
+}
+
+.flRowOddRed{
+    background-color: #FDB;
+}
+
+.flRowEvenRed{
+    background-color: #FFF7F6;
+}
+
+
+/* FSlider */
+.slider > .sliderComp{
+    height: 120px;
+    position: relative;
+    width: 300px;
+	cursor: pointer;
+}
+
+.sliderKnobYellow{
+	position: absolute;
+	background-image:  url('<%=request.getContextPath()%>/ajax/icons/sliderGreen.png');
+	z-index: 999;
+	width: 50px;
+	height: 48px;
+	font-weight: bold;
+	color: #89CA84;
+	margin-top: -10px;
+	padding-top: 5px;
+	text-align: center !important;
+}
+
+.sliderKnobGreen{
+	position: absolute;
+	background-image:  url('<%=request.getContextPath()%>/ajax/icons/sliderGreen.png');
+	z-index: 999;
+	width: 50px;
+	height: 48px;
+	font-weight: bold;
+	color: #89CA84;
+	margin-top: -10px;
+	padding-top: 5px;
+	text-align: center !important;
+}
+
+DIV.sliderBarLeft{
+	position: absolute;
+    left: 47px;
+	height: 24px;
+	width: 16px;
+	background-image:  url('<%=request.getContextPath()%>/ajax/icons/statusbarL.png');
+	z-index: 10;
+}
+DIV.sliderBarCenter{
+	position:absolute;
+	 height: 23px;
+	width: 200px;
+	left: 50px;
+	
+	background-image: url('<%=request.getContextPath()%>/ajax/icons/statusbarGlow.png');
+}
+DIV.sliderBarRight{
+	position: absolute;
+    right: 45px;
+	float: left;
+	height: 24px;
+	width: 24px;
+	background-image:  url('<%=request.getContextPath()%>/ajax/icons/statusbarR.png');
+	background-repeat: repeat-x;
+	z-index:10;
+}
+
+DIV.sliderBarVert{
+	position: absolute;
+	width: 2px;
+	height: 64px;
+	top: -4px;
+}
+
+DIV.sliderBarVertValue{
+	position: absolute;
+	height: 10px;
+	top: 60px;
+	text-align: center;
+}
+
+DIV.sliderBarGlow{
+	position: absolute;
+	
+	left: 1px;
+	height: 23px;
+	background-image: url('<%=request.getContextPath()%>/ajax/icons/statusbarGlow_act.png');
+	background-repeat: repeat-x;
+	left:50px;
+}
+
+DIV.sliderBarVertTop{
+	height: 2px;
+	width: 2px;
+	background-image:  url('<%=request.getContextPath()%>/ajax/icons/bavertT.png');
+	background-repeat: repeat-x;
+}
+
+DIV.sliderBarVertCenter{
+	height: 50px;
+	width: 2px;
+	background-image:  url('<%=request.getContextPath()%>/ajax/icons/bavertC.png');
+	background-repeat: repeat-y;
+}
+
+DIV.sliderBarVertBottom{
+	height: 2px;
+	width: 2px;
+	background-image:  url('<%=request.getContextPath()%>/ajax/icons/bavertB.png');
+	background-repeat: repeat-x;
+}
+
+/**
+* Gauge
+*/
+.gauge{
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+
+div.floatLeft{
+    float: left;
+}
+
+div.floatRight{
+    float: right;
+}
+
+.fullWidth {
+	width: 100%;
+}
+
+/**
+* align tableRows top positioned
+*/
+tr.verticalAlignTop{
+    vertical-align: top;
+}
+
+/**
+* hide the element, which is set to important, 
+* as it should always overwrite any existing css display definitions
+*/
+.hidden{
+    display: none !important;
+}
+
+.border{
+    border: 1px solid #abcdef;
+    padding: 3px;
+    margin: 2px;
+}
+
+.listItemDiv{
+    display: inline;
+}
+
+.flProgress {
+	display:block;
+	position:fixed;
+	overflow:hidden;
+	bottom:0; 
+	right:0;
+}
+
+INPUT.numberInc {
+    width: 18px;
+    height: 10px;
+    background-image:  url('<%=request.getContextPath()%>/ajax/icons/inc.png');
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+
+INPUT.numberDec {
+    width: 18px;
+    height: 10px;
+    background-image:  url('<%=request.getContextPath()%>/ajax/icons/dec.png');
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+
+DIV.numberDecOuter, DIV.numberIncOuter{
+	width: 18px;
+    height: 10px;
+}
+
+INPUT.numberFieldInput{
+    border-right: 0;
+}
+
+DIV.numberField{
+    border-bottom: 1px solid silver;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+}
+
+DIV.overflowTable{
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+DIV.minmaxOuter{
+    position: absolute;
+    margin-left:-12px;
+    padding-top:5px;
+}
+
+DIV.min{
+    width: 16px;
+    height: 16px;
+    background-image: url('<%=request.getContextPath()%>/ajax/images/components/min.png');
+    background-repeat: no-repeat;
+}
+
+DIV.max{
+    width: 16px;
+    height: 16px;
+    background-image: url('<%=request.getContextPath()%>/ajax/images/components/max.png');
+    background-repeat: no-repeat;
+}
+
+.overflowHidden{
+    overflow: hidden;
+}
+
+
+.modalDialogDescription{
+	background:none repeat scroll 0 50% #888888;
+	bottom:0;
+	display:block;
+	height:100%;
+	left:0;
+	min-height:100%;
+	opacity:0.5;
+	position:fixed;
+	right:0;
+	top:0;
+	width:100%;
+	z-index:200;
+}
+
+
+DIV.highlighter{
+    font-family:"Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace !important;
+    font-size:1em !important;
+}
+
+DIV.highlighter TABLE{
+    border-collapse:collapse !important;	
+}
+
+TD.num {
+	color:#AFAFAF !important;
+	text-align: right;
+	width:3em !important;
+	vertical-align:top !important;
+	padding-right:0.3em !important;
+}
+TD.con {
+    border-left:3px solid #6CE26C !important;
+}
+
+TR.hiodd{
+	background-color:#F8F8F8 !important;
+}
+
+TR.hieven{
+    background-color:#FFFFFF !important;
+}
+
+span.comment{ 
+	color: #008200; 
+	background-color: inherit; 
+}
+
+span.string { 
+	color: blue; 
+	background-color: inherit; 
+}
+span.keyword { 
+	color:#006699 !important;
+	font-weight:bold !important;
+	background-color: inherit; 
+}
+
+span.multilinecomment{
+    color: #0082B0; 
+    background-color: inherit; 
+}
+
+.disabled{
+    color: gray !important;
+    cursor: default !important;
+}
+
+
+.flwBTNmin{
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/flwBTNmin.png') no-repeat scroll 0 0;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    border: 0 none;
+}
+
+.flwBTNmax{
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/flwBTNmax.png') no-repeat scroll 0 0;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    border: 0 none;
+}
+.flwBTNclose{
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/flwBTNclose.png') no-repeat scroll 0 0;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-left: 3px;
+    border: 0 none;
+}
+
+/**
+ * Table for logged-in users in the footer
+ */
+#onlineUsers{
+	position:absolute;
+	bottom:20px;
+	left:21px;
+	border: 1px solid #F4C740;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	border-spacing: 0;
+	text-align:left;
+	font-size: 0.8em;
+	font-family: Arial,Helvetica,sans-serif;
+	display:none;
+	z-index:200;
+}
+#onlineUsers tbody td, #onlineUsers thead th{
+	padding:5px;
+	text-align:left;
+}
+
+/**
+ * Different colors for even and odd rows
+ */
+.flRowEven{
+	background: #fff;
+}
+
+/**
+ * Different colors for even and odd rows
+ */
+.flRowOdd{
+	background: #eee;
+}
+
+/**
+ * Make all charts fitting into their containers
+ */
+.chartimg{
+	width: 100%;
+	border: 0;
+}
+
+/*
+*	jQuery Datepicker
+ */
+
+#ui-datepicker-div{
+	
+	font-size:0.8em;
+}
+
+/* Layout helpers
+----------------------------------*/
+.ui-helper-hidden { display: none; }
+.ui-helper-hidden-accessible { position: absolute !important; clip: rect(1px 1px 1px 1px); clip: rect(1px,1px,1px,1px); }
+.ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
+.ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.ui-helper-clearfix { display: inline-block; }
+/* required comment for clearfix to work in Opera \*/
+* html .ui-helper-clearfix { height:1%; }
+.ui-helper-clearfix { display:block; }
+/* end clearfix */
+.ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled { cursor: default !important; }
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+/*
+ * jQuery UI CSS Framework 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ *
+ * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Verdana,Arial,sans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=cccccc&bgTextureHeader=03_highlight_soft.png&bgImgOpacityHeader=75&borderColorHeader=aaaaaa&fcHeader=222222&iconColorHeader=222222&bgColorContent=ffffff&bgTextureContent=01_flat.png&bgImgOpacityContent=75&borderColorContent=aaaaaa&fcContent=222222&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=02_glass.png&bgImgOpacityDefault=75&borderColorDefault=d3d3d3&fcDefault=555555&iconColorDefault=888888&bgColorHover=dadada&bgTextureHover=02_glass.png&bgImgOpacityHover=75&borderColorHover=999999&fcHover=212121&iconColorHover=454545&bgColorActive=ffffff&bgTextureActive=02_glass.png&bgImgOpacityActive=65&borderColorActive=aaaaaa&fcActive=212121&iconColorActive=454545&bgColorHighlight=fbf9ee&bgTextureHighlight=02_glass.png&bgImgOpacityHighlight=55&borderColorHighlight=fcefa1&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=02_glass.png&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=aaaaaa&bgTextureShadow=01_flat.png&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
+ */
+
+
+/* Component containers
+----------------------------------*/
+.ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 1.1em; }
+.ui-widget .ui-widget { font-size: 1em; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Verdana,Arial,sans-serif; font-size: 1em; }
+.ui-widget-content { border: 1px solid #aaaaaa; background: #ffffff url(<%= request.getContextPath()%>/images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x; color: #222222; }
+.ui-widget-content a { color: #222222; }
+.ui-widget-header { border: 1px solid #aaaaaa; background: #cccccc url(<%= request.getContextPath()%>/images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; color: #222222; font-weight: bold; }
+.ui-widget-header a { color: #222222; }
+
+/* Interaction states
+----------------------------------*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #d3d3d3; background: #e6e6e6 url(<%= request.getContextPath()%>/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #555555; }
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #555555; text-decoration: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #999999; background: #dadada url(<%= request.getContextPath()%>/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.ui-state-hover a, .ui-state-hover a:hover { color: #212121; text-decoration: none; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #aaaaaa; background: #ffffff url(<%= request.getContextPath()%>/images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #212121; text-decoration: none; }
+.ui-widget :active { outline: none; }
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #fcefa1; background: #fbf9ee url(<%= request.getContextPath()%>/images/ui-bg_glass_55_fbf9ee_1x400.png) 50% 50% repeat-x; color: #363636; }
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #fef1ec url(<%= request.getContextPath()%>/images/ui-bg_glass_95_fef1ec_1x400.png) 50% 50% repeat-x; color: #cd0a0a; }
+.ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #cd0a0a; }
+.ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #cd0a0a; }
+.ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
+.ui-priority-secondary, .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+
+/* Icons
+----------------------------------*/
+
+/* states and <%= request.getContextPath()%>/images */
+.ui-icon { width: 16px; height: 16px; background-image: url(<%= request.getContextPath()%>/images/ui-icons_222222_256x240.png); }
+.ui-widget-content .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_222222_256x240.png); }
+.ui-widget-header .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_222222_256x240.png); }
+.ui-state-default .ui-icon { background-image: url(<%= request.getContextPath()%>/images/ui-icons_888888_256x240.png); }
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_454545_256x240.png); }
+.ui-state-active .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_454545_256x240.png); }
+.ui-state-highlight .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_2e83ff_256x240.png); }
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_cd0a0a_256x240.png); }
+
+/* positioning */
+.ui-icon-carat-1-n { background-position: 0 0; }
+.ui-icon-carat-1-ne { background-position: -16px 0; }
+.ui-icon-carat-1-e { background-position: -32px 0; }
+.ui-icon-carat-1-se { background-position: -48px 0; }
+.ui-icon-carat-1-s { background-position: -64px 0; }
+.ui-icon-carat-1-sw { background-position: -80px 0; }
+.ui-icon-carat-1-w { background-position: -96px 0; }
+.ui-icon-carat-1-nw { background-position: -112px 0; }
+.ui-icon-carat-2-n-s { background-position: -128px 0; }
+.ui-icon-carat-2-e-w { background-position: -144px 0; }
+.ui-icon-triangle-1-n { background-position: 0 -16px; }
+.ui-icon-triangle-1-ne { background-position: -16px -16px; }
+.ui-icon-triangle-1-e { background-position: -32px -16px; }
+.ui-icon-triangle-1-se { background-position: -48px -16px; }
+.ui-icon-triangle-1-s { background-position: -64px -16px; }
+.ui-icon-triangle-1-sw { background-position: -80px -16px; }
+.ui-icon-triangle-1-w { background-position: -96px -16px; }
+.ui-icon-triangle-1-nw { background-position: -112px -16px; }
+.ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+.ui-icon-triangle-2-e-w { background-position: -144px -16px; }
+.ui-icon-arrow-1-n { background-position: 0 -32px; }
+.ui-icon-arrow-1-ne { background-position: -16px -32px; }
+.ui-icon-arrow-1-e { background-position: -32px -32px; }
+.ui-icon-arrow-1-se { background-position: -48px -32px; }
+.ui-icon-arrow-1-s { background-position: -64px -32px; }
+.ui-icon-arrow-1-sw { background-position: -80px -32px; }
+.ui-icon-arrow-1-w { background-position: -96px -32px; }
+.ui-icon-arrow-1-nw { background-position: -112px -32px; }
+.ui-icon-arrow-2-n-s { background-position: -128px -32px; }
+.ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
+.ui-icon-arrow-2-e-w { background-position: -160px -32px; }
+.ui-icon-arrow-2-se-nw { background-position: -176px -32px; }
+.ui-icon-arrowstop-1-n { background-position: -192px -32px; }
+.ui-icon-arrowstop-1-e { background-position: -208px -32px; }
+.ui-icon-arrowstop-1-s { background-position: -224px -32px; }
+.ui-icon-arrowstop-1-w { background-position: -240px -32px; }
+.ui-icon-arrowthick-1-n { background-position: 0 -48px; }
+.ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
+.ui-icon-arrowthick-1-e { background-position: -32px -48px; }
+.ui-icon-arrowthick-1-se { background-position: -48px -48px; }
+.ui-icon-arrowthick-1-s { background-position: -64px -48px; }
+.ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
+.ui-icon-arrowthick-1-w { background-position: -96px -48px; }
+.ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
+.ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
+.ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
+.ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
+.ui-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
+.ui-icon-arrowthickstop-1-n { background-position: -192px -48px; }
+.ui-icon-arrowthickstop-1-e { background-position: -208px -48px; }
+.ui-icon-arrowthickstop-1-s { background-position: -224px -48px; }
+.ui-icon-arrowthickstop-1-w { background-position: -240px -48px; }
+.ui-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
+.ui-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
+.ui-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
+.ui-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
+.ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
+.ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
+.ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
+.ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
+.ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+.ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
+.ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
+.ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }
+.ui-icon-arrow-4 { background-position: 0 -80px; }
+.ui-icon-arrow-4-diag { background-position: -16px -80px; }
+.ui-icon-extlink { background-position: -32px -80px; }
+.ui-icon-newwin { background-position: -48px -80px; }
+.ui-icon-refresh { background-position: -64px -80px; }
+.ui-icon-shuffle { background-position: -80px -80px; }
+.ui-icon-transfer-e-w { background-position: -96px -80px; }
+.ui-icon-transferthick-e-w { background-position: -112px -80px; }
+.ui-icon-folder-collapsed { background-position: 0 -96px; }
+.ui-icon-folder-open { background-position: -16px -96px; }
+.ui-icon-document { background-position: -32px -96px; }
+.ui-icon-document-b { background-position: -48px -96px; }
+.ui-icon-note { background-position: -64px -96px; }
+.ui-icon-mail-closed { background-position: -80px -96px; }
+.ui-icon-mail-open { background-position: -96px -96px; }
+.ui-icon-suitcase { background-position: -112px -96px; }
+.ui-icon-comment { background-position: -128px -96px; }
+.ui-icon-person { background-position: -144px -96px; }
+.ui-icon-print { background-position: -160px -96px; }
+.ui-icon-trash { background-position: -176px -96px; }
+.ui-icon-locked { background-position: -192px -96px; }
+.ui-icon-unlocked { background-position: -208px -96px; }
+.ui-icon-bookmark { background-position: -224px -96px; }
+.ui-icon-tag { background-position: -240px -96px; }
+.ui-icon-home { background-position: 0 -112px; }
+.ui-icon-flag { background-position: -16px -112px; }
+.ui-icon-calendar { background-position: -32px -112px; }
+.ui-icon-cart { background-position: -48px -112px; }
+.ui-icon-pencil { background-position: -64px -112px; }
+.ui-icon-clock { background-position: -80px -112px; }
+.ui-icon-disk { background-position: -96px -112px; }
+.ui-icon-calculator { background-position: -112px -112px; }
+.ui-icon-zoomin { background-position: -128px -112px; }
+.ui-icon-zoomout { background-position: -144px -112px; }
+.ui-icon-search { background-position: -160px -112px; }
+.ui-icon-wrench { background-position: -176px -112px; }
+.ui-icon-gear { background-position: -192px -112px; }
+.ui-icon-heart { background-position: -208px -112px; }
+.ui-icon-star { background-position: -224px -112px; }
+.ui-icon-link { background-position: -240px -112px; }
+.ui-icon-cancel { background-position: 0 -128px; }
+.ui-icon-plus { background-position: -16px -128px; }
+.ui-icon-plusthick { background-position: -32px -128px; }
+.ui-icon-minus { background-position: -48px -128px; }
+.ui-icon-minusthick { background-position: -64px -128px; }
+.ui-icon-close { background-position: -80px -128px; }
+.ui-icon-closethick { background-position: -96px -128px; }
+.ui-icon-key { background-position: -112px -128px; }
+.ui-icon-lightbulb { background-position: -128px -128px; }
+.ui-icon-scissors { background-position: -144px -128px; }
+.ui-icon-clipboard { background-position: -160px -128px; }
+.ui-icon-copy { background-position: -176px -128px; }
+.ui-icon-contact { background-position: -192px -128px; }
+.ui-icon-image { background-position: -208px -128px; }
+.ui-icon-video { background-position: -224px -128px; }
+.ui-icon-script { background-position: -240px -128px; }
+.ui-icon-alert { background-position: 0 -144px; }
+.ui-icon-info { background-position: -16px -144px; }
+.ui-icon-notice { background-position: -32px -144px; }
+.ui-icon-help { background-position: -48px -144px; }
+.ui-icon-check { background-position: -64px -144px; }
+.ui-icon-bullet { background-position: -80px -144px; }
+.ui-icon-radio-off { background-position: -96px -144px; }
+.ui-icon-radio-on { background-position: -112px -144px; }
+.ui-icon-pin-w { background-position: -128px -144px; }
+.ui-icon-pin-s { background-position: -144px -144px; }
+.ui-icon-play { background-position: 0 -160px; }
+.ui-icon-pause { background-position: -16px -160px; }
+.ui-icon-seek-next { background-position: -32px -160px; }
+.ui-icon-seek-prev { background-position: -48px -160px; }
+.ui-icon-seek-end { background-position: -64px -160px; }
+.ui-icon-seek-start { background-position: -80px -160px; }
+/* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
+.ui-icon-seek-first { background-position: -80px -160px; }
+.ui-icon-stop { background-position: -96px -160px; }
+.ui-icon-eject { background-position: -112px -160px; }
+.ui-icon-volume-off { background-position: -128px -160px; }
+.ui-icon-volume-on { background-position: -144px -160px; }
+.ui-icon-power { background-position: 0 -176px; }
+.ui-icon-signal-diag { background-position: -16px -176px; }
+.ui-icon-signal { background-position: -32px -176px; }
+.ui-icon-battery-0 { background-position: -48px -176px; }
+.ui-icon-battery-1 { background-position: -64px -176px; }
+.ui-icon-battery-2 { background-position: -80px -176px; }
+.ui-icon-battery-3 { background-position: -96px -176px; }
+.ui-icon-circle-plus { background-position: 0 -192px; }
+.ui-icon-circle-minus { background-position: -16px -192px; }
+.ui-icon-circle-close { background-position: -32px -192px; }
+.ui-icon-circle-triangle-e { background-position: -48px -192px; }
+.ui-icon-circle-triangle-s { background-position: -64px -192px; }
+.ui-icon-circle-triangle-w { background-position: -80px -192px; }
+.ui-icon-circle-triangle-n { background-position: -96px -192px; }
+.ui-icon-circle-arrow-e { background-position: -112px -192px; }
+.ui-icon-circle-arrow-s { background-position: -128px -192px; }
+.ui-icon-circle-arrow-w { background-position: -144px -192px; }
+.ui-icon-circle-arrow-n { background-position: -160px -192px; }
+.ui-icon-circle-zoomin { background-position: -176px -192px; }
+.ui-icon-circle-zoomout { background-position: -192px -192px; }
+.ui-icon-circle-check { background-position: -208px -192px; }
+.ui-icon-circlesmall-plus { background-position: 0 -208px; }
+.ui-icon-circlesmall-minus { background-position: -16px -208px; }
+.ui-icon-circlesmall-close { background-position: -32px -208px; }
+.ui-icon-squaresmall-plus { background-position: -48px -208px; }
+.ui-icon-squaresmall-minus { background-position: -64px -208px; }
+.ui-icon-squaresmall-close { background-position: -80px -208px; }
+.ui-icon-grip-dotted-vertical { background-position: 0 -224px; }
+.ui-icon-grip-dotted-horizontal { background-position: -16px -224px; }
+.ui-icon-grip-solid-vertical { background-position: -32px -224px; }
+.ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
+.ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+.ui-icon-grip-diagonal-se { background-position: -80px -224px; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { -moz-border-radius-topleft: 4px; -webkit-border-top-left-radius: 4px; -khtml-border-top-left-radius: 4px; border-top-left-radius: 4px; }
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr { -moz-border-radius-topright: 4px; -webkit-border-top-right-radius: 4px; -khtml-border-top-right-radius: 4px; border-top-right-radius: 4px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl { -moz-border-radius-bottomleft: 4px; -webkit-border-bottom-left-radius: 4px; -khtml-border-bottom-left-radius: 4px; border-bottom-left-radius: 4px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br { -moz-border-radius-bottomright: 4px; -webkit-border-bottom-right-radius: 4px; -khtml-border-bottom-right-radius: 4px; border-bottom-right-radius: 4px; }
+
+/* Overlays */
+.ui-widget-overlay { background: #aaaaaa url(<%= request.getContextPath()%>/images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
+.ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(<%= request.getContextPath()%>/images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }/*
+ * jQuery UI Datepicker 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+ */
+.ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; }
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
+.ui-datepicker .ui-datepicker-prev { left:2px; }
+.ui-datepicker .ui-datepicker-next { right:2px; }
+.ui-datepicker .ui-datepicker-prev-hover { left:1px; }
+.ui-datepicker .ui-datepicker-next-hover { right:1px; }
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
+.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
+.ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
+.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+.ui-datepicker select.ui-datepicker-month, 
+.ui-datepicker select.ui-datepicker-year { width: 49%;}
+.ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
+.ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
+.ui-datepicker td { border: 0; padding: 1px; }
+.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
+.ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
+.ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi { width:auto; }
+.ui-datepicker-multi .ui-datepicker-group { float:left; }
+.ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
+.ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }
+.ui-datepicker-multi-3 .ui-datepicker-group { width:33.3%; }
+.ui-datepicker-multi-4 .ui-datepicker-group { width:25%; }
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
+.ui-datepicker-row-break { clear:both; width:100%; font-size:0em; }
+
+/* RTL support */
+.ui-datepicker-rtl { direction: rtl; }
+.ui-datepicker-rtl .ui-datepicker-prev { right: 2px; left: auto; }
+.ui-datepicker-rtl .ui-datepicker-next { left: 2px; right: auto; }
+.ui-datepicker-rtl .ui-datepicker-prev:hover { right: 1px; left: auto; }
+.ui-datepicker-rtl .ui-datepicker-next:hover { left: 1px; right: auto; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane { clear:right; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane button { float: left; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current { float:right; }
+.ui-datepicker-rtl .ui-datepicker-group { float:right; }
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+
+/* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
+.ui-datepicker-cover {
+    display: none; /*sorry for IE5*/
+    display/**/: block; /*sorry for IE5*/
+    position: absolute; /*must have*/
+    z-index: -1; /*must have*/
+    filter: mask(); /*must have*/
+    top: -4px; /*must have*/
+    left: -4px; /*must have*/
+    width: 200px; /*must have*/
+    height: 200px; /*must have*/
+}

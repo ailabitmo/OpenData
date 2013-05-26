@@ -1,0 +1,32 @@
+=== Stock Chart Widget ===
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.StockChartWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.StockChartWidget
+}}
+
+==== Example ====
+
+<source>
+{{
+#widget: StockChart 
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?start WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant . 
+      ?role <http://research.data.gov.uk/def/project/project> ?project . 
+      ?project <http://purl.org/stuff/project/startDate> ?start . 
+      ?role <http://research.data.gov.uk/def/project/region> ?region . }
+    GROUP BY ?start'
+  | settings = 'Settings:countdaily'
+  | input = 'start'
+  | output = {{'sumGrant'}}
+}}
+</source>
+
+<img src="../images/help/StockChart.PNG" width="1024px" />

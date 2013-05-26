@@ -1,0 +1,16 @@
+= List of all Classes =
+
+{{#widget: TableResult |
+query = '
+SELECT ?class ?classLabel ?superClass 
+WHERE { 
+{
+{ ?class rdf:type owl:Class }
+UNION
+{ ?class rdf:type rdfs:Class }
+}
+OPTIONAL { ?class rdfs:label ?classLabel }
+OPTIONAL { ?class rdfs:subClassOf ?superClass }
+}' |
+labels = 'false'
+}}

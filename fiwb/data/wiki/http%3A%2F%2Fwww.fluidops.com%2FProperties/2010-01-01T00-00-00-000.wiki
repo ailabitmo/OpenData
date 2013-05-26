@@ -1,0 +1,31 @@
+= List of all Properties =
+
+== Sorted by Property Type ==
+* [[owl:DatatypeProperty|List of OWL Datatype Properties]]
+* [[owl:ObjectProperty|List of OWL Object Properties]]
+* [[owl:AnnotationProperty|List of OWL Annotation Properties]]
+* [[rdf:Property|List of RDF Properties]]
+<br/><br/>
+
+
+== List of all Properties ==
+
+{{#widget: TableResult |
+query = '
+SELECT DISTINCT ?property ?propertyLabel ?propertyType ?superProperty 
+WHERE { 
+{
+{ ?property rdf:type owl:DatatypeProperty }
+UNION
+{ ?property rdf:type owl:ObjectProperty }
+UNION
+{ ?property rdf:type owl:AnnotationProperty }
+UNION
+{ ?property rdf:type rdf:Property }
+}
+?property rdf:type ?propertyType .
+OPTIONAL { ?property rdfs:label ?propertyLabel }
+OPTIONAL { ?property rdfs:subClassOf ?superProperty }
+}' |
+labels = 'false'
+}}

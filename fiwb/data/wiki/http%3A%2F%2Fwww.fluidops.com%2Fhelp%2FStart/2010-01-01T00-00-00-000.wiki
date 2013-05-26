@@ -1,0 +1,86 @@
+<table class="start rounded-corners" style="border-spacing: 10px 0px; width:98%; margin:auto;margin-top:10px; max-width:1600px;">
+<tr>
+<td colspan=3 >
+<h1 style="text-align:center;">Welcome to the Information Workbench&trade;</h1>
+<br />
+<p style="margin-left:20px;margin-right:20px;">The <a href="http://www.fluidops.com/information-workbench/" title="IWB Website / Demo / Intro Video">Information Workbench</a> is a platform for Linked Data application development. Designed as a self-service platform, the Information Workbench provides you with all the tools and features you need to quickly build your personal Linked Data applications.</p>
+
+<table style="border-spacing: 30px 30px;" >
+<tr>
+<td  class="rounded-corners switch_background" style="width:32%;min-height:200px;">
+<div>
+<div>  		
+<h3 style="text-align:center;">Semantic Data Integration</h3>
+<p>
+<div style="text-align:center;"><img src="../images/navigation/integration.png" /></div> 
+<ul>
+<li>[[Admin:Import| Import]] data from the web, from your computer or another repository into the Information Workbench</li>
+<li>Set up a [[Admin:Providers|data provider]] to automate the process of data extraction, conversion, and import</li>
+</ul>
+</p>  
+</div>
+</div>
+</td>
+<td  class="rounded-corners switch_background" style="width:32%;min-height:200px;">
+<div> 
+<div>         		
+<h3 style="text-align:center;">Collaborative Knowledge Management</h3>
+<p>
+<div style="text-align:center;"><img src="../images/navigation/collaboration.png" /></div>
+<ul>
+<li>Create, edit and visualize data in [[Help:Wiki | wiki pages ]] using [http://www.mediawiki.org/wiki/Help:Formatting media wiki syntax] in a collaborative way</li>
+<li>Get an overview and statistics about the available data in [[Admin:ContentOverview | content overview]]</li>
+</ul>
+</p>
+</div>
+</div>
+</td>
+<td  class="rounded-corners switch_background" style="width:32%;min-height:200px;">
+<div>
+<div> 	
+<h3 style="text-align:center;">Search, Exploration and Analytics</h3>
+<p>
+<div style="text-align:center;"><img src="../images/navigation/analytics.png" /></div> 
+<ul>
+<li>Explore the data using the [[Help:Search | keyword search]] and the [[Help:SPARQLEndpoint | SPARQL endpoint]]</li>
+<li>Make use of the [[Help:Widgets | widgets]] to navigate in, visualize the data and create analytic dashboards</li>
+</ul>
+</p>
+</div>
+</div>
+</td>
+
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+
+<td valign="top" colspan="3">
+<div style="margin-left:20px;margin-right:20px;">
+<div style="width:66%;float:left;">
+<p>
+<ul>
+<li><b>Tutorial.</b> For first time users we recommend to try our [[ Help:GettingStarted | getting started tutorial ]].</li>
+<li><b>Help.</b> The [[Help:Help | help pages]] provide you with detailed information on how to set up, use and customize your installation of the Information Workbench.</li>
+<li><b>Administration.</b> Administer your installation of the Information Workbench on the [[Admin:Admin | administration page ]].</li>
+<li><b>Contact.</b> Want to be informed about the latest developments in the Information Workbench and reach out to other users and developers? Register for our [http://groups.google.com/group/iwb-discussion/subscribe mailing list].</li>
+</ul>
+</p>
+</div>
+<div style="width:20%;float:left;margin-left:5%;margin-top:10px;">  
+<h3>Search in help pages:</h3>
+{{ Help:HelpSearchWidget }}
+</div>
+<div style="clear:both;" />
+<div style="position:relative;top:10px;text-align:right;margin-bottom:10px;">
+<a href="http://www.facebook.com/pages/Walldorf-Germany/FluidOps/102807473121759" ><img alt="facebook" src="../images/navigation/facebook.png" /></a>
+<a href="http://twitter.com/fluidops" ><img alt="twitter" src="../images/navigation/twitter.png" /></a>
+<a href="http://www.linkedin.com/company/fluid-operations?trk=fc_badge" ><img alt="linkedin" src="../images/navigation/linkedin.png" /></a>
+<a href="http://www.fluidops.com/feed/" ><img alt="rss" src="../images/navigation/rss.png" /></a>
+<a href="http://plus.google.com/116535908972123049792" ><img alt="gplus" src="../images/navigation/gplus.png" /></a>&nbsp;&nbsp;
+</div>
+</div>
+</td>
+</tr>
+</table>

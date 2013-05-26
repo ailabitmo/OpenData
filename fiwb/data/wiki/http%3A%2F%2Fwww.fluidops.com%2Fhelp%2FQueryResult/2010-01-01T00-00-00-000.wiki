@@ -1,0 +1,118 @@
+=== Query Result Widget ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.QueryResultWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.QueryResultWidget
+}}
+
+==== Example ====
+
+The basic configuration is depicted in the following listing. If corresponding data instances are present, it renders a comma-separated list of persons.
+
+<source>
+{{#widget: QueryResult 
+| query = 'SELECT ?person WHERE { ?? :person ?person . }'
+}}
+</source>
+
+In order to customize the appearance, the ''format'' parameter can be used. Supported values are 
+
+* ''comma_separated'': results are separated by comma (default)
+* ''none'': no separator used (fully customizable through template)
+* ''line'': one result per line
+* ''ul'': unordered list, i.e. with bullet points
+* ''ol'': ordered list, i.e. with numbers
+
+Example for an unordered list:
+
+<source>
+{{#widget: QueryResult 
+| query = 'SELECT ?person WHERE { ?? :person ?person . }'
+| format = 'ul'
+}}
+</source>
+
+Example for a fully customizable layout using 'none':
+
+<source>
+{{#widget: QueryResult 
+| query = 'SELECT ?person WHERE { ?? :person ?person . }'
+| format = 'none'
+| template = '<span style="padding:2px; border:1px solid black">{{{person}}}</span> '
+}}
+</source>
+
+<br/>
+
+===== Multiple projection variables =====
+
+When accessing multiple projection variables in a SPARQL query, the visualization can be customized using the template mechanism described in this section.
+
+A template can be specified in-line using the 'template' parameter, and may access projection variables either by their name (e.g. '{{{MyProjectionVar}}}') or by the number in the projection list starting with 1 (e.g. '{{{1}}}). Each result is then printed using the specified template (and format).
+
+Example 1: Take the variable ?person by its name, print it bold
+
+<source>
+{{#widget: QueryResult 
+| query = 'SELECT ?person WHERE { ?? :person ?person .}'
+| template = '<b>{{{person}}}</b>'
+}}
+</source>
+
+Example 2: Take the variable ?person by its index, print it bold
+
+<source>
+{{#widget: QueryResult 
+| query = 'SELECT ?person WHERE { ?? :person ?person .}'
+| template = '<b>{{{1}}}</b>'
+}}
+</source>
+
+Example 3: Take 3 variables by their name, format each as a mailto-link in an unordered list
+
+<source>
+{{#widget: QueryResult 
+| query = 'SELECT ?name ?firstname ?mailto WHERE { ?? :person ?person . ?person :name ?name . ?person :firstname ?firstname . ?person :mail ?mailto }'
+| template = '<a href="mailto:{{{mailto}}}">{{{firstname}}} {{{name}}}</a>'
+| format = 'ul'
+}}
+</source>
+
+
+
+<br/>
+
+===== Using custom value resolvers =====
+
+Retrieved values can be rendered using a custom value resolver: e.g. a value can be rendered as an image or converted to date/time. Supported values are documented in [[Help:ValueResolvers| here]].
+
+Value resolvers can be specified optionally in the form of mappings. Mappings for each projection variable can be given independently. If no resolver is specified for some variable, DEFAULT is used.
+
+<source>
+{{#widget: QueryResult 
+| query = 'SELECT ?image ?time WHERE { ?? :image ?image . ?? :time ?time }'
+| template = '{{{image}}}<br/>{{{time}}}'
+| valueResolver = 'time=MS_TIMESTAMP2DATE,image=IMAGE'
+}}
+</source>
+
+
+==== Examples ====
+
+'''Example1:''' List of 10 organizations rendered comma separated
+
+<img src="../images/help/QueryResultExample1.png" width="736px" />
+
+<br/>
+
+'''Example2:''' 10 projects and their grants, rendered as an unordered list, with a CURRENCY_USD value resolver for grant
+
+<img src="../images/help/QueryResultExample2.png" width="745px" />

@@ -1,0 +1,92 @@
+__NOTOC__
+
+== SPARQL Endpoint ==
+
+The Information Workbench offers access to its RDF data repository from a standard compliant SPARQL 1.1 endpoint. This endpoint can be accessed by sending HTTP requests to '''<nowiki>http://<SERVER>:<PORT>/sparql</nowiki>''' with the URL-encoded SPARQL query as a request parameter. For further information about the SPARQL protocol, please refer to the official W3C specification available at http://www.w3.org/TR/sparql11-protocol/. In addition, we provide a <a href="../sparql">web-based interface</a> as illustrated in the following.
+
+<br/>
+
+<img src="../images/help/sparqlInterface.png" width="924px" />
+ 
+=== Security Aspects ===
+
+Depending on the system configuration the SPARQL endpoint is security protected to avoid unauthorized access from the outside. In the following, we summarize the configuration options and the default configuration of both the community and the enterprise edition.
+
+==== Information Workbench Community Edition ====
+
+In the default configuration of the community edition each user has full access rights, i.e. access to the database is unconstrained. Hence, the SPARQL endpoint can be used to evaluate all kinds of valid SPARQL 1.1 queries (i.e., SELECT, CONSTRUCT, ASK, UPDATE). To protect the public SPARQL endpoint the following setting can be applied to the system configuration:
+
+<source>publicSparqlEndpointEnabled=false</source>
+
+This will forbid free access to the database for all users. Note that independent of this setting internal components can access the SPARQL endpoint by providing a valid security token as part of the request (see [[#Access control with security token| here]] for details)
+
+==== Information Workbench Enterprise Edition ====
+
+The enterprise edition of the Information Workbench allows gives a finer granularity of configuration using [[Help:UserManagement | ACL definitions]]. In particular it is possible to limit access as illustrated in the following example.
+
+<source>
+deny|query|ASK
+deny|query|UPDATE
+allow|query|SELECT
+allow|query|CONSTRUCT
+</source>
+
+The default configuration is as follows
+
+* '''guests''': no queries allowed (=> deny|query|regexp(.*) )
+* '''users''': all queries except UPDATE and ASK
+* '''admins''': all queries allowed
+
+Similarly to the community edition the public SPARQL endpoint can be disabled with ''publicSparqlEndpointEnabled=false''. Also it should be noted that internal components can use a [[#Access control with security token| security token]] as part of the request to gain access.
+
+==== Access Control with Security Token ====
+
+In addition to the access control mechanisms described above, the Information Workbench provides support for access control with a security token. The security token is generated via SHA512 encoding from the query and from a key (which is to be set the server side). Applications can define their own security key with the configuration property
+
+<source>servletSecurityKey=MySecurityKey</source>
+
+Note that default security keys are defined within both editions of the Information Workbench.
+
+The security token comes handy when the public SPARQL endpoint is disabled: internal components (e.g. charts) can still access the SPARQL endpoint by providing a valid security token. Note that only SELECT and CONSTRUCT queries can be evaluated with such security token.
+
+The security token can be passed as part of the request using the ''st'' parameter (e.g. ?query=&lt;q&gt;&st=&lt;t&gt;).
+
+==== Access Control with Basic Authentication ====
+
+The Information Workbench SPARQL endpoint supports ''Basic Authentication'' as a means for clients to provide credentials without explicitly using the Login interface. Clients that want to use the SPARQL endpoint with Basic Authentication need to provide the HTTP request parameter ''Authorization'' with the base64 encoded credentials. Some details are provided [http://en.wikipedia.org/wiki/Basic_access_authentication here].
+
+=== Supported Output Formats ===
+
+The SPARQL endpoint supports both content negotiation via HTTP accept (as specified in the SPARQL protocol), and explicitly specifying the desired output format in the request. The latter can be done by setting '''format=&lt;MIME?TYPE&gt;''' in the request, using one of the following supported output formats. Note that the value ''auto'' can be used to achieve a suitable selection for each query type (i.e., also for SPARQL 1.1 UPDATE queries). 
+
+'''GRAPH Queries (= Construct Queries)'''
+
+* RDF/XML (application/rdf+xml)
+* N-Triples (text/plain)
+* Turtle (text/turtle)
+* N3 (text/rdf+n3)
+* TriX (application/trix)
+* TriG (application/x-trig)
+
+'''TUPLE Queries (= Select queries)'''
+
+* SPARQL/XML (application/sparql-results+xml)
+* SPARQL/JSON (application/sparql-results+json)
+* SPARQL/CSV (text/csv)
+
+=== Configuration ===
+
+The SPARQL endpoint support the following configuration parameters as part of the request:
+
+{| class="sortable wikitable" 
+! Configuration
+! Argument
+|-
+| query || A valid URL-encoded SPARQL 1.1 query (i.e., SELECT, CONSTRUCT, ASK or UPDATE), registered namespace prefixes are replaced
+|-
+| format || An optional argument to explicitly specify the output format (see [[#Supported output formats| here]] for a list of options)
+|-
+| infer || An optional boolean property to enable/disable inference, default: false. Requires repository support.
+|-
+| value || An optional argument that can be passed and is replaced for "??" in the SPARQL query
+|}

@@ -1,0 +1,41 @@
+#tablepagecolumns {
+	border-collapse: collapse;
+}
+
+.FForm input[value="OK"] {
+   margin-top:-17px;
+}
+
+/**
+* set the textarea width to auto, which fixes the width in ie7
+*/
+.wizardTextArea TEXTAREA
+{
+	width: auto !important;
+}
+
+/**
+*	Fix above breaks the int notify-popup -> so override the attribute for this case
+*/
+.textarea textarea{
+	width:100% !important;
+}
+
+.flTable2 {
+    position: relative;
+}
+
+.overflowTable{
+    position: relative !important;
+    padding-bottom: 16px !important;
+}
+
+.importWidgetTabs .flTabContent{
+	margin-right: -300px !important;
+	border-top: 0px !important;	
+	border-bottom: 0px !important;	
+}
+
+.WizardClearBoth {
+	clear:none !important;
+}

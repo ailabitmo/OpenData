@@ -1,0 +1,80 @@
+== API extensions ==
+
+The Information Workbench supports the dynamic extension of the API with custom extensions. These extensions can be used to expose services through the API framework, which are then available using the CLI or to the RESTful endpoint. Below, we describe in detail how custom service implementations can be exposed.
+
+Custom services can be exposed by following these steps:
+
+# Implement the service you want to expose as a Java class
+# Implement a service factory for this service
+# Register your service factory to META-INF services
+
+Details and examples for each step can be found below.
+
+=== Implementation of the service ===
+
+The service itself is a Java class exposing its functionality via public functions. In addition, your service class must implement the ''com.fluidops.api.dynamic.Service'' interface. Methods to be exposed need to be annotated with the ''@Doc'' annotation, all available parameters must be annotated with the ''@Par'' annotation. Note in particular that all parameters need to be serializable, in fact it is recommended to restrict to simple types only.
+
+Consider the ''MyService'' example below as illustration.
+
+<source>
+public class MyService implements Service {
+
+	@Doc(value="Do Something prints an test message to stdout")
+	public void doSomething() {
+		System.out.println("test");
+	}
+	
+	@Doc(value="Print the passed string to stdout and return it")
+	public String helloWorld(
+			@Par(name = "s", type = "string", desc = "just a test parameter", isRequired = true)String s) {
+		System.out.println(s);              
+		return s;
+	}
+}
+</source>
+
+If your service class in addition implements the ''java.io.Closeable'' interface, the close() method is invoked at shutdown time of the Information to eventually free any resources.
+
+=== Implementation of the service factory ===
+
+The service factory is a Java class that is used to instantiate your service implementation and to provide some metadata. The class must implement the ''com.fluidops.api.dynamic.ServiceFactory'' interface, and provide a default constructor. The ''service name'' is the actual name under which the service becomes available through the API framework, e.g. in the CLI. Typically, the service name corresponds to the simple name of the service class. Note that when the service is exposed, it automatically becomes accessible via get''&lt;service name>&gt;'', e.g. if your service is called MyService, it is exposed as getMyService.
+
+Consider the example below as an illustration.
+
+<source>
+public class MyServiceFactory implements ServiceFactory {
+
+	@Override
+	public String getServiceName() {
+		return "MyService";
+	}
+
+	@Override
+	public Service create() {
+		return new MyService();
+	}
+
+	@Override
+	public String getDocumentation() {
+		return "This is a demo test API";
+	}
+}
+</source>
+
+=== Registering the service ===
+
+In the Information Workbench we use the [http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html Java SPI mechanism] to register the service factory implementations which are then used to instantiate the particular services. The service factory implementation needs to be registered in the ''META-INF/services'' location. 
+
+If not present, create a file ''META-INF/services/com.fluidops.api.dynamic.ServiceFactory'' and specify the fully qualified classname of your service factory (one item per line). The final thing to do is to put your services on the classpath of the Information Workbench, e.g. as an [[Help:Extensions | extension]]. These service factories are then picked up by Java's ''ServiceLoader'' at startup of the Information Workbench, and registered as a service.
+
+Consider the following example as illustration:
+
+<source>
+com.fluidops.api.MyServiceFactory
+</source>
+
+Once the service is registered, it can be accessed for instance from the [[Help:CLI| CLI]], e.g. for our example with
+
+<source>
+> cli getMyService helloWorld -s hello
+</source>

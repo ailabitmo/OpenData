@@ -1,0 +1,32 @@
+=== SPARQL Endpoint Provider ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.SPARQLEndpointProvider
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Providers | Providers ]]
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.SPARQLEndpointProvider
+}}
+
+The SPARQL provider allows to optionally specify user credentials which are used for basic authentication at the given endpoint.
+
+==== Example ====
+
+Assume that we want to retrieve all ''dbpedia:Country''s from the public DBpedia SPARQL endpoint. 
+
+This can be achieved by creating a SPARQLProvider with the following configuration on [[Admin:Providers]]:
+
+{| style="padding:10px;" class="wikitable" 
+| '''SPARQL endpoint URL'''
+| <nowiki>http://dbpedia.org/sparql</nowiki>
+|-
+| '''Query'''
+| CONSTRUCT { ?x rdf:type dbpedia:Country } WHERE { ?x rdf:type dbpedia:Country }
+|}
+ 
+<img src="../images/help/Provider_SPARQL.png" />
+

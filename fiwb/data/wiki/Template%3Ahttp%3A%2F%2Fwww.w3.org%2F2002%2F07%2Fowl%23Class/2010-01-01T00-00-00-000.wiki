@@ -1,0 +1,71 @@
+__NOTOC__
+
+= OWL Class: '$this.label$' =
+
+'''URI''': ''$this$''
+
+== Annotations == 
+
+<div style="width:650px; padding-top:10px">
+{{ #widget : TripleEditor
+  | editMode = 'GROUPWISE'
+  | clusterByDomain = false
+  | propertyConfiguration = {{
+   {{ property = 'rdfs:label'}} |
+   {{ property = 'rdfs:comment' | componentType = 'TEXTAREA'}} }}
+  | showUnfilledProperties = true
+}}
+</div>
+
+
+== Taxonomy ==
+
+This form allows editing of the taxonomic relations of this class.
+
+<div style="width:650px; padding-top:10px">
+{{ #widget : TripleEditor
+  | editMode = 'GROUPWISE'
+  | clusterByDomain = false
+  | propertyConfiguration = {{
+   {{ property = 'rdfs:subClassOf' | queryPattern = 'SELECT ?x WHERE { ?x rdf:type owl:Class }' | datatype = 'rdfs:Resource'}} |
+   {{ property = 'owl:equivalentClass' | queryPattern = 'SELECT ?x WHERE { ?x rdf:type owl:Class }' | datatype = 'rdfs:Resource'}} |
+   {{ property = 'owl:disjointWith' | queryPattern = 'SELECT ?x WHERE { ?x rdf:type owl:Class }' | datatype = 'rdfs:Resource'}} }}
+  | showUnfilledProperties = true
+}}
+</div>
+
+
+== Properties with domain $this.label$ ==
+
+<div style="width:650px; padding-top:10px; padding-bottom:10px">
+{{#widget: TableResult |
+query = '
+SELECT ?property WHERE { 
+  ?property rdfs:domain ?? .  
+}'
+}}
+<div>
+
+== Properties with range $this.label$ ==
+
+<div style="width:650px; padding-top:10px; padding-bottom:10px">
+{{#widget: TableResult |
+query = '
+SELECT ?property WHERE { 
+  ?property rdfs:range ??.  
+}'
+}}
+</div>
+
+== Instances of class '$this.label$' ==
+
+<div style="width:650px; padding-top:10px; padding-bottom:10px">
+{{#widget: TableResult |
+query = '
+SELECT ?Instance WHERE { 
+  ?Instance rdf:type ??.  
+}'
+}}
+</div>
+
+{{#widget: NewInstance }}

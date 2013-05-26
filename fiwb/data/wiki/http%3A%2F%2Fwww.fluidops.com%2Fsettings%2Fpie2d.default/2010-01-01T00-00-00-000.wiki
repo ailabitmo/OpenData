@@ -1,0 +1,49 @@
+<source lang="xml">
+<settings>
+<redraw>1</redraw>
+<data_type>csv</data_type>
+<pie>
+	<radius>$radius$</radius>
+	<inner_radius>0</inner_radius>
+	<angle>45</angle>
+	<height>20</height>
+	<gradient>radial</gradient>
+	<gradient_ratio>40,-20</gradient_ratio>
+</pie>
+<animation>
+	$if(growTime)$
+	<start_time>$growTime$</start_time>
+	$endif$
+	<start_effect>strong</start_effect>
+	<pull_out_time>1</pull_out_time>
+</animation>
+<data_labels>
+	<radius>20</radius>
+	<text_color>#000000</text_color>
+	<text_size>11</text_size>
+	<show><![CDATA[<b>{title}</b>]]></show>
+	<show_lines>true</show_lines>
+</data_labels>
+<balloon>
+	<color>#ffffff</color>
+	<text_color>#000000</text_color>
+	<border_width>2</border_width>
+	<border_color>#000000</border_color>
+</balloon>
+<legend>
+	<enabled>$showLegend$</enabled>
+	<border_alpha>20</border_alpha>
+	<margins>5</margins>
+</legend>
+<labels>
+
+	<label>
+		<x>0</x><y>30</y>
+		<align>center</align>
+		<text_size>15</text_size>
+		<text><![CDATA[<b>$title$</b>]]></text>
+	</label>
+
+</labels>
+</settings>
+</source>

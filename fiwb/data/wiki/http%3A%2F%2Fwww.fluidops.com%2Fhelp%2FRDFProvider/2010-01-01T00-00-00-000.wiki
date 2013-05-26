@@ -1,0 +1,28 @@
+=== RDF Provider ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.RDFProvider
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Providers | Providers ]]
+
+==== Configuration Settings ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.RDFProvider
+}}
+
+==== Example ====
+
+To set up an RDF provider the following steps must be completed;
+
+*go to resource/Admin:Providers
+*Select RDFProvider from the drop-down menu
+**specify a valid identifier such as "mondial",
+**specify a valid poll interval e.g. 9999
+**for URI input a valid uri to a RDF source, e.g. <nowiki>http://www.dbis.informatik.uni-goettingen.de/Mondial/Mondial-RDF/mondial-europe.rdf</nowiki>).
+*Press submit and click on the run now button.  
+
+The provider will run automatically every 9999 minutes, if poll interval is set to 9999.
+
+To make the RDF data editable in the Information Workbench the "Provider data editable" checkbox must be checked.  By setting the provider data to be editable the RDF triples that are imported can be edited using the [[Help:TripleEditor| triple editor]].

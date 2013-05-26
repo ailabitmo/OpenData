@@ -1,0 +1,31 @@
+== Community Edition vs Enterprise Edition ==
+
+There are two versions of the Information Workbench, the free Community Edition (CE) and the commercial Enterprise Edition (EE).
+The Community Edition is [http://www.fluidops.com/information-workbench/iwb-download/ freely available for download] under an Open Source License (LGPL) and includes a limited set of capabilities.
+The Enterprise Edition can be purchased for commercial purposes and delivers the full set of integration, collaboration, exploration, and visualization capabilities.
+The main differences between the two editions are explained on this page.
+If you are interested in the Enterprise Edition, please contact the [http://www.fluidops.com/sales-contact/ fluid Operations' sales team] for more information.
+
+=== Features === 
+{| class="wikitable"
+|-
+! Feature !! CE !! EE
+|-
+| [[Help:BackupDatabase | Database Backup]] ||&#32;|| &#10004;
+|-
+| [[Help:FedX | Federation]] ||&#32; || &#10004;
+|-
+| [[Help:HistoricalData | Historical Data]] ||&#32; || &#10004;
+|-
+| [[Help:PivotWidget| Pivot View]] ||&#32; || &#10004;
+|-
+| [[Help:UserManagement#User_Access_Control | User Access Control]] ||&#32; || &#10004;
+|}
+
+=== Widgets ===
+
+The widgets included in both editions of the Information Workbench are documented in the [[Help:Widgets| widgets section]].
+
+=== Providers ===
+
+The list of providers can be found [[Help:Providers| providers section]].

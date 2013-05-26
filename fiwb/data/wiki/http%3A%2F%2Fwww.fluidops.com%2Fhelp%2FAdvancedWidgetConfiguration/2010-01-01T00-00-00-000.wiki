@@ -1,0 +1,222 @@
+== Advanced Widget Configuration ==
+
+The Information Workbench provides a powerful ''Operator Framework'' which allows defining widgets in a highly flexible manner. The framework for instance allows to use ''SPARQL queries'' to define certain parts of a configuration. Consider for example the [[Help:GMap| GMap widget]], where the location markers can be retrieved from the underlying database using a SPARQL SELECT query. 
+
+On this wiki page, we document the functionality and features of the operator framework that can be used to defined advanced widget configurations.
+
+=== Key Concepts ===
+
+To embed [[Help:Widgets| Widgets]] into some wiki page, the Information Workbench provides an extension to the Mediawiki syntax. By means of the ''#widget parser function'', the Information Workbench provides a clearly defined syntax to specify the configuration of the widget to be embedded.
+ 
+The (slightly abstracted) grammar for this widget syntax is defined as follows:
+
+<source>
+<Widget>       ::=  "{{#widget" <WidgetName> <ParamList>* "}}"
+<WidgetName>   ::=  <WidgetShortName> | <WidgetLongName>
+<ParamList>    ::=  "|" <Param>
+<Param>        ::=  <ParamKey> "=" <ParamValue>
+<ParamValue>   ::=  <Element>
+<ElementList>  ::=  "|" <Element>
+<Element>      ::=  <Constant> | <Operator> | <List> | <Structure>
+<List>         ::=  "{{" <Element> <ElementList>* "}}"
+<Structure>    ::=  "{{" <Param> <ParamList>* "}}"
+</source>
+
+where
+
+<source>
+<WidgetShortName>   ::= a short-name of a registered widget, e.g. TableResult
+<WidgetLongName>    ::= the fully qualified class name of a widget on the class path, e.g. com.fluidops.iwb.widget.TableResultWidget
+<ParamKey>          ::= a valid configuration setting of the respective widget, e.g. query
+<Constant>          ::= a valid constant notation using the syntax as defined below, e.g. 'myString'
+<Operator>          ::= a valid operator notation using the syntax as defined below, e.g. $this.myProperty $
+</source>
+
+
+=== Constants ===
+
+Constants in the sense of this framework are values that do not require interaction with the underlying database, i.e., the respective constant can be generated purely based on the string representation of the input. The following table summarizes the available constants and their notations.
+
+{| class="wikitable"
+|-
+! Type !! Notation 
+|-
+| String || 'My String' 
+|-
+| Integer || 1
+|-
+| Boolean || true, false
+|-
+| URI || ':localName', 'prefix:localName', '<http://example.org/localName>'
+|-
+| Literal || '"MyPlainLiteral"', '"1"^^xsd:integer'
+|-
+| Value || one of ''URI'' or ''Literal''
+|}
+
+Consider as an example a widget ''MyWidget'' which has the following widget configuration:
+
+<source>
+MyWidgetConfiguration {
+   String myString;
+   Boolean myBoolean;
+   Integer myInteger;
+   URI myUri;
+   Literal myLiteral;
+   Value myValue;
+   MyEnum myEnum;
+}
+</source>
+
+With declarative wiki syntax this widget could be embedded into a wiki page using the following snippet:
+
+<source>
+{{#widget: MyWidget |
+  myString = 'My String' |
+  myBoolean = true |
+  myInteger = 1 |
+  myUri = 'foaf:Person' |
+  myLiteral = '"my literal string"^^xsd:string' |
+  myValue = '"my literal"' |
+  myEnum = ENUM_VALUE
+}}
+</source>
+
+'''Notes:'''
+
+* The specification of widget fields in the widget configuration is optional: If not explicitly specified, the fields are initialized with their default values as specified in the widget's documentation.
+* The widget configuration can either be done using wiki syntax or using the configuration form of the wiki page editor. Note that system widgets (e.g. the graph view) can be configured using the [[Help:WidgetConfiguration| widget configuration UI]]. 
+
+
+=== Lists and Structures ===
+
+Besides the basic constants, the framework supports lists and structures, which themselves can be nested. 
+
+In the previous section, we basically have seen an example for a structure already: elements of the structure are written as key-value pairs and are separated by the "|" token. Lists have a similar syntax: items are just separated by the "|" token. Consider the following examples for illustration.
+
+Assume we have a simple structure representing a ''Location'':
+
+<source>
+Location {
+   Integer x;
+   Integer y;
+   String label;
+}
+</source>
+
+The ''Location'' structure can be represented using a syntax as follows:
+
+<source>
+{{ x=1 | y=2 | label='some location' }}
+</source>
+
+Similarly, lists of any supported ''&lt;ELEMENT&gt;'' can be represented, e.g., a list of constant ''String'' items:
+
+<source>
+{{ 'item1' | 'item2' | ... | 'itemN' }}
+</source>
+
+In the same style, nested elements are supported. Applying this to our earlier example ''MyWidget'', we can express a configuration parameter of type ''List&lt;Location&gt;'' as follows:
+
+<source>
+{{#widget: MyWidget |
+  ... |
+  locations = {{
+     {{ x=1 | y=2 | label='some location' }} |
+     {{ x=3 | y=4 | label='some other location' }} 
+   }}
+}}
+</source>
+
+Following this syntax, basically any complex (serializable) structure can be constructed.
+
+=== Dynamic Operators ===
+
+In contrast to the constants, dynamic operators allow access to the underlying database. Dynamic operators are enclosed by the "$" token and can be applied in any place where the above elements can be used.
+
+The framework distinguishes two types of dynamic operators:  ''this''-operator and ''SELECT'' operators. While the ''this''-operator allows to access properties of the current resource, the ''SELECT'' operator supports the full set of features of the SPARQL query language.  
+
+When using such a dynamic operator, the framework tries to cast the evaluation result into the target type, which can be either a simple primitive type of a complex structure or list. Consider the following examples for illustration. 
+
+Assume that the configuration elements are parts of the widget configuration as defined above.
+   
+
+<div class="sourceDiv">
+myString = ''$''this.stringProperty<i>$</i><br/>
+myUri = ''$''this<i>$</i><br/>
+myUri = ''$''this.uriProperty<i>$</i><br/>
+myValue = ''$''this.&lt;<nowiki>http://example.org/property</nowiki>&gt;<i>$</i><br/>
+myValue = ''$''this.rdfs:label<i>$</i><br/>
+myInteger = ''$''this.age<i>$</i><br/>
+myString = $SELECT ?x WHERE { ?? :stringProperty ?x }$<br/>
+location = $SELECT ?x ?y ?label WHERE { ?? :x ?x . ?? :y ?y . ?? rdfs:label ?label }$<br/>
+locationList = $SELECT ?x ?y ?label WHERE { ?? :x ?x . ?? :y ?y . ?? rdfs:label ?label }$<br/>
+</div>
+
+'''Notes:'''
+
+* the ''$''this<i>$</i> operator works on the current resource, and access the property that is referenced behind the "."
+* if the target type for a SELECT operator is a primitive type, the first binding from the query result is passed to the variable
+* to pass the query result into a structure, the projection variable names must be equal to the field names in the structure
+* SPARQL SELECT query results can also return a list of structure, where the list-generic type is determined from the target type itself
+* to use the '|' symbol within a SPARQL SELECT query, e.g. in a FILTER, the {{Pipe}} token can be used
+
+
+=== Casting Table ===
+
+As you might have noticed above, the framework is very flexible in casting input into the target values. Whenever possible, the given value is converted into the target type, e.g. the string representation "true" can be converted to a boolean value. 
+
+<h4>Default typing (i.e. if target type is Object)</h4>
+
+* 'my String' => String
+* true|false => Boolean
+* 1 => Integer
+* 1.0 => Double
+* '<http://example.org>' => URI
+* '"my Literal"^^xsd:string' => Literal
+* ''$''this<i>$</i>;</nowiki> => URI
+* ''$''this.myProperty<i>$</i> => List&lt;Value&gt; or null if there are no values
+* ''$''SELECT ...''$'' => SPARQLResultTable (see Information Workbench SDK)
+
+<h4>Casting table for dynamic operators</h4>
+
+Depending on the target type (first column), dynamic operators are implicitly cast according to the rules in the table below.
+
+{| class="wikitable"
+| 
+| <b>''$''this<i>$</i></b>
+| <b>''$''this.x<i>$</i></b>
+| <b>$SELECT ... $</b>
+|-
+| '''Value'''
+| URI of current resource
+| A (random) Value (i.e. URI or Literal) from the outgoing property x or null
+| A (random) Value (i.e. URI or Literal) from the left most projection list (i.e. the first column of the SPARQLResultTable) or null
+|-
+| '''URI'''
+| a) URI of current resource<br>b) Exception for BNode 
+| A (random) URI from the outgoing property x or null. Exception  if the retrieved (random) Value is a Literal
+| A (random) URI from the left most projection list (i.e. the first column of the SPARQLResultTable) or null. Exception  if the retrieved (random) Value is a Literal
+|-
+| '''Literal'''
+| n/a, Exception
+| A (random) Literal from the outgoing property x or null. Exception  if the retrieved (random) Value is a URI
+| A (random) Literal from the left most projection list (i.e. the first column of the SPARQLResultTable) or null. Exception  if the retrieved (random) Value is a URI
+|-
+| '''String'''
+| String value of current resource
+| The String value of a (random) Value (i.e. URI or Literal) from the outgoing property x or null
+| The String value of a (random) Value (i.e. URI or Literal) from the left most projection list (i.e. the first column of the SPARQLResultTable) or null
+|- 
+| '''Object'''
+| URI of current resource
+| A List<Value> keeping all Value (i.e. URI or Literal) from the outgoing property x (in random order) or null
+| A SPARQLResultTable containing the entire query result. The SPARQLResultTable may be empty if the query does not yield any result
+|- 
+| '''List&lt;Value&gt;'''
+| n/a вЂ“ no cast to list, Exception
+| A List<Value> keeping all Value (i.e. URI or Literal) from the outgoing property x (in random order) or null
+| A List<Value> keeping all Value (i.e. URI or Literal) from the left most projection (i.e. the first column of the SPARQLResultTable) in random order or an empty list
+|}
+
+<b>Important:</b> Other castings may or may not work as expected. Note in particular that behavior might change for types not mentioned in the table below in future versions.

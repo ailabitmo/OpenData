@@ -1,0 +1,293 @@
+=== Historical Data Provider ===
+'''Note:''' This provider is only available in Information Workbench Enterprise Edition.
+
+==== Functionality ====
+
+Supports the computation of snapshots and aggregations over the database, storing them as historical data in a separate database.
+
+==== Configuration Settings ====
+{|class="wikitable sortable"
+|-
+! Parameter
+! Description
+! Required
+|-
+| aggregators 
+| Aggregators for properties from the original database 
+| &#10004;
+|-
+| aggregateMask 
+| Aggregate mask (default: 11111), specifying the types of aggregates to be computed
+| &#32;
+|-
+| aggregatePersistMask
+| Aggregate persist mast (default: 00111), specifying the types of aggregates to be stored permanently
+| &#32;
+|- 
+| contextSourceFilters
+| Filter for context source (empty: copy statement from all context sources)
+| &#32;
+|- 
+| contextGroupFilters 
+| Filter for context group (empty: copy statements from all context groups)
+| &#32;
+|-
+| snapshotLifetime 
+| Full snapshot lifetime (hours)
+| &#32;
+|-
+| hourlyAggSnapshotLifetime
+| Hourly aggregation snapshot lifetime (hours)
+| &#32;
+|-
+| dailyAggSnapshotLifetime
+| Daily aggregation snapshot lifetime (hours)
+| &#32;
+|}
+
+==== Details ====
+One distinguished feature of the Enterprise Edition is a module for managing historical data. More precisely, with the Historical Data Provider it is possible to store periodic snapshots of the data and compute hourly, daily, monthly, quarterly, and yearly aggregates based upon these snapshots. Both the snapshots and the aggregates are stored in a dedicated database, the so-called historical database. The historical database is fully queryable, allowing users to create custom time plots that visualize the change of resources and quantities over time. As a running example, let us consider the following use case:
+
+'''Use Case:'''
+''The Information Workbench database contains information about different companies, where each company has a property associated denoting the number of employees associated to the company (at the current time). Further assume that this property changes over time, i.e. whenever the database is updated this value might change. Similarly, for some of the companies we have the (frequently changing) stock value of the company in our database. Our goal now is to track, over time, the number of persons and stock value associated to the companies in the database, in order to be able to study the development of the companies over time. This data should then be visualized in the form of a chart plotting the company employee development over time.''
+
+The basis for storing and processing such temporal information in the Information Workbench is the Historical Data Provider. We will describe its setup for this sample scenario in the following.
+
+===== Background =====
+The Historical Data Provider  has the capabilities to periodically store database snapshots (where the term "snapshot" refers to a consistent database state at a given point in time) of the original database. Such snapshots must not necessarily be ''complete'' w.r.t. the original database, rather the provider configuration allows to specify which subset of the data is of interest and thus copied over to the snapshots. 
+
+Going beyond the calculation of snapshots, in order to keep the amount of historical data manageable the Historical Data Provider is capable of frequently computing aggregates over existing snapshots, reporting on the average, minimum, maximum etc. of values stored in the snapshots. The Historical Data Provider supports five different levels of aggregates, namely ''hourly'', ''daily'', ''monthly'', ''quarterly'', and ''yearly'' aggregates. The idea here is that the hourly aggregates are calculated directly on top of the snapshots, the daily aggregates are then calculated on top of available hourly aggregates, the monthly aggregates on top of the daily aggregates, and so on. Note that there is fundamental difference between ''snapshots'' (i.e., data copied over from the original database) and ''aggregates'', which summarize a set of snapshots or lower-tier aggregates and hence do not reflect original database states.
+
+'''Use Case (ctd):'''
+''In our running example, we want to configure a provider as follows: we want to store a snapshot of the companies and their employees every 15 minutes. Every hour, we want to use these underlying snapshots to calculate the maximum number of employees within the hour. Based on the hourly aggregates over a day, we then want to calculate daily aggregates storing the maximum number of employees of a company per day. Daily aggregates are then used to derive monthly aggregates, and so on.''
+
+The historical data management process provided by the Historical Data Provider is highly configurable, so one can (i) fix the types of aggregates that are computed (e.g., one could turn on hourly and daily aggregates only, while disabling the calculation of monthly, yearly and quarterly aggregates), (ii) determine whether to keep these aggregates permanently in the database, and (iii) determine which type of aggregation functions to use for which kind of data (choosing between different aggregation functions such as ''average'', ''min'', or ''max''). 
+
+===== Historical Data Provider Config Parameters =====
+In the following, we describe the parameters of the Historical Data Provider in more detail and elaborate on the setting for our company scenario in more detail. The following config parameters determine the behavior of the Historical Data Provider:
+
+====== Config Parameter ''aggregateMask'' ======
+The '''aggregateMask''' is a bit mask specifying which aggregates to use. The parameter, which defaults to ''11111'', is composed of five bits, one for each of the five aggregate types that are supported by the Historical Data Provider:
+
+* The 1st bit turns the computation of ''hourly aggregates'' on (''1'') or off (''0'')
+* The 2nd bit turns the computation of ''daily aggregates'' on (''1'') or off (''0'')
+* The 3rd bit turns the computation of ''monthly aggregates'' on (''1'') or off (''0'')
+* The 4th bit turns the computation of ''quarterly aggregates'' on (''1'') or off (''0'')
+* The 5th bit turns the computation of ''yearly aggregates'' on (''1'') or off (''0'')
+
+Thus, the default value ''11111'' means that all aggregate types are calculated. The value ''01100'' for instance, turns the calculation of daily and monthly aggregates on, while other aggregation snapshots are not calculated.
+
+====== Config Parameter ''aggregatePersistMask'' ======
+The '''aggregatePersistMask''' is a bit mask specifying which aggregates to keep permanently. The parameter, which defaults to ''00111'', is composed of five bits, one for each of the five aggregate types that are supported by the Historical Data Provider:
+
+* The 1st bit turns permanent storage of ''hourly aggregates'' on (''1'') or off (''0'')
+* The 2nd bit turns permanent storage of ''daily aggregates'' on (''1'') or off (''0'')
+* The 3rd bit turns permanent storage of ''monthly aggregates'' on (''1'') or off (''0'')
+* The 4th bit turns permanent storage of ''quarterly aggregates'' on (''1'') or off (''0'')
+* The 5th bit turns permanent storage of ''yearly aggregates'' on (''1'') or off (''0'')
+
+Thus, the default value ''00111'' means that only monthly, quarterly, and yearly aggregates are kept permanently, while hourly and daily aggregates are discarded once they have been used to calculate the higher-level aggregate. More precisely, in this setting hourly snapshots of day X are kept until the aggregate for the associated day are computed (i.e., until the first run of the Historical Data Provider following day X); similarly, daily aggregates of a month Y are kept until the aggregate for the associated month are computed (i.e., until the first run of the Historical Data Provider following month Y).
+
+====== Config Parameter ''aggregators'' ======
+The '''aggregators''' configuration parameter determines the core behavior of the Historical Data Provider; it is the only required configuration parameter. The ''aggregators'' parameter specifies a list of properties that are considered in snapshots made by the Historical Data Provider, including a specification of how this property is aggregated when computing aggregates on top of these snapshots. The specification must obey the following grammar:
+
+<source>
+<Aggregators>            ::= <PropertySpecification> + [";" + <PropertySpecification> ]*
+<PropertySpecification>  ::= "[" + <Property> + "," + <Aggregator> + "]"
+<Aggregator>             ::= "com.fluidops.iwb.history.aggregationfunctions.AvgAggregator" |
+                             "com.fluidops.iwb.history.aggregationfunctions.MaxAggregator" |
+                             "com.fluidops.iwb.history.aggregationfunctions.MinAggregator" |
+                             "com.fluidops.iwb.history.aggregationfunctions.UnionAggregator" |
+                             "com.fluidops.iwb.history.aggregationfunctions.IntersectionAggregator" |
+                             "com.fluidops.iwb.history.aggregationfunctions.FirstValueAggregator" |
+                             "com.fluidops.iwb.history.aggregationfunctions.LastValueAggregator" |
+                             "com.fluidops.iwb.history.aggregationfunctions.TotalOrderAggregator" + "(" + <ValueList> + ")"
+<ValueList>              ::= <Value> + ["#" + <Value>]*
+</source>
+
+where
+
+<source>
+<Value>                  ::= an alpha-numerical string (possibly with white spaces)
+<Property>               ::= an RDF property in abbreviated syntax (such as "foaf:name")
+</source>
+
+As a simple example, we consider the following simple '''aggregators''' specification containing a single <tt>&lt;PropertySpecification&gt;</tt> (note that we can specify multiple of them by concatenation with delimiter ';' according to the grammar above):
+
+<source>
+aggregators = [nrOfEmployees,com.fluidops.iwb.history.aggregationfunctions.AvgAggregator]
+</source>
+
+Semantically, this definition specifies that all triples with property ''nrOfEmployees'' (in the default namespace) of the original data-set are considered by the Historical Data Provider when taking snapshots. Moreover, when calculating aggregates on top of these snapshots, the ''AvgAggregator'' is used, which calculates the average over values in the individual snapshots. For the sake of our example, let us now assume our Information Workbench database contains the following triples.
+
+<source>
+...
+CompanyA nrOfEmployees "10" .
+CompanyB nrOfEmployees "20" .
+...
+</source>
+
+We assume that <tt>...</tt> denotes triples with a predicate different from ''nrOfEmployees''. Now assume the Historical Data Provider runs on with the '''aggregators''' definition above at the beginning of some hour X. Then, the provider will store the following snapshot in the historical database:
+
+'''Snapshot 1 in hour X''':
+<source>
+CompanyA nrOfEmployees "10" .
+CompanyB nrOfEmployees "20" .
+</source>
+
+Further assume that, five minutes after the provider run, the database changes to
+
+<source>
+...
+CompanyA nrOfEmployees "12" .
+CompanyB nrOfEmployees "20" .
+...
+</source>
+
+When the provider runs again next time, we will obtain a second snapshot as follows.
+
+'''Snapshot 2 in hour X''':
+<source>
+CompanyA nrOfEmployees "12" .
+CompanyB nrOfEmployees "20" .
+</source>
+
+Hence, when taking the snapshots, the aggregator function is not (in our case, ''AvgAggregator'') is not yet considered. But now assume our '''aggregateMask''' in for the provider is ''10000'' (i.e., the hourly aggregate calculation is turned on). Then, once the provider runs the first time in hour X+1, all existing snapshots for hour X (in our case, Snapshot 1+2) are used to calculate the hourly aggregate for hour X. This aggregate will then look as follows:
+
+'''Hourly aggregate over Snapshots 1+2'''
+<source>
+CompanyA nrOfEmployees "11" .
+CompanyB nrOfEmployees "20" .
+</source> 
+
+Hence, what is happening in the aggregation phase is that the provider calculates, for each unique subject, the average (due to the chosen aggregation method ''com.fluidops.iwb.history.aggregationfunctions.AvgAggregator'') over all snapshots in the database and stores the result in a new snapshot. More precisely, for subject ''CompanyA'' we observe the two values ''"10"'' and ''"12"'' in the two snapshots, and their average is ''"11"''; for subject ''CompanyB'', we observe twice the value ''"20"'', so the average is ''"20"''. This is exactly what will be stored in the hourly aggregate.
+
+In the following, we will discuss the semantics of the different aggregation functions provided by the Information Workbench.
+
+======= Semantics of ''AvgAggregator'' =======
+The '''AvgAggregator''' (com.fluidops.iwb.history.aggregationfunctions.AvgAggregator) calculates the average over the values in the available snapshots. Note that this is a numerical aggregator, to be applied to properties having numeric values (such as integers, doubles, etc.). 
+
+======= Semantics of ''MaxAggregator'' =======
+The '''MaxAggregator''' (com.fluidops.iwb.history.aggregationfunctions.MaxAggregator) calculates the maximum over the values in the available snapshots. Note that this is a numeric aggregator, to be applied to properties having numeric values only (such as integers, doubles, etc.). In our example above, the '''MaxAggregator''' would yield the following hourly aggregate:
+
+<source>
+CompanyA nrOfEmployees "12" .
+CompanyB nrOfEmployees "20" .
+</source> 
+
+======= Semantics of ''MinAggregator'' =======
+The '''MinAggregator''' (com.fluidops.iwb.history.aggregationfunctions.MinAggregator) calculates the minimum over the values in the available snapshots. Note that this is a numeric aggregator, to be applied to properties having numeric values only (such as integers, doubles, etc.). In our example above, the '''MinAggregator''' would yield the following hourly aggregate:
+
+<source>
+CompanyA nrOfEmployees "10" .
+CompanyB nrOfEmployees "20" .
+</source> 
+
+======= Semantics of ''UnionAggregator'' =======
+The '''UnionAggregator''' (com.fluidops.iwb.history.aggregationfunctions.UnionAggregator) calculates the union of all values existing in the available snapshots. In our example above, the '''UnionAggregator''' would yield the following hourly aggregate:
+
+<source>
+CompanyA nrOfEmployees "10" .
+CompanyA nrOfEmployees "12" .
+CompanyB nrOfEmployees "20" .
+</source> 
+
+Hence, the aggregator collects all values that have been observed over time without manipulating them.
+
+======= Semantics of ''IntersectionAggregator'' =======
+The '''IntersectionAggregator''' (com.fluidops.iwb.history.aggregationfunctions.IntersectionAggregator) calculates the intersection of all values existing in the available snapshots. In our example above, the '''IntersectionAggregator''' would yield the following hourly aggregate:
+
+<source>
+CompanyB nrOfEmployees "20" .
+</source> 
+
+Hence, the aggregator collects all values that have been steady/unchanged over time without manipulating them.
+
+======= Semantics of ''FirstValueAggregator'' =======
+The '''FirstValueAggregator''' (com.fluidops.iwb.history.aggregationfunctions.FirstValueAggregator) retrieves the value (respectively, all values, for multi-valued properties) from the chronologically first snapshot of the available snapshots. In our example above, the '''FirstValueAggregator''' would yield the following hourly aggregate:
+
+<source>
+CompanyA nrOfEmployees "10" .
+CompanyB nrOfEmployees "20" .
+</source> 
+
+======= Semantics of ''LastValueAggregator'' =======
+The '''LastValueAggregator''' (com.fluidops.iwb.history.aggregationfunctions.LastValueAggregator) retrieves the value (respectively, all values, for multi-valued properties) from the chronologically last snapshot of the available snapshots. In our example above, the '''LastValueAggregator''' would yield the following hourly aggregate:
+
+<source>
+CompanyA nrOfEmployees "12" .
+CompanyB nrOfEmployees "20" .
+</source> 
+
+======= Semantics of ''TotalOrderAggregator'' =======
+The '''TotalOrderAggregator''' (com.fluidops.iwb.history.aggregationfunctions.TotalOrderAggregator) retrieves the maximum value from a series of snapshots according to a user-definable, ordered list of string values. As an example, consider a property ''criticality'' mapping to exactly one of the three values ''low'', ''medium'', and ''high'' and assume we want to write an aggregator that reports on the highest criticality observed within a sequence of snapshots. To achieve this goal, we would set up a Historical Data provider with the following '''aggregators''' configuration:
+
+<source>
+aggregators = [criticality,com.fluidops.iwb.history.aggregationfunctions.TotalOrderAggregator(low#medium#high)]
+</source>
+
+Note that the values are passed to the '''TotalOrderAggregator''' as parameters.
+
+====== Config Parameter ''contextSourceFilters'' ======
+The '''contextSourceFilters''' parameter allows users to specify an (optional) filter restricting the provider to consider only data of contexts associated to a given context source (or, possibly, a comma-separated list of context sources). If not specified, data from all contexts is considered by the provider.
+
+====== Config Parameter ''contextGroupFilters'' ======
+The '''contextGroupFilters''' parameter allows users to specify an (optional) filter restricting the provider to consider only data of contexts associated to a given context group (or, possibly, a comma-separated list of context groups). If not specified, data from all contexts is considered by the provider.
+
+====== Config Parameter ''snapshotLifetime'' ======
+The '''snapshotLifetime''' parameter allows users to specify the minimum life time of the database snapshots. When set explicitly, snapshots that have become irrelevant (i.e., that are neither needed to compute higher-tier aggregates anymore ) are only deleted in case they are older than the time specified in this field. As an example, assume we have a provider with '''aggregateMask''' set to ''11111''. If we now have some snapshots withing some hour X, they would be deleted as soon as the hourly snapshot for the hour has been calculated (i.e., in the first provider run following hour X). In such a scenario, the '''snapshotLifetime''' can be used to make sure that the snapshots are not deleted unless they become older than a certain amount of time.
+
+====== Config Parameter ''hourlyAggSnapshotLifetime'' ======
+The '''hourlyAggSnapshotLifetime''' parameter allows users to specify the minimum life time of hourly aggregates. When set explicitly, hourly aggregates that have become irrelevant (i.e., that are neither needed to compute higher-tier aggregates anymore nor forced to be persisted according the the '''agregatePersistMask''') are only deleted in case they are older than the time specified in this field. As an example, assume we have a provider with '''aggregateMask''' set to ''11111'' and '''aggregatePersistMask''' set to ''000000''. If we now have hourly snapshots for some day X, the hourly aggregates would be deleted as soon as the daily aggregate for day X has been calculated (i.e., in the first provider run following day X). In such a scenario, the '''hourlyAggSnapshotLifetime''' can be used to make sure that these aggregates are not deleted unless they become older than a certain amount of time.
+
+====== Config Parameter ''dailyAggSnapshotLifetime'' ======
+The '''dailyAggSnapshotLifetime''' parameter allows users to specify the minimum life time of daily aggregates. When set explicitly, daily aggregates that have become irrelevant (i.e., that are neither needed to compute higher-tier aggregates anymore nor forced to be persisted according the the '''agregatePersistMask''') are only deleted in case they are older than the time specified in this field. As an example, assume we have a provider with '''aggregateMask''' set to ''11111'' and '''aggregatePersistMask''' set to ''000000''. If we now have daily aggregates for some month X, the daily aggregates would be deleted as soon as the monthly aggregate for month X has been calculated (i.e., in the first provider run following month X). In such a scenario, the '''dailyAggSnapshotLifetime''' can be used to make sure that these aggregates are not deleted unless they become older than a certain amount of time.
+
+===== Implementation of Running Example =====
+Extending the running example from above, assume our database contains (frequently changing) data according to the following scheme:
+
+<source>
+CompanyA nrOfEmployees "10" .
+CompanyA stockValue "27.52"
+CompanyB stockValue "17.63" .
+CompanyC nrOfEmployees "22" .
+</source>
+
+Further let us assume now that we are interested in the average number of employees over time, as well as the maximum stock price over time. We set up a Historical Data Provider with the following configuration
+
+<source>
+aggregators = [nrOfEmployees,com.fluidops.iwb.history.aggregationfunctions.AvgAggregator];[stockValue,com.fluidops.iwb.history.aggregationfunctions.MaxAggregator]
+aggregateMask = 11111
+aggregatePersistMask = 00111
+contextSourceFilters = (leave blank)
+contextGroupFilters = (leave blank)
+hourlyAggSnapshotLifetime = (leave blank)
+dailyAggSnapshotLifetime = (leave blank)
+</source>
+
+Note that, when setting up this scenario, it will take some time (until the provider runs the first time after the first hour when snapshots have been created) unless aggregates are stored in the historical database.
+
+===== Querying Historical Data =====
+To query the historical data, we can now use standard Information Workbench widgets (such as the [[Help:TableResult|Table Result Widget]] or the [[Help:StockChart|Stock Chart Widget]]. There are two crucial things to consider when writing queries against the historical database:
+
+# In the widget, you must set the parameter <tt>historic = true</tt>, in order to evaluate the widget against the historical database filled by the Historical Data Provider (otherwise, your result set will be empty)
+# Queries against the historical database typically use the <tt>GRAPH</tt> keyword to select the snapshots and aggregates that are relevant for the query result. As an example, the following table result widget, to be embedded on the page of an organization (such as ''CompanyA'' in our running example above), creates a table containing, for every aggregate, the aggregate id, its type (hourly, daily, ...), the date the aggregate refers to, as well as the aggregated values, i.e. the average number of employees observed and the maximum stock price observed in the time frame represented by the respective aggregate.
+
+<source>
+{{ #widget : TableResult
+  | query = '
+SELECT DISTINCT ?aggregateId ?aggregateType  ?date ?nrOfEmployees ?stockValue WHERE {
+  GRAPH history:MetaContext {
+    ?aggregateId historyAggregationSnapshot:type ?aggregateType .
+    ?aggregateId dc:date ?date 
+  }
+  GRAPH ?aggregateId {
+    OPTIONAL { ?? :nrOfEmployees ?nrOfEmployees }
+    OPTIONAL { ?? :stockValue ?stockValue }
+  }
+}'
+  | historic = true
+}}
+</source>
+
+The query is composed of two parts, identified by the two <tt>GRAPH</tt> sub-queries. The first part queries the so-called ''MetaContext'' of the historical databases, in which all snapshots and aggregates are registered. From this ''MetaContext'', it retrieves the id (variable ''?aggregateId''), type (variable ''?aggregateType''), and the date (variable ''?date'') of the aggregate. The aggregate id then serves as an identifier for the context, in which the aggregate content is stored, i.e. the second <tt>GRAPH</tt> keyword looks up the content of the snapshot in the respective named graph. When writing own queries against the historical database, the code skeleton above can be very useful: you may use the body of the query as is, just replacing the inner part of the second <tt>GRAPH</tt>, where you specify your query over the aggregate(s) selected in the first part of the query.

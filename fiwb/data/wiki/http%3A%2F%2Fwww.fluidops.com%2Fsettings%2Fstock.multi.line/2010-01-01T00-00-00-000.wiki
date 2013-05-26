@@ -1,0 +1,108 @@
+<source lang="xml">
+<settings>
+  <path>$path$</path>
+  <data_type>$dataType$</data_type>
+  <equal_spacing>false</equal_spacing>
+  <margins>0</margins>   
+  <marginLeft>5</marginLeft>        
+  <lineType>line</lineType>           
+  <colors>$colors$</colors>
+  
+  <valueLabels>$valueLabels$</valueLabels>
+  <number_format>  
+    <letters>
+      <letter number="1000">K</letter>
+      <letter number="1000000">M</letter>
+      <letter number="1000000000">B</letter>
+    </letters>      
+  </number_format>
+
+  <charts>
+    <chart>
+      <border_color>#CCCCCC</border_color>
+      <border_alpha>10</border_alpha>
+      <values>
+        <x>
+          <bg_color>EEEEEE</bg_color>
+        </x>        
+        <y_left>
+          <integers_only>true</integers_only>
+          <unit></unit>
+          <unit_position>left</unit_position>
+          <bg_color>#000000</bg_color>
+          <bg_alpha>70</bg_alpha>
+          <text_color>#FFFFFF</text_color>
+        </y_left>     
+      </values>
+      <legend>
+        <show_date>true</show_date>
+        <valueWidth>100</valueWidth>
+        <markerType>circle</markerType>
+        <markerSize>8</markerSize>
+      </legend>
+      <column_width>100</column_width>
+      <graphs>
+        <graph>
+          <title>$title$</title>
+          <color>0000ff</color>
+          <fill_alpha>0</fill_alpha>
+	  	  <type>$type$</type>
+	      <bullet>$bullet$</bullet>
+	      <customBullet>$customBullet$</customBullet>
+	      <bulletSize>$bulletSize$</bulletSize>
+          <axis>right</axis>
+          <usePrefixes>true</usePrefixes>
+          <data_sources>
+            <close>out1</close>
+          </data_sources>
+          <legend>
+            <date title="0" key="true"><![CDATA[$title$ {close}]]></date>
+          </legend>
+        </graph>
+      </graphs>
+    </chart>  
+  </charts>
+
+  <data_set_selector>
+    <enabled>false</enabled>
+  </data_set_selector>
+
+  <period_selector>
+    <periods>
+      <period type="hh" count="6">6H</period>
+      <period type="DD" count="1">1D</period>
+      <period type="MM" count="1">1M</period>
+      <period type="MM" count="3">3M</period>
+      <period type="YYYY" count="1">1Y</period>
+      <period type="YYYY" count="3">3Y</period>
+      <period selected="true" type="MAX">MAX</period>
+    </periods>
+    <periods_title>Zoom:</periods_title>
+    <custom_period_title>Custom period:</custom_period_title> 
+  </period_selector>
+
+  <header>
+    <enabled>false</enabled>
+  </header>
+
+  <context_menu>                                                                  
+     <default_items>
+       <zoom>false</zoom>
+       <print>false</print>                                  
+     </default_items>
+  </context_menu>
+
+  <date_formats>
+    <legend>
+      <milliseconds>month DD, YYYY, hh:mm:ss</milliseconds>
+      <seconds>month DD, YYYY, hh:mm:ss</seconds>
+      <minutes>month DD, YYYY, hh:mm:ss</minutes>
+      <hours>month DD, YYYY, hh:mm</hours>
+      <days>month DD, YYYY</days>
+      <months>month, YYYY</months>
+      <years>YYYY</years>
+    </legend>
+  </date_formats>
+
+</settings>
+</source>

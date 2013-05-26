@@ -1,0 +1,74 @@
+__NOTOC__
+== Wiki Page Management  ==
+
+The [[Admin:WikiManagement| wiki page management facility]] allows to create backups  and delete revisions of the wiki pages deployed in the underlying system. Supported by an integrated user interface, the user can intuitively select a set of pages for export, which are then provided as a downloadable zip archive.  The delete functionality provides a UI where the user can define exactly what revisions of the selected pages should be deleted. The interface is documented in the following.
+
+An overview of the interface is depicted in the following:
+
+<img src="../images/help/WikiManagementUI.png" width="996px" />
+
+
+The interface comprises the following components:
+
+# a table depicting all available wiki pages and some metadata (e.g. their type)
+# a set of buttons for filtering the wiki pages (first row)
+# a set of buttons for selecting wiki pages (second row)
+# a button for deleting revisions of the selected wiki pages and a button for restoring the latest bootstrap version of selected pages (third row)
+# a button to invoke the export (forth row)
+
+The individual components are described in the following in more details.
+
+=== Tabular View of Wiki Pages ===
+
+The table shows all available wiki pages and associated metadata. This is in particular (1) the URI of the wiki page rendered as prefixed link, (2) the comment belonging to the wiki page's revision, (3) the type of the wiki revision, and (4) the number of revisions of the wiki page. Each wiki page can be selected using the corresponding checkbox in the first table column. The type of the wiki revision is either ''Bootstrap'' (where a bootstrap comes with a version number), or a ''User page'' (with the date of the last modification).
+
+Note that the table provides functionality for sorting by clicking the table headers, as well as a text field for filtering.
+
+==== Filtering Buttons ====
+
+The first set of buttons provide functionality for filtering the set of wiki pages.
+
+* '''Show all''': invalidate all applied filters and show all available wiki pages
+* '''Show bootstrap only''': show all those wiki pages where the latest revision origins from a wiki bootstrap
+* '''Show user pages only''': show all those wiki pages where the latest revision is user-edited. Note that this does not exclude wiki pages having some earlier revision from bootstraps.
+* '''Show imported only''': show all wiki pages that have been imported by the [[Help:Wiki| wikibot mechanism]], e.g. from wikipedia
+* '''Show user pages shadowing a bootstrapped page''': show those user pages for which a shadowed bootstrap page exists
+* '''Filter namespace''': enter some string that is used for filtering. The string can either be the beginning of a full URI (e.g. "<nowiki>http://www.fl</nowiki>"), or a valid system or user namespace (e.g. Help, Admin, dbpedia, ...)
+
+==== Selection Buttons ====
+
+The second set of buttons allow to select/unselect multiple wiki pages at once.
+
+* '''Select all''': select all wiki pages (across all table pages)
+* '''Unselect all''': remove all selections
+* '''Load preset''': allows to select wiki pages according to a preset. After clicking this button all selected wiki pages will be listed in a text area, one URI per line. In this view changes can be made to the preset (e.g. an earlier created list of prefixes can be copied from a file to allow for iterative wiki export). Confirming the preset with the OK-button selects all wiki pages configured in the text area. Note that the table will be sorted with the selected wiki pages first.
+
+==== Deleting Wiki Pages ====
+
+The '''Delete revisions''' button triggers a popup window where the user can select one of the delete options. 
+
+<img src="../images/help/WikiDeleteUI.png" width="624px" />
+
+The first option allows deleting all revisions while the system keeps the ''N'' latest ones. The second option allows deleting a user-defined number of the latest revisions. 
+
+In addition, the user can check the '''keep the bootstrap revisions ''' checkbox if the bootstrap revisions should not be affected by any of the delete operations.
+
+==== Restoring Latest Bootstrap Pages ====
+
+The '''Restore latest bootstrap''' button allows to restore the latest bootstrap version for selected wiki pages. The restore operation creates a new user page with the exact content of the last bootstrap revision, if available.
+
+For the operation to be successfully applied to a selected page, the following conditions must hold for this page:
+
+# the selected page is a user page
+# there exists some bootstrap version for the selected page
+# the content of the latest version and the latest bootstrap version are actually different
+
+Note that the restore operation is performed on a set of pages. If one of the selected pages does not satisfy above conditions, an appropriate information message is shown.
+
+
+
+==== Exporting Selected Pages ====
+
+The '''Export''' button creates a zip file named wikiBootstrapTIMESTAMP.zip containing the latest revision of all selected wiki pages. The file can be accessed with the available '''Download''' button and can be used as [[Help:Extensions|customization artifact]] in any Information Workbench instance. 
+
+Note that the export files are physically stored in %IWB_HOME%/data/solutions/.

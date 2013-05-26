@@ -1,0 +1,8 @@
+com.fluidops.iwb.provider.RDFProvider=true
+com.fluidops.iwb.provider.ScriptProvider=true
+com.fluidops.iwb.provider.SPARQLEndpointProvider=true
+com.fluidops.iwb.provider.CkanProvider=true
+com.fluidops.iwb.provider.XMLProvider=true
+com.fluidops.iwb.provider.SilkProvider=true
+com.fluidops.iwb.provider.SequenceProvider=true
+com.fluidops.iwb.provider.ValueBasedDataMappingProvider=true

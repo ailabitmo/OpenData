@@ -1,0 +1,22 @@
+=== Twitter Widget ===
+
+==== Functionality and Configuration ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.TwitterWidget
+| type = 'DESCRIPTION'
+}}
+
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Example ====
+The following example will show the twitter feed of Usain Bolt on the wikipage.
+<source>
+{{ #widget : Twitter
+| '@usainbolt'
+}}
+</source>
+
+The resulting twitter feed will look like the following.
+
+<img src="../images/help/twitterWidget-bolt.png" />

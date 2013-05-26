@@ -1,0 +1,104 @@
+=== Graph Widget ===
+
+==== Functionality ====
+The Information workbench comes with a highly flexible and easily configurable Graph Engine for presenting the available structured data exactly as the user would like to see it. 
+
+The configuration can be performed for specific resources and based on the type of a resource (for all instances of a class of resources). The selection of the configuration includes the following steps:
+
+* First check if the configuration for a specific resource matches the resource to be visualized. If there is a match select the configuration for the graph.
+* Check if the configuration for a type of a resource matches the type of the resource to be visualized.
+* If nothing matches select a default configuration.
+
+This type of configuration selection provides a high level of graph widget flexibility.  Thus, visualization can be done on instance-level (i.e. the user can configure a graph for one single instance by passing the URI of this instance) or on rdf:type-level (i.e. the configuration is applied to all instances of the rdf:type this configuration is designed for). The configuration file '''widgets.xml''' can be found in the 'config' folder of your Information Workbench installation. With the help of the graph configurations in this file it is defined how a resource is represented in the graph view. 
+
+Alternatively a graph configuration can be directly defined in a wiki page to provide a user-defined graph view of an entity in the wiki view. The following example shows all properties of the current entity (represented by the variable ''??''):
+
+<source>
+{{#widget:Graph
+| query='CONSTRUCT { ?? ?y ?z } WHERE { ?? ?y ?z } '
+| graphType='forcedirectedgraph'
+}}
+</source>
+
+All properties must be assigned to a namespace. This must also be true for properties in the CONSTRUCT part of the query that do not occur in the WHERE part.
+
+<source>
+{{#widget:Graph
+|query='CONSTRUCT { owl:Class :isTypeOf ?a . ?a :hasProperty ?b } 
+WHERE { ?a rdf:type owl:Class . ?a ?b ?c }'
+|graphType='hypertree'
+|spreadFactor=10
+|maxDepth=2
+}}
+</source>
+
+
+If the current entity is not in the result set, then a center node must be specified on which the graph is centered, when the page is loaded. This is the case in the following example. Instead of the current resource we add an entity :X to the result graph. The center node X ensures that the graph view will be centered on X.
+
+<source>
+{{ #widget : Graph
+  | graphType = 'forcedirectedgraph'
+  | query = 'CONSTRUCT { :X ?p ?o } WHERE { ?? ?p ?o }'
+  | center = 'X'
+}}
+</source>
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.GraphWidget
+}}
+
+
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Example ====
+
+The different kinds of graphs support different ways of interaction with the data. The following set of examples is based on the following widget configuration:
+
+<source>
+{{ #widget : Graph
+  | graphType = 'hypertree'
+  | query = 'CONSTRUCT { ?x :property ?z. ?x rdf:type ?o. } WHERE { ?x :property ?z. OPTIONAL{?x rdf:type ?o.} }'
+}}
+</source>
+The examples differ only on their graphType.
+
+The RGraph and the HyperTree allow navigation through the data by clicking on any node, triggering a reload of the contextual information and calculating a new graph with the node just clicked as its new center. The ForceDirectedGraph on the other hand allows the user to drag and drop the displayed nodes on the screen or remove those not needed.
+
+
+'''HyperTree'''
+
+<img src="../images/help/HyperTree.png" />
+
+A HyperTree is centered on one central node. The hyperbolic organization of the edges in the graph provides a clearly arranged visualization, even if there are many nodes and edges to be displayed. Clicking on one of the nodes brings you to a graph view centered on this clicked node.
+
+'''RGraph'''
+
+<img src="../images/help/RGraph.png" />
+
+The RGraph allows users to rapidly get an overview of how large the distance of different entities in the RDF graph by visualizing the n-hop-neighborhood of a central entity with several Circles around this entity.  Clicking on one of the nodes brings you to a graph view centered around this clicked node.
+
+'''ForceDirectedGraph'''
+
+<img src="../images/help/ForceDirectedGraph.png" />
+
+The ForceDirectedGraph allows several different kinds of interaction with the graph. The user can move the nodes by dragging and dropping them, or hide nodes and its outgoing edges he is not interested in from the view by clicking the X next to the node's name.  A click on a label of a node makes the node and its adjacent edges look different emphasizing all possible relations associated with the node.  It is possible to apply different design types to the nodes (or use icons instead) depending on the type of visualized instance. 
+
+'''SpaceTree'''
+
+<img src="../images/help/spacetree.png" />
+
+The SpaceTree visualizes the query result in a tree-like structure with the center node or current entity as its root. At the beginning three levels of the tree are displayed. Click on the leaves of the graph to open the next branches and see the whole tree defined in the query with the specified depth. Every click will open the next three levels of the tree branch.
+
+'''OntologyGraph'''
+
+<img src="../images/help/ontologygraph.png" />
+
+The OntologyGraph allows several different kinds of interaction with the graph. The user can move the nodes by dragging and dropping them, or hide nodes and its outgoing edges he is not interested in from the view by clicking the X next to the node's name.  A click on a label of a node brings you to the page associated to this node. 
+
+'''ClassTree'''
+
+<img src="../images/help/classtree.png" />
+
+The ClassTree visualizes the query result in a tree-like structure with the center node or current entity as its root.

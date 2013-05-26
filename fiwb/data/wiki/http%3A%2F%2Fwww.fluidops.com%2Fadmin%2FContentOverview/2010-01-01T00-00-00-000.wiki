@@ -1,0 +1,72 @@
+= Content Overview <sup>[[Help:ContentOverview |<img width="19" src="../images/navigation/help_start.png" />]]</sup>=
+
+This page gives an overview of all available classes, properties and datasets.
+
+{{ #widget: com.fluidops.iwb.widget.VoIDWidget | statisticsOfCompleteDataStore='true' }}
+
+{|
+| <H2>Ontology Classes</H2>
+| <H2>Ontology Properties</H2>
+|-
+|{{ #widget: TagCloud
+  | query = 'SELECT ?class ?entities WHERE {
+        <http://www.fluidops.com/AllContext> void:classPartition ?classPartition .
+        ?classPartition void:class ?class . 
+        ?classPartition void:entities ?entities }'
+  | noDataMessage = 'There is currently no information about ontology classes available. Please calculate VoID statistics using the button above for collecting the necessary information.'
+}}
+| {{ #widget: TagCloud
+  | query = 'SELECT ?property ?entities WHERE {
+        <http://www.fluidops.com/AllContext> void:propertyPartition ?propertyPartition .
+        ?propertyPartition void:property ?property . 
+        ?propertyPartition void:entities ?entities }'
+  | noDataMessage = 'There is currently no information about ontology properties available. Please calculate VoID statistics using the button above for collecting the necessary information.'
+}}
+|}
+
+== Class Hierarchy ==
+
+{{#widget: TreeResult | 
+ rootNode = 
+   {{ 
+        query = 'SELECT DISTINCT ?class WHERE {
+        <http://www.fluidops.com/AllContext> void:classPartition ?classPartition .
+        ?classPartition void:class ?class .
+      FILTER NOT EXISTS { ?class rdfs:subClassOf ?superClass }
+      FILTER ( !isBLANK(?class) )}
+      ORDER BY ASC(?class)'
+   }} | 
+ childNodes = 
+   {{  
+     {{
+        predicate='rdfs:subClassOf' | 
+        direction='IN'| 
+     }}
+   }} |
+treeName = 'Class Hierarchy' |
+  noDataMessage = 'There is currently no information about the class hierarchy available. Please calculate VoID statistics using the button above for collecting the necessary information.'
+ }}
+ 
+ 
+== Object/Datatype Properties. ==
+* [[owl:ObjectProperty | Overview of object properties.]]
+* [[owl:DatatypeProperty | Overview of datatype properties.]]
+
+== Properties by range and domain ==
+
+The table below lists all properties by their range and domain.
+
+{{
+#widget: TableResult
+  | query='SELECT ?Property ?Domain ?Range WHERE {
+        <http://www.fluidops.com/AllContext> void:propertyPartition ?propertyPartition .
+        ?propertyPartition void:property ?Property . 
+      OPTIONAL { ?Property rdfs:range ?Range } 
+      OPTIONAL { ?Property rdfs:domain ?Domain } }'
+}}
+
+== Context Overview ==
+
+This table gives an overview of all available contexts. Contexts are used to group data internally from specific sources, e.g. a single context can contain data obtained form a provider run, a wiki edit, an imported RDF file and so on. Click on an entry in the ''Context'' column to browse this specific context.
+
+{{ #widget: com.fluidops.iwb.widget.ContextEditTableWidget }}

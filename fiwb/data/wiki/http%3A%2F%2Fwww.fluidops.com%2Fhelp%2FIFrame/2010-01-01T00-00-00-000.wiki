@@ -1,0 +1,34 @@
+=== IFrame Widget ===
+
+==== Functionalities ====
+
+IFrame shows the content of the specified source URL in an iframe on a wiki page.
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.IFrameWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.IFrameWidget
+}}
+
+
+==== Example ====
+The widget can be embedded in the wiki page with the following code:
+<source>
+{{ #widget : IFrame
+  | sourceURL = 'http://www.fluidops.com'
+  | border = '1'
+  | scrolling = 'yes'
+  | asynch = true
+  | width = '1300'
+  | height = '500'
+}}
+</source>
+
+The resulted view :
+
+<img src="../images/help/iframe-example.png" width="1024px" />

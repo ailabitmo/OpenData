@@ -1,0 +1,8 @@
+= Data Providers <sup>[[Help:Providers | <img width="19" src="../images/navigation/help_start.png" />]]</sup> =
+
+{{#widget: com.fluidops.iwb.widget.ComponentWidget | 
+title = 'Data Providers' |
+type = 'com.fluidops.iwb.ui.ProviderEditTable' 
+}}
+
+

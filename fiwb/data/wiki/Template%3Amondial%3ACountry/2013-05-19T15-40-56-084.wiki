@@ -1,0 +1,36 @@
+== $this.mondial:name$ ==
+Type of government: $this.mondial:government$
+
+#widget: TableResult | 
+  query = 'SELECT DISTINCT ?Abbreviation ?Name WHERE {
+            ?? mondial:isMember ?Organization .
+            ?Organization mondial:abbrev ?Abbreviation .
+            ?Organization mondial:name ?Name }
+            ORDER BY ASC(?Abbreviation)'
+
+
+{{#widget: BarChart | 
+  query = 'SELECT DISTINCT ?CityName ?Population WHERE {
+            ?City mondial:population ?Population .
+            ?City mondial:name ?CityName .
+            ?Province mondial:hasCity ?City.
+            ?? mondial:hasProvince ?Province }
+           ORDER BY DESC(?Population)
+           LIMIT 5' |
+   type = 'BAR_HORIZONTAL' |
+   input = 'CityName' |
+   output = {{ 'Population' }} |
+}}
+
+{{#widget: BarChart |
+ query = 'SELECT DISTINCT ?LakeName ?Depth WHERE {
+           ?Lake rdf:type mondial:Lake .
+           ?Lake mondial:name ?LakeName .
+           ?Lake mondial:depth ?Depth .
+           ?Lake mondial:locatedIn ??
+           FILTER( ?Depth > 50 ) }
+          ORDER BY DESC(?Depth)' |
+  type = 'BAR_VERTICAL' |
+  input = 'LakeName' |
+  output = {{ 'Depth' }} |
+}}

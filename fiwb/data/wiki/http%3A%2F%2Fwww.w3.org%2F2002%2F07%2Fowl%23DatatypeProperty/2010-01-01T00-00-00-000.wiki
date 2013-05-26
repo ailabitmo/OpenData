@@ -1,0 +1,10 @@
+= OWL Datatype Properties =
+
+п»ї{{#widget: TableResult |
+query = '
+SELECT ?property WHERE { 
+ ?property rdf:type ?? 
+}'
+}}
+
+{{#widget: NewInstance }}

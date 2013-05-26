@@ -1,0 +1,98 @@
+=== Tree Result Widget ===
+
+==== Functionalities ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.TreeResultWidget
+| type = 'DESCRIPTION'
+}}
+The tree result widget displays the result of a SPARQL query in a tree. 
+The example below displays a hierarchy of all available classes (owl:Class) in the database.
+
+<source>
+'''Class Hierarchy'''
+{{#widget: com.fluidops.iwb.widget.TreeResultWidget | 
+ rootNode = 
+   {{ 
+        query = 'SELECT ?resource WHERE { ?resource rdf:type owl:Class }' |
+      icon = '/favicon.ico'
+   }} | 
+ childNodes = 
+   {{  
+     {{
+        predicate='rdfs:subClassOf' | 
+        direction='IN'| 
+        iconQueryPattern = 'SELECT ?icon WHERE { ?instance rdf:type ?:node . ?instance dbpedia:thumbnail ?icon }'
+     }}
+   }} |
+ treeName = 'Class Tree' |
+ noDataMessage = 'there are no items to display'
+ }}
+</source>
+
+The '''rootNode''' -> '''query''' field defines, which elements are displayed on the top level of the tree.
+These can be any type of values stored in the database.
+The values are retrieved from the database using a SPARQL query.
+In our case we are looking for any instances of the type owl:Class.
+Next we specify the relation between parent and child nodes.
+
+The parameter '''childNodes''' -> '''predicate''' defines by which predicate parent and child are connected. 
+There can be any number of childNodes and each represents a relationship with a predicate (represented by a valid URI). 
+If parent and child are connected by any of these childNodes -> predicates, the child will be displayed in the tree. 
+
+The direction of the parent child relationship is specified in the field childNodes -> '''direction'''. 
+A predicate can either be an outgoing  (?parent ?predicate ?child) or an incoming property (?child ?predicate ?parent). 
+For every predicate you define, you have to specify its direction by either choosing 'IN' or 'OUT'. 
+
+It is also possible to filter certain resources (nodes) via the field '''type''', in this field you can specify and owl class, 
+and only resources matching this type will be part of this predicate relationship
+
+
+Each node can have either a field named '''icon''' or '''iconQueryPattern''' which will be used to get the according icon to the node
+* icon - is the location of the icon, e.g. ''../myIcon.png''
+* iconQueryPattern - is a sparql query and its result will be displayed as icon 
+note: in order to use the current resource (node) within this iconQueryPattern, use <code>?:node</code>
+
+It is also possible to define a string which gets displayed, if there is no data available via the '''noDataMessage''' field.
+
+Finally you can choose a custom name for the tree with the '''treeName''' field.
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.TreeResultWidget
+}}
+
+==== Example ====
+
+The following example is a refinement of the class hierarchy provided above. This hierarchy additionally considers RDFS classes. 
+Also no subclasses are displayed as top level elements.
+
+<source>
+'''Class Hierarchy'''
+{{#widget: TreeResult | 
+ rootNode = 
+   {{ 
+        query = 'SELECT DISTINCT ?class WHERE {
+       { ?class rdf:type owl:Class } UNION { ?class rdf:type rdfs:Class }
+      OPTIONAL { ?x rdfs:subClassOf ?y . FILTER(?x = ?class) . }
+      FILTER ( !BOUND(?x) ) }
+      ORDER BY ASC(?class)' |
+      icon = '/favicon.ico'
+   }} | 
+ childNodes = 
+   {{  
+     {{
+        predicate='rdfs:subClassOf' | 
+        direction='IN'| 
+        iconQueryPattern = 'SELECT ?icon WHERE { ?instance rdf:type ?:node . ?instance dbpedia:thumbnail ?icon }'
+     }}
+   }} |
+ treeName = 'Class Hierarchy' |
+ noDataMessage = 'there are no items to display'
+ }}
+</source>
+
+The result of this widget if data is loaded is the following, note this uses custom data.
+
+<img src="../images/help/treeResult-widget.png" />

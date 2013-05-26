@@ -1,0 +1,21 @@
+= Data Integration and Management =
+As a platform for application development on top of Linked Data, the Information Workbench provides a variety of features for importing and exporting data. This includes both support for the integration of data that is already present in Linked Data formats (such as RDF and OWL) as well as the integration of data from non Linked Data formats and systems, including relational databases, XML, and legacy systems. The links listed in the table below provide the required entry points for all data management related topics.
+
+
+{|class="wikitable sortable"
+|-
+! Topic
+! Preview
+|-
+| [[Help:ContentOverview | Content overview ]]
+| Get an overview about data that has been integrated into the platform, delete data from previous imports, etc.
+|-
+| [[Help:RDFImport | Importing RDF data]]
+| Learn how to import RDF data from various sources, such as files, google refine projects or remote repositories.
+|-
+| [[Help:Providers | Using data providers]]
+| Data providers facilitate the periodic integration of data from remote data sources, supporting the extraction of data of various formats from the file system or the Web.
+|-
+| [[Help:GoogleRefine | Using Google Refine]]
+| The Information Workbench offers a tight integration with Google Refine, an established tool for the interactive transformation of spreadsheet data into the RDF data format.
+|}

@@ -1,0 +1,19 @@
+= Context =
+
+<blockquote>A context is a logically separated fragment of an RDF repository. Contexts are used internally to group together data, e.g. a single context may identify all data that has been added by a provider at a given point in time.</blockquote>
+
+The following contexts are available:
+
+{{#widget: TableResult |
+query = '
+SELECT ?Context ?Type ?Source ?Date ?isEditable 
+WHERE {
+  ?Context rdf:type ?? .
+  OPTIONAL { ?Context rdfs:label ?Type } 
+  OPTIONAL { ?Context :contextSrc ?Source }
+  OPTIONAL { ?Context dc:date ?Date }
+  OPTIONAL { ?Context :editable ?isEditable } 
+}'
+}}
+
+Please click on a context to obtain detailed information on the respective context.

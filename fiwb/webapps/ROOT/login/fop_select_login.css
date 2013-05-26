@@ -1,0 +1,387 @@
+<% response.setContentType( "text/css" ); %>/*
+body,HTML {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 1.6em;
+}
+
+/*login*/
+#fw_wrapper_login {
+	position: relative;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	width: 367px;
+	height: 500px;
+	margin: 0px auto 0px auto;
+	top: 50px;
+}
+
+
+#fw_login_top_editioniwb {
+	background: url('<%=request.getContextPath()%>/login/imgs/login_top_iwb.png') no-repeat;
+	width: 367px;
+	height: 128px;
+}
+
+
+#fw_login_bottom {
+	background: url('<%=request.getContextPath()%>/login/imgs/login_bottom.png') no-repeat;
+	width: 330px;
+	height: 104px;
+	padding: 122px 50px 0px 0px;
+}
+
+
+#fw_login_navigation {
+	padding-right: 20px;
+	width: 347px;
+	height: 30px;
+}
+
+#fw_login_logo {
+	background: url('<%=request.getContextPath()%>/login/imgs/fluid_logo.png') no-repeat;
+	width: 146px;
+	height: 90px;
+	margin: 0px auto 0px auto;
+}
+
+#loadingscreen {
+    background-image: url("/img/black_px.png");
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 999;
+}
+
+#loadingscreen > div {
+    position: fixed;
+    top: 200px;
+    width: 100%;
+}
+
+#loadingscreen > div > div {
+    border: 2px outset grey;
+    color: white;
+    height: 60px;
+    line-height: 60px;
+    margin: auto;
+    padding: 10px 20px 10px 80px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+    font-size: 1em;
+}
+
+#loadingflops {
+    background-image: url("/img/loading_anim.gif");
+    background-repeat: no-repeat;
+    height: 60px;
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    width: 60px;
+}
+
+.fw_login_button {
+	background: url('<%=request.getContextPath()%>/imgs/bg_button.png');
+	height: 25px;
+	width: 60px;
+	border: 1px solid #999;
+	cursor: pointer;
+	float: right;
+}
+
+.fw_login_button:hover {
+	background: url('<%=request.getContextPath()%>/login/imgs/bg_button_hover.png');
+	height: 25px;
+	width: 60px;
+	border: 1px solid #aaa;
+}
+
+.fw_login_field {
+	padding: 2px 0px 0px 10px;
+	height: 18px;
+	width: 210px;
+	margin-bottom: 12px;
+	border: 0px;
+	background: none;
+}
+
+/**
+* Input field is just an image -> position password on top of the image
+*/
+.commonInputFieldShort .fw_login_field {
+	position:absolute;
+	left:0px;
+}
+/* the message left to the submit button */
+.fw_login_status,
+.fw_login_status_rsa
+{
+	color: red;
+	float: right;
+	height: 40px;
+	width: 240px;
+	margin-right: 5px;
+}
+
+/* some special rsa handling for the message left to the submit button */
+.fw_login_status_rsa
+{
+	position: absolute;
+	margin-top: -14px;
+	margin-left: 20px;
+	text-align: left;
+}
+
+/*select*/
+#fw_wrapper_select {
+	position: relative;
+	width: 940px;
+	height: 202px;
+	margin: 0px auto 0px auto;
+	top: 50px;
+}
+
+#fw_select_int {
+	background: url('/img/bg_select_int.png') no-repeat;
+	width: 940px;
+	height: 314px;
+	position: relative;
+	margin: 0px auto 0px auto;
+}
+
+#fw_select {
+	background: url('/img/bg_select.png') no-repeat;
+	width: 711px;
+	height: 314px;
+	position: relative;
+	margin: 0px auto 0px auto;
+}
+
+.intro
+{
+	margin: 0px auto 0px auto;
+    width:715px;
+}
+
+#fw_select_navigation {
+	padding: 5px 20px 5px 5px;
+	width: 695px;
+	height: 20px;
+}
+
+#fw_select_navigation_int {
+	padding: 5px 20px 5px 5px;
+	width: 910px;
+	height: 20px;
+}
+
+#fw_select_copyright {
+	width: 940px;
+	top: 30px;
+	height: 138px;
+    position: relative;
+    margin: 0px auto 0px auto;
+    padding-bottom: 8px;
+}
+
+#mouse {
+	height: 70px;
+	padding-top: 240px;
+}
+
+.fw_link {
+	padding-left: 20px;
+	position: absolute;
+	margin-top: -18px;
+}
+
+/*link*/
+a,a visited {
+	color: #5ab035;
+	font-weight: normal;
+	text-decoration: none;
+	padding: 0px 3px 0px 10px;
+	background: url('/img/link.png') 0px 3px no-repeat;
+}
+
+a:hover {
+	color: #3f3f3f;
+	font-weight: normal;
+	text-decoration: none;
+	background: url('/img/link.png') 4px 3px no-repeat;
+}
+
+.fw_link a,.fw_link a:visited {
+	color: #5ab035;
+	font-weight: normal;
+	text-decoration: none;
+	background: none;
+	padding: 0px;
+}
+
+.fw_link a:hover {
+	color: #3f3f3f;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+/**
+* Browser unsupported message
+* outer div which is positioned at the top
+*/
+.browserNotSupported{
+    color: #de0202;
+	width: 356px;
+	margin: 0 auto;
+}
+
+.browserNotSupported > SPAN{
+	margin: 3px;
+}
+
+SPAN.browserNotSupportedTitle
+{
+	font-weight: bold;	
+}
+
+.browserNotSupportedInner {
+	background-color: #fcfefe;
+	border:1px solid #de0000;
+	padding: 5px;
+}
+
+.editionselect{
+	margin-top: -5px;
+    float: left;
+    cursor: pointer;
+    position: relative;
+    height: 70px;
+}
+
+.inted
+{
+	width: 230px;
+}
+
+.inted:HOVER
+{
+   
+   background: url('../img/mouseover230.png');
+}
+
+/**
+ *	Login CSS
+ */
+/* the top description div */ 
+.topDescription
+{
+	position: absolute;
+	margin-top: -76px;
+	margin-left: 27px;
+}
+
+.topDescription > span
+{
+	font-weight: bold;
+	font-size: 17px;	
+}
+
+/* the description underneath the line and above the input fields */
+.bottomDescription
+{
+	position: absolute;
+	margin-top: -49px;
+	margin-left: 27px;
+}
+
+/* set static width and height to ensure that content is not drawn over the border */
+.bottomDescription > div
+{
+	position: relative;
+	width: 315px;
+	height: 32px;
+	line-height: 1.3em;
+}
+
+.bottomDescription > div > span
+{
+	color: #aaa;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.formFieldLabel
+{
+	margin-left: 20px;
+	font-weight: bold;
+	float: left;	
+}
+
+.loginfeld
+{
+	display: block;
+	height: 21px;
+	width : 224px;
+	background-image: url('<%=request.getContextPath()%>/login/imgs/inputField.png');
+}
+
+/*
+ * the label in front of the input fields
+ *	- the short one is used when the label is longer and we need to show a shorter input field
+ */
+.commonLabel,
+.commonLabelShort
+{
+	margin: -10px 0px 0px 20px;
+	font-weight: bold;
+	float: left;
+	text-align: left;
+}
+
+.commonLabelShort
+{
+	margin-top: 0px;
+}
+
+/*
+ * the input fields
+ * - the short one is used when the label is longer and we need to show a shorter input field
+ */
+.commonInputField,
+.commonInputFieldShort
+{
+	display: block;
+	height: 21px;
+	position: relative;
+	width : 224px;
+	background-image: url('<%=request.getContextPath()%>/login/imgs/inputField.png');
+	top: -10px;
+}
+
+.commonInputFieldShort
+{
+	width : 173px;
+	background-image: url(/img/inputFieldShort.png);
+	top: 0px;
+}
+
+/* We show the RSA Logo left to the eCM logo */
+#fw_rsa_logo
+{
+	margin-top:		-76px;
+	margin-left:	5px;
+}
+
+#fw_rsa_logo > img
+{
+	height: 63px;
+}

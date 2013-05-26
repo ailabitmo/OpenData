@@ -1,0 +1,27 @@
+==== Settings Files for PIE_2D Charts ====
+
+===== pie2d.default  =====
+Settings file available at : [[ Settings:pie2d.default | pie2d.default ]]
+Plot a variable in a pie chart. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/PIE_2D-settings.PNG" width="1024px" />
+
+====== Code ======
+<source>
+{{ #widget : PieChart
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$")
+    }
+    GROUP BY ?org'
+  | settings = 'Settings:pie2d.default'
+  | title = 'Projects'
+}}
+</source>

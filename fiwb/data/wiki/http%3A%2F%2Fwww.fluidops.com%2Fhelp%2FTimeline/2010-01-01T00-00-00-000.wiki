@@ -1,0 +1,39 @@
+=== Timeline Widget ===
+
+Timeline widget uses simile-timeline widget (http://www.simile-widgets.org/timeline) it shows the events (results of a given query) on a timeline, given temporal information of each event. The time intervals of the timeline can be adjusted by defining the 'interval' parameter. The optional intervals are MILLISECOND, SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR, DECADE, CENTURY, MILLENNIUM. The obligatory input parameters are 'query', 'start', 'end', 'label'. 'start' and 'end' should contain temporal data of the event to display. It is also possible to give some description to be displayed in the info window by defining 'desc' as a column query result,
+possible further leading URLs in the column 'link' will be set behind the label, if the column 'image' is defined, it will be displayed in the info window.
+
+'''Important note:''' To work though this example you need to load example data, to do this follow the steps described on the [[ Help:ExampleData | Help:ExampleData]] page.
+
+
+==== Functionality ====
+
+Timeline belongs to the category of widgets, that can be automatically embedded, if specific requirements are fulfilled. The results of the defined SPARQL query are the events and information concerning the events. Other parameters indicate which column contains what information.
+
+==== Configuration ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.TimeplotWidget
+}}
+
+====Example====
+Provided this page had some events and they has some time information, labels and images, the widget could be embedded in the wiki page with the following code:
+<source>
+{{#widget:Timeline
+|query ='SELECT DISTINCT  ?time ?label ?image ?event
+         WHERE { ??  dbpedia:event ?event .
+                 ?event dbpedia:time ?time .
+                 ?event dbpedia:thumbnail ?image . 
+                 ?event rdfs:label  ?label .}'
+| start='time'
+| end='time'	
+| desc='label'
+| label='label'
+| link='event'
+| image='image'
+| interval='month'
+}}
+</source>
+Here is the result:
+
+<img src="../images/help/Timeline.PNG" width="1024px" />
+

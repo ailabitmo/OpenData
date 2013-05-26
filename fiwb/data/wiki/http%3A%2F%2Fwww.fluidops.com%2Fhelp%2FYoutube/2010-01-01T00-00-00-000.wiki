@@ -1,0 +1,69 @@
+=== Youtube Widget ===
+
+==== Functionality ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.YouTubeWidget
+| type = 'DESCRIPTION'
+}}
+
+Videos may either be embedded directly in the wiki text or by using auto-selection.
+
+Go back to [[Help:Widgets | Widgets ]]
+
+
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.YouTubeWidget
+}}
+The YouTube widget enables you to embed YouTube videos into wiki pages.
+
+==== Example ====
+
+===== Video Embedding in Wiki Text =====
+
+YouTube videos can be embedded in three different ways.
+
+1) By specifying the youTubeID
+
+The parameter ''youTubeID'' specifies a YouTube video ID. If you want to embed your own videos, you can simply replace it by any valid YouTube ID. 
+
+<source>
+{{ #widget: Youtube | youTubeID = 'RyPpqKXoeHo' }}
+</source>
+
+2) By specifying a search string
+
+The search string is used to determine a relevant video using the YouTube web service. 
+
+<source>
+{{ #widget: Youtube | searchString = 'Red Hot Chili Peppers' }}
+</source>
+
+The string to be searched can be also defined using the wiki [[Help:Wiki | template variables]] that retrieve the information associated with the resource, as in the example below (where we added some additional whitespace to avoid replacing the variables):
+
+<source>
+{{ #widget: Youtube | searchString =  $ this.myMusicArtist $ }}
+</source>
+
+Finally, the search string can be also retrieved from the semantic repository using a SPARQL query template. Suppose that the current resource refers to the Red Hot Chili Peppers (e.g. ns:rhcp). Further, assume that there is a triple (ns:rhcp, foaf:name, 'Red Hot Chili Peppers') in the database. The the following code snippet can be used on the resource's page to display a video.
+
+<source>
+{{ #widget: Youtube | searchString =  $ SELECT ?x WHERE { ?? foaf:name ?x } $ }}
+</source>
+
+When copying the widget definition into a wiki page, the corresponding YouTube video will be shown. Below, the first example is applied to show an introduction video to the Information Workbench.
+
+<img src="../images/help/Youtube.PNG" width="600px" />
+
+By default videos are resolved to a width of 640px and a height of 385px. You can customize these value using the parameters ''width'' and ''height''. See the example below.
+
+<source>
+{{ #widget: Youtube | youTubeID = 'DSzJs4SAS18' | width='100%'| height='500' }}
+</source>
+
+===== Video Embedding by Auto-selection =====
+
+YouTube videos can also be embedded via auto-selection. This option is configured on the [[ Admin:Widgets | Widgets Configuration ]] page. You can find more information about automatic embedding of widgets in the [[ Help:WidgetConfiguration | corresponding help section]].

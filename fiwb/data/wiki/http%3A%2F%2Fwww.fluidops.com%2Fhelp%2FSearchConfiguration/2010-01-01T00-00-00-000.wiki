@@ -1,0 +1,142 @@
+== Search Configuration ==
+
+The Information Workbench realizes two kinds of search:
+* Structured queries expressed in the SPARQL query language
+* Full text search using keywords 
+
+Search can be performed over different data sources: e.g., RDF structured data repository, content of the wiki pages, and custom-defined search providers. 
+
+=== Configuring Search Targets ===
+
+In the '''config.prop''' configuration file one can specify the list of default query targets. The configuration file contains a parameter '''defaultQueryTargets'''. Its value is a comma-separated list of values corresponding to the target data sources.
+
+The following values are pre-defined:
+* RDF - corresponds to the default RDF data repository
+* WIKI - Wiki pages index (effectively, used only for keyword search)
+
+By default, the '''defaultQueryTargets''' parameter is set to '''defaultQueryTargets=RDF,WIKI'''.
+
+If search has been performed over different data sources, the results are merged. The resulting list is ordered according to the order provided in the configuration: e.g., 'RDF,WIKI' would mean that the results from the RDF structured data will appear first, while 'WIKI,RDF' would contain them after the wiki pages. 
+
+=== Full Text Search ===
+
+The Information Workbench realizes full text search over strucured data (stored in the RDF repository) and unstructured data (stored in the wiki pages).
+
+For the Sesame Native and Memory stores, the Information Workbench comes with a pre-configured full text search engine. This full-text search engine uses a special type of SPARQL SELECT queries to retrieve the search results for a given keyword string. If you use another types of repositories that provide full text search capabilities (e.g., OWLIM or bigdata), you can configure the Information Workbench to use these search capabilities. To do so, you have to set the SPARQL query skeletons in '''config.prop''' using the parameters '''keywordQuerySkeleton''' (for the main RDF repository containing structured data) and '''wikiQuerySkeleton''' (for the data store containing wiki pages).
+
+If result clustering is enabled, the skeleton must contain the variable bindings "Subject", "Property", "Value", "Type".
+The query skeleton may contain the place holder <code>??</code>, which is replaced with the user input.
+
+The appropriate query skeleton depends on the type of data repository. Currently, the Information Workbench supports full text search for two types of repositories:
+* Sesame Native Store (assumed by default), which uses a special wrapper (LuceneSail) response for full text indexing.
+* OWLIM, which has a built-in support for keyword search
+In order to enable full-text search over structured data as well as wiki, indexes have to be initialized once. This is done by running special CLI commands.
+The Wiki index can be initialized using the command ''updateWikiIndex''. The indexes for structured data are initialized depending on the type of the repository.
+
+==== Sesame Native Store (Local) ====
+
+For both local and remote Sesame stores, full-text indexes can be created using the command ''createKeywordIndex''. This is usually only required if an already populated data repository is reused (e.g., when updating from an earlier version).
+
+The LuceneSail wrapper defines the following SPARQL query skeleton for keyword search:
+
+<source>
+PREFIX search: <http://www.openrdf.org/contrib/lucenesail#>
+	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+	SELECT ?Subject ?Property ?Value ?Type
+	WHERE {
+		{ SELECT ?Subject ?Property ?Value 
+		  WHERE { 
+			?Subject search:matches ?match . 
+			?match search:query "??" ;
+			search:property ?Property ; 
+			search:snippet ?Value ;
+			search:score ?score .
+			} ORDER BY DESC(?score) LIMIT 1000
+		}
+		OPTIONAL { ?Subject rdf:type ?Type . }
+	}
+</source>
+
+This query skeleton is a default option for IWB, so it does not need to be specified explicitly.
+
+==== Sesame Native Store (Remote) ====
+
+For local Sesame Native and Memory stores, full text indexing and search over structured data are enabled automatically. However, if the RDF repository has to be deployed on a server and accessed as a remote repository,
+a special procedure has to be followed to enable indexing.
+
+Pre-requisites:
+* LuceneSail Java library (''sesame-sail-lucenesail-x.x.x-SNAPSHOT.jar'').
+* LuceneSail repository template (''lucenesail.ttl'') (both are available in ''{FIWB}/lib/sesame'' directory where ''{FIWB}'' is the Information Workbench installation directory). The template is also provided below, so it can be copy-pasted into the file.
+* Apache Lucene Java distribution (available in ''{FIWB}/lib/lucene''.
+* OpenRDF Sesame SDK (available from [http://www.openrdf.org/download_sesame2.jsp OpenRDF Sesame 2 download page]).
+* Web server capable of hosting Java Web applications (e.g., Tomcat).
+
+The steps are:
+# Install the Sesame server.
+## Install the web server on the server machine which would host the data repository.
+## Unzip the OpenRDF Sesame SDK into a chosen folder ''{SesameSDK}''. Note that the console can be run from the client machine as well as from the server. However, since the web applications need to be copied to the server anyway, it may be more convenient to install the SDK on the server as well.
+## Copy the web applications ''openrdf-sesame.war'' and ''openrdf-workbench.war'' to the web applications deployment directory ''{webapps}'' of the web server (e.g., ''webapps'' for Tomcat).
+## Start the web server and check whether the workbench is available on ''<nowiki>http://</nowiki>{serverHost}:{serverPort}/openrdf-workbench''.
+# Enable LuceneSail support.
+## Copy the LuceneSail Java library (''sesame-sail-lucenesail-x.x.x-SNAPSHOT.jar'') to the lib directory of the Sesame server installation: ''{webapps}/openrdf-sesame/WEB-INF/lib/'' .
+## Copy the Lucene distribution ''.jar'' files to the same directory.
+## Restart the web server.
+## Copy the LuceneSail repository template to the OpenRDF console application data directory. On Windows, the directory should locate in ''c:\Documents and Settings\{YourUserName}\Application Data\Aduna\OpenRDF Sesame console\templates''. On Linux, this directory should be in ''/home/.aduna/...'' instead. If the chain of directories does not exist (e.g., before the first run of the OpenRDF console), it has to be created.
+# Create the LuceneSail repository on the server.
+## Run the Sesame console: ''{SesameSDK}\bin\console.bat'' (Windows) or ''{SesameSDK}/bin/console.sh'' (Linux).
+## Connect to the Sesame server: type in ''connect <nowiki>http://</nowiki>{serverHost}:{serverPort}/openrdf-sesame.'' (all Sesame console commands must end with a dot). If the console is run from the same machine on which the web server is deployed, then ''{serverHost}=localhost''.
+## Create the LuceneSail repository wrapping the Native Sesame store: type in ''create lucenesail.''.
+## Input the repository parameters: Repository ID, title, and the storage directory for the full text Lucene index.
+## Check that the repository has been created properly: type in ''show r.''. The list should include your selected repository ID.
+# Configure Information Workbench to work with the remote LuceneSail repository in the normal way. 
+
+The template RDF file (lucenesail.ttl) for configuring LuceneSail repositories via the Sesame console is given below:
+<source>
+#
+# Sesame configuration template for a native RDF repository with
+# RDF Schema and direct type hierarchy inferencing
+#
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rep: <http://www.openrdf.org/config/repository#>.
+@prefix sr: <http://www.openrdf.org/config/repository/sail#>.
+@prefix sail: <http://www.openrdf.org/config/sail#>.
+@prefix ns: <http://www.openrdf.org/config/sail/native#>.
+@prefix lucene: <http://www.openrdf.org/config/sail/lucene#>.
+
+[] a rep:Repository ;
+   rep:repositoryID "{%Repository ID|lucene-native%}" ;
+   rdfs:label "{%Repository title|Native store with lucene%}" ;
+   rep:repositoryImpl [
+      rep:repositoryType "openrdf:SailRepository" ;
+      sr:sailImpl [
+		 sail:sailType "openrdf:LuceneSail" ;
+		 lucene:indexDir "{%Lucene Index Directory|c:/temp/test/lucene/%}" ;
+		 sail:delegate [
+			sail:sailType "openrdf:NativeStore" ;
+			ns:tripleIndexes "{%Triple indexes|spoc,posc%}"
+		 ]
+	  ]
+   ].
+</source>
+
+==== OWLIM ====
+
+Unlike native Sesame stores, the OWLIM indexes have to be created once, e.g., using the command ''updateOwlimIndices'' from [[Help:CLI]].
+
+Note: usually, an error message containing ''NullPointerException'' indicates that the index does not exist, when performing a keyword search against an OWLIM repository.  
+
+For OWLIM, the following query skeleton can be used:
+
+<source>
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+SELECT DISTINCT ?Subject ?Property ?Value ?Type 
+WHERE { 
+?Value luc:luceneIndex "??" . 
+?Subject ?Property ?Value . 
+OPTIONAL { ?Subject rdf:type ?Type . } 
+} LIMIT 1000
+</source>
+
+
+

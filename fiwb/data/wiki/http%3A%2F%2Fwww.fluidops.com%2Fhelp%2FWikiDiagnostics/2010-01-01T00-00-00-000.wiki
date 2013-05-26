@@ -1,0 +1,11 @@
+=== Wiki Diagnostics ===
+
+The wiki diagnostics page lists wiki pages which contain broken widgets or dead links.  Note that this feature is experimental only.
+
+The information listed on this page can be helpful if you want to make sure that your pages contain only up-to-date links. Furthermore, the type of a page is shown (if the page was created by a user or was bootstrapped) and the number of revisions.
+
+As the wiki diagnostics page scans all wiki pages, it may take a while to load.
+
+<p> <br/></p>
+
+<img src="../images/help/wikidiagnostics.png" width="1000px" />

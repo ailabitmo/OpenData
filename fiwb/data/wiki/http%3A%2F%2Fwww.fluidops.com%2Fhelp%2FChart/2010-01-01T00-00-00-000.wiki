@@ -1,0 +1,348 @@
+== Charts ==
+
+The chart widgets are a set of elaborate tools for creating charts and diagrams from query results. 
+
+'''Important note:''' For this tutorial we make extensive use of example data. If no example charts are displayed, the data was probably not loaded or is deleted. You can load the data following the steps described in [[ Help:ExampleData | Help:ExampleData]].
+ 
+=== Overview ===
+
+There are numerous ways in which data can be visualized within the Information Workbench&#8482;	, the rich set of widget that achieve this are:
+#[[Help:BarChart | Bar Chart]] : Javascript with Flash fallback
+#[[Help:LineChart | Line Chart]] : Javascript with Flash fallback
+#[[Help:StockChart | Stock Chart]] : Javascript with Flash fallback
+#[[Help:RadarChart | Radar Chart]] : Javascript with Flash fallback
+#[[Help:PieChart |Pie Chart]] : Javascript with Flash fallback
+#[[Help:Heatmap | Heat Map]] : Flash
+The charts of each type are demonstrated on the pages above.  '''Note:'''  These pages also require that the example data is available.
+
+This section is divided into several use cases. The first subsection will focus on the creation of chart types having only one output dimension, namely simple bar, pie and line charts. Although these types comprise of very different ways to visualize data, they can be practically summarized, since it requires little effort to switch from one chart type to another. We then discuss how charts having multiple output dimensions can be displayed. Finally we present time graphs and maps.
+
+==== Bar, Pie and Line Charts ====
+
+Data visualized in a chart is retrieved from the data base using SPARQL queries. This data can either consist of numeric values or be the result of an aggregation query.
+
+===== Using Numeric Input =====
+
+We start with a simple example. We randomly extract 10 research projects from our data base and display them in a horizontal bar chart. The length of the bars is determined by the research fund each project has received. These funds are simple numeric values.
+
+<source>
+{{
+#widget: BarChart
+  | query = 'SELECT ?project ?grant WHERE { 
+       ?project rdf:type foaf:Project . 
+       ?project research:grant ?grant .}
+      LIMIT 10'
+  | type = 'BAR_HORIZONTAL'
+  | input = 'project'
+  | output = {{ 'grant' }}
+}} 
+</source>
+
+<img src="../images/help/Chart/UsingNumericInput.PNG" width="1024px" />
+
+All of the charts must contain the following three arguments.
+
+* '''query''' specifies a SPARQL query, which retrieves the information from the data base we want to display in the chart. We extract 10 projects, which have been granted research funds. The predicates themselves and their values are returned as well.
+* Parameter '''input''' contains the variables, by which the result is grouped. In our case these are the projects returned by our query. Note that the argument of input must refer to a variable used inside the query. Arguments are addressed by their name inside the query omitting the question mark symbol. Note that the argument of input has to be bound in every binding of the result set!
+* Parameter '''output''' contains the numeric values used for visualizing the input variables. In our case these are research funds associated with the projects. Arguments are addressed in the same way as in the input field.
+
+===== Aggregate Data =====
+
+In the previous case we used existing numeric values to generate our chart.  Chart widgets, however, also provides the possibility to display aggregated query results. Since version 1.1 SPARQL supports native aggregation of query results. Aggregated results can be directly translated into the chart. As a running example, let us assume we want to visualize for each organization starting with prefix ''Te'' and ending with ''Ltd'' in the database, the number of projects it is running:
+
+<source>
+{{
+#widget: BarChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+  | type = 'BAR_HORIZONTAL' 
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+}}
+</source>
+
+
+<img src="../images/help/Chart/AggregateData.PNG" width="1024px" />
+
+The widget definition does not require any changes for this use case. The binding containing the number of research projects per organization can be simply used as output variable. For a detailed description on using aggregates in SPARQL queries we refer to the [http://www.w3.org/TR/sparql11-query/#aggregates official W3C documentation].
+
+So far we have only looked at horizontal bar charts, it is easy to change to vertical bars, by simply changing the type to:
+
+* type = 'BAR_VERTICAL'
+
+
+<img src="../images/help/Chart/typeBARVERTICAL.PNG" width="1024px" />
+
+===== PIE Chart =====
+
+It is easy to change a graph into a Pie chart, we can use the same query as before, only the type parameter has to be removed.
+<source>
+{{ #widget : PieChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+}}
+</source>
+
+<img src="../images/help/Chart/PieChart.PNG" width="700px" />
+
+
+===== Line Charts =====
+Similarly for line charts.
+<source>
+{{
+#widget: LineChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | height = '300'
+}}
+</source>
+
+<img src="../images/help/Chart/LineChart.PNG" width="1024px" />
+
+===== Multiple Output Dimensions =====
+
+In some cases, one may want to display multiple output dimensions in a single plot. As a concrete example, let us assume we want - in addition to the projects - display the total number of outgoing links of the organizations. For such queries, the chart type ''BAR_CLUSTERED'' can be used (alternatively, the LINE chart type presented before offers support for this feature). The type BAR_CLUSTERED differs from the chart types discussed before in that parameter output may contain a list of variables, i.e. multiple output dimensions. The following example implements the scenario sketched before:
+
+<source>
+{{ #widget : BarChart
+  | query = '
+      SELECT ?org (COUNT(?project) AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^Te.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org'
+  | type = 'BAR_CLUSTERED'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | colors = {{ '#71BA6B' | '#5CA4FF' }}
+}}
+</source>
+
+
+<img src="../images/help/Chart/MultipleOutputDimensions.PNG" width="1024px" />
+
+For a list of chart types, which support multiple output dimensions look below.
+
+{| class="sortable wikitable" 
+!Type
+!Description
+|-
+| BarChart ''type= "BAR_CLUSTERED"'' || Bar chart with multiple output dimensions.
+|-
+| LineChart || Line chart having multiple output dimensions.
+|-
+| RadarChart || Variation of line chart with multiple output dimensions possible.
+|-
+| StockChart || Stock chart with more than one time line.
+|}
+
+===== Time Graphs =====
+
+Time graphs can be used when data is parametrized over time, e.g. to count the number of resources that were present in the database at a given point in time, and plot the outcome into a diagram that ranges over time. This chart type expects date information to be present in format &lt;YYYY&gt;-&lt;MM&gt;-&lt;DD&gt;T&lt;HH&gt;:&lt;MM&gt;:&lt;SS&gt; (e.g., 2010-10-25T23:02:24 would be a valid date), so the argument provided in ''input'' must be given in this format. Look at the widget definition below for an example.
+
+<source>
+{{
+#widget: StockChart 
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?start WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant . 
+      ?role <http://research.data.gov.uk/def/project/project> ?project . 
+      ?project <http://purl.org/stuff/project/startDate> ?start . 
+      ?role <http://research.data.gov.uk/def/project/region> ?region . }
+    GROUP BY ?start'
+  | settings = 'Settings:countdaily'
+  | input = 'start'
+  | output = {{'sumGrant'}}
+}}
+</source>
+
+<img src="../images/help/Chart/TimeGraphs.PNG" width="1024px" />
+
+In the example the time line shows the amount of money granted to projects over time, as determined by the start date of the project. The parameters ''query'', ''input'', ''output'' are defined as before. The variable ''start'' is a Literal having the format YYYY-MM-DD. Note that chart is now set to ''TIME_GRAPH'', the new chart type. Parameter ''settings'' specifies the settings file that is used for determining the chart layout. In our example, we use the file ''settings.countdaily'', a predefined template settings file that is customized for displaying daily values. All chart types can use customized settings files. If this parameter is left out like in the previous examples a default settings file is used. ''TIME_GRAPH'', however, does not have default settings, therefore we are required to provide an argument for this field. For an overview of all available settings files have a look at [[ Help:Settings ]]. If you want to know how you can create custom settings files go to the section [[ Help:Chart#Settings_Files | Custom Settings Files ]].
+
+===== Maps =====
+
+Using the HeatMap widget you can create heat maps populated with information from the data base. The setup for map charts works very similar to the definition of the chart types introduced previously, however map specific settings need to be taken into account. For a brief example, consider the widget configuration below. This definition shows a map of the United Kingdom divided into its regions. The regions are highlighted in different colors according to the total amount of research grants projects have received in a particular region.
+
+<source>
+{{ #widget : HeatMap
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?regionname WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant .
+      ?role <http://research.data.gov.uk/def/project/region> ?region . 
+      ?region <http://ammap.com/region/name> ?regionname .
+      }
+    GROUP BY ?regionname '
+  | input = 'regionname'
+  | output = {{ 'sumGrant' }}
+  | width = '400'
+  | height = '400'
+  | map = 'united_kingdom_regions'
+}}
+</source>
+
+<img src="../images/help/Chart/Maps.PNG" width="300px" />
+
+For this chart type we have to set an additional parameter called '''map'''. This argument parses the actual map used in this widget. These maps are .swf files located in ''..\fiwb\webapps\ROOT\amchart\ammap\maps'' of your Information Workbench installation directory. For an overview of all available maps scroll to the end of this section. The Information Workbench is preloaded with a handful of geographical maps. If you seek other maps, download the [http://flex.ammap.com/download Map pack for amMap Flex component]. This archive contains geographical maps of numerous countries and regions. Simply copy any map you are interested in in the ''..\maps'' folder and it is ready for use. 
+
+The parameters ''query'', ''input'' and ''output'' are again defined as before, however just like for the time graph '''input''' expects data of a specific format. When taking a closer look at the query, we can see that ''input'' requires the regions of the map displayed. Each region has a specific identifier, a string value, by which the chart widget addresses it inside the map. Again the Information Workbench is preloaded with a set of these identifiers. For our case the regions of our tutorial dataset (<nowiki>http://research.data.gov.uk/def/project/region</nowiki>) have already been linked to these identifiers via the predicate ''<nowiki>http://ammap.com/region/name</nowiki>''. If you want to display custom entities in a map, you need to link your entities to the correct identifiers. All identifiers can be obtained by downloading the [http://flex.ammap.com/download Map pack for amMap Flex component]. The data directory of this archive contains .mxml files, in which the identifiers are located. For example look at the file ''united_kingodm_regions.mxml''. This file contains a line, which reads
+
+<pre>
+<ammap:MapArea instanceName="GB_UKI" title="London"/>
+</pre>
+
+''GB_UKI'' would be de identifier of the region London. Other regions are referenced in the same way. ''instanceName'' defines the identifier and ''title'' the name of the region. For an overview of all identifiers and resources linked to these available by default in the Information Workbench, look at the table below.
+
+{|class="wikitable sortable"
+|-
+!Map Name
+!Description
+|-
+| continents || World map divided into continents.
+|-
+| europe || Map of Europe divided into countries.
+|- 
+| germany || Map of Germany divided into regions.
+|-
+| united_kingdom || Map of the United Kingdom divided into countries (e.g. England, Wales, etc. )
+|-
+| united_kingodm_regions || Map of the United Kingdom divided into its regions
+|-
+| usa || Map of the USA divided into states including Hawaii and Alaska
+|-
+| usa_mercator || Map of the USA divided into states including capitals without Hawaii and Alaska
+|-
+| world || World map divided into countries
+|-
+| world_with_antarctica || World map map divided into countries including Antarctica
+|}
+
+{|class="wikitable sortable"
+|-
+! Resource
+! Predicate
+! Value (Identifier)
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/NorthEast</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKC
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/NorthWest</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKD
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/YorkshireHumberside</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKE
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/EastMidlands</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKF
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/WestMidlands</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKG
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/EastOfEngland</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKH
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/London</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKI
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/SouthEast</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKJ
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/SouthWest</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKK
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/Wales</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKL
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/Scotland</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKM
+|-
+| <nowiki>http://research.data.gov.uk/regions/rda/NorthernIreland</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || GB_UKN
+|-
+| <nowiki>http://dbpedia.org/resource/Baden-W%C3%BCrttemberg</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_BW
+|-
+| <nowiki>http://dbpedia.org/resource/Bavaria</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_BY
+|-
+| <nowiki>http://dbpedia.org/resource/Berlin</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_BE
+|-
+| <nowiki>http://dbpedia.org/resource/Brandenburg</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_BB
+|-
+| <nowiki>http://dbpedia.org/resource/Bremen</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_HB
+|-
+| <nowiki>http://dbpedia.org/resource/Hamburg</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_HH
+|-
+| <nowiki>http://dbpedia.org/resource/Hesse</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_HE
+|-
+| <nowiki>http://dbpedia.org/resource/Mecklenburg-Vorpommern</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_MV
+|-
+| <nowiki>http://dbpedia.org/resource/Lower_Saxony</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_NI
+|-
+| <nowiki>http://dbpedia.org/resource/North_Rhine-Westphalia</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_NW
+|-
+| <nowiki>http://dbpedia.org/resource/Rhineland-Palatinate</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_RP
+|-
+| <nowiki>http://dbpedia.org/resource/Saarland</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_SL
+|-
+| <nowiki>http://dbpedia.org/resource/Saxony</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_SN
+|-
+| <nowiki>http://dbpedia.org/resource/Saxony-Anhalt</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_ST
+|-
+| <nowiki>http://dbpedia.org/resource/Schleswig-Holstein</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_SH
+|-
+| <nowiki>http://dbpedia.org/resource/Thuringia</nowiki> || <nowiki>http://ammap.com/region/name</nowiki> || DE_TH
+|}
+
+==== Custom Settings ====
+
+There are several ways for customizing chart layouts. These range from additional configuration parameters to unique settings file for each chart type.
+
+===== Widget Parameters =====
+
+The widget configuration offers several parameters for changing the layout of the chart.
+
+* Some chart types like the pie chart or the time graph support custom headers. By default, this value is set to ''Query Result''. If you want to use a custom header, set the argument '''title''' to the desired name.
+* Apart from the map configuration, the chart widget automatically fits the diagram to the page size. You can manually select the width of your chart with the '''width''' parameter. Arguments are treated in px format.
+* The chart height is set by default to 250 px. You can choose a custom parameter using the '''height''' argument.
+* A very powerful configuration is the field '''custom'''. This argument is especially interesting when using custom settings files, what will be explained in the [[ Help:Chart#Settings_Files | next section ]]. This configuration enables you to replace place holders in settings files. You can include variables enclosed by the $-sign to a setting file and address these with the '''custom''' configuration. Take the following example.
+
+<pre>
+<text_color>$color1$</text_color>
+</pre>
+
+This command lets you set the text color of the mouse over pop up of the chart. ''color1'' is the variable, which can be later replaced using the custom parameter in the widget definition. You can address this variable by writing
+
+<pre>
+custom = 'color1=#00ccaa'
+</pre>
+
+You may replace any number of variables in this way. Arguments can be provided in a comma separated list. For example if there is another variable named ''color2'' you want to replace, you may write
+
+<pre>
+custom = 'color1=#00ccaa,color2=ABCDEF'
+</pre>
+
+We highly recommend you have a look at the [[ Help:Chart#Settings_Files | Custom Settings ]] section, if you want to use the '''custom''' parameter. There is explained how to use your own settings files.
+
+* You can define colors of charts in almost all chart widgets by entering values in hex format for '''colors''' parameter in the widget configurations. If no colors are defined by the user, default values are used globally for all charts. The global default values for chart colors can be configured in [[ Admin:Config | System configuration ]] in the category '''Appearance'''. The highest and the lowest chart colors are defined with parameters '''chartColorHigh''' and '''chartColorLow'''. The '''chartColorLow''' is then the default value for a chart (e.g. the bars in the BarChart). If more than one color is needed for a chart (e.g. for the clustered bars in the BarChart or the slices in the PieChart) their RGB values will be calculated from the range between the '''chartColorLow''' and '''chartColorHIgh'''.
+===== Settings Files =====
+
+You can use settings files to change the layout of your charts. The Information Workbench comes with a predefined set of these files. For an overview of all available settings have a look at the [[ Help:Settings | Settings Files ]] page. You can however include your own settings files and completely customize the look of your charts. The Information Workbench uses the chart engine provided by [http://www.amcharts.com/ amCharts]. To get an overview for the customization possibilities, take a look at the [http://extra.amcharts.com/editor/ amCharts Visual Editor]. All settings performed in this editor can be fully translated into the Information Workbench. In fact you can simply copy paste any XML code you have generated using the Visual Editor into a new wiki page prefixed with ''Settings:'' (e.g. Settings:NewSettingsFile). You may then reference the code embedded in this page as settings file (e.g. settings = 'Settings:NewSettingsFile'). If you enclose the XML code in the tag
+
+<pre>
+<source lang="xml"> </source>
+</pre>
+
+the page will be rendered properly, on which you have included the code. In this context it is worth mentioning, that you can define place holders in the XML code, that may be replaced by user defined values inside the widget configuration. See the [[ Help:Chart#Widget_Parameters | previous section ]] for reference.

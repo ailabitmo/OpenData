@@ -1,0 +1,26 @@
+==== Settings Files for RADAR Charts ====
+
+=====  radar.default =====
+Setting file available at : [[ Settings:radar | radar.default ]]
+Plot a variable in a pie chart. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/RADAR-settings.PNG" width="800px" />
+
+====== Code ======
+<source>
+{{ #widget : RadarChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Th.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+|settings = 'Settings:radar'
+}}
+</source>
+

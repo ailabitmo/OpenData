@@ -1,0 +1,25 @@
+==== Settings Files for MAP Charts ====
+======  map.default======
+Settings file available at: [[Settings:map.default | map.default]]
+Display a variable in a heat map. Example:
+
+===== Example Chart =====
+
+<img src="../images/help/MAP-settings.PNG" width="300px" />
+
+===== Code =====
+
+<source>
+{{
+#widget: HeatMap |
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?regionname WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant .
+      ?role <http://research.data.gov.uk/def/project/region> ?region . 
+      ?region <http://ammap.com/region/name> ?regionname .
+      }
+    GROUP BY ?regionname'
+  | map =  'united_kingdom_regions'
+  | input = 'regionname'
+  | output = {{ 'sumGrant' }}
+}}
+</source>

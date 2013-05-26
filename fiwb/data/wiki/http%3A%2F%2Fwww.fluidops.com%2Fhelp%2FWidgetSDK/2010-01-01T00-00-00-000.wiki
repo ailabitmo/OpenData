@@ -1,0 +1,302 @@
+== Widget SDK ==
+
+The Information Workbench is designed to be a fully customizable platform.  Although a rich set of widgets are pre-built into the system the set of widgets is by no means comprehensive.  The Widget SDK allows one to implement custom widgets with specialized functionality to meet the specific needs of custom distributions. In the following you will learn how to; 
+
+#write custom widgets using the Widget SDK,
+#use custom widgets into the Information Workbench.
+
+=== Writing Custom Widgets ===
+With the Information Workbench extending the set of available widgets is relatively easy (assuming a basic understanding of the java programming language). The most simple way to create a new widget is to use the fluidOps Ajax framework that comes as a library with the execution.  The Ajax framework provides a plethora of AJAX web components that can be used, modified and added in custom widget implementations; for a more detailed explanation of the components that make up the framework see [[Help:WidgetSDK#Ajax Components | Component Listing]].
+
+Widgets in the Information Workbench extend from the ''AbstractWidget&lt;T&gt;'' class, and implement the abstract functionality. The following listing defines the interface provided by the ''AbstractWidget'':
+
+<source>
+public abstract class AbstractWidget<T> implements Widget<T> {
+
+     protected abstract FComponent getComponent(String id);
+     public Class<T> getConfigClass();
+     public String getTitle(); 
+    
+}
+</source>
+
+This class is generic, with the generic type parameter ''T'' intended to specify the configuration class for the widget.  The most important method to implement is ''getComponent'' which is responsible for constructing, and returning, the Ajax component that will be rendered in the client's browser.  The ''getConfigClass'' method is intended to return the configuration class of the new widget, note that this method must return the class object.  Overriding the ''getTitle'' method simply gives the widget a name.
+
+==== An Example Widget ====
+We explain the idea by the means of the following widget implementation, which shows the basic usage of the Ajax components in a simple example:
+
+<source>
+package com.fluidops.iwb.widget;
+
+import com.fluidops.ajax.FClientUpdate;
+import com.fluidops.ajax.components.FButton;
+import com.fluidops.ajax.components.FComponent;
+import com.fluidops.ajax.components.FContainer;
+import com.fluidops.ajax.components.FLabel;
+import com.fluidops.ajax.components.FTextInput2;
+import com.fluidops.api.DemoApi;
+import com.fluidops.iwb.model.RdfInput;
+
+/**
+ * On some wiki page add
+ * 
+ * <code>
+ * = Test my demo widget =
+ * 
+ * <br/>
+ * {{#widget: com.fluidops.iwb.widget.MyDemoWidget 
+ * | labelText = 'Enter your name'
+ * }}
+ * 
+ * </code>
+ * 
+ */
+public class MyDemoWidget extends AbstractWidget<MyDemoWidget.Config> {
+	
+	public static class Config {		
+		@RdfInput("The types for which the wizard generates data")
+                public String labelText;
+	}
+
+	@Override
+	protected FComponent getComponent(String id) {
+
+		Config config = get();
+		
+		config.labelText = config.labelText==null ? "Enter some text:" : config.labelText;
+		
+		// the layouting container for this widget
+		// the container must use the provided id
+		FContainer cnt = new FContainer(id);
+		
+		// now we can add other components to the container
+		// the simplest is to add them line by line
+		
+		// 1) add a label with the labelText
+		final FLabel label = new FLabel("label", config.labelText);
+		cnt.add(label);	
+		
+		// 2) add a text field 
+		final FTextInput2 input = new FTextInput2("inp");
+		cnt.add(input);
+		
+		// 3) add two buttons next two each other
+		// a) alert content of text field
+		FButton btnOk = new FButton("btn_OK", "Alert input") {
+			@Override
+			public void onClick() {
+				addClientUpdate(new FClientUpdate("alert('" + input.getValue() + "');"));				
+			}
+		};
+		btnOk.appendClazz("floatLeft");
+		cnt.add(btnOk);
+		// b) cancel button to clear text input
+		FButton btnCancel = new FButton("btn_Cancel", "Clear input") {
+			@Override
+			public void onClick() {
+				input.setValueAndRefresh("");				
+			}
+		};
+		cnt.add(btnCancel);
+		
+		// 4) button to trigger API call
+		FButton triggerApi = new FButton("btn_Api", "Trigger Api") {
+			@Override
+			public void onClick() {
+				// DemoApi.doSomething();			
+			}
+		};
+		triggerApi.addStyle("margin-left", "50px");
+		cnt.add(triggerApi);	
+		
+		return cnt;
+	}	
+
+	@Override
+	public String getTitle() {
+		return "My first widget";
+	}
+
+	@Override
+	public Class<?> getConfigClass() {
+		return Config.class;
+	}
+}
+</source>
+
+==== The Widget Configuration Interface ====
+The above code defines a new widget displaying various UI components. Some documentation is provided within the source code.  Here we focus on what the configuration class is and what it does.  The purpose of the configuration class is to defined the variables needed for the widget to function correctly.  In order to ensure that users understand how to correctly use widgets there is an intuitive UI for constructing and editing widgets.  The widget configuration UI is populated by the configuration class which allows hints and restrictions on the input to be made.  To program such hints the <code>ParameterConfigDoc</code> interface from the <code>com.fluidops.iwb.model</code> package must be utilized.  The <code>ParameterConficDoc</code> annotations allow the widget designer to give hints and make restrictions to the users.  In particular one can specify;
+
+#a description for a parameter,
+#whether a parameter is require, 
+#a default value for a parameter,
+#the type of the parameter, these alter the input medium on the widget config UI e.g. LIST, SIMPLE, TEXTAREA, CONFIG, DROPDOWN
+#validation for the parameter, e.g. an email conforms to email address standards.
+
+  
+The following simple example demonstrates the use of <code>ParameterConfigDoc</code>, the code that generates this is below.
+
+<source>
+public class SampleWidget extends AbstractWidget<SampleWidget.Config>{
+
+	public static class Config{
+		
+		@ParameterConfigDoc(desc = "Your name", required = true)
+		public String name;
+		@ParameterConfigDoc(desc = "The university you went", defaultValue = "none", required = true)
+		public String university;
+		@ParameterConfigDoc(
+				desc = "The grade you acheived", 
+				type = Type.DROPDOWN, 
+				listType = String.class, 
+				selectValues = {"First", "Upper Second", "Lower Second", "Third", "Fail"}
+		)
+		public String degreeClassiffication;
+	}
+	...	
+}
+</source>
+
+<img src="../images/help/sampleWidgetConfiguration.png" width="518px" />
+
+==== Working with Data ====
+In order to write useful widgets it is likely that one will have to access properties of a page, to manipulate and display data for instance.  There are some options available when data is needed for your widget: 
+
+#accessing the properties in the java code directly, OR
+#passing properties as configuration parameters, see Widget [[Help:Widgets#Embedding Data into Widget Configuration | Page]].  
+
+We describe how to access properties with Java below.
+
+===== Accessing Properties with Java =====
+It is possible to have access to the resources of a wikipage directly in your new widget implementation.  Having access to the properties of a resource will enable you to create rich widgets that access the data, manipulate and display it to users in a convenient way.  The following three steps are required: 
+
+1. Store the URI of the property/properties,
+
+The first step is to create a URI object from the the page property, or properties, the widget must access.  There is a convenience method ''createURI()'' from the ''org.openrdf.model.impl.ValueFactoryImpl'' which return a URI for a resource given two parameters; 1) the namespace (ns) of the wikipage and 2) the name of the property (pn), where ns and pn are String objects.  We can save the URI of the property as follows.
+
+<source>
+private static URI someProperty = ValueFactoryImpl.getInstance().createURI(ns, pn);
+</source>
+
+2. Create a ReadDataManager instance
+
+Now the location of the property we want to access has been saved we need something to "read" that data, this is what a ''ReadDataManager'' is for.  The ''ReadDataManager'' interface of the ''com.fluidops.iwb.api'' package provides the definition for all methods required to access the data that the Information Workbench uses.  Convenience methods are implemented to get various DataManager's using the ''EndpointImp'' class, of the ''com.fluidops.iwb.api'' package.  We save a local ReadDataManager object as follows.
+
+<source>
+ReadDataManager dm = EndpointImpl.api().getDataManager();
+</source>
+
+3. use getProp method of ReadDataManager to get Value of property
+
+Now we have the URI of the property and a ''ReadDataManager'' instance all of the necessary components to retrieve the value of the property are present.  The final step we need to complete is the save the Value of the property (which can then be used and manipulated by your widget).  The ''getProp()'' method of the ''ReadDataManager'' returns the ''org.openrdf.model.Value'' object of the property, the method required two parameters, the ''URI'' object of the property.
+
+<source>
+Value propertyValue = dm.getProp((URI) pc.value, someProperty);
+</source>
+
+All steps have now been completed and the property is ready to use.
+==== Handling Exceptions ====
+
+One consideration that must be taken is how to handle exceptions in a useful way.   A common situation in which this may occur is when a property is referenced that does not exist within the page context.  In this case it would be useful to indicate to users that the required property is missing, and possibly give useful instruction to resolve the issues.  ''WidgetEmbeddingError'' of the ''com.fluidops.iwb.widget'' package is designed to be used in such circumstances.  The method ''getErrorLabel'', returns a FComponent containing an error message in the place of a widget.
+
+Using ''WidgetEmbeddingError.getErrorLabel'' is simple, an instance can created and returned whereever an exception is caught or a "bad state" reached.  Not all errors are bound to be caught by an exception for example an uninitialized variable may not necessarily throw an exception.  The method takes two arguments, the id of the component an error type.  Additionally an overloaded method is available that takes a third argument, a String to give additional information.  There are many predefined error types including; NO_QUERY, SETTINGS_FILE_NOT_FOUND, SYNTAX_ERROR, QUERY_TIMEOUT, NO_URI.  The available error types cover a wide range of the possible errors that one may typically expect.  There is a GENERIC error type for errors not handled by default.
+
+The following example demonstrates the use of this method.
+
+<source>
+public class ExceptionExampleWidget extends AbstractWidget<Void>{
+...
+	@Override 
+	protected FComponent getComponent(String id){
+		ReadDataManager dm = EndpointImpl.api().getDataManager();
+		Value propValue = dm.getProp((URI)pc.value, PROPERTY);
+		
+		if(propValue == null)
+			return WidgetEmbeddingError.getErrorLabel(id, ErrorType.GENERIC, "Property "+PROPERTY+" is not available.");
+		
+		try {
+			File someFile = new File(PATH_TO_FILE, PROPERTY);
+			res.add(manipulateFile(someFile));
+		} catch (IOException e){
+			return WidgetEmbeddingError.getErrorLabel(id, ErrorType.GENERIC, "Problem with File, does the file exist?");
+		}
+		return res;
+	}
+...
+}
+</source>
+
+The above example shows how ''WidgetEmbeddingError.getErroLabel'' can be used in the two different ways outlined above.  We assume that PROPERTY is the URI for some property we are interested in, say the name of some file.  First we check to see if the value of the property is null, if so we return an ErrorLabel to warn the the property is undefined.  If the property does exist we try to access the file it represents.  Here an IOException may be thrown, if an exception is thrown it will be a good idea to let the user know something went wrong.  We do this with another ErrorLabel suggesting a possible cause.  Showing useful error messages and warnings to user will hopefully make issues easier to resolve.
+
+=== Using Custom Widgets in the Information Workbench ===
+
+Custom widgets can be embedded in wiki pages as described in the following:
+
+1) Add an alias definition to the file %IWB_HOME%/config/widgets.prop
+
+<source>
+MyDemoWidget=com.fluidops.iwb.widget.MyDemoWidget
+</source>
+
+2) After restarting the Information Workbench the following wiki-code can be used to embed the widget into any wiki page
+
+<source>
+{{#widget: MyDemoWidget 
+| labelText = 'Enter your name'
+}}
+</source>
+
+=== Building and Deploying Extensions ===
+
+The process of building and deploying extension (e.g. custom widgets) is documented in detail [[Help:BuildingExtensions| here]]
+
+=== AJAX Components ===
+
+The fluidOps AJAX framework provides various components that simplify the implementation of custom widgets. Each of these components extends from the ''FComponent'' base class and provide methods for customization.  The following table gives an overview about available components.
+
+{| class="sortable wikitable" 
+|-
+! Component
+! Description
+|-
+| FLabel
+| Simplest component to render some string value.
+|-
+| FButton
+| Button component to trigger an action which is to be specified in the abstract ''onClick'' method
+|-
+| FHTML
+| Component to render any HTML code
+|-
+| FContainer
+| Container to element to compose complex elements consisting of multiple (nested) FComponents
+|-
+| FTextInput2
+| Input form element to retrieve user input having advanced features (e.g. auto suggestion, validation, ...)
+|-
+| FTextArea
+| Text area form element
+|-
+| FCheckBox
+| HTML checkbox with Ajax functionality
+|-
+| FTable
+| Table supporting features like sorting, filtering, paging which is populated based on a Java based table model
+|-
+| FSelectableTable
+| Specialized table which allows selection of row(s) and performing actions on the selected objects
+|-
+| FTree
+| Component to represent tree structures
+|-
+| FUpload
+| Component to upload files
+|-
+| FSimpleWizard
+| Component to implement a step-by-step control flow
+|-
+| FAsynchContainer
+| Specialized container which loads its inner content asynchronously
+|}
+
+Various usage examples are shipped with the SDK version of the Information Workbench. Note that all components can be customized using CSS, i.e. when using fajax components in the Information Workbench they inherit the look and feel from the product automatically.

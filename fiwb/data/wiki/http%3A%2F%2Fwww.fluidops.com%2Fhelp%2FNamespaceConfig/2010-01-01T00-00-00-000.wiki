@@ -1,0 +1,56 @@
+== Namespace Configuration Guide == 
+Namespaces can be configured in two ways in the Information Workbench&#8482;, either: 
+
+#manually, or
+#by using the [[Admin:Namespaces | namespace configuration UI]] 
+
+In the subsequent subsections both methods are described.
+
+=== Using the Namespace Configuration UI ===
+
+The namespace configuration UI shows all the prefix-namespace pairs that are registered. Moreover, it provides functionality to manage namespaces at runtime. 
+
+==== Adding a Namespace ====
+To add a namespace follow these three steps, 
+
+1. Click on the "Add new namespace" button underneath the table, this will open the following window.
+ 
+<img src="../images/help/addNSForm.png" width="574px" />
+
+2. Type in the prefix and URI of the namespace into the Prefix and Namespace fields respectively. 
+
+3. Click on the ''Save'' button.
+
+==== Editing a Namespace ==== 
+To edit a namespace complete the following steps:
+
+1. Click on the '''Edit''' button of the namespace that you want to edit. This will open a form similar to the add namespace form.  
+
+2. Make the changes to the prefix or namespace (or both prefix and namespace).
+
+3. Click on the '''Edit Namespace''' button.  
+
+==== Deleting a Namespace ====
+
+To delete a namespace simply click on the '''Delete''' button of the namespace to be removed and confirm. 
+
+=== Manually Configuring Namespaces ===
+
+The namespaces of the Information Workbench can be configured in the configuration file "namespaces.prop".  This file contains a list of prefix-namespace pairs, where a prefix is the shortcut that can be used in the Information Workbench in place of the longer namespace.  The following is an excerpt from the default namespaces that come with the standard Information Workbench distribution.
+
+<source>
+....
+fluidops=http\://www.fluidops.com/
+twitter=http\://twitter.com/
+foaf=http\://xmlns.com/foaf/0.1/
+dcterms=http\://purl.org/dc/terms/
+history=http\://www.fluidops.com/history/
+rdfs=http\://www.w3.org/2000/01/rdf-schema\#
+void=http\://rdfs.org/ns/void\#
+owl=http\://www.w3.org/2002/07/owl\#
+Admin=http\://www.fluidops.com/admin/
+patent=http\://patents.data.gov.uk/def/patents/
+...
+</source>
+
+This file can be edited manually in your favorite text editor. Note that a restart of the Information Workbench is required for the new configuration to become active. 

@@ -1,0 +1,175 @@
+==== Settings Files for BAR_CLUSTERED Charts ====
+
+===== Bar Chart Vertical Settings =====
+Settings file available at: [[Settings:barvertical | Settings:barvertical]].
+Plot multiple variables in a vertical bar chart. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/BAR_CLUSTERED-settings/barvertical.PNG" width="1024" />
+
+====== Code ======
+<source>
+{{ #widget : BarChart
+  | query = '
+      SELECT ?org (COUNT(?project) AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^Te.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | title = 'title'
+  | type = 'BAR_CLUSTERED'
+  | settings = 'Settings:barvertical'
+}}
+</source>
+
+===== Settings for Horizontal bars =====
+Settings file available at: [[Settings:barhorizontal | Settings:barhorizontal]]
+Plot multiple variables in a horizontal bar chart. Example:
+
+====== Example Chart ======
+
+<img src="../images/help/BAR_CLUSTERED-settings/barhorizontal.PNG" width="1024px" />
+
+====== Code ======
+
+<source>
+{{ #widget : BarChart
+  | query = '
+      SELECT ?org (COUNT(?project) AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^Te.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | title = 'title'
+  | type = 'BAR_CLUSTERED'
+  | settings = 'Settings:barhorizontal'
+}}
+</source>
+
+===== Settings for Stacked Bars =====
+Settings file available at:[[Settings:barvertical.stacked | Settings:barvertical.stacked]]
+Plot multiple variables in a stacked vertical bar chart.
+
+====== Example Chart ======
+
+<img src="../images/help/BAR_CLUSTERED-settings/barvertical.stacked.PNG" width="1024px" />
+
+====== Code ======
+
+<source>
+
+{{ #widget : BarChart
+  | query = '
+      SELECT ?org (COUNT(?project) AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^Te.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | title = 'title'
+  | type = 'BAR_CLUSTERED'
+  | settings = 'Settings:barvertical.stacked'
+}}
+</source>
+
+===== Settings for Stacked Bars =====
+Settings file available at: [[Settings:barvertical.stacked100 | Settings:barvertical.stacked100]]
+Plot multiple variables in a stacked vertical bar chart. Columns are of equal heights presenting the distribution of the underlying data. 
+
+====== Example Chart ======
+
+
+<img src="../images/help/BAR_CLUSTERED-settings/barvertical.stacked100.PNG" width="1024px" />
+
+====== Code ======
+
+<source>
+
+{{ #widget : BarChart
+  | query = '
+      SELECT ?org (COUNT(?project) AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^Te.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | title = 'title'
+  | type = 'BAR_CLUSTERED'
+  | settings = 'Settings:barvertical.stacked100'
+}}
+</source>
+
+===== Settings for 3D Bars =====
+Settings file available at: [[Settings:barvertical.3d | Settings:barvertical.3d ]]
+Plot multiple variables in vertical bar chart having different columns for each output dimension. Columns are aligned behind each other.
+
+====== Example Chart ======
+
+
+<img src="../images/help/BAR_CLUSTERED-settings/barvertical.3d.PNG" width="1024px" />
+
+====== Code ======
+
+<source>
+
+{{ #widget : BarChart
+  | query = '
+      SELECT ?org (COUNT(?project) AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^Te.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | title = 'title'
+  | type = 'BAR_CLUSTERED'
+  | settings = 'Settings:barvertical.3d'
+}}
+</source>

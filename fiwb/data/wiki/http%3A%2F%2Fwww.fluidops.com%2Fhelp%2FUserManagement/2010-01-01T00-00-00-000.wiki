@@ -1,0 +1,305 @@
+== User Management ==
+
+=== User Concept ===
+The Information Workbench basic user concept builds upon three different roles (=user groups), namely ''admin'', ''user'', and ''guest'' user. In the Information Workbench Community Edition, these user groups do not have a special semantics, which means that all users are granted full rights, no matter which group they belong to. In the Enterprise Edition, the access rights of the user groups is predefined (yet can be flexibly changed, and new roles can be added on demand). In the following we describe the default semantics of the three roles in the Enterprise Edition in more detail.
+
+===== User Role "admin" =====
+Admin users have full write access to every page, are allowed to enter the administration area (where they can for instance create new users and specify their roles, upload data, etc.). They have full access to all the widgets, API, and other system functionalities. 
+
+===== User Role "user" =====
+Default users have full access rights except that they are not allowed to enter Admin pages and use admin-specific widgets. They are thus not able to create new users and assign roles to them. Further, they are not allowed to use the CLI. However, they have full write access to (non-admin) wiki pages, where they can embed widgets, add semantic links, and author data.
+
+===== User Role "guest" =====
+Guest users, a group that is typically assigned to users that are not logged in (see below), have only read access to wiki pages. This means they are not allowed to edit Wiki pages and see/use widgets or views that allow to manipulate the underlying data, but instead are restricted to widgets for view and exploration.
+
+
+=== Authentication Schemes ===
+
+By default, the Information Workbench comes with two different authentication schemes.
+
+==== No Authentication Required ====
+In the first authentication scheme, user authentication is optional, i.e. users do not need to log in to open system pages. More specifically, users that are not authenticated (i.e., not logged in) are treated as guest users (see the guest role above). Note, however, that users can use the "login" button and manually login when they have a registered user name - e.g. to obtain rights beyond what a guest user is allowed to do.
+
+To enable the latter authentication scheme, you have to set 
+
+<source>
+iwbAuthenticationScheme=noauth
+</source>
+
+in the file ''config.prop'' in the top-level directory of the server's Information Workbench installation and restart the system (note that this is the default setting).
+
+
+==== Authentication Required ====
+In the second authentication scheme, user authentication is required in order to get access to ''any'' system page, i.e. users are forwarded to the login page if they have not been authenticated before. Once they have logged in, they have access rights according to the role(s) that is/are associated with their user names. To enable the latter authentication scheme, you have to set 
+
+<source>
+iwbAuthenticationScheme=auth
+</source>
+
+in the file ''config.prop'' in the top-level directory of the server's Information Workbench installation and restart the system.
+
+
+=== User Registration ===
+
+==== Self-registration ====
+The user registration widget to any wikipage, and fill out the form to register.
+
+<source>
+{{#widget: com.fluidops.iwb.widget.UserRegistrationWidget }}
+</source>. 
+
+When a user registers, he is automatically associated to the ''guest'' user group. Note that user self-registration is of course only possible if the user authentication scheme (see previous paragraph) is set to ''noauth'', since otherwise users do not have access rights to the system pages.
+
+==== User Administration ====
+In the latter case, the idea is that admins (i.e., users that belong to the admin group) can create, delete, and modify existing users (e.g., promote them to admins) at the [[Admin:UserManagement|user administration page]]. The administration page is shown in the screenshot below:
+
+<img src="../images/help/usrmgmt.png" width="776px" />
+
+The table at the top of the page can be used to create a fresh user, by entering username, password, and group (when using the default groups: ''guest'', ''user'', or ''admin'' - but you can add new groups on demand). In the table at the bottom of the page, existing users can be administered, including tasks such as deleting user accounts, and changing the group or password of users. Note that a user can be associated to several groups; in that case, the groups must be separated by a ","-symbol in the ''Group'' field.
+
+==== Bootstrapping an Admin User ====
+By default, the system bootstraps an admin account with username ''admin'' and password ''iwb''. It is highly recommended to change the password of the admin user when operating in a global setting, to protect your system (you can do this at the previously described [[Admin:UserManagement|user administration page]]).
+
+If, by mistake, your local admin account was deleted or you reset your password, then you can bootstrap a new admin user by placing a file ''userManagementInit.prop'' in the ''config'' subfolder of your Information Workbench installation and the restarting the system. This file has to contain username, usergroup, and the associated password. For instance, the file
+
+<source>
+user=MyLocalAdmin
+pass=MyAdminPassword
+group=admin
+</source>
+
+will create a user called ''MyLocalAdmin'' (which must not have been a valid user before) with password ''MyAdminPassword'', associated to the group ''admin''. Make sure to write this file with a simple text editor (like Windows TextEdit) rather than word, in order to avoid special characters in the file. Once the system has been restarted the user will be registered, ready for login with the new credentials.
+
+
+
+
+=== User Access Control ===
+''Note:'' The ACL mechanism described in the following are only enabled in the Enterprise Edition.
+
+The user management in the Information Workbench builds upon a sophisticated, access-control-list (ACL) user right specification. While the community editions ships with preconfigured ACLs for the groups ''guest'', ''default'', and ''admin'', in the Enterprise Edition these access control lists can be freely configured, allowing to modify the ACLs of existing groups, create new groups, grant special rights to individual users, etc. In the following we describe how ACL lists can be configured.
+
+==== ACL Concept ====
+Every user and every group can be associated with an Access Control list. An Access Control list defines the rights regarding a variety of aspects, such as page-level access, buttons displayed in the User Interface, which widgets he is allowed to see, etc. 
+
+A single user may have several ACLs associated. As an example, consider a user ''dummy'' and assume the user is associated to the groups ''admin'' and ''editor''. Then the user may have assoiated up to three ACLs, namely one ACL specifying the rights for the ''admin'' group, one for the ''editor'' group, and one specific ACL for the user ''dummy'' itself. By convention, an empty ACL grants no rights, so if there is no ACL defined explicitly for the user but there are ACLs defined for the two groups, then his rights are defined by means of the two group ACLs. When multiple ACLs are defined, we apply a '''disjunctive''' semantics, i.e. in that case the user has the rights of the ''admin'' group plus the rights of the ''editor'' group. This means that, even if the access to some component is explicitly forbidden in some group, say e.g. ''editor'' group members are not allowed to access the admin area, but allowed in the other group, say ''admin'' members are allowed to visit the admin ares, then the user is granted the right to visit the admin area.
+
+==== ACL Syntax ====
+The Information Workbench currently supports Access Control Lists at page level and at functional level. Access control lists at page level can be used to configure access to certain types of pages (e.g., by forbidding pages that fall into a certain namespace, or pages that describe resources with a given type), as well as access control restrictions at functional level (e.g., restricting access to UI components such as widgets, buttons, servlets, APIs, etc.).
+
+An ACL is a list of access rules, starting either with the keyword ''allow'' or ''deny''. ACLs are checked in '''sequential order'''. As an example, consider the following ACL list consisting of two rules:
+
+<source>
+deny|resource|regexp(http:\/\/www\.fluidops\.com\/admin\/.*)
+allow|resource|regexp(.*)|read
+</source>
+
+Generally speaking, ACLs consist of (up to) four fields, separated by the symbol "|". The first field contains either the keyword ''deny'' or ''allow'', specifying whether the rule denies or allows access, respectively. The second field is the type of the ACL, specifying which kind of access right is denied or granted (we will list the available types in the following). In the case of our example above, the two rules address page-level specifications, i.e. whether the user has access to the page. The third field identifies the entity that is referred to by the ACL. The first rule, for instance, uses a regular expression to forbid access to all pages in the Admin area; the second grants access to all pages. Given that the rules are processed sequentially, the combination of both rules gives the user access to all pages except for those residing in the admin area (which, in the Information Workbench, is always the path identified by the regexp specified in the first rule). Finally, the fourth field contains the type of access that is granted (if the keyword in the first field is ''deny'', then the fourth field is empty). In our example above, we grant ''read'' access to all pages, which means the user is allowed to see the Wiki content of the page, but he is not allowed to author wiki or data content. 
+
+Note that, implicitly, at the end each list we allow a denying rule for everything that has not been specified. For the example above, where no write access has been granted to the user, this means that the user indeed has only read access to the pages. As a consequence, an empty ACL does not grant any access at all.
+
+In the following, we discuss the individual types of access rules (specified in the second rule) and provide details on how these rules are interpreted by the system.
+
+===== Resource-level AC Rules =====
+A resource-level AC Rule is a string of the form
+<source>
+PageACL ::= deny  + "|" + <Resource> + "|" + <Entity> 
+          | allow + "|" + <Resource> + "|" + <Entity> + "|" + <AccessType>
+</source>
+
+where 
+
+<source>
+<Resource>   ::= "resource" | "type" | "type-rec"
+<Entity>     ::= <String> | <RegexpExp>
+<RegexpExp>  ::= "regexp(" + <String> + ")"
+<String>     ::= a string not containing the symbol "|" and line breaks
+<AccessType> ::= ["read"|"write"|"write_limited"]
+</source>
+
+Page-level ACLs are checked prior to loading a page. When a user does not have access to a page (i.e., when the keyword in the first field equals ''deny''), then the page will not be loaded; instead, an AccessDenied page will be displayed. When the user has access rights, then the rights depend on <tt>&lt;AccessType&gt;</tt> that is granted to the user:
+
+* <tt>&lt;AccessType&gt;</tt> == ''read'': the user is allowed to read the resource's page (and use widgets that are embedded), but she is not allowed to modify the wiki page and enter data
+* <tt>&lt;AccessType&gt;</tt> == ''write_limited'': the user has ''read'' access and, in addition, she is allowed to edit the wiki page unless it contains widgets; in case there are no widgets, he is '''not''' allowed to add new widgets to the page.
+* <tt>&lt;AccessType&gt;</tt> == ''write'': the user has ''write_limited'' access and, in addition, she is allowed to edit the wiki page also in case it contains widgets; he is also allowed to add new widgets to the page.
+
+Note that, as we will discuss later, it can be orthogonally specified which widgets are shown to the user (i.e., widgets of a certain type can be generally forbidden in ACLs). In this line, the page-level access rules only grant basic read and write access rights to the page.
+
+
+There are three mechanisms to restrict access to pages, encoded by the <tt>&lt;Resource&gt;</tt> specification, either forbidding page access by specifying the URI or a URI pattern (<tt>&lt;Resource&gt;</tt> == ''resource''), by forbidding access to instances of a given type (<tt>&lt;Resource&gt;</tt> == ''type''), or by forbidding access to instances of a given type recursively (<tt>&lt;Resource&gt;</tt> == ''type-rec''). Note that ''type-rec'' only differs from ''type'' if the underlying repository supports inferencing (e.g., is a BigOWLIM store initialized with a rule set implementing inferencing at type level). We will give example for the three mechanisms in the following.
+
+====== Resource-level Resource-based AC Rules ======
+Resource-based AC rules specify access rights to a page with a given URI (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;String&gt;</tt>) or to a group of pages whose URI matches the specified regexp (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;RegexpExp&gt;</tt>).
+
+As an example, consider the following ACL.
+
+<source>
+allow|resource|http://www.fluidops.com/admin/DataExport|read
+deny|resource|regexp(http:\/\/www\.fluidops\.com\/admin\/.*)
+allow|resource|regexp(.*)|write_limited
+</source>
+
+First recall that the list is interpreted sequentially. Thus, it grants ''read'' access to the ''DataExport'' page in the admin namespace (which means the user can read this page and use widgets that are embedded in the page, unless they are explicitly blocked), forbids access to all other admin pages, and grants ''write_limited'' access to the pages/URIs not covered by the first two rules.
+
+====== Resource-level Type-based AC Rules ======
+Type-level AC rules specify access rights for pages based on types (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;String&gt;</tt>) or type patterns matched by a specified regexp (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;RegexpExp&gt;</tt>).
+
+As an example, consider the following ACL.
+<source>
+allow|type|foaf:Person|write
+allow|type-rec|http://xmlns.com/foaf/0.1/Organization|write_limited
+deny|type|regexp(http:\/\/xmlns.com\/foaf\/0\.1\/.*
+allow|type|regexp(.*)|read
+</source>
+
+Assuming that the prefix ''foaf'' is defined and maps to ''<nowiki>http://xmlns.com/foaf/0.1/</nowiki>''. The rule gives full write access to direct instances of type ''foaf:Person'', ''write_limited'' access to all instances of type ''foaf:Organization'', thereby taking instances RDFS semantics into account (i.e., ''type-rec'' considers typing recursively), denies access to all other instances of classes in the foaf namespace, and grants ''read'' access to all other instances.
+
+Note that untyped instances are not matched by the last AC rule (i.e., the specification above would not give any access to untyped instances). Further note that ''type-rec'' only has an effect if inferencing is supported by and enabled in the RDF database. Concerning the ''foaf'' prefix used in the first rule, it should be noted that prefixed URI syntax is not supported in regular expressions: there, always the full URI or pattern has to be specified.
+
+
+===== Functional-level AC Rules =====
+A functional-level AC Rule is a string of the form
+<source>
+PageACL ::= ["deny" | "allow"]  + "|" + <Function> + "|" + <Entity> 
+</source>
+
+where 
+
+<source>
+<Function>   ::= "widget" | "file" | "ui" | "api" | "servlet" | "query"
+<Entity>     ::= <String> | <RegexpExp>
+<RegexpExp>  ::= "regexp(" + <String> + ")"
+<String>     ::= a string not containing the symbol "|" and line breaks
+</source>
+
+Note that, compared to resource-level AC rules, functional-level AC rules are binary in the sense that they either grant or deny access (i.e., there is no fourth field specifying the level of access). We will give examples for the different <tt>&lt;Function&gt;</tt>s in the following.
+
+====== Functional-level Widget AC Rules ======
+Widget AC rules specify which widgets are displayed to the user, based on either an exact widget class specification (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;String&gt;</tt>) or a regular expression (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;RegexpExp&gt;</tt>). If a user does not have access to a widget, a wiki page embedding the widget will display an ''Access Denied'' message on the wiki page, instead of the widget.
+
+As an example, consider the following ACL.
+
+<source>
+deny|widget|com.fluidops.iwb.widget.UserManagementAdministrationWidget
+allow|widget|regexp(.*)
+</source>
+
+The ACL revokes access to the User Management administration widget, while all the remaining widgets are shown to the user.
+
+====== Functional-level File AC Rules ======
+File AC rules specify which files (residing on the server) can be access by the user, based on either an exact file name specification (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;String&gt;</tt>) or a regular expression matching the file (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;RegexpExp&gt;</tt>).
+
+File access can either be implicit by a widget (such as the ''FileEditWidget'', which allows to edit files on the server) or explicit file access (e.g. through the File Servlet). 
+
+As an example, consider the following ACL.
+
+<source>
+allow|file|config/widgets.xml
+allow|file|regexp(data\/backup\/.*)
+deny|file|regexp(.*)
+</source>
+
+The ACL revokes grants access to the file ''widgets.xml'' residing in the server's config directory and all files in the backup directory, while protecting all other files. Note that, if there are no rules following, then the last (i.e., denying) rule is obsolete.
+
+====== Functional-level UI AC Rules ======
+UI AC rules can be used to ban certain buttons or tabs from the User Interface, based on either the UI component ID as listed below (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;String&gt;</tt>) or a regular expression matching the UI component ID (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;RegexpExp&gt;</tt>). They can be used to customize the UI look and functionality, e.g. to hide the Admin button for users that do not have access to the Admin area anyway, to avoid links leading to an ''Access Forbidden'' error message.
+
+As an example, consider the following ACL.
+
+<source>
+deny|ui|btn_admin
+deny|ui|btn_revisiondelete
+allow|ui|regexp(.*)
+</source>
+
+The specification hides the ''Admin'' button in the top header bar and forbids the deletion of wiki revisions, while all other restrictable UI components are displayed. A full list of UI components that can be customized through ACL lists is given in the listing below:
+
+* ''btn_admin'': hides or displays the ''Admin'' button in the top menu bar
+* ''btn_fileupload'': hides or displays the ''File Upload'' button (plus associated functionality) in the top menu bar; note that the FileUpload widget itself is not affected
+* ''btn_revisiondelete'': disables or enables the button and functionality for deleting wiki page revisions
+* ''btn_revisionrestore'': disables or enables the button and functionality for restoring old wiki page revisions
+* ''view_stmttabledelete'': disables or enables the buttons for deleting statements in the tabular view (note that, even if enabled, only those statements that are editable can be deleted)
+* ''view_tableviewedit'': disables or enables the tabular edit view
+
+It should be noted that this functionality is closely coupled to the page-level restrictions. A user who does not have at least ''write_limited'' access to a page, for examle, will therefore not see a revision delete button, even though it might be enabled explicitly.
+
+====== Functional-level API AC Rules ======
+API AC rules specify API functions that can be access by the user via the CLI, based on either an exact api function specification (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;String&gt;</tt>) or a regular expression matching the api function or SubAPI (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;RegexpExp&gt;</tt>).
+
+As an example, consider the following ACL.
+
+<source>
+allow|api|com.fluidops.iwb.api.API.load
+deny|api|regexp(.*)
+</source>
+
+The ACL grants access to the function for loading data via API, but revokes access to all the remaining API calls. Please note that forbidding (allowing) a certain API call or sub-API does '''not''' automatically forbid (allow) the invocation of sub-APIs. As an example, a rule like
+
+<source>
+deny|api|com.fluidops.iwb.api.API.getBackupService
+</source>
+
+does '''not''' implicitly forbid the use of backup service functionality (i.e., methods belonging to the backup service), but only forbids to call the method ''getBackupService()'' directly. To forbid a sub-API including all its functionality, it is therefore necessary to use regular expressions, i.e. specify a rule of the form
+
+<source>
+deny|api|regexp(com\.fluidops\.iwb\.api\.API\.getBackupService.*)
+</source>
+
+
+====== Functional-level Servlet ACLs ======
+Servlet AC rules specify Servlet restriction functions, based on either an exact servlet specification (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;String&gt;</tt>) or a regular expression matching the servlet class name (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;RegexpExp&gt;</tt>).
+
+As an example, consider the following ACL.
+
+<source>
+deny|servlet|com.fluidops.iwb.server.FileServlet
+allow|servlet|regexp(.*)
+</source>
+
+The ACL grants access to all servlets except for the FileServlet, i.e. the user is not allowed to download any files using the servlet. Please make sure to be careful when using servlet-level restrictions: some widgets may use servlets to communicate with the systems, and denying servlets to the user may break them. Forbidding servlets should thus be understand as a way to restrict certain tasks in a high-security settings.
+
+
+====== Functional-level Query ACLs ======
+Query AC rules specify the type of queries that are allowed in the search input field, based on either a query type specification (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;String&gt;</tt>) or a regular expression matching the parameters (in case <tt>&lt;Entity&gt;</tt> is a <tt>&lt;RegexpExp&gt;</tt>). Valid query type specifications are ''CONSTRUCT'' (covering SPARQL <tt>CONSTRUCT</tt> and <tt>DESCRIBE</tt> queries), ''ASK'' (covering SPARQL <tt>ASK</tt> queries), ''SELECT'' (covering SPARQL <tt>SELECT</tt> queries), and ''UPDATE'' (covering SPARQL <tt>UPDATE</tt> queries).
+
+As an example, consider the following ACL.
+
+<source>
+deny|query|UPDATE
+allow|query|regexp(.*)
+</source>
+
+The ACL grants allows the user to post all queries except for SPARQL <tt>UPDATE</tt> queries.
+
+
+==== ACL Specification ====
+ACLs can be specified by ACL files. For each user group, there is a file in the directory <tt>config/acl</tt> with the name <tt>role-''group''.acl</tt>. The file allows to associate ACLs to each user and group, respectively. Note that the different ACL types described above are typically mixed together in a single file. As an example, let us consider the following ACL description.
+
+<source>
+deny|widget|com.fluidops.iwb.ui.ProviderEditTable
+deny|widget|com.fluidops.iwb.ui.WidgetEditTable
+deny|widget|com.fluidops.iwb.widget.ImportRDFWidget
+deny|widget|com.fluidops.iwb.widget.ExportRDFWidget
+deny|widget|com.fluidops.iwb.widget.VoIDWidget
+deny|widget|com.fluidops.iwb.widget.ContextEditTableWidget
+deny|widget|com.fluidops.iwb.widget.BackupWidget
+deny|widget|com.fluidops.iwb.widget.EditorialWidget
+deny|widget|com.fluidops.iwb.widget.FileEditWidget
+deny|widget|com.fluidops.iwb.widget.UserManagementAdministrationWidget
+allow|widget|regexp(.*)
+
+deny|servlet|com.fluidops.iwb.server.FileServlet
+allow|servlet|regexp(.*)
+
+deny|api|regexp(.*)
+
+deny|file|regexp(.*)
+
+deny|ui|btn_admin
+deny|ui|btn_revisiondelete
+allow|ui|regexp(.*)
+
+allow|resource|regexp(http:\/\/www\.fluidops\.com\/admin\/.*)
+allow|resource|regexp(.*)|write
+</source>
+
+The first block in the specification are functional-level widget restriction, forbidding access to a variety of administration widgets and granting access to all the widgets that are not explicitly excluded. Next, all servlets are enabled except for the FileUpload servlet. Further, access to the API and server file access is completely denied, and the admin and revision delete buttons are hidden in the ''ui'' ACL rules. Finally, all pages are enabled execpt for the pages in the admin area.

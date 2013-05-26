@@ -1,0 +1,5 @@
+== Historical Data ==
+
+'''*Note : The historical data is only available in the Enterprise Edition of the Information Workbench*'''
+
+The historical data page provide information about the contexts in the Information Workbench.  If a [[Help:HistoricalDataProvider|Historical Data Provider]] is set up, the snapshots of the data contained in the Information Workbench are displayed on the history:History page.  The settings of the Historic Provider can be accessed on this page by the, "Historic Provider Information" link. More information about historical data can be found in the description of the [[Help:HistoricalDataProvider|Historical Data Provider]].

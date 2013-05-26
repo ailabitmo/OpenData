@@ -1,0 +1,29 @@
+=== Image Widget ===
+
+==== Functionality and Configuration ====
+
+The image widget can be used for rendering images in the Information Workbench. Go back to [[Help:Widgets | Widgets ]].
+
+==== Example ====
+
+===== Embedding images into a wiki page =====
+
+You can embed an image into any wiki page by incorporating a piece of code like, similar to the example below:
+
+<source>
+{{ #widget: Image | 'http://upload.wikimedia.org/wikipedia/commons/c/c3/Usain_Bolt_smiling_Berlin_2009.JPG' }}
+</source>
+
+The address specified in apostrophes must represent a valid URI linking to an image file. The image will appear on the page either in original size or fitting a smaller container.
+
+===== Widgets Configuration =====
+
+The image widget gives you a possibility to automatically display an image on certain pages depending on a user-defined configuration in the [[Admin:Widgets | widgets configuration]]. Consider for example the following settings:
+
+<img src="../images/help/image-configuration.png" width="540px" />
+
+According to this configuration, on the page of an instance of  ''rdfs:Resource'' that has the property ''foaf:img'' the value that this property points to (which is supposed to be the URL of an image file) will be displayed as an image. In [[Help:WidgetConfiguration | Help:WidgetConfiguration]] you can learn more about how to create a widget configuration in [[Admin:Widgets | Widgets UI]]. 
+
+An example of this type of embedding can be seen in the following. A resource describing Usain Bolt (from nytimes.com) is associated with an image that in the default Information Workbench layout is displayed on the right side of the page.
+
+<img src="../images/help/bolt-newsWidget.png" />

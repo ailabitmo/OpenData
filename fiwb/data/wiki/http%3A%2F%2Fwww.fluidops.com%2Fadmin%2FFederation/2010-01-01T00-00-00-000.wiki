@@ -1,0 +1,11 @@
+= Federation management <sup>[[Help:FedX | <img width="19" src="../images/navigation/help_start.png" />]]</sup> =
+
+This interface allows to administrate a FedX federation and requires federation mode to be active. See [[Help:FedX]] for detailed information on how to use FedX within the Information Workbench. Please note that this feature is available in the Information Workbench Enterprise Edition only.
+
+== Current federation members: ==
+
+{{#widget: com.fluidops.iwb.federation.FederationControlWidget }}
+
+== Federation statistics ==
+
+{{#widget: com.fluidops.iwb.federation.FederationStatisticsWidget | asynch=true }}

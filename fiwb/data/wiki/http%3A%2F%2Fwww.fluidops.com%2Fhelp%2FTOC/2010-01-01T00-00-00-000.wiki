@@ -1,0 +1,668 @@
+== User's Guide ==
+<ul class="tc">
+<li>
+<span>1.</span> [[Help:Introduction | Introduction]]
+<ul>
+<li>
+<span>1.1.</span> [[Help:Introduction#What_is_the_Information_Workbench | What is the Information Workbench]]
+<ul>
+<li>
+<span>1.1.1.</span> [[Help:Introduction#The_Information_Workbench_User_Interface | The Information Workbench User Interface]]
+</li>
+<li>
+<span>1.1.2.</span> [[Help:Introduction#Features_and_Scope | Features and Scope]]
+</li>
+<li>
+<span>1.1.3.</span> [[Help:Introduction#Where_to_get_Help | Where to get Help]]
+</li>
+</ul>
+</li>
+<li>
+<span>1.2.</span> [[Help:CEvsEE | Community Edition vs Enterprise Edition]]
+<ul>
+<li>
+<span>1.2.1.</span> [[Help:CEvsEE#Features | Features]]
+</li>
+<li>
+<span>1.2.2.</span> [[Help:CEvsEE#Widgets | Widgets]]
+</li>
+<li>
+<span>1.2.3.</span> [[Help:CEvsEE#Providers | Providers]]
+</li>
+</ul>
+</li>
+<li>
+<span>1.3.</span> [[Help:ExampleData | Loading Example Data into the Information Workbench]]
+</li>
+</ul>
+</li>
+<li>
+<span>2.</span> [[Help:DataIntegration | Data Integration and Management]]
+<ul>
+<li>
+<span>2.1.</span> [[Help:RDFImport | Importing RDF data]]
+<ul>
+<li>
+<span>2.1.1.</span> [[Help:RDFImport#Configuration | Configuration]]
+</li>
+</ul>
+</li>
+<li>
+<span>2.2.</span> [[Help:RDFExport | Exporting RDF Data]]
+<ul>
+<li>
+<span>2.2.1.</span> [[Help:RDFExport#Configuration | Configuration]]
+</li>
+</ul>
+</li>
+<li>
+<span>2.3.</span> [[Help:GoogleRefine | Google Refine]]
+<ul>
+<li>
+<span>2.3.1.</span> [[Help:GoogleRefine#Using_Google_Refine | Using Google Refine]]
+</li>
+<li>
+<span>2.3.2.</span> [[Help:GoogleRefine#Importing_Data_from_Google_Refine | Importing Data from Google Refine]]
+</li>
+</ul>
+</li>
+<li>
+<span>2.4.</span> [[Help:ContentOverview | Content Overview]]
+<ul>
+<li>
+<span>2.4.1.</span> [[Help:ContentOverview#Statistics_of_Imported_Datasets | Statistics of Imported Datasets]]
+</li>
+<li>
+<span>2.4.2.</span> [[Help:ContentOverview#Class_Hierarchy | Class Hierarchy]]
+</li>
+<li>
+<span>2.4.3.</span> [[Help:ContentOverview#Properties_by_Range_and_Domain | Properties by Range and Domain]]
+</li>
+<li>
+<span>2.4.4.</span> [[Help:ContentOverview#Context_Overview | Context Overview]]
+</li>
+<li>
+<span>2.4.5.</span> [[Help:ContentOverview#Individual_Context_Pages | Individual Context Pages]]
+</li>
+</ul>
+</li>
+<li>
+<span>2.5.</span> [[Help:Providers | Providers]]
+<ul>
+<li>
+<span>2.5.1.</span> [[Help:Providers#Data_Provider_Concept | Data Provider Concept]]
+</li>
+<li>
+<span>2.5.2.</span> [[Help:CkanProvider | CKAN Provider]]
+</li>
+<li>
+<span>2.5.3.</span> [[Help:HistoricalDataProvider | Historical Data Provider]]
+</li>
+<li>
+<span>2.5.4.</span> [[Help:LdapAllUserInfoProvider | LDAP All User Information Provider]]
+</li>
+<li>
+<span>2.5.5.</span> [[Help:RDFProvider | RDF Provider]]
+</li>
+<li>
+<span>2.5.6.</span> [[Help:ScriptProvider | Script Provider]]
+</li>
+<li>
+<span>2.5.7.</span> [[Help:SequenceProvider | Sequence Provider]]
+</li>
+<li>
+<span>2.5.8.</span> [[Help:SilkProvider | Silk Provider]]
+</li>
+<li>
+<span>2.5.9.</span> [[Help:SPARQLEndpointProvider | SPARQL Endpoint Provider]]
+</li>
+<li>
+<span>2.5.10.</span> [[Help:TwitterProvider | Twitter Provider]]
+</li>
+<li>
+<span>2.5.11.</span> [[Help:ValueBasedDataMappingProvider | Value Based Data Mapping Provider]]
+</li>
+<li>
+<span>2.5.12.</span> [[Help:XMLProvider | XML Provider]]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<span>3.</span> [[Help:KnowledgeManagement | Collaborative Knowledge Management]]
+<ul>
+<li>
+<span>3.1.</span> [[Help:Views | Views and Navigation]]
+<ul>
+<li>
+<span>3.1.1.</span> [[Help:Views#Semantic_Wiki | Semantic Wiki]]
+</li>
+<li>
+<span>3.1.2.</span> [[Help:Views#Structured_Data_View | Structured Data View]]
+</li>
+<li>
+<span>3.1.3.</span> [[Help:Views#Graph_View | Graph View]]
+</li>
+<li>
+<span>3.1.4.</span> [[Help:Views#Pivot_View | Pivot View]]
+</li>
+</ul>
+</li>
+<li>
+<span>3.2.</span> [[Help:Wiki | Using the Semantic Wiki]]
+<ul>
+<li>
+<span>3.2.1.</span> [[Help:Wiki#Wiki_Markup_Language | Wiki Markup Language]]
+</li>
+<li>
+<span>3.2.2.</span> [[Help:Wiki#Links_and_Semantic_Links | Links and Semantic Links]]
+</li>
+<li>
+<span>3.2.3.</span> [[Help:Wiki#Other_Wiki_Features | Other Wiki Features]]
+</li>
+<li>
+<span>3.2.4.</span> [[Help:ValueResolvers | Value Resolvers]]
+</li>
+</ul>
+</li>
+<li>
+<span>3.3.</span> [[Help:TripleEditor | Authoring Semantic Data]]
+<ul>
+<li>
+<span>3.3.1.</span> [[Help:TripleEditor#Adding_Properties | Adding Properties]]
+</li>
+<li>
+<span>3.3.2.</span> [[Help:TripleEditor#Removing_Properties | Removing Properties]]
+</li>
+<li>
+<span>3.3.3.</span> [[Help:TripleEditor#Validation_of_user_input | Validation of user input]]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<span>4.</span> [[Help:Search | Searching and Querying]]
+<ul>
+<li>
+<span>4.1.</span> [[Help:Search#Full_Text_Search | Full Text Search]]
+</li>
+<li>
+<span>4.2.</span> [[Help:Search#Structured_Search | Structured Search]]
+</li>
+<li>
+<span>4.3.</span> [[Help:Search#Hybrid_Search | Hybrid Search]]
+</li>
+<li>
+<span>4.4.</span> [[Help:Search#Visualization_of_Query_Results | Visualization of Query Results]]
+</li>
+<li>
+<span>4.5.</span> [[Help:SPARQLEndpoint | SPARQL Endpoint]]
+<ul>
+<li>
+<span>4.5.1.</span> [[Help:SPARQLEndpoint#Security_Aspects | Security Aspects]]
+</li>
+<li>
+<span>4.5.2.</span> [[Help:SPARQLEndpoint#Supported_Output_Formats | Supported Output Formats]]
+</li>
+<li>
+<span>4.5.3.</span> [[Help:SPARQLEndpoint#Configuration | Configuration]]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<span>5.</span> [[Help:Widgets | Widgets]]
+<ul>
+<li>
+<span>5.1.</span> [[Help:Widgets#Widgets_Overview | Widgets Overview]]
+<ul>
+<li>
+<span>5.1.1.</span> [[Help:Widgets#Linking_Widgets_to_Semantic_Resources | Linking Widgets to Semantic Resources]]
+</li>
+<li>
+<span>5.1.2.</span> [[Help:Widgets#Embedding_Widgets_into_Wiki_Pages | Embedding Widgets into Wiki Pages]]
+</li>
+<li>
+<span>5.1.3.</span> [[Help:Widgets#Asynchronous_loading_of_widgets | Asynchronous loading of widgets]]
+</li>
+<li>
+<span>5.1.4.</span> [[Help:Widgets#Available_Widgets | Available Widgets]]
+</li>
+</ul>
+</li>
+<li>
+<span>5.2.</span> [[Help:AdvancedWidgetConfiguration | Advanced Widget Configuration]]
+<ul>
+<li>
+<span>5.2.1.</span> [[Help:AdvancedWidgetConfiguration#Key_Concepts | Key Concepts]]
+</li>
+<li>
+<span>5.2.2.</span> [[Help:AdvancedWidgetConfiguration#Constants | Constants]]
+</li>
+<li>
+<span>5.2.3.</span> [[Help:AdvancedWidgetConfiguration#Lists_and_Structures | Lists and Structures]]
+</li>
+<li>
+<span>5.2.4.</span> [[Help:AdvancedWidgetConfiguration#Dynamic_Operators | Dynamic Operators]]
+</li>
+<li>
+<span>5.2.5.</span> [[Help:AdvancedWidgetConfiguration#Casting_Table | Casting Table]]
+</li>
+</ul>
+</li>
+<li>
+<span>5.3.</span> [[Help:Chart | Charts]]
+<ul>
+<li>
+<span>5.3.1.</span> [[Help:Chart#Overview | Overview]]
+</li>
+<li>
+<span>5.3.2.</span> [[Help:BarChart | Bar Chart Widget]]
+</li>
+<li>
+<span>5.3.3.</span> [[Help:Heatmap | Heat Map Widget]]
+</li>
+<li>
+<span>5.3.4.</span> [[Help:LineChart | Line Chart Widget]]
+</li>
+<li>
+<span>5.3.5.</span> [[Help:PieChart | Pie Chart Widget]]
+</li>
+<li>
+<span>5.3.6.</span> [[Help:RadarChart | Radar Chart Widget]]
+</li>
+<li>
+<span>5.3.7.</span> [[Help:StockChart | Stock Chart Widget]]
+</li>
+</ul>
+</li>
+<li>
+<span>5.4.</span> [[Help:Authoring | Authoring]]
+<ul>
+<li>
+<span>5.4.1.</span> [[Help:DataInput | Data Input Widget]]
+</li>
+<li>
+<span>5.4.2.</span> [[Help:NewInstance | New Instance Widget]]
+</li>
+<li>
+<span>5.4.3.</span> [[Help:SearchWidget | Search Widget]]
+</li>
+<li>
+<span>5.4.4.</span> [[Help:TripleEditorWidget | Triple Editor Widget]]
+</li>
+</ul>
+</li>
+<li>
+<span>5.5.</span> [[Help:VisualizationWidgets | Visualization]]
+<ul>
+<li>
+<span>5.5.1.</span> [[Help:GMap | Google Map Widget]]
+</li>
+<li>
+<span>5.5.2.</span> [[Help:GraphWidget | Graph Widget]]
+</li>
+<li>
+<span>5.5.3.</span> [[Help:IFrame | IFrame Widget]]
+</li>
+<li>
+<span>5.5.4.</span> [[Help:Image | Image Widget]]
+</li>
+<li>
+<span>5.5.5.</span> [[Help:PivotWidget | Pivot Widget]]
+</li>
+<li>
+<span>5.5.6.</span> [[Help:QueryResult | Query Result Widget]]
+</li>
+<li>
+<span>5.5.7.</span> [[Help:TableResult | Table Result Widget]]
+</li>
+<li>
+<span>5.5.8.</span> [[Help:TagCloud | Tag Cloud Widget]]
+</li>
+<li>
+<span>5.5.9.</span> [[Help:TreeResult | Tree Result Widget]]
+</li>
+<li>
+<span>5.5.10.</span> [[Help:Timeline | Timeline Widget]]
+</li>
+<li>
+<span>5.5.11.</span> [[Help:Timeplot | Timeplot Widget]]
+</li>
+</ul>
+</li>
+<li>
+<span>5.6.</span> [[Help:SocialMediaWidgets | Social Media]]
+<ul>
+<li>
+<span>5.6.1.</span> [[Help:News | News Widget]]
+</li>
+<li>
+<span>5.6.2.</span> [[Help:Skype | Skype Widget]]
+</li>
+<li>
+<span>5.6.3.</span> [[Help:Twitter | Twitter Widget]]
+</li>
+<li>
+<span>5.6.4.</span> [[Help:Youtube | Youtube Widget]]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+== Administrator's Guide ==
+<ul class="tc">
+<li>
+<span>6.</span> [[Help:Installation | Installation]]
+<ul>
+<li>
+<span>6.1.</span> [[Help:Installation#Installing_the_Information_Workbench | Installing the Information Workbench]]
+<ul>
+<li>
+<span>6.1.1.</span> [[Help:Installation#Windows | Windows]]
+</li>
+<li>
+<span>6.1.2.</span> [[Help:Installation#Linux | Linux]]
+</li>
+<li>
+<span>6.1.3.</span> [[Help:Installation#Opening_the_Information_Workbench | Opening the Information Workbench]]
+</li>
+</ul>
+</li>
+<li>
+<span>6.2.</span> [[Help:Installation#Non-standard_Installations | Non-standard Installations]]
+<ul>
+<li>
+<span>6.2.1.</span> [[Help:Installation#Running_Two_Instances_on_the_Same_Host | Running Two Instances on the Same Host]]
+</li>
+<li>
+<span>6.2.2.</span> [[Help:Installation#Extending_the_Application_Through_a_Customization_Artifact | Extending the Application Through a Customization Artifact]]
+</li>
+</ul>
+</li>
+<li>
+<span>6.3.</span> [[Help:Installation#Using_the_Information_Workbench_SDK_in_Eclipse | Using the Information Workbench SDK in Eclipse]]
+</li>
+<li>
+<span>6.4.</span> [[Help:Installation#Troubleshooting | Troubleshooting]]
+</li>
+<li>
+<span>6.5.</span> [[Help:Installation#Important_Notes | Important Notes]]
+<ul>
+<li>
+<span>6.5.1.</span> [[Help:Installation#Shutting_Down_the_Information_Workbench | Shutting Down the Information Workbench]]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<span>7.</span> [[Help:Configuration | Configuration]]
+<ul>
+<li>
+<span>7.1.</span> [[Help:SystemConfiguration | System Configuration]]
+</li>
+<li>
+<span>7.2.</span> [[Help:WidgetConfiguration | Widget Configuration]]
+</li>
+<li>
+<span>7.3.</span> [[Help:NamespaceConfig | Namespace Configuration Guide]]
+<ul>
+<li>
+<span>7.3.1.</span> [[Help:NamespaceConfig#Using_the_Namespace_Configuration_UI | Using the Namespace Configuration UI]]
+</li>
+<li>
+<span>7.3.2.</span> [[Help:NamespaceConfig#Manually_Configuring_Namespaces | Manually Configuring Namespaces]]
+</li>
+</ul>
+</li>
+<li>
+<span>7.4.</span> [[Help:RepositoryConfiguration | Repository Configuration]]
+<ul>
+<li>
+<span>7.4.1.</span> [[Help:RepositoryConfiguration#Sesame_Native_Store | Sesame Native Store]]
+</li>
+<li>
+<span>7.4.2.</span> [[Help:RepositoryConfiguration#Sesame_Memory_Store | Sesame Memory Store]]
+</li>
+<li>
+<span>7.4.3.</span> [[Help:RepositoryConfiguration#Sesame_Remote_Repositories | Sesame Remote Repositories]]
+</li>
+<li>
+<span>7.4.4.</span> [[Help:RepositoryConfiguration#Public_SPARQL_Endpoints | Public SPARQL Endpoints]]
+</li>
+<li>
+<span>7.4.5.</span> [[Help:RepositoryConfiguration#Ontotext_OWLIM | Ontotext OWLIM]]
+</li>
+<li>
+<span>7.4.6.</span> [[Help:RepositoryConfiguration#SYSTAP_bigdata | SYSTAP bigdata]]
+</li>
+<li>
+<span>7.4.7.</span> [[Help:RepositoryConfiguration#Oracle_Database_Semantic_Technologies | Oracle Database Semantic Technologies]]
+</li>
+<li>
+<span>7.4.8.</span> [[Help:RepositoryConfiguration#Federation_with_FedX | Federation with FedX]]
+</li>
+<li>
+<span>7.4.9.</span> [[Help:RepositoryConfiguration#Using_Custom_Repositories | Using Custom Repositories]]
+</li>
+</ul>
+</li>
+<li>
+<span>7.5.</span> [[Help:SearchConfiguration | Search Configuration]]
+<ul>
+<li>
+<span>7.5.1.</span> [[Help:SearchConfiguration#Configuring_Search_Targets | Configuring Search Targets]]
+</li>
+<li>
+<span>7.5.2.</span> [[Help:SearchConfiguration#Full_Text_Search | Full Text Search]]
+</li>
+</ul>
+</li>
+<li>
+<span>7.6.</span> [[Help:FedX | FedX]]
+<ul>
+<li>
+<span>7.6.1.</span> [[Help:FedX#Using_FedX_in_the_Information_Workbench | Using FedX in the Information Workbench]]
+</li>
+<li>
+<span>7.6.2.</span> [[Help:FedX#Managing_the_Federation_at_Runtime | Managing the Federation at Runtime]]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<span>8.</span> [[Help:Admin | Administration]]
+<ul>
+<li>
+<span>8.1.</span> [[Help:UserManagement | User Management]]
+<ul>
+<li>
+<span>8.1.1.</span> [[Help:UserManagement#User_Concept | User Concept]]
+</li>
+<li>
+<span>8.1.2.</span> [[Help:UserManagement#Authentication_Schemes | Authentication Schemes]]
+</li>
+<li>
+<span>8.1.3.</span> [[Help:UserManagement#User_Registration | User Registration]]
+</li>
+<li>
+<span>8.1.4.</span> [[Help:UserManagement#User_Access_Control | User Access Control]]
+</li>
+</ul>
+</li>
+<li>
+<span>8.2.</span> [[Help:WikiManagement | Wiki Page Management]]
+<ul>
+<li>
+<span>8.2.1.</span> [[Help:WikiManagement#Tabular_View_of_Wiki_Pages | Tabular View of Wiki Pages]]
+</li>
+</ul>
+</li>
+<li>
+<span>8.3.</span> [[Help:SpecialPages | Special Pages]]
+<ul>
+<li>
+<span>8.3.1.</span> [[Help:Constraints | Constraint Validation]]
+</li>
+<li>
+<span>8.3.2.</span> [[Help:WikiDiagnostics | Wiki Diagnostics]]
+</li>
+</ul>
+</li>
+<li>
+<span>8.4.</span> [[Help:HistoricalData | Historical Data]]
+</li>
+<li>
+<span>8.5.</span> [[Help:Upload | File Management]]
+<ul>
+<li>
+<span>8.5.1.</span> [[Help:Upload#Uploading_Files | Uploading Files]]
+</li>
+<li>
+<span>8.5.2.</span> [[Help:Upload#Overview_of_Uploaded_Files | Overview of Uploaded Files]]
+</li>
+<li>
+<span>8.5.3.</span> [[Help:Upload#Deleting_Uploaded_Files | Deleting Uploaded Files]]
+</li>
+<li>
+<span>8.5.4.</span> [[Help:Upload#Using_Uploaded_Files_in_a_Wiki_Page | Using Uploaded Files in a Wiki Page]]
+</li>
+</ul>
+</li>
+<li>
+<span>8.6.</span> [[Help:CLI | CLI]]
+<ul>
+<li>
+<span>8.6.1.</span> [[Help:CLI#Usage_of_the_CLI | Usage of the CLI]]
+</li>
+<li>
+<span>8.6.2.</span> [[Help:CLI#Passing_arguments_to_the_CLI | Passing arguments to the CLI]]
+</li>
+<li>
+<span>8.6.3.</span> [[Help:CLI#Common_Examples | Common Examples]]
+</li>
+</ul>
+</li>
+<li>
+<span>8.7.</span> [[Help:BackupDatabase | Backup the Database]]
+<ul>
+<li>
+<span>8.7.1.</span> [[Help:BackupDatabase#The_Backup_Page | The Backup Page]]
+</li>
+<li>
+<span>8.7.2.</span> [[Help:BackupDatabase#The_Backing_Up_Process | The Backing Up Process]]
+</li>
+</ul>
+</li>
+<li>
+<span>8.8.</span> [[Help:StatusPage | System Status]]
+</li>
+<li>
+<span>8.9.</span> [[Help:Extensions | Installing Extensions]]
+<ul>
+<li>
+<span>8.9.1.</span> [[Help:Extensions#Installation_of_a_Customization_Artifact | Installation of a Customization Artifact]]
+</li>
+<li>
+<span>8.9.2.</span> [[Help:Extensions#Internal_Structure_of_a_Customization_Artifact | Internal Structure of a Customization Artifact]]
+</li>
+</ul>
+</li>
+<li>
+<span>8.10.</span> [[Help:Cache | Manual Cache Invalidation]]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+== Developer's Guide ==
+<ul class="tc">
+<li>
+<span>9.</span> [[Help:Developers | The Information Workbench for Developers]]
+<ul>
+<li>
+<span>9.1.</span> [[Help:Developers#Getting_Started | Getting Started]]
+<ul>
+<li>
+<span>9.1.1.</span> [[Help:Developers#Installing_the_SDK_in_Eclipse | Installing the SDK in Eclipse]]
+</li>
+<li>
+<span>9.1.2.</span> [[Help:Developers#Basic_Project_Structure | Basic Project Structure]]
+</li>
+<li>
+<span>9.1.3.</span> [[Help:Developers#Building_Your_First_Extension | Building Your First Extension]]
+</li>
+<li>
+<span>9.1.4.</span> [[Help:Developers#Additional_Resources | Additional Resources]]
+</li>
+</ul>
+</li>
+<li>
+<span>9.2.</span> [[Help:BuildingExtensions | Building Extensions]]
+<ul>
+<li>
+<span>9.2.1.</span> [[Help:BuildingExtensions#Creating_a_New_Extension_in_the_SDK | Creating a New Extension in the SDK]]
+</li>
+<li>
+<span>9.2.2.</span> [[Help:BuildingExtensions#Implementing_Extensions | Implementing Extensions]]
+</li>
+<li>
+<span>9.2.3.</span> [[Help:BuildingExtensions#Deploying_Extensions | Deploying Extensions]]
+</li>
+</ul>
+</li>
+<li>
+<span>9.3.</span> [[Help:WidgetSDK | Widget SDK]]
+<ul>
+<li>
+<span>9.3.1.</span> [[Help:WidgetSDK#Writing_Custom_Widgets | Writing Custom Widgets]]
+</li>
+<li>
+<span>9.3.2.</span> [[Help:WidgetSDK#Using_Custom_Widgets_in_the_Information_Workbench | Using Custom Widgets in the Information Workbench]]
+</li>
+<li>
+<span>9.3.3.</span> [[Help:WidgetSDK#Building_and_Deploying_Extensions | Building and Deploying Extensions]]
+</li>
+<li>
+<span>9.3.4.</span> [[Help:WidgetSDK#AJAX_Components | AJAX Components]]
+</li>
+</ul>
+</li>
+<li>
+<span>9.4.</span> [[Help:ProviderSDK | Provider SDK]]
+<ul>
+<li>
+<span>9.4.1.</span> [[Help:ProviderSDK#Groovy_Script_Providers | Groovy Script Providers]]
+</li>
+<li>
+<span>9.4.2.</span> [[Help:ProviderSDK#Writing_Providers_in_Java | Writing Providers in Java]]
+</li>
+</ul>
+</li>
+<li>
+<span>9.5.</span> [[Help:APIExtensions | API extensions]]
+<ul>
+<li>
+<span>9.5.1.</span> [[Help:APIExtensions#Implementation_of_the_service | Implementation of the service]]
+</li>
+<li>
+<span>9.5.2.</span> [[Help:APIExtensions#Implementation_of_the_service_factory | Implementation of the service factory]]
+</li>
+<li>
+<span>9.5.3.</span> [[Help:APIExtensions#Registering_the_service | Registering the service]]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+

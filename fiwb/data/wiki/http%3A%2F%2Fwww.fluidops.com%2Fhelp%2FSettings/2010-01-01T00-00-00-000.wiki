@@ -1,0 +1,10 @@
+== Chart Settings Files ==
+
+* [[Help:STOCK-settings|Settings files for STOCK charts]]
+* [[Help:PIE_2D-settings|Settings files for PIE_2D charts]]
+* [[Help:BAR_HORIZONTAL-settings|Settings files for BAR_HORIZONTAL charts]]
+* [[Help:BAR_VERTICAL-settings|Settings files for BAR_VERTICAL charts]]
+* [[Help:BAR_CLUSTERED-settings|Settings files for BAR_CLUSTERED charts]]
+* [[Help:LINE-settings|Settings files for LINE charts]]
+* [[Help:RADAR-settings|Settings files for RADAR charts]]
+* [[Help:MAP-settings|Settings files for MAP charts]]

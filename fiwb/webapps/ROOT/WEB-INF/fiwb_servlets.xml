@@ -1,0 +1,144 @@
+<servlet>
+	<servlet-name>WB</servlet-name>
+	<display-name>WB</display-name>
+	<servlet-class>com.fluidops.iwb.server.Servlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>WB</servlet-name>
+	<url-pattern>/resource/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>SEARCH</servlet-name>
+	<display-name>SEARCH</display-name>
+	<servlet-class>com.fluidops.iwb.server.HybridSearchServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>SEARCH</servlet-name>
+	<url-pattern>/search/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>RDF</servlet-name>
+	<display-name>RDF</display-name>
+	<servlet-class>com.fluidops.iwb.server.RDFServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>RDF</servlet-name>
+	<url-pattern>/rdf/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>PDF</servlet-name>
+	<display-name>PDF</display-name>
+	<servlet-class>com.fluidops.iwb.server.PDFServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>PDF</servlet-name>
+	<url-pattern>/pdf/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>FILE</servlet-name>
+	<display-name>FILE</display-name>
+	<servlet-class>com.fluidops.iwb.server.FileServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>FILE</servlet-name>
+	<url-pattern>/file/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>CXML</servlet-name>
+	<display-name>CXML</display-name>
+	<servlet-class>com.fluidops.iwb.deepzoom.CXMLServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>CXML</servlet-name>
+	<url-pattern>/query.cxml</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>CXML</servlet-name>
+	<url-pattern>/pivot/*</url-pattern>		
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>USERFILE</servlet-name>
+	<display-name>USERFILE</display-name>
+	<servlet-class>com.fluidops.iwb.server.UserFileServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>USERFILE</servlet-name>
+	<url-pattern>/upload/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>STATUSPAGE</servlet-name>
+	<display-name>STATUSPAGE</display-name>
+	<servlet-class>com.fluidops.iwb.monitoring.StatusServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>STATUSPAGE</servlet-name>
+	<url-pattern>/status</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>upload</servlet-name>
+	<servlet-class>com.fluidops.iwb.server.UploadServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>upload</servlet-name>
+	<url-pattern>/upload</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>SPARQLendpoint</servlet-name>
+	<servlet-class>com.fluidops.iwb.server.SparqlServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>SPARQLendpoint</servlet-name>
+	<url-pattern>/sparql</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>AnalyzeServlet</servlet-name>
+	<servlet-class>com.fluidops.iwb.util.analyzer.AnalyzeServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>AnalyzeServlet</servlet-name>
+	<url-pattern>/analyze</url-pattern>
+</servlet-mapping>
+
+
+<!-- Ideally this should be in a fbase webapps folder as include  /-->
+<servlet>
+	<servlet-name>RESTServlet</servlet-name>
+	<servlet-class>com.fluidops.api.RESTServlet</servlet-class>
+	<init-param>
+		<param-name>com.fluidops.api.Bootstrap</param-name>
+		<param-value>com.fluidops.iwb.api.EndpointImpl</param-value>
+	</init-param>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>RESTServlet</servlet-name>
+	<url-pattern>/REST/JSON/*</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>RESTServlet</servlet-name>
+	<url-pattern>/REST/XML/*</url-pattern>
+</servlet-mapping>
+<!-- end of REST API -->

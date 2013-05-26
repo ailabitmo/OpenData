@@ -1,0 +1,12 @@
+= Wiki Diagnostics <sup>[[Help:WikiDiagnostics |<img width="19" src="../images/navigation/help_start.png" />]]</sup>=
+
+'''This page provides an overview of all broken widget definitions and dead links. '''
+
+'''Note: This is an experimental feature. Depending on the amount of data in your installation, loading the page may take a while.'''
+
+{{ #widget : com.fluidops.iwb.widget.admin.WikiDiagnosticsWidget
+   | regexpFilter = '.*'
+   | pageTypeFilter = 'ANY'
+   | logLevel = 'WARN'
+   | asynch = true
+}}

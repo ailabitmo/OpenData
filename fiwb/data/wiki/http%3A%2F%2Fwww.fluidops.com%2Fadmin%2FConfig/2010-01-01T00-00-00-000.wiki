@@ -1,0 +1,12 @@
+= Configuration <sup>[[Help:SystemConfiguration |<img width="19" src="../images/navigation/help_start.png" />]]</sup>=
+
+<br/>
+Edit the config.prop settings:
+
+
+'''Note: some configuration changes might require a restart of the system'''
+<br/><br/><br/>
+
+{{#widget: com.fluidops.iwb.widget.ConfigEditWidget }}
+
+

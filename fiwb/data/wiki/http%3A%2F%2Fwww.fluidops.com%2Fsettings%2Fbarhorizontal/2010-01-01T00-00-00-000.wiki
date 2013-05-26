@@ -1,0 +1,57 @@
+<source lang="xml">
+<settings> 
+  <redraw>1</redraw>
+
+  <type>bar</type>
+  
+  <font>Tahoma</font>                
+  <depth>20</depth>                  
+  <angle>30</angle>                  
+  <balloonColor>#ffffff</balloonColor>
+
+  <column>
+    <width>70</width>                
+    $if(growTime)$
+    <grow_time>$growTime$</grow_time>
+    $endif$         
+    <grow_effect>strong</grow_effect>    
+    <alpha>75</alpha>
+    <balloon_text>          
+    <![CDATA[{description}: {value}$unit$</b><br/>({series})]]> 
+    </balloon_text>    
+  </column>
+     
+   <balloon>
+     <fillColor>#ffffff</fillColor>
+     <fillAlpha>100</fillAlpha>
+     <cornerRadius>4</cornerRadius>
+     <text_color>#000000</text_color>
+     <border_width>1</border_width>
+     <border_color>#5B5B63</border_color>
+     <borderColor>#5B5B63</borderColor>
+   </balloon>  
+
+    <legend>             
+	    <enabled>false</enabled> 
+    </legend>    
+
+    <values>
+      <category>
+        <rotate>30</rotate>
+      </category>
+      <value>
+        <unit>$unit$</unit>
+      </value>
+    </values>
+
+  <plot_area>              
+    <margins>              
+      <left>150</left>        
+      <top>30</top>         
+      <right>20</right>   
+      <bottom>30</bottom>  
+    </margins>
+  </plot_area>
+
+</settings>
+</source>

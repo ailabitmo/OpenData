@@ -1,0 +1,95 @@
+== Providers ==
+=== Data Provider Concept ===
+Data providers are configurable progams that connect to remote data sources (such as files, Web endpoints, or legacy systems), extract data from these sources, convert it into the RDF data format (where necessary), and store the extracted data in the Information Workbench's local repository. The Information Workbench comes with a variety of predefined data providers for integrating data from RDF files or web pages, SPARQL endpoints (based on SPARQL <tt>CONSTRUCT</tt> queries that extract the relevant subset of information from the endpoints, CSV and XML files, as well as Relational Databases. As such, they hide the complexity from the data integration process and offer built-in support for periodic updating of data obtained from remote data sources.
+
+Different data providers may broadly differ in their flexibility w.r.t. data integration and mapping facilities. While providers for the integration of Linked Data sources (such as the [[ Help:RDFProvider | RDFProvider ]]) merely require the specification of the location of an RDF data sources, providers for integrating data from custom data formats (such as the [[ Help:XMLProvider | XMLProvider ]]) may come with a mapping language that allows users to set up user-defined mappings from XML to RDF. Other providers, such as the [[ Help:ScriptProvider | ScriptProvider ]], offer an even higher degree of flexibility, allowing the user to connect to arbitrary data sources using any groovy script, supporting the data mapping process with built-in libraries for data mapping and manipulation.
+
+Note that, while this section focuses on the setup and use the data providers that are shipped with the Information Workbench platform out-of-the-box, there is also a [[Help:ProviderSDK|Provider SDK help]] describing how to write custom data providers. Before describing the different provider types in detail, we will provide some general information about how to set up new data providers.
+
+
+<h3>Adding and Removing Providers</h3>
+Providers can be configured using the [[Admin:Providers | Provider UI]], which is also linked from the admin area. To add a new provider, simply click on the 'Add Provider' button beneath the Data Providers table. A pop-up like the following window will open asking you to choose a provider type and enter the setup information.
+
+<img src="../images/help/providersUI.png" />
+
+All providers comprise general setup information that is summarized in the table below (fields marked with * are required).
+
+{| class="sortable wikitable" 
+|-
+! Parameter
+! Description
+|-
+| Provider*
+| Choose the provider type you want to add from the drop-down box
+|-
+| Identifier*
+| Source name (URI) of the provider
+|-
+| Poll interval*
+| Specifies the interval in minutes in which the provider is run 
+|-
+| Provider data editable
+| Allows users to edit the information retrieved by the provider
+|}
+
+Depending on the type additional fields might be required. For more details on this see below. Please note that you can instantiate an arbitrary number of providers, e.g. it is possible to add a set of [[ Help:SPARQLEndpointProvider | SPARQLEndpointProvider ]]  providers, each one connecting to another SPARQL endpoint in the web and possibly refereshing its data in different intervals, as needed.
+
+Providers can be edited/removed just as easily:
+* By clicking on the edit button at the right hand side of a provider row, one can edit the configuration parameters in
+a popup window similar to the one for adding a provider. Please note that, once created, using the edit form you cannot change the type or the ID of the provider anymore (if you want to do so, you need to delete the provider first and create a new one instead).
+* Using the delete button at the right hand side of of a provider row you can easily remove the provider. As a response, a popup will appear, asking you to confirm deletion and allowing you to choose whether you want to delete or keep the data that has been gathered by the provider in its last provider run.
+
+
+<h3>Provider Types</h3>
+The following table provides links to the individual types of providers that are shipped by default with the Information Workbench. For every provider there is a separate help section describing the scope and detailed configuration details.
+
+{|class="wikitable sortable"
+|-
+! Name
+! EE only
+! Description
+|-
+| [[ Help:CkanProvider | CkanProvider ]]
+| &#32;
+| Extracts metadata from CKAN repository.
+|-
+| [[ Help:HistoricalDataProvider | HistoricalDataProvider]]
+| &#10004;
+| Supports the computation of snapshots and aggregations over the database, storing them as historical data in a separate database.
+|-
+| [[ Help:LdapAllUserInfoProvider | LdapAllUserInfo ]]
+| &#10004;
+| Imports user information from an LDAP server.
+|-
+| [[ Help:RDFProvider | RDFProvider ]] 
+| &#32;
+| Reads RDF data from a web document in any RDF format.
+|-
+| [[ Help:ScriptProvider | ScriptProvider ]] 
+| &#32;
+| Runs any groovy script and imports generated data.
+|-
+| [[ Help:SequenceProvider | SequenceProvider ]] 
+| &#32;
+| Provider allowing to trigger a set of registered providers in sequence.
+|-
+| [[ Help:SilkProvider | SilkProvider ]] 
+| &#32;
+| Link discovery and entity reconciliation using the Silk Link Discovery framework.
+|-
+| [[ Help:SPARQLEndpointProvider | SPARQLEndpointProvider ]] 
+| &#32;
+| Gathers RDF data from a SPARQL endpoint via a CONSTRUCT query.
+|-
+| [[ Help:TwitterProvider | TwitterProvider ]]
+| &#10004;
+| Extracts public tweets of Twitter users.
+|-
+| [[ Help:ValueBasedDataMappingProvider | ValueBasedDataMappingProvider ]]
+| &#32;
+| Allows for data reconciliation and mapping based on shared properties and paths of URIs.
+|-
+| [[ Help:XMLProvider | XMLProvider ]]
+| &#32;
+| Extracts RDF from XML documents according to a predefined mapping.
+|}

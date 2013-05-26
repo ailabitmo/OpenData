@@ -1,0 +1,29 @@
+<servlet-mapping>
+	<servlet-name>jsp</servlet-name>
+	<url-pattern>/ajax/ajax.js</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>jsp</servlet-name>
+	<url-pattern>/timeline_2.3.0/timeline_js/timeline-api.js</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>jsp</servlet-name>
+	<url-pattern>/timeline_2.3.0/timeline_ajax/simile-ajax-api.js</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>jsp</servlet-name>
+	<url-pattern>/timeplot/timeplot-api.js</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>jsp</servlet-name>
+	<url-pattern>/ajax/stylesheet_fajax.css</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+       <servlet-name>jsp</servlet-name>
+       <url-pattern>/stylesheet_fiwb.css</url-pattern>
+</servlet-mapping>

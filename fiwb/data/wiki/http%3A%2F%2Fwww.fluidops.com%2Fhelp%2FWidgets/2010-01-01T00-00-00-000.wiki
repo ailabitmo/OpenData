@@ -1,0 +1,220 @@
+= Widgets =
+
+Widgets are a central feature of the Information Workbench. They add to wiki pages further functionalities that range from embedding of extra content like videos or maps to authoring or data visualization. On this page we introduce the general notion behind the widget concept.
+
+A widget represents a UI element which can be embedded into a wiki page and configured depending on the corresponding semantic resource. A widget can, for example: 
+* provide a special way of representing data: e.g., showing relations between entities as a graph, comparing different entities using charts, or pinpointing locations on a map.
+* define an interface for inserting, editing, and retrieving data: e.g., the [[ Help:TripleEditorWidget | TripleEditor ]] allows editing the properties of a data instance, while [[ Help:SearchWidget | SearchWidget ]] provides a configurable interface for searching the repository.
+* enrich the page with additional content from other sources: e.g., [[ Help:Twitter | display Twitter messages ]] and [[ Help:Youtube | Youtube videos ]] related to the data entity.
+The [[ Help:Widgets#Available_Widgets | Available Widgets]] section below gives a list of currently available widgets.
+
+== Widgets Overview ==
+
+The Information Workbench provides two different ways of using widgets:
+
+* They can be linked to specific semantic resources and classes. In that way, they will be shown on all pages linked to these resources. 
+* They can be embedded into wiki pages directly using the <nowiki>''#widget:''</nowiki> command. 
+
+=== Linking Widgets to Semantic Resources ===
+
+For a widget, one can configure a relation to a specific entity or a class of entities. This relation will apply the widget on all pages corresponding to these entities and also specify how it will be used: e.g., select which input properties which should appear in the Graph view or choose the dimensions of a chart. The configuration rules are defined in the [[ Admin:Widgets | Admin:Widgets ]] section. 
+Certain widgets configured in this way can be accessed via the tabs on the left hand side: these are the [[ Help:TripleEditor | TripleEditor ]], [[Help:GraphWidget | GraphWidget ]], and [[ Help:PivotWidget | PivotWidget]] (for the [[Help:CEvsEE | Enterprise Edition]] only). The others, which can be added via the [[ Admin:Widgets | Admin:Widgets ]] interface, are shown in the Wiki view: by default, whenever auto-selection of widgets is enabled, these widgets are displayed on the right side of the wiki page.
+
+When defining such a relation, one can specify:
+* related semantic resource (an instance or a class).
+* applicability range: whether the widget will be applied to the resource itself or to its instances (if the resource is a class).
+* additional pre-condition: some widgets can be automatically embedded into a wiki page if specific requirements are fulfilled. Those requirements typically are defined in the form of [http://www.w3.org/TR/sparql11-query/#ask SPARQL ASK query] constraints that the instance has to satisfy, such as the presence of certain predicates for a given resource; for instance, a GMap widget could be displayed whenever the resource has latitude and longitude associated. 
+* widget-specific parameters, e.g., width and height of an [[Help:IFrame | IFrame]], or data serving as X and Y dimensions of a [[Help:BarChart | bar chart]]. Such parameters can be specified either directly or as query templates, which will retrieve corresponding values from the semantic repository.
+
+The [[Help:WidgetConfiguration | Widget Configuration ]] help section describes in detail how these settings can be added and edited.
+
+=== Embedding Widgets into Wiki Pages ===
+
+Widgets can also be embedded directly into wiki pages. Widgets are embedded by enclosing the <nowiki>''#widget:''</nowiki> command followed by a valid widget name into double curly brackets.
+
+<source>
+{{ #widget: WIDGETNAME }}
+</source>
+
+There is a general syntax for incorporating widgets into wiki pages. Widgets are embedded by enclosing the <nowiki>''#widget:''</nowiki> command followed by a valid widget name into double curly brackets.
+
+<source>
+{{ #widget: WIDGETNAME }}
+</source>
+
+Some widgets can be configured using additional parameters, most even require different arguments. Parameters are separated by vertical bars ( <nowiki>'|'</nowiki>-symbol ). The example below shows the correct syntax.
+
+<source>
+{{ #widget: WIDGETNAME | PARAM1 = 'ARGS1' | PARAM2 = 'ARGS2' }}
+</source>
+
+There is a simplified syntax for widgets only requiring one argument, like the [[ Help:Image | Image ]] widget. For these the parameter command is omitted.
+
+<source>
+{{ #widget: WIDGETNAME | 'ARGUMENT' }}
+</source>
+'''Important note:''' According to our wiki syntax, the character "|" is reserved for separating parameter declarations. If you want to use this character inside of your query (e.g. for path properties definitions) '''in wiki pages''', you will have to substitute the character by <nowiki>"{{Pipe}}"</nowiki>. An example of a widget declaration containing the substituted character in the query:
+
+<source> 
+{{ #widget: TableResult
+
+   |query = 'select ?name where { <http://example.com/myPerson> dc:title {{Pipe}} rdfs:label ?name }'
+
+}}
+</source>
+
+You do not need to know the syntax for configuring widgets if you use the widget configuration form that pops up when you click the widget symbol on the editor menu. The form will assist you in selecting the needed widget and enter the desired parameters. To edit a widget configuration mark the configuration in the wiki page and click the widget symbol on the editor menu:
+
+<img src="../images/help/wikiwidgetsUI.png" width="650px" />
+
+The configuration form filled with already provided widget parameter values will appear:
+
+<img src="../images/help/widgetConfigWiki.png" width="650px" />
+
+By clicking on ''Submit'', edited widget parameters are saved and the widget specification inside the <nowiki>"{{ }}"</nowiki> brackets gets updated accordingly.
+
+The Information Workbench provides a framework for advanced configuration of embedded widgets. For more details on the configuration syntax, please refer to the documentation of this functionality in the [[Help:AdvancedWidgetConfiguration| Advanced Widget Configuration]] section.
+
+==== Embedding Data into Widget Configuration ====
+Another way to use  widgets is to directly embed properties from the page context into a widget configuration.  This can be achieved using the following syntax, ''configuration_property'' = ''$''this.property_name''$'', where ''configuration_property'' is a field in the widget configuration and ''property_name'' is the name of the page property.  The following will demonstrate this concept with the use of a motivating example. Note that additional information can be found in the [[Help:AdvancedWidgetConfiguration| Advanced Widget Configuration]] section.
+
+Suppose we have a music wiki listing albums by artists.  We want to have a separate wiki page for each song of an album with each page follow the same basic template, some information about the song (location recorded, year etc) and a Youtube music video of the song.  We want the template to include all of the song data, the problem to over come is the reference to each song has a unique Youtube reference.  A template fulfilling our requirements can easily be implemented using the method outlined above.  On each song page we add an attribute, songYoutubeID, setting this to the reference of a Youtube video.  This property can then be used as the value of an attribute in the widget configuration, see the sample code below.
+
+<source>
+{{ #widget : Youtube
+  | youTubeID = $ this.songYoutubeID $
+}}
+</source>
+
+'''Note:''' the spaces for the property reference are added only such that the value is not rendered. For the actual example please remove it.
+
+=== Asynchronous loading of widgets ===
+
+The Information Workbench provides a functionality to load widgets that are embedded within a wiki page asynchronously. The idea is that the loading process of such widgets is independent from the load of the entire page, i.e. for widgets that require some time for loading (e.g. due to computation intensive queries) the ''asynch'' property can be used, such that the overall page is rendered immediately. At the place where the asynchronous widget will appear, a loading icon is rendered to indicate the status.
+
+Consider the following snippet as an example:
+
+<source>
+''The table below is loaded asynchronously''
+
+{{#widget: TableResult 
+  | query = '... computation expensive query ...'
+  | asynch = true
+}}
+</source>
+
+
+<h3> Advanced Widgets Embedding </h3>
+
+The Information Workbench provides a framework for advanced configuration of embedded widgets. Please refer to the documentation of this [[Help:AdvancedWidgetConfiguration| Operator Framework]] for details.
+
+=== Available Widgets ===
+
+This section provides an overview of all available widgets in the Information Workbench. Click on an entry in the name column for additional information about use and configuration.
+
+{|class="wikitable"
+|-
+! Name
+! Classification
+! Description
+|-
+| [[ Help:Chart | Chart ]]
+| Chart
+| Powerful widget for displaying charts and diagrams populated with information retrieved from the data base. (Deprecated)
+|-
+| [[Help:BarChart | BarChart]]
+| Chart
+| Widget for displaying bar charts, supports vertical, horizontal and clustered bars.
+|-
+| [[Help:Heatmap | HeatMap]]
+| Chart
+| Widget to visualize data on a map.
+|-
+| [[Help:LineChart | LineChart]]
+| Chart 
+| Widget for visualizing data as a line chart.
+|-
+| [[Help:PieChart | PieChart]]
+| Chart
+| Widgets for displaying data in form of a Pie Chart.
+|-
+| [[Help:RadarChart | RadarChart]]
+| Chart
+| Widget to visualize data on a grid.
+|-
+| [[Help:StockChart | StockChart]]
+| Chart
+| Widget for visualizing data that changes over time. 
+|-
+| [[ Help:DataInput | DataInput ]]
+| Authoring
+| Customized instance creation and instance management.
+|-
+| [[ Help:QueryResult | QueryResult ]]
+| Authoring
+| Visualizing SPARQL query results (fully customizable).
+|-
+| [[ Help:SearchWidget | SearchWidget ]]
+| Authoring
+| Allows the user to parameterize predefined search patterns.
+|-
+| [[ Help:TableResult | TableResult ]]
+| Authoring
+| Visualizing SPARQL query results in tabular form.
+|-
+| [[ Help:NewInstance | NewInstance ]]
+| Authoring
+| Creates new instances of an entity.
+|-
+| [[ Help:GMap | GMap ]]
+| Visualization
+| Displays a map, which can be populated by database resources.
+|-
+| [[ Help:GraphWidget | Graph ]]
+| Visualization
+| Configuration options of the graph.
+|-
+| [[ Help:IFrame | IFrame ]]
+| Visualization
+| Adds an iframe to a wiki page showing the content from the specified source URL.
+|-
+| [[ Help:Image | Image ]]
+| Visualization
+| Displays images in wiki pages.
+|-
+| [[Help:PivotWidget | Pivot]]
+| Visualization
+| Provides an interactive way of browsing in collection of items visualized as images
+|-
+| [[ Help:TagCloud | TagCloud ]]
+| Visualization
+| Displays database entries in a tag cloud.
+|-
+| [[ Help:TreeResult | TreeResult ]]
+| Visualization
+| Visualizes database entries in a tree model.
+|-
+| [[ Help:Timeline | Timeline ]]
+| Visualization
+| Displays temporal data on a timeline.
+|-
+| [[ Help:Timeplot | Timeplot ]]
+| Visualization
+| Plots temporal and quantitative data on a timeplot.
+|-
+| [[ Help:News | News ]]
+| Social Media
+| Entity related news feed from New York Times.
+|-
+| [[ Help:Skype | Skype ]]
+| Social Media
+| Adds a Skype status button to a wiki page. On click the contact specified will be called.
+|-
+| [[ Help:Twitter | Twitter ]]
+| Social Media
+| Incorporates Twitter feeds into wiki pages.
+|-
+| [[ Help:Youtube | Youtube ]]
+| Social Media
+| Embeds YouTube videos in wiki pages.
+|}

@@ -1,0 +1,63 @@
+= The Information Workbench for Developers =
+
+While the Information Workbench open source version is fully suited to satisfy basic user needs in the fields of data-acquisition, -manipulation, -integration and presentation, it should not be seen as a complete and final data integration solution but as an easily extendable  development platform. Since the logic is implemented completely in JAVA, users with basic knowledge about JAVA development are able to alter and extend almost all the functionalities the Information Workbench offers. This section gives an overview of the overall project structure and shows points of interest for developers interested in extending and customizing the Information Workbench platform.
+
+The Information Workbench open source version depends on two other projects developed by fluid Operations: fajax, a flexible AJAX-framework capable to design highly high-performance AJAX-based user interfaces, and fbase, containing the back-end functionalities necessary to run the Information Workbench server. The corresponding libraries can be found in the lib folder of the release bundle.
+
+== Getting Started ==
+
+In the following we describe how the SDK can be used to develop customized extensions and give pointers to relevant documentation.
+
+=== Installing the SDK in Eclipse ===
+
+For the following steps we assume the reader to be familiar with the development platform Eclipse. Please refer to the [http://www.eclipse.org/ user documentation] for details.
+
+# Open Eclipse and create a new workspace
+# Select "File -> Import -> General -> Existing Projects into Workspace"
+# Check "Select archive file" and browse for the IWB zip archive
+# Choose the "fiwb" project in the "Projects" listing and click "Finish" 
+# The project can be started using the launch configuration "Start_IWB.launch": right-click on the file and select "Run As"
+
+'''Note:''' a recent version of the Eclipse IDE is required, i.e. Eclipse Helios or newer
+
+=== Basic Project Structure ===
+
+The basic project structure is as follows.
+
+* '''src:''' the source code
+* '''config:''' system configuration files (enabled widgets, providers, queries behind graphs, ...)
+* '''data'''
+** '''dbBootstrap:''' RDF files in N-Triples format that are loaded into the DB on next startup
+** '''dbmodel:''' the RDF database
+** '''luceneindex:''' Lucene index for keyword search (RDF data)
+** '''wikiindex:''' Index for wiki pages
+** '''wiki:''' the wiki pages incl. old revisions (one folder per page)  
+* '''etc:''' different system configuration (e.g., log levels)
+* '''lib:''' external libraries
+* '''solutions:''' custom solutions are to be implemented here
+* '''webapps/ROOT:''' content used by the jetty web server (configuration, CSS styles, logos, images, ...)  
+
+Note: ''luceneindex'' and ''wikiindex'' are available only in certain configurations (e.g., local repository setup)
+
+=== Building Your First Extension ===
+
+Custom extensions are to be implemented in a distinct folder inside the '''solutions''' folder (e.g. '''./solutions/MySolution/*'''). How to build a custom solution (i.e. directory setup, integration into Eclipse, deployment) is described in detail [[Help:BuildingExtensions| here]].
+
+For sake of illustration we provide a sample extension which can be found in the '''doc''' folder of the Information Workbench distribution. The following steps describe how it can be build.
+
+# Extract the sample extension from the distribution (see '''doc''' folder) to '''<WORKSPACE-LOC>/fiwb/solutions/DemoSolution''' in your Information Workbench SDK workspace
+# In Eclipse perform the following steps to use the solution as a virtual project
+## Select "File -> Import -> General -> Existing Projects into Workspace"
+## Check "Select root directory" and browse for '''<WORKSPACE-LOC>/fiwb/solutions/DemoSolution'''
+## Choose the "DemoSolution" project in the "Projects" listing, '''uncheck''' "Copy projects into workspace", then click "Finish"
+## You find the virtually linked "DemoSolution" project in your workspace
+# In '''<WORKSPACE-LOC>/fiwb/apps''' create the file "solution.ref" with content "solutions/DemoSolution" (This will allow local development with the extension)
+# Start the sample solution by running "DemoSolution_Start.launch"
+# Navigate to http://localhost:8888/resource/demo:Start (which will open the entry page of DemoSolution with the custom widget)
+
+
+=== Additional Resources ===
+
+* [[Help:BuildingExtensions| Eclipse project setup / building extensions]]
+* [[Help:WidgetSDK| Implementing custom widgets]]
+* [[Help:ProviderSDK| Implementing custom providers]]

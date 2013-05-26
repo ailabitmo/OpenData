@@ -1,0 +1,79 @@
+=== Google Map Widget ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.GMapWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.GMapWidget
+}}
+
+==== Example ====
+
+The GMap widget allows to display locations on an embedded map using the Google Maps API. The configuration is such that a list of markers can be specified, where markers can be defined using either of the following options: 
+
+<br/>
+'''a) Geo-coordinates'''
+
+Any point on earth can be described by [http://en.wikipedia.org/wiki/Latitude latitude] and [http://en.wikipedia.org/wiki/Longitude longitude] coordinates. You can enter a list of markers to be displayed on the map specifying their geographic position with the parameters ''<nowiki>http://www.w3.org/2003/01/geo/wgs84_pos#lat</nowiki>'' and ''<nowiki>http://www.w3.org/2003/01/geo/wgs84_pos#lng</nowiki>'' as illustrated in the following example:
+
+<source>
+{{ #widget : GMap
+  | markers = {{
+   {{ lat = '49.016666666666666' | lng = '8.4'}} }}
+}}
+</source>
+
+This configuration specifies the coordinates of Karlsruhe and embedded in this wiki page results in:
+
+<img src="../images/help/GMap.PNG" width="1024px" />
+
+<br/>
+'''b) Location as plain string'''
+
+The same result is achieved by giving the specific location using the simple name of this location:
+
+<source>
+
+{{ #widget : GMap
+  | markers = {{
+   {{ location = 'Karlsruhe'}} }}
+}}
+
+</source>
+
+<br/>
+'''c) Markers collected by a SPARQL query'''
+
+SPARQL queries can be used to select data to be displayed on your map. Query results should contain either a location as a plain string or geographical coordinates. Optionally, the query result can contain additional information to display, such as for instance a description or an image. 
+
+An example to configure the GMap widget using a SPARQL query is depicted below:
+
+<source>
+{{ #widget : GMap
+  | markers = $SELECT DISTINCT ?location WHERE { ?region rdf:type research:Region . ?region rdfs:label ?location }$
+}}
+</source>
+
+The result of the configuration above is a map depicting markers for research locations. Note that the binding variables projected from the query must correspond to the parameter names of the marker configuration (see above), i.e., plain-text addresses can be retrieved as ''location'', while geo-coordinates (present in either decimal or degree format) are addressed by the ''lat'' and ''lng'' variables. It is recommended to only use literals as addresses, since URIs may not lead to the desired result. Also note that addresses are not unique identifiers for locations.
+
+A more complex example for this use case taken from our public demonstrator's [http://iwb.fluidops.com/resource/Earthquake Earthquake page] is depicted in the following.
+
+<source>{{ #widget : GMap
+  | markers = $SELECT ?lat ?lng ?link (CONCAT("region: ",?region, "<br/>", " magnitude: ", ?magnitude, "<br/>", " datetime: ", ?datetime) AS ?description) 
+               WHERE { 
+               ?quake <http://data-gov.tw.rpi.edu/vocab/p/32/magnitude> ?magnitude . 
+               ?quake <http://data-gov.tw.rpi.edu/vocab/p/32/region> ?region .
+               ?quake <http://data-gov.tw.rpi.edu/vocab/p/32/datetime> ?datetime .
+               ?quake <http://data-gov.tw.rpi.edu/vocab/p/32/lat> ?lat .
+               ?quake <http://data-gov.tw.rpi.edu/vocab/p/32/lon> ?lng . BIND(?quake AS ?link) }$
+      }}
+</source>
+
+The value of each relevant resource (in this case the value of the variable ''?quake'') is bound in the query as a link to provide direct navigation from the marker info window on the map to the resource. 
+Additional information about each quake is packed into the ''?description'' variable to show it directly in the info window of the marker.

@@ -1,0 +1,72 @@
+=== Value Resolvers ===
+There is also a mechanism to post-format the values that are displayed by template variables by the use of predefined functions (read more about template variables and predefined functions in [[Help:Wiki | Help:Wiki]]). For instance, one may want to transform a numeric value to a currency (e.g. "5" to "5в‚¬" or "$5"), render an extracted value that links to a URL as an external URL, embed a picture if the extracted value refers to a picture, etc. In oder to support such tasks, the IWB defines a set of so-called Value Resolvers. These are specified in brackets after the template variable expression. To give an example, the template expression
+
+<pre>$ this.myImage[THUMBNAIL] $</pre>
+
+renders the result of property ''myImage'' as a an image thumbnail (assuming that it points to a valid URL displaying an image). The following value resolvers are defined:
+
+
+{| class="sortable wikitable" 
+|-
+! Argument
+! Conversion
+|-
+| DEFAULT 
+| The default. Displays the value as a link pointing to the Wiki page of the value. If the value does not exist, the text ''(undefined)'' is displayed.
+|-
+| MS_TIMESTAMP2DATE 
+| Converts a UNIX timestamp given in milliseconds to a human-readable date
+|-
+| S_TIMESTAMP2DATE 
+| Converts a UNIX timestamp given in seconds to a human-readable date
+|-
+| DATE
+| Converts a xsd:date such as "2001-10-26" into a user-friendly format, e.g. "Oct 26, 2001".
+|-
+| TIME
+| Converts a xsd:time such as "21:32:52+02:00" into a user-friendly format, e.g. "20:32:52" if the server is in time zone GMT+1:00.
+|-
+| DATETIME
+| Converts a xsd:dateTime such as "2001-10-26T21:32:52+02:00" into a user-friendly format, e.g. "Oct 26, 2001 21:32:52".
+|-
+| IMAGE 
+| Interprets the value as image (displayed in original size)
+|-
+| THUMBNAIL || Interprets the value as image (displayed in thumbnail size)
+|- 
+| BIGTHUMBNAIL || Interprets the value as image (displayed in bigger thumbnail size)
+|- 
+| HTML || Renders the value as HTML. Note that the HTML code is cleaned for security reasons in the same way as HTML embedded into a wiki page is cleaned.
+|- 
+| DOUBLE2INT || Rounds a double value to an integer value
+|-
+| URL || Interprets the value as an external link
+|-
+| BYTE2KB || Converts a numeric byte value to KB (base 1024)
+|-
+| BYTE2MB || Converts a numeric byte value to MB (base 1024)
+|-
+| BYTE2GB || Converts a numeric byte value to GB (base 1024)
+|-
+| BYTE2TB || Converts a numeric byte value to TB (base 1024)
+|-
+| KBYTE2MB || Converts a numeric KByte value to MB (base 1024)
+|-
+| KBYTE2GB || Converts a numeric KByte value to GB (base 1024)
+|-
+| KBYTE2TB || Converts a numeric KByte value to TB (base 1024)
+|-
+| PERCENT || Converts a number to percent value
+|-
+| PERCENT_NOCONVERT || Number with additional percent sign
+|-
+| ROUND_DOUBLE || Rounds a number to two decimal places after comma
+|-
+| COMMA_SEPARATED || Represents comma separated values (uses DEFAULT for each value)
+|-
+| CURRENCY_USD || Shows the value as US dollar
+|-
+| CURRENCY_EUR || Shows the value as Euro value
+|-
+| CURRENCY_CNY || Shows the value as Chinese Yuan
+|}

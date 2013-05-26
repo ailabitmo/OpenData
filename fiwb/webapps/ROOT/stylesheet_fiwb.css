@@ -1,0 +1,4670 @@
+<% response.setContentType( "text/css" ); %>@CHARSET "UTF-8";
+
+@import "markitup/skins/markitup/style.css";
+@import "extensions.css";
+
+body, html {
+    font-family:Verdana,Tahoma,Arial,Helvetica,sans-serif;
+    font-size: 0.9em;
+    /*
+    *browser reset
+    */
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body{
+	width: auto;
+}
+
+fieldset label {
+    width: 17em;
+    text-align: left;   
+}
+    
+
+.dwheader {
+    background:#9DADC6 none repeat scroll 0 0;
+    border-bottom:1px solid black;
+    margin-left:-1%;
+    margin-top:-1%;
+    padding:10px 20px 0;
+    width:100%;
+}
+
+table {
+    font-size: 9pt;
+}
+
+img
+{
+    border: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.flogo{
+    position: absolute;
+    right: 2px;
+    top: 83px;
+}
+
+.topbarRightImg DIV{
+    width: 70px;
+
+}
+
+.pageHead TABLE{
+    width: 100%;
+}
+
+p {
+}
+
+.flWindowContent {
+
+}
+
+.flWindow, .flWindowOpaque {
+    font-size:100%;
+
+}
+
+.flTabContent {
+    background-color: #FFFFFF;
+    border-top: 2px solid #C0C0C0;
+}
+
+.flTabContentWikiPage {
+    background-color: #FFFFFF;
+    margin-left: 80px;
+    margin-top: 9px;
+    padding: 40px 70px 20px 20px;
+}
+
+
+.flTabContentWikiPage>DIV>DIV {
+	margin-left:auto;
+	margin-right:auto;
+	width:98%;
+}
+
+.graphClass {
+	text-align:center;
+	margin-left:-130px;
+	z-index:0
+;
+
+}
+
+.graphClass {
+	text-align:justify\9;
+}
+
+.flwMiddleTD{
+    width: 6px;
+}
+
+.flwTable{
+    width: 100%;
+}
+
+
+/* widget style */
+
+
+.flwCenter {
+    width:100%;
+}
+
+.pageHead{
+    margin-left: -8px; 
+    margin-right: -8px; 
+    margin-top: -8px;
+    padding: 0;
+    position:relative;
+    top:75px;
+}
+
+
+.flwContent {
+}
+
+.flwTop {
+    width:100%;
+}
+
+.flwTopLeft {
+    background:transparent url('<%= request.getContextPath()%>/images/widget/box_top_left.png') no-repeat scroll 0 0;
+    width:6px;
+}
+
+.flwTopLeft2 {
+    background:transparent url('<%= request.getContextPath()%>/ajax/flwWidget/flwLeft.png') repeat-y scroll 0 0;
+    width:11px;
+    height:100%;
+}
+    
+.flwTopCenter {
+    background:transparent url('<%= request.getContextPath()%>/images/widget/box_top_center.png') repeat-x scroll 0 0;
+    height: 26px;
+}
+
+.flwTopCenterTR{
+    height:11px;
+}
+    
+.flwTopCenter2 {
+    background: transparent;
+}
+
+.flwTopRight {
+    background:transparent url('<%= request.getContextPath()%>/images/widget/box_top_right.png') no-repeat scroll 0 0;
+    width:6px;
+}
+
+
+
+
+.flwMiddleCenter {
+    background:#FFF none repeat scroll 0 0;
+}
+
+
+.flwMiddleRight {
+    background:transparent url('<%= request.getContextPath()%>/ajax/flwWidget/flwMiddleRight.png') repeat-y scroll 0 0;
+    width:6px;
+}
+
+.flwSepLeft {
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/flwSepLeft.png') no-repeat scroll 0 0;
+    width: 11px;
+    height: 4px;
+}
+
+.flwSepCenter {
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/flwSepCenter.png') repeat scroll 0 0;
+}
+
+.flwSepRight {
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/flwSepRight.png') no-repeat scroll 0 0;
+    width: 11px;
+    height: 4px;
+}
+
+.flwTable {
+  border-collapse: collapse;
+  border-spacing: 0px 0px;
+  
+}
+
+.flwTable TD {
+  padding: 0px;
+}
+
+
+
+.topbarLeft{
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/topbarLeft.png') repeat-x scroll 0 0;
+    height: 70px;
+    width: 100%;
+}
+
+.topbarLeft a{
+    color: white;
+}
+
+.topbarLeftSearch{
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/topbarLeft.png') repeat-x scroll 0 0;
+    height: 70px;
+    text-align: right;
+}
+
+.topbarRightImg{
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/topbarRight.png') repeat-x scroll 0 0;
+    height: 70px;
+}
+
+.topbarMid{
+    background:transparent url('<%=request.getContextPath()%>/ajax/flwWidget/topbarMid.png') no-repeat scroll 0 0;
+    width: 54px;
+    height: 70px;
+}
+
+.flwBTNmin{
+    background:transparent url('<%= request.getContextPath()%>/images/widget/flwBTNmin') no-repeat scroll 0 0;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    border: 0 none;
+    margin-top: 5px;
+}
+
+.flwBTNmax{
+    background:transparent url('<%= request.getContextPath()%>/images/widget/flwBTNmax.png') no-repeat scroll 0 0;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    border: 0 none;
+    margin-top: 5px;
+}
+.flwBTNclose{
+    background:transparent url('<%= request.getContextPath()%>/images/widget/flwBTNclose.png') no-repeat scroll 0 0;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-left: 3px;
+    border: 0 none;
+}
+
+/* suggestion-dropdown-menu*/
+
+.flSuggestionDropDownKeywordLabel {
+    background: #EEEEEE;
+    border-bottom-width:1px;
+    border-bottom-style:solid;
+    border-color:#888888;
+}
+
+.flSuggestionDropDown ul li * ul li {
+    background: #CCCCCC;
+    border-bottom-width:1px;
+    border-bottom-style:solid;
+    border-color:#888888;
+    overflow-x:auto;
+}
+
+.flSuggestionDropDown ul li * ul {
+    position: relative;
+    top:2px;
+    left: 110px;
+    width: 370px;
+}
+
+.flSuggestionDropDown2 ul li * ul {
+    position: relative;
+    top:2px;
+    left: 0px;
+    width: 270x;
+}
+
+.flSuggestionDropDown2 div ul{
+    list-style-image: none;
+    list-style-position: outside;
+    background: #FFFFFF none repeat scroll 0%;
+    border:1px solid #888888;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position:relative;
+    top: 10px;
+    left:90px;
+    width:400px;
+    z-index:9050;
+    max-height:600px;
+    list-style-type: disc;
+    list-style-position: outside;
+    margin: 0 0 0 15px;
+    padding: 0; 
+}
+
+.flSuggestionDropDown ul li {
+    background: #FFFFFF;
+    text-align:left;
+}
+
+.flSuggestionDropDown ul{
+    list-style-image: none;
+    list-style-position: outside;
+    background: #FFFFFF none repeat scroll 0%;
+    border:1px solid #888888;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width:320px;
+    z-index:9050;
+    max-height:600px;
+    list-style-type: disc;
+    list-style-position: outside;
+    margin: 0 0 0 -100px;
+    padding: 0; 
+}
+
+.flSuggestionDropDownLarge ul{
+    
+    width:448px !important;
+    
+}
+
+.flSuggestionDropDown ul li {
+    background: #FFFFFF;
+}
+
+.viewContentClazz .flAutoComplete input
+{
+    display:block;
+
+}
+.viewContentClazz .flAutoComplete br
+{
+    display:none;
+
+}
+.viewContentClazz .flAutoComplete .flSuggestionDropDown ul
+{
+    margin: 0 0 0 0px;
+
+} 
+
+.flTabWikiPage
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/sidebar_bg.png') repeat-y scroll right bottom transparent;
+	height:100%;
+	z-index:1;
+}
+
+
+.flTab li
+{
+    color: #C0C0C0;
+    font-weight: normal;
+    font-family: sans-serif;
+    font-size: 15px;
+    float: right;
+    margin-top:-25px;
+}
+
+.flTabWikiPage > ul > li
+{
+	display: block !important;
+    height: 45px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-top: 0px !important;
+    color: transparent !important;
+    margin-top:0 !important;
+}
+
+
+li.nav_wiki
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/wiki_normal.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.nav_wiki:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/wiki_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.nav_table
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/table_normal.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.nav_table:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/table_hover.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.nav_graph
+{
+	height: 45px;
+	background: url('<%= request.getContextPath()%>/images/navigation/graph_normal.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.nav_graph:hover
+{
+	height: 45px;
+	background: url('<%= request.getContextPath()%>/images/navigation/graph_hover.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.nav_pivot
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/pivot_normal.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.nav_pivot:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/pivot_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.nav_barchart
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/barchart_normal.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.nav_barchart:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/barchart_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.nav_linechart
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/linechart_normal.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.nav_linechart:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/linechart_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.nav_piechart
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/piechart_normal.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.nav_piechart:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/piechart_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.nav_timeline
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/timeline_normal.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.nav_timeline:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/timeline_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.flTabActive.nav_wiki
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/wiki_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.flTabActive.nav_table
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/table_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.flTabActive.nav_graph
+{
+	height: 45px;
+	background: url('<%= request.getContextPath()%>/images/navigation/graph_hover.png') no-repeat scroll left center transparent;
+	float:none !important;	
+}
+
+li.flTabActive.nav_pivot
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/pivot_hover.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.flTabActive.nav_barchart
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/barchart_hover.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.flTabActive.nav_linechart
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/linechart_hover.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.flTabActive.nav_piechart
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/piechart_hover.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+li.flTabActive.nav_timeline
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/timeline_hover.png') no-repeat scroll left center transparent;	
+	float:none !important;	
+}
+
+
+.flTabSearchPage .listItem0
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/table_normal.png') no-repeat scroll left center transparent;
+}
+
+.flTabSearchPage .listItem0:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/table_hover.png') no-repeat scroll left center transparent;
+}
+
+.flTabSearchPage .listItem1
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/pivot_normal.png') no-repeat scroll left center transparent;
+}
+
+.flTabSearchPage .listItem1:hover
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/pivot_hover.png') no-repeat scroll left center transparent;	
+}
+
+.flTabSearchPage .flTabActive.listItem0
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/table_hover.png') no-repeat scroll left center transparent;
+}
+
+.flTabSearchPage .flTabActive.listItem1
+{
+	background: url('<%= request.getContextPath()%>/images/navigation/pivot_hover.png') no-repeat scroll left center transparent;
+}
+
+.flTab {
+	margin-top: -20px;
+}
+
+.flTab .flTabActive
+{
+    color: black;
+    border-left: 1px solid gray;
+    border-top: 1px solid gray;
+    border-right: 1px solid gray;
+    font-weight: bold;
+    -moz-border-radius:6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    float: right;
+}
+
+.facetsSidebar{
+    border:1px solid #CBCCCB;
+    float:left;
+    padding:10px 2px 15px 14px;
+    position:relative;
+    width: 193px;
+    font-size:12px;
+    margin-top: 10px;
+}
+
+.facetsSidebar-cnt{
+    border-bottom:1px solid #CBCCCB;
+    padding:10px 2px 0 14px;
+    position:relative;
+}
+
+.facetsSidebar input[type="text"] {
+    width:177px;
+}
+
+.text-box-blur {
+    color:#BAB9B9;
+}
+.text-box {
+    font-family:arial,sans-serif;
+    font-size:12px;
+}
+
+.facetsSidebar h4 {
+    font-size:12px;
+    padding-bottom:10px;
+    padding-left:5px;
+}
+
+.nopadding {
+    padding:0 !important;
+}
+
+.inner-cnt {
+    width:209px !important;
+}
+
+
+.facetsSidebar ul li {
+    line-height:18px;
+}
+
+.facetResults{
+    -moz-background-clip:border;
+    -moz-background-inline-policy:continuous;
+    -moz-background-origin:padding;
+    border:1px solid #CBCCCB;
+    float:right;
+    width:783px;
+    margin-top: 10px;
+}
+
+.resultContainer{
+    width:100%;
+}
+
+.facetTreeElement{
+    font-family:Verdana,Tahoma,Arial,Helvetica,sans-serif !important;
+    color: black;
+}
+
+.topmenubar{
+    position: absolute;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/navigationbar_top02.png');
+    background-repeat: repeat-x;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 43px;
+    z-index: 800;
+}
+
+.topmenubarLeft{
+    float: left;
+    height: 43px;
+    width: auto;
+}
+
+.topmenubarLeftTop{
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/bg_over_navigation.png');
+    background-repeat: repeat-x;
+    font-size: 7pt;
+    font-weight: bold;
+    height: 14px;
+}
+
+.topmenubarLeftTopTxt{
+    margin-left: 10px;
+    margin-top: 3px;
+    position: absolute;
+}
+
+.topmenubarLeftBottom{
+    height: 29px;
+    width: auto; /* TODO to be changed to 100%*/
+}
+
+.topmenubarSpacer{
+    width: 2px;
+    height: 43px;
+    float: left;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/endline_navigation_left.png');
+}
+
+.topmenubarLeftButton .navbartxt{
+    top: 5px;
+    margin-top: 5px;
+}
+
+.topmenubarLeftButton{
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    float: left;
+    height: 29px;
+    background-repeat: repeat-x;
+    vertical-align: middle;
+    text-align: center;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/button_normal.png');
+/*    width: 50px; */
+}
+
+.topmenubarLeftButton:HOVER{
+    padding-left: 10px;
+    padding-right: 10px;
+    float: left;
+    height: 29px;
+    color: #FFFFFF;
+    cursor: pointer;
+    background-repeat: repeat-x;
+    vertical-align: middle;
+    text-align: center;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/button_hover.png');
+}
+
+.topmenubarLeftSpacer{
+    width: 2px;
+    height: 29px;
+    float: left;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/navigation_left_spacer.png');
+}
+
+.topmenubarCenter{
+    height: 36px;
+    width: 194px;
+}
+
+.topmenubarCenterDIV {
+	background:url("<%= request.getContextPath()%>/images/iwb_logo.png") no-repeat scroll 0 0 transparent;
+	height:41px;
+	width:194px;
+	margin-left:-58px;
+}
+
+.navcenter{
+    position: absolute;
+    left: 50%;
+}
+
+.centerDIV{
+    position: relative;
+    left: -50%;
+}
+
+
+.topmenubarRight{
+    float: right;
+    height: 43px;
+    
+}
+
+.topmenubarSpacerRight1{
+    width: 2px;
+    height: 43px;
+    float: left;
+}
+
+.topmenubarRightButtonJobs{
+    width: 28px;
+    height: 43px;
+    float: left;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/jobs.png');
+}
+
+.topmenubarRightButtonJobs:HOVER{
+    width: 28px;
+    height: 43px;
+    float: left;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/jobs.png');
+}
+
+.topmenubarRightButtonEvents{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonEvents:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonWizards{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background:url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding:4px;
+	text-align:center
+}
+
+.topmenubarRightButtonWizards:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonAdminTools{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonAdminTools:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonFeedback{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonFeedback:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonType{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonType:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonAttachFile{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background:url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonAttachFile:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonNotify{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;	
+}
+
+.topmenubarRightButtonNotify:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+
+.topmenubarRightButtonHelp{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonHelp:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonLogin{
+     width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonLogin:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonLogout{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonLogout:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align:center;
+}
+
+
+.topmenubarRightButtonRDF{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonRDF:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonPDF{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #80c1dd;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightButtonPDF:HOVER{
+    width: 33px;
+    height: 35px;
+    float: left;
+    background: url('<%= request.getContextPath()%>/images/navigation/verlauf.png') repeat-x #3b4963;
+	padding: 4px;
+	text-align: center;
+}
+
+.topmenubarRightSpacer{
+    width: 2px;
+    height: 35px;
+    float: left;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/navigation_right_spacer.png');
+}
+
+.topmenubarRightLogo{
+    width: 44px;
+    height: 43px;
+    float: left;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/endsegment_navigation_right.png');  
+}
+
+.navButton{
+    cursor: pointer;
+	font-size: 10px;    
+}
+
+.navButton:hover {
+   color:#fff;   
+}
+
+.lowermenubar{
+    height: 32px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 43px;
+    z-index: 15;
+}
+
+.lowermenubarGreyLeft{
+    height: 32px;
+    position: absolute;
+    right: 50%;
+    left: 0;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/lower_menubar_center.png');
+    background-repeat: repeat-x;
+    z-index: 20;
+}
+
+.lowermenubarGreyLeftTransition {
+	background: transparent url('<%= request.getContextPath()%>/images/navigation/bg_lower_bar.png');
+	  height: 35px;
+    position: absolute;
+    right: 50%;
+    left: 0;
+    top:3px;
+    background-repeat: no-repeat;
+    z-index: 21;
+}
+
+.lowermenubarGreyRight{
+    height: 32px;
+    position: absolute;
+    left: 50%;
+    right: 230px;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/lower_menubar_center.png');
+    background-repeat: repeat-x;
+    z-index: 20;
+}
+
+.lowermenubarLeft{
+    height: 32px;
+    float: left;
+}
+
+.lowermenubarLeftBCCenter{
+    height: 32px;
+    float: left;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/lower_menubar_left1.png');
+    background-color: transparent;
+    width: 100px; /* TODO -_> 100%*/
+    z-index: 50;
+}
+
+.lowermenubarLeftBCRight{
+    height: 32px;
+    float: left;
+    width: 6px;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/lower_menubar_left2.png');
+    background-color: transparent;
+    z-index: 50;
+}
+
+
+.lowermenubarCenter{
+    height:32px;
+    width: auto;
+    z-index: 50;
+}
+
+.lowermenubarCenterDIV{
+    height:32px;
+    width: auto;
+}
+.lowermenubarCenter .titleLeft{
+    height: 32px;
+    width: 6px;
+    float: left;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/titel_left.png');
+    background-color: transparent;
+}
+
+.lowermenubarCenter .titleCenter{
+    padding: 0 6px;
+    float: left;
+    height: 32px;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/titel_center.png');
+    background-color: transparent;
+}
+
+.lowermenubarCenter .titleCenter DIV{
+    font-size: 11pt;
+    color: #9Fd0E5;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.lowermenubarCenter .titleRight{
+    background-image: url('<%= request.getContextPath()%>/images/navigation/titel_right.png');
+    background-color: transparent;
+    float: left;
+    height: 32px;
+    width: 6px;
+}
+
+.lowermenubarRight{
+    height: 32px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 230px;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/lower_menubar_center.png');
+    background-color: transparent;
+    z-index: 90;
+}
+
+.searchText{
+    font-size: 9pt;
+    float: left;
+    height: 21px;
+    width: 83px;
+    padding-left: 9px;
+}
+.searchTextDIV{
+    margin-top: 3px;
+}
+
+.searchFieldDiv{
+    width: 204px;
+    height: 21px;
+    float: left;
+    position: relative;
+    z-index: 300;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/searchfield.png');
+    background-color: transparent;
+}
+
+.searchFieldInput{
+    text-align: left;
+    border: none;
+    background-color: transparent;
+    margin-left: 5px;
+    height: 19px;
+    width: 195px;
+    cursor: text;
+}
+
+.searchBtn{
+    width: 19px;
+    height: 21px;
+    float: left;
+    cursor: pointer;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/search_normal.png');
+    background-color: transparent;
+    z-index:300;
+}
+
+.searchBtn:HOVER{
+    width: 19px;
+    height: 21px;
+    float: left;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/search_hover.png');
+    background-color: transparent;
+    z-index:300;
+    
+}
+
+.searchLabel{
+	margin-right: 10px;
+	margin-top: 2px;
+	float: left;
+}
+
+.searchContainer{
+    margin-top: 5px;    
+}
+
+.bcbar {
+    width: 1030px;
+    height: 684px;
+    position: absolute;
+    color:#000;
+    font-size:12px;
+    line-height:24px;
+    z-index: 15;
+    left: -63px;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/bg_pop_navigation_wide.png');
+    background-color: transparent;
+}
+
+.bcbarempty{
+    width: 563px;
+    height: 157px;
+    position: absolute;
+    color:#000;
+    font-size:12px;
+    line-height:24px;
+    z-index: 15;
+    left: -63px;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/bg_pop_navigation_bright.png');
+    background-color: transparent;
+    top:-78px !important;
+}
+
+.breadCrumbsInner{
+    left: 75px;
+    position: absolute;
+    bottom: 25px;
+}
+
+.crumpArrow{
+    width: 88px;
+    height: 22px;
+    float: left;
+    z-index: 100;
+    cursor: pointer;
+    text-align: center;
+    margin-left: -10px;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/bc_nextstep_normal2.png');
+}
+
+.crumpArrowText{
+    margin-top: -1px;
+}
+
+.crumpArrow:HOVER{
+    width: 88px;
+    height: 22px;
+    z-index: 100;
+    margin-left: -10px;
+    float: left;
+    color: white;
+    cursor: pointer;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/bc_nextstep_hover2.png');
+}
+
+
+.crumpStart{
+    width: 88px;
+    height: 22px;
+    z-index: 100;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/bc_firststep_normal2.png'); 
+}
+
+.crumpStart:HOVER{
+    width: 88px;
+    height: 22px;
+    float: left;
+    z-index: 100;
+    color: white;
+    cursor: pointer;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/bc_firststep_hover2.png');   
+}
+
+.crumpStartText{
+    margin-top: -1px;
+}
+
+.crumpNavigationtextDown DIV{
+    width: 100px;
+    height: 17px;
+    position: absolute;
+    top: 51px;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/navigation_out.png');
+    cursor: pointer;
+    z-index: 50;
+    margin-left: -3px;
+}
+.crumpNavigationtextDown DIV:HOVER{
+    margin-left:-2px;
+    top:52px;
+}
+
+.crumpNavigationtextUp DIV{
+    width: 100px;
+    height: 17px;
+    position: absolute;
+    top: 51px;
+    background: transparent url('<%= request.getContextPath()%>/images/navigation/navigation_in.png');
+    cursor: pointer;
+    z-index: 50;
+    margin-left: -3px;
+}
+
+.crumpNavigationtextUp DIV:HOVER{
+    margin-left:-2px;
+    top:52px;
+}
+
+
+#searchbar {
+    float: right;
+    position: relative;
+    top: 6px;
+    right: 10px;
+    width: 150px;
+    text-align: right;
+    height: 25px;
+    top: -21px;
+}
+#searchleft, #searchcenter, #searchright {
+    height: 25px;
+    position: absolute;
+    top: 0;
+}
+#searchleft, #searchright {
+    width: 12px;
+}
+#searchleft {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/search_1.png');
+    right: 13px;
+}
+#searchcenter {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/search_2.png');
+    width: 1px;
+    right: 12px;
+}
+#searchright {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/search_3.png');
+    right: 0;
+}
+#searchspy {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/spyglass.png');
+    height: 13px;
+    width:  13px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    cursor: pointer;
+}
+
+#buttonleft, #buttoncenter, #buttonright {
+    height: 25px;
+    position: absolute;
+    top: 0;
+}
+#buttonleft, #buttonright {
+    width: 12px;
+}
+#buttonleft {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/search_1.png');
+    right: 13px;
+}
+#buttoncenter {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/search_2.png');
+    width: 1px;
+    right: 12px;
+}
+#buttonright {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/search_3.png');
+    right: 0;
+}
+
+#buttonbar {
+    float: right;
+    position: relative;
+    right: 10px;
+    width: 30px;
+    text-align: right;
+    height: 25px;
+    top: -21px;
+}
+
+.buttonbar .navbutton{
+    background-repeat: no-repeat;
+    background-position: left center;
+    border: 0 none;
+    background-color: transparent;
+    width: 80px;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px;
+    margin: 2px 5px 0;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/menu.png');
+}
+.buttonbar .navbutton:hover {
+    background-position: right center;
+}
+.buttonbar input {
+    color: #000;
+}
+
+#logout {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/logout2.png');
+    height: 14px;
+    width:  14px;
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    cursor: pointer;
+}
+
+#help {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/help.png');
+    height: 16px;
+    width:  16px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+#iwb {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/iwb.png');
+    height: 16px;
+    width:  16px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+#feedback {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/feedback.png');
+    height: 18px;
+    width:  14px;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    cursor: pointer;
+}
+
+#tools {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/tools.png');
+    height: 16px;
+    width:  16px;
+    position: absolute;
+    top: 5px;
+    right: 4px;
+    cursor: pointer;
+}
+
+#events {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/events.png');
+    height: 16px;
+    width:  16px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+#wizards {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/wizards.png');
+    background-repeat: no-repeat;
+    height: 16px;
+    width:  16px;
+    position: absolute;
+    top: 5px;
+    right: 4px;
+    cursor: pointer;
+}
+
+#jobspage {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/jobs.png');
+    background-repeat: no-repeat;
+    height: 16px;
+    width:  17px;
+    position: absolute;
+    top: 5px;
+    right: 4px;
+    cursor: pointer;
+}
+
+#menuyellow {
+    padding-right: 88px;
+    padding-left: 5px;
+}
+#menuyellowleft, #menuyellowcenter, #menuyellowright {
+    float: left;
+    height: 40px;
+}
+#menuyellowleft {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/yellow_head_1.png');
+    background-repeat: no-repeat;
+    width: 5px;
+    margin-left: -5px;
+}
+#menuyellowcenter {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/yellow_head_2.png');
+    background-repeat: repeat-x;
+    width: 100%;
+}
+#menuyellowright {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/yellow_head_3.png');
+    background-repeat: no-repeat;
+    width: 15px;
+    margin-right: -15px;
+}
+
+
+
+#bar a {
+    text-decoration: none;
+}
+
+.breadCrumbsInner ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.breadCrumbsInner ul b {
+    width: 16px;
+    float: left;
+    display: block;
+}
+.breadCrumbsInner ul ul {
+    padding: 2px 5px 0 26px;
+}
+
+.breadCrumbsInner #bcContent {
+    background-color: #d6d6d6;
+}
+.breadCrumbsInner #bcRight {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/breadcrumb_r.png');
+    background-repeat: repeat-y;
+    width: 7px;
+}
+.breadCrumbsInner #bcBottom {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/breadcrumb_b.png');
+    background-repeat: repeat-x;
+    height: 7px;
+}
+.breadCrumbsInner #bcCorner {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/breadcrumb_c.png');
+    background-repeat: no-repeat;
+    height: 7px;
+    width: 7px;
+}
+
+#logo2 {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/fops_logo.png');
+    background-repeat: no-repeat;
+    width: 67px;
+    height: 58px;
+}
+
+#menuItems {
+    position: relative;
+    top: 5px;
+    left: 0;
+    font-size: 0.7em;
+    height: 27px;
+}
+
+#menuItems .button {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/menu.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    width: 70px;
+    height: 13px;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px;
+    margin: 2px 5px 0;
+}
+#menuItems .button:hover {
+    background-position: right center;
+}
+#menuItems a {
+    color: #000;
+}
+
+#title {
+    position: relative;
+    left: -50%;
+}
+
+#title, #titleleft, #titlecenter, #titleright, #titlecenter > div {
+    height: 25px;
+}
+#title > div {
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+}
+#titleleft {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/title_1.png');
+    background-repeat: no-repeat;
+    width: 18px;
+}
+#titlecenter {
+    margin: 0 -18px;
+}
+#titlecenter > div {
+    margin: 0 18px;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/title_2.png');
+    background-repeat: repeat-x;
+    padding: 0 5px;
+}
+#titleright {
+    background-image: url('<%= request.getContextPath()%>/images/navigation/imgs/title_3.png');
+    background-repeat: no-repeat;
+    width: 18px;
+}
+
+.outertitle{
+    position: absolute;
+    top: 164px;
+    left: 50%;
+    z-index: 1000;
+}
+
+/**
+* page head, body, container
+*/
+
+#pageContainer{
+    min-height: 100%;
+/*    position: relative;	removed as fix for bug 8999 */
+    min-width: 900px;
+    width: 99.96%;
+    overflow: hidden;
+}
+
+.pageContent{
+    overflow: visible !important;
+}
+
+.pageContainer{
+    width: 99.96% !important;  
+}
+
+#pageHeader{
+   padding: 0px;
+}
+
+.pageBody{
+    padding: 90px 10px 210px;
+}
+
+.loginPageBody{
+    padding: 130px 10px 21px;
+    overflow: hidden;
+}
+
+/*
+* widgets
+*/
+
+.flwTopTDLeft, flwTopTDRight{
+    width:6px;
+}
+
+
+.flwTopTR{
+    height: 26px;
+}
+
+.flwMiddle {
+    border-bottom: 1px solid #71BEDF;
+    border-left: 1px solid #71BEDF;
+    border-right: 1px solid #71BEDF;
+}
+
+/*
+*   special handling for search button
+*/
+.searchBtn DIV{
+    z-index: 999;
+    width: inherit;
+    height: inherit;
+}
+
+.flChart{
+	width: auto !important;
+} 
+
+.tablehead1, .tablehead1left,.tablehead1center,.tablehead1right,.tablehead1center>div
+{
+	height: 13px; 
+}
+
+.tablehead1 > div {
+	float:left;
+}
+
+.tablehead1left {
+	background-image: url("<%= request.getContextPath()%>/images/widget/box_top_left.png");
+	background-repeat: no-repeat;
+	margin-left: 0px;
+	width: 8px;
+}
+ 
+.tablehead1center {
+	margin:0 -7px;
+	width:100%;
+}
+ 
+.tablehead1center > DIV{
+	background-image:url("<%= request.getContextPath()%>/images/widget/box_top_center.png");
+	background-repeat:repeat-x;
+	font-weight:bold;
+	height:18px;
+	margin-left:4px;
+	margin-right:6px;
+	padding:6px 3px;
+}
+
+.tablehead1right {
+	background-image:url("<%= request.getContextPath()%>/images/widget/box_top_right.png");
+	background-repeat:no-repeat;
+	margin-right:-1px;
+	width:6px;
+}
+
+.tablehead2 {
+    margin-top: 21px;
+}
+
+.tablehead2 {
+    margin-top: 0px\9
+}
+
+.tablehead2left {
+    width: 10px;
+    float: left;
+    position: absolute;
+}
+.tablehead2center {
+    width: 10%;
+    margin: 0 -10px;
+    float: left;
+    font-weight: bold;
+    padding: 4px 0 3px;
+    position: absolute;
+}
+
+
+.tablehead2right {
+    width: 10px;
+    float: left;
+    position: absolute;
+}
+
+.flTable2 {
+    border-width: 1px;
+    border-style: solid;
+    border-color:#72BEDF;
+    border-right-color: #72BEDF !important;
+    border-bottom-color: #72BEDF !important;
+    border-left-color: #72BEDF !important;
+    border-top: none;
+    border-spacing: 0;
+    border-collapse: separate;
+    padding: 0;
+    
+    /* Forced Line Breaks */
+    
+    white-space: -moz-pre-wrap; /* Mozilla & Firefox - NOT SUPPORTED YET */
+    word-break: break-strict; /* IE */
+}
+
+.flTable2 td {
+    padding:4px 5px;
+    border: none;
+}
+
+.flTable2 .flRowEven {
+    background: #fff;
+}
+
+.flTable2 .flRowOdd {
+    background: #eee;
+}
+
+
+/** 
+ * For overflow-tables, add border to containing div (so border is not part of scroll-area)
+ * and remove the border from the inner table (otherwise border would be duplicated)
+ */
+.overflowTable{
+	border-left: 1px solid #72BEDF !important;
+	border-right: 1px solid #72BEDF !important;
+	border-bottom: 1px solid #72BEDF !important;
+}
+
+div.overflowTable {
+   width:99.8%;
+}
+
+.overflowTable .flTable2 {
+	border:none !important;
+}
+
+
+
+
+DIV.tablehead2 + * > TABLE.flTable2 {
+    margin-top: -25px;
+}
+
+*+html DIV.tablehead2 + * > TABLE.flTable2 {
+    margin-top: 0px !important;
+}
+
+div.tablehead2 + table.flTable2 {
+    margin-top:-25px;
+}
+
+.flTable2 th .label SPAN{
+    padding-left: 15px;
+}
+
+.flTable2 .label {
+	padding-bottom:1px;
+	padding-top:2px;
+	width:auto;
+}
+
+.flTable2 th {
+    /*background:#003466 none repeat scroll 0 0;*/
+    background: url('<%=request.getContextPath()%>/images/navigation/table_head_colum.png') repeat-x scroll 0 0 transparent !important;
+    
+    height: 19px;
+    color: #000;
+    padding:3px 5px;
+    border-right-width: 0 !important;
+}
+
+.flTable2 .e, .flTable2 .s, .flTable2 .w, .flTable2 .g, .flTable2 .n {
+    text-align: center;
+    padding: 0 5px;
+    margin: 0 2px;
+}
+
+.flTable2 .e {
+    border-bottom: 1px solid #f00;
+}
+
+.flTable2 .s {
+    border-bottom: 1px solid #bbb;
+}
+
+.flTable2 .w {
+    border-bottom: 1px solid #ff0;
+}
+
+.flTable2 .g {
+    border-bottom: 1px solid #0f0;
+}
+
+.flTable2 .n {
+    color: lightgray;
+}
+
+.flTable2.sortable th.unsorted .label {
+   background: url('<%=request.getContextPath()%>/images/navigation/sort_arrow_undecided.png') no-repeat scroll left center transparent !important;
+}
+
+.flTable2.sortable th.sortdesc .label{
+   background: url('<%=request.getContextPath()%>/images/navigation/sort_arrow_up.png') no-repeat scroll left center transparent !important;
+}
+
+.flTable2.sortable th.sortasc .label {
+    background: url('<%=request.getContextPath()%>/images/navigation/sort_arrow_down.png') no-repeat scroll left center transparent !important;
+}
+
+a {
+    text-decoration: underline;
+}
+a:link, a:visited {
+    color: #000;
+    text-decoration: underline;
+}
+a:hover, a:focus {
+    color: #e7a814;
+}
+a:active {
+    color: #f00;
+}
+.historyContainer.tablehead1left {
+    height: 26px\9 !important;
+}
+
+.historyContainer.flTable2 {
+    width: 98.16%\9;
+}
+
+flTree.flTable2 {
+  width: 100%;
+}
+
+.flTabContentExtEdition {
+    background-color: #FFFFFF;
+    margin-left: 120px;
+    padding: 40px 70px 20px 20px;
+    min-width: 700px;
+    width: 87%;
+}
+
+.flTabWikiPage {
+	margin-left:-25px;
+	margin-top: -24px;
+	position:absolute;
+	width:102px;
+}
+
+*+html .flTabWikiPage {
+	margin-top: -20px !important;
+}
+
+.labelTest {
+	font-family:fantasy;
+	font-size:20px;
+	font-weight:bold;
+	margin-left:10px;
+	margin-top:-25px;
+	position:absolute;
+	cursor:pointer;
+}
+
+.facetContainer {
+	border-bottom-color:#72BEDF;
+	border-left-color:#72BEDF;
+	border-right-color:#72BEDF;
+	border-style:none solid solid;
+	height:250px;
+	width:100%;
+	margin-top: 3px;
+}
+
+
+.facetValues {
+	max-height:160px;
+	overflow-y: auto;
+	margin-left:30px;
+	padding-left: 10px;
+	margin-right:10px;
+	margin-top:20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	outline-style:dotted;
+}
+
+.facetContainerInactive {
+	border-bottom-color:#72BEDF;
+	border-left-color:#72BEDF;
+	border-right-color:#72BEDF;
+	border-style:none solid solid;
+	height:50px;
+	width:100%;
+	margin-top: 3px;
+}
+
+.facetValue {
+	min-height:20px;
+	font-size: small;
+	font-style: italic;
+	cursor:pointer;
+}
+
+.facetValue:hover {
+	background-color: #B0B0B0;
+}
+
+.allFacets {
+	float:right;
+	margin-right: 15px;
+	margin-top: 20px;
+	height:100%;
+	width:20%;
+}
+
+.allFacets div div ul li {
+	background: none !important;
+}
+
+.floatRightIwb DIV.flSuggestionDropDown UL  {
+    margin-left:0px !important;
+}
+
+.wikiTabClass .flTabActive.tabitem2 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .tabitem2 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .tabitem2 .midTabTxt>span>div:hover{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .flTabActive.tabitem1 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_edit_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-9px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .tabitem1 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_edit.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-9px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .tabitem1 .midTabTxt>span>div:hover{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_edit_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-9px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .flTabActive.tabitem0 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_revisions_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .tabitem0 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_revisions.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .tabitem0 .midTabTxt>span>div:hover{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_revisions_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClass .flTab .flTabActive
+{
+    color: none;
+    border-left: 0 none;
+    border-top: 0 none;
+    border-right: 0 none;
+    font-weight: bold;
+    -moz-border-radius: 0 0 0 0;
+    -webkit-border-radius: 0 0 0 0;
+    float: right;
+}
+
+.tabbedTable .flTabActive.tabitem1 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.tabbedTable .tabitem1 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.tabbedTable .tabitem1 .midTabTxt>span>div:hover{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.tabbedTable .flTabActive.tabitem0 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_edit_hover_rounded.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.tabbedTable .tabitem0 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_edit_rounded.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.tabbedTable .tabitem0 .midTabTxt>span>div:hover{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_edit_hover_rounded.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-8px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.tabbedTable .flTab .flTabActive
+{
+    color: none;
+    border-left: 0 none;
+    border-top: 0 none;
+    border-right: 0 none;
+    font-weight: bold;
+    -moz-border-radius: 0 0 0 0;
+    -webkit-border-radius: 0 0 0 0;
+    float: right;
+}
+
+.flTabSearchPage .flTabWikiPage {
+	margin-top:-20px !important;
+}
+
+.flTabSearchPageFull .flTabWikiPage {
+	margin-top:-20px !important;
+}
+
+.tablehead1 + .tablefoot {
+	border-left-color: #72BEDF !important;
+    border-right-color: #72BEDF !important;
+    width: 99.8%;
+}
+
+.tablefoot {
+	margin-top: 0px !important;
+}
+
+
+.wikiTabClassNoEdit .flTabActive.tabitem1 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClassNoEdit .tabitem1 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClassNoEdit .tabitem1 .midTabTxt>span>div:hover{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_view_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClassNoEdit .flTabActive.tabitem0 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_revisions_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-9px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClassNoEdit .tabitem0 .midTabTxt>span>div{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_revisions.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-9px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClassNoEdit .tabitem0 .midTabTxt>span>div:hover{
+	background:url("<%= request.getContextPath()%>/images/navigation/tab_revisions_hover.png") no-repeat scroll left center transparent;
+	float:none !important;
+	margin-top:-18px;
+	margin-left:-9px;
+	-moz-border-radius: 0 0 0 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	color:black;
+	float:right;
+	font-weight:bold;
+}
+
+.wikiTabClassNoEdit .flTab .flTabActive {
+	-moz-border-radius:0 0 0 0;
+	border-left:0 none;
+	border-right:0 none;
+	border-top:0 none;
+	float:right;
+	font-weight:bold;
+}
+
+.loggedInLabel {
+	color:#909090;
+	float:left;
+	font-size:14px;
+	margin-right:15px;
+	margin-top:9px;
+}
+
+.leftContainerClass {
+	width: 29%;
+	float:right;
+	margin-top: 30px;
+	border-style: solid;
+	border-color: #B0B0B0;
+	background-color: white;
+	z-index:1;
+}
+
+.leftContainerClass>DIV {
+	border-color:#CEE8FE;
+	border-style:solid;
+	border-width:20px 1px 1px;
+	margin-bottom:20px;
+	margin-left:11%;
+	margin-top:20px;
+	max-width:80%;
+	padding-left:0;
+	width:450px;
+}
+
+.testContainerClass>DIV.outerTabContent {
+	width: 70%;
+	float: left;
+}
+
+.widgetTitle {
+	font-size:13px;
+	margin-left:20px;
+	margin-top:-18px;
+	font-weight:bold;
+}
+
+.historyTabPane {
+    margin-top:80px;
+}
+
+.historyTabPane .flTab .flTabActive {
+    -moz-border-radius: 6px 6px 0 0 !important;
+    border-left: 1px solid gray !important;
+    border-right: 1px solid gray !important;
+    border-top: 1px solid gray !important;
+    color: black !important;
+    float: right !important;
+    font-weight: bold !important;
+}
+
+#providerTabs .flTab > ul > li {
+    padding: 5px !important;
+}
+
+.listitemactive .listbutton {
+    background-color: white;
+    border: 1px solid #72BEDF;
+}
+
+.buttonbar .navbutton {
+    background-color: transparent;
+    background-image: url("<%= request.getContextPath()%>/imgs/menu.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    border: 0 none;
+    cursor: pointer;
+    float: left;
+    margin: 2px 5px 0;
+    padding: 5px;
+    text-align: center;
+    width: 80px;
+}
+
+.site {
+    border: 1px solid #2F6FAB;
+    margin-bottom: 30px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    width: 84.8% !important;
+}
+
+.outerwizard .wizardList {
+    width: 14.9% !important;
+}
+
+.outerwizard .site .tablehead1 {
+    visibility: hidden;
+}
+
+.outerwizard .site > DIV > .container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: -20px;
+}
+
+#providerTabs .flTab > ul > li {
+    padding: 5px !important;
+}
+
+.listitemactive .listbutton {
+    background-color: white;
+    border: 1px solid #72BEDF;
+}
+
+.buttonbar .navbutton {
+    background-color: transparent;
+    background-image: url('<%= request.getContextPath()%>/imgs/menu.png');
+    background-position: left center;
+    background-repeat: no-repeat;
+    border: 0 none;
+    cursor: pointer;
+    float: left;
+    margin: 2px 5px 0;
+    padding: 5px;
+    text-align: center;
+    width: 80px;
+}
+
+.buttonPanel {
+    margin-top: -50px;
+    position: absolute;
+    z-index: 1000;    
+    left: 8px;
+}
+
+.delButtonContainerClass {
+    float:right;
+    margin-top:20px;
+}
+
+.revDelButton {
+    margin-bottom:5px;
+}
+
+.wikiViewHover {
+	color:black;
+	visibility:hidden;	
+}
+
+.listItem0:hover .wikiViewHover, .listItem1:hover .wikiViewHover, .listItem2:hover .wikiViewHover, .listItem3:hover .wikiViewHover, .listItem4:hover .wikiViewHover {
+    visibility:visible;
+    color: grey;
+    margin-left: 81px;
+    margin-top: -40px;
+}
+
+.FForm input[type="button"] {
+    background-repeat: no-repeat;
+    background-position: left center;
+    border: 0 none;
+    background-color: transparent;
+    width: 80px;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px;
+    margin: 2px 5px 0 !important;
+    background-image: url('<%= request.getContextPath()%>/imgs/menu.png');
+}
+
+.FForm input[type="button"]:hover {
+    background-position: right center;
+}
+/*GMap*/
+
+.marker_window {
+max-width:400px;
+max-height:400px;
+}
+.marker_window .note {
+    margin-bottom:0;
+    font-size:14px;
+}
+.marker_window .link {
+
+    font-size:10px;
+}
+.marker_window img {
+    float:left;
+    margin-right:5px;
+    weight:65px;
+    height:65px;
+}
+
+.marker_window div{
+    position:relative; 
+    margin:auto;
+}
+.marker_window table{
+    border:0px;
+    border-spacing:0px;
+    border-collapse:collapse;
+    margin:auto;
+    padding:5px;
+    width:100%;
+}
+.marker_window table td{
+
+    vertical-align:top;
+    horizontal-align:left;
+    line-height:16px;
+    margin:auto;
+}
+.marker_window table td.navigation{
+    vertical-align:bottom;
+    height:20px;
+    text-align:center;
+}
+.marker_window table td div.navigation{
+    vertical-align:bottom;
+    width:150px;
+    margin:auto;
+    text-align:center;
+    font-size:10px;
+}
+.marker_window .left{
+    float:left;
+
+}
+.marker_window .right{
+    float:right;
+
+}
+.marker_window a{
+    text-decoration:none;
+    font-size:10px;
+}
+
+
+/* JIT-Graphs */
+ 
+#center-container {
+    width:90%;
+    left:50px;
+    background-color: transparent;
+    color:#ccc;
+    height:80%;
+    position:relative;
+    top:10px;
+}
+
+.infovis >div{
+    position:relative;
+    width:100%;
+    height:700px;
+    margin-top:0px;
+    overflow:visible;
+}
+
+.node {
+    color: black !important;
+}
+
+.flTree table.flTreeElement
+{
+
+    font-family:Verdana,Tahoma,Arial,Helvetica,sans-serif !important;
+    font-size: 1em !important;
+    padding: 2px;
+    margin: 1px;
+}
+
+.facetTreeElement{
+    padding: 0 2px;
+    margin: 0 1px;
+}
+
+.flTree a:link 
+{
+    font-family:Verdana,Tahoma,Arial,Helvetica,sans-serif !important;
+    font-size: 1em !important;
+    text-decoration:underline;
+}
+
+.flTree a:visited 
+{
+	text-decoration:underline;
+}
+
+.tagEntry:hover {
+   font-size: 20px !important;
+   color:red !important;
+   background-color:#9Fd0E5 !important;
+   z-index:9999;
+}
+
+.clusteredTable .flTable2 table {
+	
+	margin-top:20px;
+}
+
+.clusteredTable .flTable2 td {
+	vertical-align:top;
+}
+
+.clusteredTable .flTable2 th {
+	background:none !important;
+}
+
+.clusteredTable .flTable2 {
+	border-style:none;
+	 border-collapse: collapse;
+}
+
+.clusteredTable .flTable2 tr th:first-child {
+	visibility:visible !important;
+}
+
+.clusteredTable .flTable2 tr th:last-child {
+	visibility:visible !important;
+}
+
+.clusteredTable .flTable2 tr th {
+	visibility: hidden;
+}
+
+.clusteredTable .flTable2 .flRowOdd {
+    background: none repeat scroll 0 0 transparent !important;
+    border-collapse: separate !important;
+}
+
+.clusteredTable .flTable2.highlightrow tr:hover {
+    background: none !important;
+}
+
+.clusteredTable .flTable2 tr td:last-child .type {
+	font-size:15px;
+}
+
+.clusteredTable .flTable2 td {
+    border: medium none;
+    padding: 0;
+}
+
+/***  Import & Export Widgets  ***/
+
+.importExportWidget{
+    background-color:#EEEEEE;
+    padding:20px;
+    width:400px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#888888;
+    color:#4F4040;
+}
+.importExportWidget .linkTable{
+    border-style:solid;
+    border-width:1px;
+    border-color:#7F7F7F;
+    padding:10px;
+    width:95%;
+}
+.importExportWidget .linkTable input[type="button"]{
+    position:absolute;
+    bottom:20px;
+    left:20px;
+}
+.importExportWidget .loadStat{
+    margin: auto;
+    text-align: center;
+    visibility: hidden; 
+    width: 63px;
+}
+.importExportWidget .statusLoading{
+    text-align:center;
+    margin:auto;
+    margin-top: 10px
+}
+.importExportWidget .linkTable .flTabContent{
+    height:260px;
+    position:relative;
+}
+.importExportWidget .contextContainer{
+    margin-bottom:10px;
+}
+.importExportWidget .linkTable  ul {
+    height:0px;
+}
+.importExportWidget .linkTable .flTabContent >div>div{
+    padding: 10px;
+}
+.importExportWidget .linkTable .flTabContent .floatLeft, 
+.importExportWidget .formtp +div{
+    float: none;
+    margin-bottom: 5px;
+}
+.importExportWidget .linkTable +div{
+    margin-top: 20px;
+}
+.importExportWidget .linkTable select{
+    border: 1px solid #7F7F7F;
+    padding:2px;
+}
+.importExportWidget .linkTable input, .importExportWidget h1{
+    margin-bottom:5px;  
+}  
+.importExportWidget .linkTable input[type="checkbox"]{
+    margin-bottom:15px;  
+    margin-left:0px;
+}  
+.importExportWidget .linkTable .tabContainerContent .flTabContent > div{
+    width:90%;
+}
+.importExportWidget .linkTable  ul li.listItem0 {
+    width:6%;
+    padding-right: 21px;
+}
+.importExportWidget .linkTable ul li.listItem1 {
+    width:16%;
+    padding-right: 23px;
+}
+.importExportWidget .linkTable  ul li.listItem2 {
+    width:20%;
+    padding-right: 20px;
+}
+.importExportWidget .linkTable  ul li.listItem3 {
+    width:25%;
+    padding-right: 20px;
+}
+.importExportWidget .linkTable ul li.flTabActive {
+    border-bottom: none;
+    color: #4F4040;
+    font-weight: bold;
+    background-color:#DADDE5;
+}
+.importExportWidget .linkTable .flTab {
+    text-align: left;   
+    margin-left: -5px;
+    white-space: nowrap;
+    margin-top:20px !important;
+}
+.importExportWidget .linkTable .flTab li {
+    float:left;
+    background-image:none;
+    margin-left: 0px;
+    margin-top: -11px;  
+    padding-left: 10px;
+    background-color: #EEEEEE;
+    color:#4F4040;
+}
+.importExportWidget .linkTable .flTab ul {
+    margin:4px 0 0px 8px;
+}
+.importExportWidget .linkTable .tablehead1left{
+    background-image:none;
+}
+.importExportWidget .linkTable .tablehead1center > div{
+    background-image:none;
+}
+.importExportWidget .linkTable .tablehead1right{
+    background-image:none;
+}
+.importExportWidget .linkTable .flTabContent{
+    background-image:none;
+    background-color:#DADDE5;
+    border:1px solid #DADDE5;
+    margin-left: 3px;
+}
+.importExportWidget select{
+	max-width:400px;
+}
+.importExportWidget input[value="Select context(s)"]{
+	margin-top:5px;
+	margin-bottom:10px;
+}
+
+/*Tooltips for forms*/
+
+.formtp div{
+    position:relative;
+    font-weight:bold;
+    margin-top:5px;
+    margin-bottom:2px;
+}
+.formtp{
+    font-weight:bold;
+}
+.formtp +div{
+    margin-bottom:10px;
+    float:none;
+    clear:both;
+}
+.formtp div div{
+    position:absolute;        
+    font-size:0.8em;
+    top: -3px; 
+    left: 12em; 
+    font-weight:normal;
+    opacity:0.9; 
+    padding:5px;                    
+}
+/*********************/
+
+.flDialogHeader
+{
+    background-color:#81C1DD;
+	background:-moz-linear-gradient(top, #BADEED, #81C1DD);
+	background:-webkit-gradient(linear, left top, left bottom, from(#BADEED), to(#81C1DD)); 
+	color:#222222;
+}
+
+.flDialogContent{
+	
+	background:-moz-linear-gradient(top , #FFFFFF, #D5EAF4);
+	background:-webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#D5EAF4));
+}
+
+.pathFinder ul {
+	margin: 0 0 0 0 !important;
+}
+
+a.nodeLabels, a.nodeLabels:visited{
+text-decoration:none;
+color:#38393D;
+font-weight:bold;
+}
+
+
+/* TagCloud */
+.TagCloud
+{
+	word-spacing:10px !important;
+	background-color:#EFEFEF;
+        padding: 4px;
+}
+
+/* unvisited link */
+.TagCloud a:link 
+{
+	text-decoration: none !important;
+        color:#2F4F4F !important;
+}      
+
+/* visited link */
+.TagCloud a:visited
+{
+	text-decoration: none !important;
+	color:#2F4F4F !important;
+}  
+
+/* mouse over link */
+.TagCloud a:hover 
+{
+	text-decoration: underline !important;
+	padding-bottom:10px !important;
+	color:#D05151 !important;
+	position:relative !important;
+	bottom:4px !important;
+	left:4px !important;
+	font-weight:bold !important;
+}
+
+/* selected link */
+.TagCloud a:active 
+{
+	text-decoration: none !important;
+}  
+
+/*Twitter*/
+
+.followButton
+{
+	color:#3082AF !important;
+	background-color:white !important;
+}
+
+/*End Twitter*/
+
+
+.AtmosUploadWidget .flAutoComplete div{
+	
+	width:auto;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+	border: 1px solid #000000;
+	padding:10px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	
+	background:#ffffff;
+	background:-moz-linear-gradient(top, #EDF8FC, #B1DCF2);
+	background:-webkit-gradient(linear, left top, left bottom, from(#EDF8FC), to(#B1DCF2)); /* Safari, Chrome */
+}
+
+/**
+ * Atmos upload widget -> main table
+ */
+
+.AtmosUploadWidget table{
+	background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #EDF8FC), color-stop(0.3, #CFEAF7), color-stop(0.8, #CFEAF7), color-stop(1, #EDF8FC) );
+	background-image: -moz-linear-gradient( center top, #EDF8FC 0%, #CFEAF7 30%, #CFEAF7 80%, #EDF8FC 100% );
+	border-radius: 0px 0px 5px 5px;
+	padding-bottom: 20px;	
+}
+.AtmosUploadWidget table table{
+    padding-bottom: 0px;
+}
+.AtmosUploadWidget tr{
+	vertical-align: top;
+}
+.AtmosUploadWidget .flRowEven{
+	background:none;
+}
+.AtmosUploadWidget .flRowOdd{
+	background:none;
+}
+.AtmosUploadWidget .tablehead1{
+	border-left: 1px solid #72BEDF;
+	background-image: -moz-linear-gradient( center bottom, #B5DEF2 13%, #EDF8FC 85%);
+	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.13, #B5DEF2), color-stop(0.85, #EDF8FC) );
+	height: 30px;
+	-webkit-border-radius: 5px 5px 0px 0px;
+	border-right: 1px solid #72BEDF;
+	border-top: 1px solid #72BEDF;
+	padding-left: 30px;
+}
+
+.AtmosUploadWidget .tablehead1left{
+	display:none;
+}
+.AtmosUploadWidget .tablehead1right{
+	display:none;
+}
+.AtmosUploadWidget .tablehead1center div{
+	background-image:none;
+}
+
+.AtmosUploadWidget .flTable2.highlightrow tr:hover {
+    background-color: rgba(67, 171, 223, 0.1);
+}
+
+.AtmosUploadWidget a{
+    text-decoration:none !important;
+}
+.AtmosUploadWidget a:hover{
+    color:#2293EE !important;
+}
+
+.AtmosUploadWidget .invalid2 input{
+	border: 1px dashed #d01712 !important;
+	background-color: #fcc;
+}
+.AtmosUploadWidget .valid2 input{
+	border: 1px solid #209317 !important;
+	background-color: #cfc;
+}
+
+/**
+ * Local file browser -> left table
+ */
+.LocalFileTree table{
+	background:none;
+}
+.LocalFileTree .tablehead1{
+	display:none;
+}
+.LocalFileTree .flTable2{
+	border:none;
+}
+
+.LocalFileTree table{
+	vertical-align:middle;
+}
+.LocalFileTree tr{
+	vertical-align:middle;
+}
+.LocalFileTree table table{
+     background:none;
+    border:none !important;
+}
+.LocalFileTree table table td{
+     vertical-align:middle !important;
+}
+.LocalFileTree table table td:last-child{
+     vertical-align:middle !important;
+}
+/**
+ * File Browser for atmos -> right table
+ */
+.AtmosBrowserTable table{
+	background: rgba(115, 200, 231, 0.1);
+	border-left: 1px solid rgba(115, 200, 231, 0.3) !important; 
+	border-bottom: 1px solid rgba(115, 200, 231, 0.3) !important;
+ 	border-right: 1px solid rgba(115, 200, 231, 0.3) !important; 
+ 	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	
+}
+
+/*
+@-webkit-keyframes fade {  
+from {  
+    background:red;
+    -webkit-transform: background-color;
+	-moz-transform: background-color;
+}  
+to {  
+    background:rgba(0,0,0,0);
+    -webkit-transform: background-color; 
+	-moz-transform: background-color; 
+    }  
+}  
+.fadeObj{
+	 -webkit-animation-name: fade;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-duration: 5s;
+	
+	-moz-animation-name: fade;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: linear;
+    -moz-animation-duration: 5s;
+	
+}*/
+
+
+.AtmosBrowserTable .tablehead1{
+	display:none;
+}
+
+.AtmosBrowserTable .flTable2{
+	border:none;
+}
+
+.AtmosBrowserTable tr:first-child td {
+  padding-top: 27px;
+}
+
+/*
+ * center folder icons,label in file tree table
+ */
+.AtmosBrowserTable tr{
+	vertical-align:middle !important;
+}
+
+.AtmosUploadWidget td img{
+    padding: 0px 5px 0px 0px;
+}
+
+.AtmosUploadWidget .showMeta input{
+	margin-left: 10px;
+	font-size: 11px;
+	margin-top: 8px;
+	padding: 3px 6px 3px 6px !important;
+}
+/**
+ * Tooltip
+ */
+
+.AtmosUploadWidget .newTooltip{
+	margin-bottom: 20px;
+}
+.AtmosUploadWidget .newTooltip table{
+    margin:0px;
+    padding:20px;
+}
+.AtmosUploadWidget .newTooltip thead tr:first-child td{
+    padding-top:4px !important;
+    padding-bottom:5px;
+    
+}
+.AtmosUploadWidget .newTooltip td{
+    padding-top: 10px !important;
+}
+
+
+.AtmosUploadWidget .newTooltip h2{
+    margin:10px 49px 10px 10px;
+    border:none;
+	font-size: 115%;
+	font-weight: bold;
+}
+
+.AtmosUploadWidget .newTooltip thead tr{
+	background: url('images/navigation/table_head_colum.png');
+	background-repeat:repeat-x;
+}
+.AtmosUploadWidget .newTooltip tr{
+    border-top:1px solid black;
+	
+}
+.AtmosUploadWidget .newTooltip table{
+	margin: 0 25px 0 25px;
+    width:85%;
+    border-collapse:collapse;
+}
+.AtmosUploadWidget .newTooltip td{
+    padding:10px;
+}
+
+.AtmosUploadWidget .newTooltip .odd{
+	background:rgba(173, 213, 235, 0.7);
+	
+}
+
+/** 
+ * Container for luxid-widget
+ */
+.AtmosUploadWidget .luxidContainer {
+    width:400px;
+    float: right;
+    border: 1px solid black;
+    -webkit-border-radius: 5px;
+    padding: 30px;
+	background: #EDF8FC;
+	background:-moz-linear-gradient(top, #EDF8FC, #CFEAF7);
+    background: -webkit-gradient(linear, left top, left bottom, from(#EDF8FC), to(#CFEAF7));
+   	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.AtmosUploadWidget .luxidContainer .description{
+    margin-bottom:20px;
+}
+.AtmosUploadWidget .luxidContainer select
+{
+    width:175px;
+    margin-top:-2px;
+}
+.AtmosUploadWidget .luxidContainer .Container{
+	margin-top:15px;
+	margin-bottom:15px;
+}
+.AtmosUploadWidget .luxidContainer {
+    width:300px;
+    float: right;
+    border: 1px solid black;
+    -webkit-border-radius: 5px;
+    padding: 30px;
+	background: #EDF8FC;
+	background:-moz-linear-gradient(top, #EDF8FC, #CFEAF7);
+    background: -webkit-gradient(linear, left top, left bottom, from(#EDF8FC), to(#CFEAF7));
+    -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.AtmosUploadWidget .luxidContainer .description{
+    margin-bottom:20px;
+}
+.AtmosUploadWidget .luxidContainer select
+{
+	margin-top: -2px;
+	margin-left: 5px;	
+}
+
+
+/*
+.AtmosUploadWidget .uploadButton{
+	background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #EDF8FC), color-stop(0.3, #CFEAF7), color-stop(0.8, #CFEAF7), color-stop(1, #CFEAF7) );
+	background-image: -moz-linear-gradient( center top, #EDF8FC 0%, #CFEAF7 30%, #CFEAF7 80%, #CFEAF7 100% );
+}b
+*/
+
+
+.AtmosUploadWidget td{
+	vertical-align:middle;	
+}
+.AtmosUploadWidget td:first-child{
+	vertical-align:top;	
+}
+.AtmosUploadWidget td:last-child{
+	vertical-align:top;	
+}
+.AtmosUploadWidget table table td:last-child{
+    vertical-align:middle; 
+}
+.AtmosUploadWidget .flTree table{
+    background: rgba(115, 200, 231, 0.1);
+	border-left: 1px solid rgba(115, 200, 231, 0.3) !important; 
+	border-bottom: 1px solid rgba(115, 200, 231, 0.3) !important;
+ 	border-right: 1px solid rgba(115, 200, 231, 0.3) !important; 
+ 	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	}
+.AtmosUploadWidget input {
+
+    border: 1px solid #6BBDE6;
+    padding: 5px;
+    border-radius: 2px;
+}
+.AtmosUploadWidget select, .extractionForm select{
+    border: 1px solid #6BBDE6;
+    padding:4px;
+    border-radius: 2px;
+}
+
+.AtmosUploadWidget .textInput{
+    margin-left:10px
+}
+.AtmosUploadWidget .textInput input{
+    margin-left:5px
+}
+.AtmosUploadWidget .connectButton input, .extractionForm input{
+	background: -webkit-gradient(linear, left top, left bottom, from(#EDF8FC), to(#CFEAF7));
+	border: 1px solid #6BBDE6;
+	padding: 5px;
+	border-radius: 2px;
+}
+
+.extractionForm input[type=checkbox]{
+	margin-right:10px;
+}
+
+.atmosTabPane .tablehead1{
+    display:none;
+	background-color:none;
+}
+.atmosTabPane .flTabContent {
+	background:none;
+	border:none;
+}
+
+.atmosTabPane td{
+    padding:10px;
+}
+.atmosTabPane .flRowOdd{
+	background:rgba(173, 213, 235, 0.4);
+}
+.atmosTabPane .flRowEven{
+	background:none;
+}
+.atmosTabPane .flTabPaneTitles div{
+    float:left;
+	font-size: 13px;
+}
+
+.atmosTabPane .flTabPaneTitles li{
+    border:none;
+	background:none;
+}
+
+
+.atmosTabPane .flTabPaneTitles{
+    border-left: 1px solid #72BEDF;
+ 	border-right: 1px solid #72BEDF;
+    background-image: url('<%=request.getContextPath()%>/ajax/icons/silver_thead_2.png');
+    margin-left:12px;
+    margin-right:12px;
+    height: 27px;
+}
+
+.atmosTabPane .flTabPaneTitles ul{
+    
+    margin-top:20px;
+    padding-top: 5px;
+      
+}
+.atmosTabPane .flTabPaneTitles span{
+    font-size:12px;
+    padding-right: 10px;
+}
+
+.atmosTabPane .flTabContent{
+    padding-top:0px;
+}
+
+.atmosTabPane .flTable2.highlightrow tr:hover {
+    background-color: rgba(67, 171, 223, 0.3);
+}
+
+/**
+ * Fix style of tab pane headline message (e.g. "You do not have privileges...") 
+ */
+DIV.wikiTabClassNoEdit>DIV.outerTabContent>DIV.tablehead3>DIV.tablehead3center
+{
+    position: absolute;
+}
+DIV.wikiTabClassNoEdit>DIV.outerTabContent>DIV.tablehead3>DIV.tablehead3center>DIV:first-child
+{
+	margin-top:-20px;
+}
+
+
+/**
+ * Stylesheets for SES wizard
+ */
+
+.seswizard {
+	padding-top:8px;
+}
+
+.seswizard .site .tablehead1 {
+	visibility: visible !important;
+}
+
+.seswizard .site > DIV > .tablehead1 {
+	visibility: hidden !important;
+}
+
+.seswizard .site {
+	border: none !important;
+	margin-top: 0px !important;
+	padding-top: 0px !important;
+}
+
+.seswizard .wizardList {
+	padding-top: 15px;
+}
+
+.seswizard .site > DIV > .container {
+	padding: 10px !important;
+}
+
+.seswizard .wizardStatus {
+    background-color: #FBE5E5;
+    border: 1px dashed red;
+    margin: 5px;
+    padding: 2px;
+    z-index: -999;
+}
+
+.seswizard .wizardStatusImage {
+	background-image: url("/sap/imgs/error.png");
+    float: left;
+    height: 16px;
+    width: 18px;
+}
+
+.seswizard .confirmationTable td {
+	padding:4px;
+}
+
+.seswizard .confirmationTable tr>td:first-child {
+	font-weight: bold;
+	padding-right: 20px;
+}
+
+/**
+ *	Property Form
+ */
+.propertyForm .flTab {
+ 	margin-top: 10px !important;
+}
+
+.propertyForm .flTab li {
+	float: left !important;
+}
+
+.propertyForm .flTabContent {
+	background: none !important;
+	padding: 0 !important;
+}
+
+.propertyForm .flTable2 {
+	border: none !important;
+}
+
+.propertyForm .tablehead3 {
+	display: none !important;
+}
+
+.propertyForm div .flTab li span {
+	line-height: 25px;
+}
+
+.userMgmtLabel { 
+	margin-top: 5px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+.userMgmtLabel { 
+	margin-bottom: 10px !important;
+}
+}
+
+.userManagementContainer {
+	border-style: solid;
+	padding: 6px;
+	width: 300px;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	border-width: 1px;
+}
+
+.userMgmtErrorLabel {
+	float: left;
+	margin-bottom: 5px;
+	color: red;
+}
+
+.userMgmtSaveBtn {
+	margin-top: 10px;
+}
+
+.userMgmtTitle {
+	font-size: 20px;
+}
+
+.userRegistrationTitle {
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.userRegistrationContainer {
+	border-style: solid;
+	padding: 10px 10px 10px 10px;
+	width: 220px;
+	margin-bottom: 40px;
+	border-width: 1px;
+}
+
+.userRegistrationLabel {
+	umargin-bottom: 6px;
+	margin-top: 6px;
+}
+
+.userRegistrationInput {
+	float: right;
+}
+
+.userRegistrationError {
+	float: left;
+	margin-bottom: 5px;
+	color: red;
+}
+
+.userRegistrationSaveBtn {
+	margin-top: 40px;
+}
+
+.license_error {
+	font-size:1.3em;
+	font-weight:bold;
+	color:red;
+	float:left;
+	padding-left: 10px;
+}
+
+.license_warn {
+	font-size:1.3em;
+	font-weight:bold;
+	color:#009000;
+	float:left;
+	padding-left: 10px;
+}
+
+.license_info {
+	font-size:1.3em;
+	font-weight:bold;
+	color:#425573;
+	float:left;
+	padding-left: 10px;
+}
+
+.licenseError {
+	font-size:0.9em;
+	font-weight:bold;
+	color:red;
+}
+
+.licenseError a {
+	color:red;
+	text-decoration: none;
+}
+
+.licenseWarn {
+	font-size:0.9em;
+	font-weight:bold;
+	color:#FF0000 !important;
+}
+
+.licenseWarn a {
+	color:#009000;
+	text-decoration: none;
+}
+
+.licenseInfo {
+	font-size:0.9em;
+	font-weight:bold;
+	color:#009000;
+}
+
+.licenseInfo a {
+	color:#009000;
+	text-decoration: none;
+}
+
+.licenseInfoHeader {
+	margin-top: 20px;
+	height:15px;
+}
+/* Styles for the IWB start page*/
+
+.start h1,.start h2,.start h3,.start h4,.start h5,.start h6 {
+	color: #4099BC;
+	font-weight:bold;
+}
+.start h2 a.internal{
+	background-color:#F2F2F2;
+	padding-bottom:3px;
+	width:24px;
+	height:20px;
+}
+.start a:link, .start a:visited{
+	color:#065C84;
+	text-decoration:none;
+	font-weight:bold;
+}
+.start a:hover{
+	color:#183D75;
+	text-decoration:underline;
+}
+.start ul{
+	list-style-image: url(images/navigation/bullet.gif);
+}
+
+.start .float_left .internal{
+    display: inline;
+    float: left;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    margin-top: 1em;
+    width:150px;
+    border:1px solid #C0C0C0;
+}
+.start .icon .internal{
+    text-decoration:none;
+	background-color:#F6F3F3;
+}
+
+.start .icon .internal img{
+	margin-bottom:5px;
+}
+.table_container {
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:20px;
+	background-color:#F2F2F2;
+	margin-left:50px;
+	margin-bottom:15px;
+}
+.rounded-corners {
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;
+}
+.start .rounded-corners img{
+    margin:auto;
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:20px;
+    box-shadow: 5px 5px 5px #E0DFE3;
+    border:1px solid #dddddd;
+    background-color: #F2F2F2;
+	padding:4px;
+}
+.start h1, .start h2, .start h3, .start h4, .start h5, .start h6 {
+    padding-bottom:10px;
+	margin-top:0px !important;
+	padding-top:0px;
+}
+hr{
+	background-color:#cccccc !important;
+}
+.start a:link, .start a:visited {
+    color: #4099BC !important;
+    font-weight: bold;
+    text-decoration: underline !important;
+}
+.start ul{
+	list-style-image: url("images/navigation/blue_square_bullet.png") !important;
+}
+
+.start .searchWidget table tbody tr td , .start .searchLabel{
+    color: #AAAAAA;
+	font-weight:bold;
+}
+.start .rounded-corners {
+    border-radius: 10px 10px 10px 10px;
+    }
+	
+.switch_background:hover{
+	background:-moz-radial-gradient(center, #FFFFFF, #EDEFF2) !important;
+}
+.start .switch_background{
+	background:none;
+	background-color:#ffffff;
+	height:100%;
+	border:1px solid #dddddd;
+	padding:20px;
+	box-shadow: 1px 1px 5px 2px #E0DFE3;
+}
+.start .singleFieldSearch .searchWidget{
+	margin-top:10px;
+	}
+/* Styles for the IWB start page*/
+
+
+
+
+/*
+* jquery Datepicker
+ */
+
+#ui-datepicker-div{
+	
+	font-size:0.8em;
+}
+
+/* Layout helpers
+----------------------------------*/
+.ui-helper-hidden { display: none; }
+.ui-helper-hidden-accessible { position: absolute !important; clip: rect(1px 1px 1px 1px); clip: rect(1px,1px,1px,1px); }
+.ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
+.ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.ui-helper-clearfix { display: inline-block; }
+/* required comment for clearfix to work in Opera \*/
+* html .ui-helper-clearfix { height:1%; }
+.ui-helper-clearfix { display:block; }
+/* end clearfix */
+.ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
+.clear { clear: both; height: 0; }
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled { cursor: default !important; }
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+/*
+ * jQuery DatePicker
+
+
+/* Component containers
+----------------------------------*/
+#ui-datepicker-div .ui-widget { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1.1em; }
+#ui-datepicker-div .ui-widget .ui-widget { font-size: 1em; }
+#ui-datepicker-div .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1em; }
+#ui-datepicker-div .ui-widget-content { border: 1px solid #dddddd; background: #f2f5f7 url(<%= request.getContextPath()%>/<%= request.getContextPath()%>/images/ui-bg_highlight-hard_100_f2f5f7_1x100.png) 50% top repeat-x; color: #362b36; }
+#ui-datepicker-div .ui-widget-content a { color: #362b36; }
+#ui-datepicker-div .ui-widget-header { border: 1px solid #aed0ea; background: #deedf7 url(<%= request.getContextPath()%>/images/ui-bg_highlight-soft_100_deedf7_1x100.png) 50% 50% repeat-x; color: #222222; font-weight: bold; }
+#ui-datepicker-div .ui-widget-header a { color: #222222; }
+
+/* Interaction states
+----------------------------------*/
+#ui-datepicker-div .ui-state-default,#ui-datepicker-div  .ui-widget-content .ui-state-default,#ui-datepicker-div  .ui-widget-header .ui-state-default { border: 1px solid #aed0ea; background: #d7ebf9 url(<%= request.getContextPath()%>/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #2779aa; }
+#ui-datepicker-div .ui-state-default a,#ui-datepicker-div  .ui-state-default a:link,#ui-datepicker-div  .ui-state-default a:visited { color: #2779aa; text-decoration: none; }
+#ui-datepicker-div .ui-state-hover,#ui-datepicker-div  .ui-widget-content .ui-state-hover,#ui-datepicker-div  .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #74b2e2; background: #e4f1fb url(<%= request.getContextPath()%>/images/ui-bg_glass_100_e4f1fb_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #0070a3; }
+#ui-datepicker-div .ui-state-hover a,#ui-datepicker-div  .ui-state-hover a:hover { color: #0070a3; text-decoration: none; }
+#ui-datepicker-div .ui-state-active,#ui-datepicker-div  .ui-widget-content .ui-state-active,#ui-datepicker-div  .ui-widget-header .ui-state-active { border: 1px solid #2694e8; background: #3baae3 url(<%= request.getContextPath()%>/images/ui-bg_glass_50_3baae3_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
+#ui-datepicker-div .ui-state-active a,#ui-datepicker-div  .ui-state-active a:link,#ui-datepicker-div  .ui-state-active a:visited { color: #ffffff; text-decoration: none; }
+#ui-datepicker-div .ui-widget :active { outline: none; }
+
+/* Interaction Cues
+----------------------------------*/
+#ui-datepicker-div .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #f9dd34; background: #ffef8f url(<%= request.getContextPath()%>/images/ui-bg_highlight-soft_25_ffef8f_1x100.png) 50% top repeat-x; color: #363636; }
+#ui-datepicker-div .ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
+#ui-datepicker-div .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #cd0a0a url(<%= request.getContextPath()%>/images/ui-bg_flat_15_cd0a0a_40x100.png) 50% 50% repeat-x; color: #ffffff; }
+#ui-datepicker-div .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #ffffff; }
+#ui-datepicker-div .ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #ffffff; }
+#ui-datepicker-div .ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
+#ui-datepicker-div .ui-priority-secondary, .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
+#ui-datepicker-div .ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+
+/* Icons
+----------------------------------*/
+
+/* states and <%= request.getContextPath()%>/images */
+#ui-datepicker-div .ui-icon { width: 16px; height: 16px; background-image: url(<%= request.getContextPath()%>/images/ui-icons_72a7cf_256x240.png); }
+#ui-datepicker-div .ui-widget-content .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_72a7cf_256x240.png); }
+#ui-datepicker-div .ui-widget-header .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_72a7cf_256x240.png); }
+#ui-datepicker-div .ui-state-default .ui-icon { background-image: url(<%= request.getContextPath()%>/images/ui-icons_3d80b3_256x240.png); }
+#ui-datepicker-div .ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_2694e8_256x240.png); }
+#ui-datepicker-div .ui-state-active .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_ffffff_256x240.png); }
+#ui-datepicker-div .ui-state-highlight .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_2e83ff_256x240.png); }
+#ui-datepicker-div .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(<%= request.getContextPath()%>/images/ui-icons_ffffff_256x240.png); }
+
+/* positioning */
+#ui-datepicker-div .ui-icon-carat-1-n { background-position: 0 0; }
+#ui-datepicker-div .ui-icon-carat-1-ne { background-position: -16px 0; }
+#ui-datepicker-div .ui-icon-carat-1-e { background-position: -32px 0; }
+#ui-datepicker-div .ui-icon-carat-1-se { background-position: -48px 0; }
+#ui-datepicker-div .ui-icon-carat-1-s { background-position: -64px 0; }
+#ui-datepicker-div .ui-icon-carat-1-sw { background-position: -80px 0; }
+#ui-datepicker-div .ui-icon-carat-1-w { background-position: -96px 0; }
+#ui-datepicker-div .ui-icon-carat-1-nw { background-position: -112px 0; }
+#ui-datepicker-div .ui-icon-carat-2-n-s { background-position: -128px 0; }
+#ui-datepicker-div .ui-icon-carat-2-e-w { background-position: -144px 0; }
+#ui-datepicker-div .ui-icon-triangle-1-n { background-position: 0 -16px; }
+#ui-datepicker-div .ui-icon-triangle-1-ne { background-position: -16px -16px; }
+#ui-datepicker-div .ui-icon-triangle-1-e { background-position: -32px -16px; }
+#ui-datepicker-div .ui-icon-triangle-1-se { background-position: -48px -16px; }
+#ui-datepicker-div .ui-icon-triangle-1-s { background-position: -64px -16px; }
+#ui-datepicker-div .ui-icon-triangle-1-sw { background-position: -80px -16px; }
+#ui-datepicker-div .ui-icon-triangle-1-w { background-position: -96px -16px; }
+#ui-datepicker-div .ui-icon-triangle-1-nw { background-position: -112px -16px; }
+#ui-datepicker-div .ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+#ui-datepicker-div .ui-icon-triangle-2-e-w { background-position: -144px -16px; }
+#ui-datepicker-div .ui-icon-arrow-1-n { background-position: 0 -32px; }
+#ui-datepicker-div .ui-icon-arrow-1-ne { background-position: -16px -32px; }
+#ui-datepicker-div .ui-icon-arrow-1-e { background-position: -32px -32px; }
+#ui-datepicker-div .ui-icon-arrow-1-se { background-position: -48px -32px; }
+#ui-datepicker-div .ui-icon-arrow-1-s { background-position: -64px -32px; }
+#ui-datepicker-div .ui-icon-arrow-1-sw { background-position: -80px -32px; }
+#ui-datepicker-div .ui-icon-arrow-1-w { background-position: -96px -32px; }
+#ui-datepicker-div .ui-icon-arrow-1-nw { background-position: -112px -32px; }
+#ui-datepicker-div .ui-icon-arrow-2-n-s { background-position: -128px -32px; }
+#ui-datepicker-div .ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
+#ui-datepicker-div .ui-icon-arrow-2-e-w { background-position: -160px -32px; }
+#ui-datepicker-div .ui-icon-arrow-2-se-nw { background-position: -176px -32px; }
+#ui-datepicker-div .ui-icon-arrowstop-1-n { background-position: -192px -32px; }
+#ui-datepicker-div .ui-icon-arrowstop-1-e { background-position: -208px -32px; }
+#ui-datepicker-div .ui-icon-arrowstop-1-s { background-position: -224px -32px; }
+#ui-datepicker-div .ui-icon-arrowstop-1-w { background-position: -240px -32px; }
+#ui-datepicker-div .ui-icon-arrowthick-1-n { background-position: 0 -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-1-e { background-position: -32px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-1-se { background-position: -48px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-1-s { background-position: -64px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-1-w { background-position: -96px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
+#ui-datepicker-div .ui-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
+#ui-datepicker-div .ui-icon-arrowthickstop-1-n { background-position: -192px -48px; }
+#ui-datepicker-div .ui-icon-arrowthickstop-1-e { background-position: -208px -48px; }
+#ui-datepicker-div .ui-icon-arrowthickstop-1-s { background-position: -224px -48px; }
+#ui-datepicker-div .ui-icon-arrowthickstop-1-w { background-position: -240px -48px; }
+#ui-datepicker-div .ui-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
+#ui-datepicker-div .ui-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
+#ui-datepicker-div .ui-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
+#ui-datepicker-div .ui-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
+#ui-datepicker-div .ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
+#ui-datepicker-div .ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
+#ui-datepicker-div .ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
+#ui-datepicker-div .ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
+#ui-datepicker-div .ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+#ui-datepicker-div .ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
+#ui-datepicker-div .ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
+#ui-datepicker-div .ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }
+#ui-datepicker-div .ui-icon-arrow-4 { background-position: 0 -80px; }
+#ui-datepicker-div .ui-icon-arrow-4-diag { background-position: -16px -80px; }
+#ui-datepicker-div .ui-icon-extlink { background-position: -32px -80px; }
+#ui-datepicker-div .ui-icon-newwin { background-position: -48px -80px; }
+#ui-datepicker-div .ui-icon-refresh { background-position: -64px -80px; }
+#ui-datepicker-div .ui-icon-shuffle { background-position: -80px -80px; }
+#ui-datepicker-div .ui-icon-transfer-e-w { background-position: -96px -80px; }
+#ui-datepicker-div .ui-icon-transferthick-e-w { background-position: -112px -80px; }
+#ui-datepicker-div .ui-icon-folder-collapsed { background-position: 0 -96px; }
+#ui-datepicker-div .ui-icon-folder-open { background-position: -16px -96px; }
+#ui-datepicker-div .ui-icon-document { background-position: -32px -96px; }
+#ui-datepicker-div .ui-icon-document-b { background-position: -48px -96px; }
+#ui-datepicker-div .ui-icon-note { background-position: -64px -96px; }
+#ui-datepicker-div .ui-icon-mail-closed { background-position: -80px -96px; }
+#ui-datepicker-div .ui-icon-mail-open { background-position: -96px -96px; }
+#ui-datepicker-div .ui-icon-suitcase { background-position: -112px -96px; }
+#ui-datepicker-div .ui-icon-comment { background-position: -128px -96px; }
+#ui-datepicker-div .ui-icon-person { background-position: -144px -96px; }
+#ui-datepicker-div .ui-icon-print { background-position: -160px -96px; }
+#ui-datepicker-div .ui-icon-trash { background-position: -176px -96px; }
+#ui-datepicker-div .ui-icon-locked { background-position: -192px -96px; }
+#ui-datepicker-div .ui-icon-unlocked { background-position: -208px -96px; }
+#ui-datepicker-div .ui-icon-bookmark { background-position: -224px -96px; }
+#ui-datepicker-div .ui-icon-tag { background-position: -240px -96px; }
+#ui-datepicker-div .ui-icon-home { background-position: 0 -112px; }
+#ui-datepicker-div .ui-icon-flag { background-position: -16px -112px; }
+#ui-datepicker-div .ui-icon-calendar { background-position: -32px -112px; }
+#ui-datepicker-div .ui-icon-cart { background-position: -48px -112px; }
+#ui-datepicker-div .ui-icon-pencil { background-position: -64px -112px; }
+#ui-datepicker-div .ui-icon-clock { background-position: -80px -112px; }
+#ui-datepicker-div .ui-icon-disk { background-position: -96px -112px; }
+#ui-datepicker-div .ui-icon-calculator { background-position: -112px -112px; }
+#ui-datepicker-div .ui-icon-zoomin { background-position: -128px -112px; }
+#ui-datepicker-div .ui-icon-zoomout { background-position: -144px -112px; }
+#ui-datepicker-div .ui-icon-search { background-position: -160px -112px; }
+#ui-datepicker-div .ui-icon-wrench { background-position: -176px -112px; }
+#ui-datepicker-div .ui-icon-gear { background-position: -192px -112px; }
+#ui-datepicker-div .ui-icon-heart { background-position: -208px -112px; }
+#ui-datepicker-div .ui-icon-star { background-position: -224px -112px; }
+#ui-datepicker-div .ui-icon-link { background-position: -240px -112px; }
+#ui-datepicker-div .ui-icon-cancel { background-position: 0 -128px; }
+#ui-datepicker-div .ui-icon-plus { background-position: -16px -128px; }
+#ui-datepicker-div .ui-icon-plusthick { background-position: -32px -128px; }
+#ui-datepicker-div .ui-icon-minus { background-position: -48px -128px; }
+#ui-datepicker-div .ui-icon-minusthick { background-position: -64px -128px; }
+#ui-datepicker-div .ui-icon-close { background-position: -80px -128px; }
+#ui-datepicker-div .ui-icon-closethick { background-position: -96px -128px; }
+#ui-datepicker-div .ui-icon-key { background-position: -112px -128px; }
+#ui-datepicker-div .ui-icon-lightbulb { background-position: -128px -128px; }
+#ui-datepicker-div .ui-icon-scissors { background-position: -144px -128px; }
+#ui-datepicker-div .ui-icon-clipboard { background-position: -160px -128px; }
+#ui-datepicker-div .ui-icon-copy { background-position: -176px -128px; }
+#ui-datepicker-div .ui-icon-contact { background-position: -192px -128px; }
+#ui-datepicker-div .ui-icon-image { background-position: -208px -128px; }
+#ui-datepicker-div .ui-icon-video { background-position: -224px -128px; }
+#ui-datepicker-div .ui-icon-script { background-position: -240px -128px; }
+#ui-datepicker-div .ui-icon-alert { background-position: 0 -144px; }
+#ui-datepicker-div .ui-icon-info { background-position: -16px -144px; }
+#ui-datepicker-div .ui-icon-notice { background-position: -32px -144px; }
+#ui-datepicker-div .ui-icon-help { background-position: -48px -144px; }
+#ui-datepicker-div .ui-icon-check { background-position: -64px -144px; }
+#ui-datepicker-div .ui-icon-bullet { background-position: -80px -144px; }
+#ui-datepicker-div .ui-icon-radio-off { background-position: -96px -144px; }
+#ui-datepicker-div .ui-icon-radio-on { background-position: -112px -144px; }
+#ui-datepicker-div .ui-icon-pin-w { background-position: -128px -144px; }
+#ui-datepicker-div .ui-icon-pin-s { background-position: -144px -144px; }
+#ui-datepicker-div .ui-icon-play { background-position: 0 -160px; }
+#ui-datepicker-div .ui-icon-pause { background-position: -16px -160px; }
+#ui-datepicker-div .ui-icon-seek-next { background-position: -32px -160px; }
+#ui-datepicker-div .ui-icon-seek-prev { background-position: -48px -160px; }
+#ui-datepicker-div .ui-icon-seek-end { background-position: -64px -160px; }
+#ui-datepicker-div .ui-icon-seek-start { background-position: -80px -160px; }
+/* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
+#ui-datepicker-div .ui-icon-seek-first { background-position: -80px -160px; }
+#ui-datepicker-div .ui-icon-stop { background-position: -96px -160px; }
+#ui-datepicker-div .ui-icon-eject { background-position: -112px -160px; }
+#ui-datepicker-div .ui-icon-volume-off { background-position: -128px -160px; }
+#ui-datepicker-div .ui-icon-volume-on { background-position: -144px -160px; }
+#ui-datepicker-div .ui-icon-power { background-position: 0 -176px; }
+#ui-datepicker-div .ui-icon-signal-diag { background-position: -16px -176px; }
+#ui-datepicker-div .ui-icon-signal { background-position: -32px -176px; }
+#ui-datepicker-div .ui-icon-battery-0 { background-position: -48px -176px; }
+#ui-datepicker-div .ui-icon-battery-1 { background-position: -64px -176px; }
+#ui-datepicker-div .ui-icon-battery-2 { background-position: -80px -176px; }
+#ui-datepicker-div .ui-icon-battery-3 { background-position: -96px -176px; }
+#ui-datepicker-div .ui-icon-circle-plus { background-position: 0 -192px; }
+#ui-datepicker-div .ui-icon-circle-minus { background-position: -16px -192px; }
+#ui-datepicker-div .ui-icon-circle-close { background-position: -32px -192px; }
+#ui-datepicker-div .ui-icon-circle-triangle-e { background-position: -48px -192px; }
+#ui-datepicker-div .ui-icon-circle-triangle-s { background-position: -64px -192px; }
+#ui-datepicker-div .ui-icon-circle-triangle-w { background-position: -80px -192px; }
+#ui-datepicker-div .ui-icon-circle-triangle-n { background-position: -96px -192px; }
+#ui-datepicker-div .ui-icon-circle-arrow-e { background-position: -112px -192px; }
+#ui-datepicker-div .ui-icon-circle-arrow-s { background-position: -128px -192px; }
+#ui-datepicker-div .ui-icon-circle-arrow-w { background-position: -144px -192px; }
+#ui-datepicker-div .ui-icon-circle-arrow-n { background-position: -160px -192px; }
+#ui-datepicker-div .ui-icon-circle-zoomin { background-position: -176px -192px; }
+#ui-datepicker-div .ui-icon-circle-zoomout { background-position: -192px -192px; }
+#ui-datepicker-div .ui-icon-circle-check { background-position: -208px -192px; }
+#ui-datepicker-div .ui-icon-circlesmall-plus { background-position: 0 -208px; }
+#ui-datepicker-div .ui-icon-circlesmall-minus { background-position: -16px -208px; }
+#ui-datepicker-div .ui-icon-circlesmall-close { background-position: -32px -208px; }
+#ui-datepicker-div .ui-icon-squaresmall-plus { background-position: -48px -208px; }
+#ui-datepicker-div .ui-icon-squaresmall-minus { background-position: -64px -208px; }
+#ui-datepicker-div .ui-icon-squaresmall-close { background-position: -80px -208px; }
+#ui-datepicker-div .ui-icon-grip-dotted-vertical { background-position: 0 -224px; }
+#ui-datepicker-div .ui-icon-grip-dotted-horizontal { background-position: -16px -224px; }
+#ui-datepicker-div .ui-icon-grip-solid-vertical { background-position: -32px -224px; }
+#ui-datepicker-div .ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
+#ui-datepicker-div .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+#ui-datepicker-div .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+#ui-datepicker-div .ui-corner-all,#ui-datepicker-div  .ui-corner-top,#ui-datepicker-div  .ui-corner-left,#ui-datepicker-div  .ui-corner-tl { -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; -khtml-border-top-left-radius: 6px; border-top-left-radius: 6px; }
+#ui-datepicker-div .ui-corner-all,#ui-datepicker-div  .ui-corner-top,#ui-datepicker-div  .ui-corner-right,#ui-datepicker-div  .ui-corner-tr { -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; -khtml-border-top-right-radius: 6px; border-top-right-radius: 6px; }
+#ui-datepicker-div .ui-corner-all,#ui-datepicker-div  .ui-corner-bottom,#ui-datepicker-div  .ui-corner-left,#ui-datepicker-div  .ui-corner-bl { -moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; -khtml-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px; }
+#ui-datepicker-div .ui-corner-all,#ui-datepicker-div  .ui-corner-bottom,#ui-datepicker-div  .ui-corner-right,#ui-datepicker-div  .ui-corner-br { -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; -khtml-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px; }
+
+/* Overlays */
+#ui-datepicker-div .ui-widget-overlay { background: #eeeeee url(<%= request.getContextPath()%>/images/ui-bg_diagonals-thick_90_eeeeee_40x40.png) 50% 50% repeat; opacity: .80;filter:Alpha(Opacity=80); }
+#ui-datepicker-div .ui-widget-shadow { margin: -7px 0 0 -7px; padding: 7px; background: #000000 url(<%= request.getContextPath()%>/images/ui-bg_highlight-hard_70_000000_1x100.png) 50% top repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }/*
+ * jQuery UI Datepicker 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+ */
+.ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; }
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
+.ui-datepicker .ui-datepicker-prev { left:2px; }
+.ui-datepicker .ui-datepicker-next { right:2px; }
+.ui-datepicker .ui-datepicker-prev-hover { left:1px; }
+.ui-datepicker .ui-datepicker-next-hover { right:1px; }
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
+.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
+.ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
+.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+.ui-datepicker select.ui-datepicker-month, 
+.ui-datepicker select.ui-datepicker-year { width: 49%;}
+.ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
+.ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
+.ui-datepicker td { border: 0; padding: 1px; }
+.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
+.ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
+.ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi { width:auto; }
+.ui-datepicker-multi .ui-datepicker-group { float:left; }
+.ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
+.ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }
+.ui-datepicker-multi-3 .ui-datepicker-group { width:33.3%; }
+.ui-datepicker-multi-4 .ui-datepicker-group { width:25%; }
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
+.ui-datepicker-row-break { clear:both; width:100%; font-size:0em; }
+
+/* RTL support */
+.ui-datepicker-rtl { direction: rtl; }
+.ui-datepicker-rtl .ui-datepicker-prev { right: 2px; left: auto; }
+.ui-datepicker-rtl .ui-datepicker-next { left: 2px; right: auto; }
+.ui-datepicker-rtl .ui-datepicker-prev:hover { right: 1px; left: auto; }
+.ui-datepicker-rtl .ui-datepicker-next:hover { left: 1px; right: auto; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane { clear:right; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane button { float: left; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current { float:right; }
+.ui-datepicker-rtl .ui-datepicker-group { float:right; }
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+
+/* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
+.ui-datepicker-cover {
+    display: none; /*sorry for IE5*/
+    display/**/: block; /*sorry for IE5*/
+    position: absolute; /*must have*/
+    z-index: -1; /*must have*/
+    filter: mask(); /*must have*/
+    top: -4px; /*must have*/
+    left: -4px; /*must have*/
+    width: 200px; /*must have*/
+    height: 200px; /*must have*/
+}
+
+.WizardClearBoth {
+    clear:both;
+}
+
+/**************************************************
+ *                ConfigurationForm                     *
+ **************************************************/
+ 
+.ConfigurationForm .flDialogContent { 
+ 	padding:10px;
+}
+
+.ConfigurationForm .flDialogContent .annotation{
+  	margin-left:0px;
+ 	margin-top:5px;
+ 	color: #3B3B3D;
+}
+ 
+.ConfigurationForm .flDialogContent p.annotation +br{ 
+ 	clear:both;
+}
+ 
+.ConfigurationForm .flDialogContent fieldset{
+ 
+ 	margin: 0.5em 0;
+ 	line-height: 1em;
+ 	border: 1px solid #A7CDDB;
+ 	padding:5px;
+}
+ 
+.ConfigurationForm #FPopupWindow_addWidget_submit {
+ 
+	 position:absolute;
+	 left:44%;
+	 bottom:30px;
+	 width:70px;
+}
+
+.ConfigurationForm .flDialogContent input[type="button"]{
+	background: url('<%= request.getContextPath()%>/imgs/bg_button.png') repeat scroll 0 0 transparent;
+    border: 1px solid #999999;
+    cursor: pointer;
+    height: 22px;
+    color:#3B3B3D;
+}
+
+.ConfigurationForm{
+	overflow:visible !important;
+}
+
+.ConfigurationForm .helpButton {
+	float:left;
+	height:1em;
+}
+.ConfigurationForm .helpButton a{
+	
+	margim-left:2px;
+    
+}
+.ConfigurationForm .helpButton{
+	position:relative;
+}
+.ConfigurationForm .opButton, .ConfigurationForm .addButton
+{
+ 	float:left;
+ 	width:20px;
+}
+ 
+.ConfigurationForm .opButton{
+    margin-left:10px;
+}
+
+.ConfigurationForm .formElement >div {
+	float:left;
+}
+
+.ConfigurationForm .formElement .flAutoComplete {
+    float:left;
+}
+
+.ConfigurationForm .helpButton > div {
+	margin-left:1em;
+}
+/*   tootltip */
+
+.ConfigurationForm .helpButton  a + div {
+
+	background-color: #FFFFFF;
+	border: 2px solid #A7CDDB;
+	bottom: 0;
+	display: none;
+	left: 80%;
+	padding: 10px;
+	position: absolute;
+    opacity:0.7;
+	text-align: left;
+	text-decoration: none;
+	width: 200px;
+	border-radius: 5px 5px 5px 5px !important;
+	z-index:200;
+    -moz-box-shadow: 5px 5px 5px #949596;
+    -webkit-box-shadow: 5px 5px 5px #949596;
+    box-shadow: 5px 5px 5px #949596;
+
+}
+.ConfigurationForm .flDialogContent{
+	overflow:visible;
+	width:auto;
+}
+.ConfigurationForm .flDialog{
+    left:30%;
+	margin:auto;
+	width:auto !important;
+	border: 1px solid #9B9C9C;
+}
+.ConfigurationForm .flDialogHeader{
+	border-bottom: none;
+	color:#3B3B3D;
+	font-size:1.1em;
+}
+.ConfigurationForm .formElement div.flAutoComplete:hover +div.helpButton div a + div {
+    bottom: 5px;
+	left:-25px;
+    display: inline;
+	z-index:200;
+	line-height: 1.3em;
+}
+.ConfigurationForm .helpButton div a:hover + div {
+    bottom: 10px;
+	left:25px;
+    display: inline;
+	z-index:200;
+	line-height: 1.3em;
+}
+.ConfigurationForm .subcontainer fieldset div label, .ConfigurationForm fieldset label{
+	width: 14em;
+	color: #3B3B3D;
+}
+.ConfigurationForm .subcontainer fieldset {
+	padding:0.2px;
+	margin:0.4 0;
+}
+
+.ConfigurationForm .formElement .subcontainer fieldset {
+    clear: both;
+    margin-top:25px;
+}
+.ConfigurationForm .subcontainer + div.subcontainer fieldset {
+    margin-top:0px !important;
+}
+
+.ConfigurationForm #FPopupWindow_ok{
+    height: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+}
+
+.warning
+{
+	color:red !important;
+}
+
+.smallTextArea textarea
+{
+	clear:both;
+	width: 300px;
+	height: 100px;
+	display:block;
+}
+.ConfigurationForm .opButton + .smallTextArea textarea
+{
+	margin-top:25px;
+}
+
+/* status images */
+.statusOK { width: 24px; height: 24px; background-image: url(<%= request.getContextPath()%>/images/common/status_okay.png); }
+.statusError { width: 24px; height: 24px; background-image: url(<%= request.getContextPath()%>/images/common/status_error.png); }
+.statusLoading { width: 16px; height: 11px; background-image: url(<%= request.getContextPath()%>/images/loading2.gif); }
+
+/* define the usage bar displays in the overview */
+.usage {
+	height: 10px;
+	border: 1px solid black;
+	width: 80%;
+	float: right;
+}
+
+.usage > div {
+	height: 100%;
+	width: 100%;
+	font-size: 10px;
+	text-align: center;
+	line-height: 10px;
+	vertical-align: middle;
+}
+/**
+ *  DataInputWidget & SimpleNewInstanceWidget
+ *  
+ */
+
+.DataInputWidget{
+	max-width:840px;
+	height:100%;
+	margin-top:20px;
+}
+.SimpleNewInstanceWidget fieldset{
+	background-color:#F8F8F8;
+	padding-top:20px;
+	border:1px solid #CCCCCC;
+	-moz-border-radius:10px !important; /* Firefox */
+	-webkit-border-radius:10px; /* Safari, Chrome */
+	-khtml-border-radius:10px; /* Konqueror */
+	border-radius:10px; /* CSS3 */
+	-moz-box-shadow: 3px 3px 5px #e0dfe3;/* Firefox */
+	-webkit-box-shadow: 3px 3px 5px #e0dfe3;/* Safari, Chrome */
+	box-shadow: 3px 3px 5px #e0dfe3;/* CSS3 */
+}
+.DataInputWidget .content{
+	float:left;
+	width:100%;
+	background-color:#F8F8F8;
+	padding-top:20px;
+	border:1px solid #CCCCCC;
+	-moz-border-radius:10px !important; /* Firefox */
+	-webkit-border-radius:10px; /* Safari, Chrome */
+	-khtml-border-radius:10px; /* Konqueror */
+	border-radius:10px; /* CSS3 */
+	-moz-box-shadow: 3px 3px 5px #e0dfe3;/* Firefox */
+	-webkit-box-shadow: 3px 3px 5px #e0dfe3;/* Safari, Chrome */
+	box-shadow: 3px 3px 5px #e0dfe3;/* CSS3 */
+}
+.DataInputWidget .buttonbar{
+	margin-top:10px;	
+}
+.DataInputWidget .buttonbar input{
+	vertical-align:center;	
+	padding-top:3px;
+}
+.DataInputWidget div.site{
+	border:none;
+	margin-bottom:0px;
+	margin-top:0px;
+	width:66% !important;
+	padding:5px;	
+}
+.DataInputWidget .site > DIV > .container{
+	width:100%;
+	border:1px solid #CFCFCF;
+	padding-bottom:10px;
+	padding-right:5px;
+	padding-left:5px;
+	-moz-box-shadow: inset 0 0 5px #e0dfe3;
+	-webkit-box-shadow: inset 0 0 5px #e0dfe3;
+	box-shadow: inset 0 0 5px #e0dfe3;	
+	overflow:hidden;
+}
+
+.DataInputWidget #wizBottom{
+	margin-top:6px;
+	margin-bottom:5px;
+}
+.DataInputWidget td b div{
+	margin-left:12px;
+}
+.DataInputWidget .listitemactive .listbutton{
+	border: 1px solid #CCCCCC;
+	-moz-box-shadow: 3px 3px 5px #e0dfe3;
+	-webkit-box-shadow: 3px 3px 5px #e0dfe3;
+	box-shadow: 3px 3px 5px #e0dfe3;
+	font-weight:bold;
+}
+.DataInputWidget  div.wizardList 
+{
+	width:25% !important;
+}
+.DataInputWidget table input{
+	min-width:50px;
+	max-width:300px;
+	margin-left:4px;
+}
+.DataInputWidget table select{
+	min-width:80px;
+	max-width:300px;
+	margin-left:4px;
+}
+.DataInputWidget table textarea{
+	max-width:510px;
+	margin-left:4px;
+}
+.DataInputWidget table td{
+	padding:0;
+}
+/*
+ * DataInputWidget in PopupWinow (important for IE7)
+*/
+.flDialogContent div.outerwizard
+{
+	position:static;
+	left:0px; top:0px;
+}
+/*
+ * Amcharts (making labels with long texts visible)
+*/
+.chart div
+{
+    overflow:visible !important;
+}
+
+/*#####################  SearchWidget  ##########################*/
+
+.searchWidget{
+    margin-top:30px;
+    padding-top:10px;
+    padding-left:10px;
+    padding-bottom:10px;
+    max-width:500px;   
+    background-color: #F8F8F8;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 3px 3px 5px #E0DFE3;
+}
+.searchWidget div div.flTab{
+    margin-top:-19px;
+    float:left;
+}
+.searchWidget ul{
+    float:left;
+}
+.searchWidget ul li{
+    padding: 3px;
+}
+.searchWidget .flTab .listItemDiv{
+	float:left;
+}
+.searchWidget .tabContainerContent{
+	padding-right:10px;
+}
+.searchWidget li span{
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 12px;
+    height: 23px;
+    line-height: 22px;
+    min-width: 60px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top:1px;
+    padding-bottom:1px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.searchWidget li.flTabActive span{
+    height: 25px;
+    }
+.searchWidget table tbody tr td{
+    padding:5px;
+    font-weight: bold;
+}
+.searchWidget .flTabContent{
+    border-top:none;
+}
+.searchWidget select{
+   max-width: 370px;
+}
+.searchWidget div.searchWidget{
+    border:none;
+    margin:0;
+    padding:0;
+    width:100%;
+    background-color: #F8F8F8;
+    border-radius: 0px;
+    box-shadow: none;
+}
+ .searchWidget .flTabContent{
+     background-color: #F8F8F8;
+ }
+.searchWidget .midTab{
+    background-color: #F8F8F8;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px 10px 0px 0px;
+	border-bottom: none;
+}
+.searchWidget .midTabTxt{
+    background:none;
+}
+.searchWidget .flTabActive .midTabTxt {
+    background-color: none;
+}
+.searchWidget .flTabActive .midTab .midTabTxt{  
+    font-weight: bold;
+}
+.searchWidget input[type="button"] {
+    background-color: transparent;
+    background-image: url('<%= request.getContextPath()%>/imgs/menu.png');
+    background-position: left center;
+    background-repeat: no-repeat;
+    border: 0 none;
+    cursor: pointer;
+    float: left;
+    margin: 2px 5px 0;
+    padding: 5px;
+    text-align: center;
+    width: 80px;
+}
+.searchWidget textarea{
+	margin-right:10px;
+	height:100px;
+}
+.singleFieldSearch .searchWidget input[type="button"] {
+    background-color: transparent;
+    color:transparent;
+    background-image: none;
+    border: 0 none;
+    cursor: pointer;
+    float: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 5px;
+    opacity:0;
+}
+.singleFieldSearch .searchButton{
+	position:absolute;
+	top:10px;
+	left:200px;
+	background-color: transparent;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/search_normal.png');
+    cursor: pointer;
+    height: 21px;
+    width: 19px;
+    z-index: 300;
+}
+
+.singleFieldSearch .searchWidget table{
+	width:250px;
+}
+
+.singleFieldSearch .searchWidget{
+	border:none;
+	text-align:center;
+	width:250px;
+	position:relative;
+	padding-left:0;
+	margin-top:20px;
+	background-color: transparent;
+    border-radius: 0px;
+    box-shadow: none;
+}
+.singleFieldSearch .searchName{
+	position:absolute;
+	top:-10px;
+	left:0px;
+}
+.singleFieldSearch .flAutoComplete, .singleFieldSearch .floatLeft{
+	background-color: transparent;
+    background-image: url('<%= request.getContextPath()%>/images/navigation/searchfield.png');
+    float: left;
+    height: 21px;
+    position: relative;
+    width: 204px;
+    z-index: 300;
+}
+.singleFieldSearch textarea{
+    margin-right: 80px;
+    width: 197px;
+}
+.singleFieldSearch .flAutoComplete input, .singleFieldSearch select{
+	background-color: transparent;
+    border: medium none;
+    cursor: text;
+    height: 19px;
+    margin-left: 5px;
+    text-align: left;
+    width: 195px;
+}
+.singleFieldSearch select{
+	width: 192px;
+}
+.singleFieldSearch .searchWidget td{
+	padding:0;
+}
+
+
+
+
+.VAFWidget .label{
+	font-weight:bold;
+}
+
+.VAFWidget .informationTable .tablehead1{
+	display:none;
+}
+
+.VAFWidget .informationTable{
+	border:1px solid #72BEDF;
+}
+
+.VAFWidget .informationTable{
+	border:1px solid #72BEDF;
+}
+
+
+
+.VAFWidget .controlsTable .tablehead1{
+	display:none;
+} 
+.VAFWidget .controlsTable table{
+	border:none;
+	width:auto;
+	margin-bottom:10px;
+}
+
+.VAFWidget .controlsTable td{
+	padding:0px;
+}
+
+.VAFWidget .controlsTable tr{
+	background:none;
+}
+
+.VAFWidget .controlsTable tr:hover{
+	background:none !important;
+}
+
+
+.VAFWidget select{
+	padding:5px;
+}
+
+.VAFWidget input{
+	padding:5px;
+	margin:0px;
+}
+
+
+.revDiff .flDiffChange1
+{
+    background-color:#FCFCDE;
+}
+
+/*
+ * Triple Editor
+ */
+
+.tripleEditor a, .tripleEditor a:visited{
+    color: #595960;
+}
+.tripleEditor a:hover{
+	color:#4099BC;
+}
+.tripleEditor{
+	border:1px solid #4099BC;
+	color:#5B5D64;
+}
+.tripleEditor h1,.tripleEditor h2,.tripleEditor h3,.tripleEditor h4{
+	border-bottom:none;
+	margin-bottom:20px;
+}
+.tripleEditor select{
+	min-width:80px;
+	max-width:300px;
+}
+.buttonlink a,a.buttonlink{
+	color:#4099BC;
+	font-weight:bold;
+	white-space: nowrap;
+	margin-right:10px;
+}
+.freeAddingFields{
+	margin-top:20px;
+}
+.freeAddingFields div{
+	padding-left:10px;
+	color:#4099BC;
+	font-weight:bold;
+	font-size:1em;
+}
+.freeAddingFields .flSuggestionDropDown {
+	padding:0;
+	font-weight:normal;
+	color:#5B5D64;
+}
+.freeAddingFields .flSuggestionDropDown, .freeAddingFields .flSuggestionDropDown ul,
+.tripleEditor .flSuggestionDropDown, .tripleEditor .flSuggestionDropDown ul{
+	overflow-x:visible;
+	width:auto !important;
+	min-width: 203px;
+}
+.freeAddingFields .flSuggestionDropDown ul li,
+.tripleEditor .flSuggestionDropDown ul li{
+ 	padding-right:15px;
+}
+.freeAddingFields .flSuggestionDropDown ul,
+.tripleEditor .flSuggestionDropDown, .tripleEditor .flSuggestionDropDown ul{
+	list-style:none;
+}
+.freeAddingFields input[type=button]{
+	background: url('<%= request.getContextPath()%>/imgs/bg_button.png');
+	border: 1px solid #999;
+	border-radius: 6px;
+	padding-bottom:2px;
+	margin:2px;
+	height: 25px;
+	width: 160px;
+	margin-right:20px;
+}
+.freeAddingFields input[type=button]:hover {
+	background: url('<%= request.getContextPath()%>/imgs/bg_button_hover.png');
+	border: 1px solid #aaa;
+}
+
+/*
+ * Table of Contents
+ */
+ 
+.tc, .tc ul{
+	list-style:none;
+} 
+.tc li{
+	margin-top:20px;
+}
+.tc ul li{
+	margin-top:0;
+    margin-bottom:0;
+}
+.tc ul ul li{
+	margin-top:0;
+    margin-bottom:0;
+}
+.tc li a{
+	margin-top:20px;
+	font-weight:bold;
+	font-size:1.2em;
+}
+.tc ul li a{
+	margin-top:0;
+    font-weight:normal;
+	font-size:1.1em;
+}
+.tc ul ul li a{
+	margin-top:0;
+    font-weight:normal;
+	font-size:1em;
+}
+.radioButtons .container{
+	border:none;
+}
+
+/* Class to be used for code source in wiki to be able to render operators
+ * Tries to mimic the semwiki <source> tag. See bug 9043
+ */
+.sourceDiv {
+	border: 1px dashed #2F6FAB; 
+	background-color: #F9F9F9; 
+	color: black; 
+	font-size: 0.85em; 
+	padding: 2px 10px;
+}
+
+/*******************************************
+*
+* Styling of Widget Embedding Errors/Warns
+*
+*******************************************/
+
+div.widgetEmbeddingWarn {
+	background-color: #F9F9F9;
+    border: 1px dashed #2F6FAB;
+    color: black;
+    line-height: 1.1em;
+    padding: 1em;
+	white-space: pre;
+}
+
+div.widgetEmbeddingError {
+	background-color: #F9F9F9;
+    border: 1px dashed #2F6FAB;
+    color: black;
+    line-height: 1.1em;
+    padding: 1em;
+	white-space: pre;
+}

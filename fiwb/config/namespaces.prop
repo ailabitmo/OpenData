@@ -1,0 +1,25 @@
+#Sun May 26 14:46:55 MSK 2013
+System=http\://www.fluidops.com/
+fluidops=http\://www.fluidops.com/
+skosCore04=http\://www.w3.org/2004/02/skos/core\#
+dbpedia=http\://dbpedia.org/ontology/
+dcat=http\://www.w3.org/ns/dcat\#
+twitter=http\://twitter.com/
+xsd=http\://www.w3.org/2001/XMLSchema\#
+foaf=http\://xmlns.com/foaf/0.1/
+dcterms=http\://purl.org/dc/terms/
+history=http\://www.fluidops.com/history/
+demo=http\://www.fluidops.com/demo/
+rdfs=http\://www.w3.org/2000/01/rdf-schema\#
+void=http\://rdfs.org/ns/void\#
+owl=http\://www.w3.org/2002/07/owl\#
+mondial=http\://www.semwebtech.org/mondial/10/meta\#
+Admin=http\://www.fluidops.com/admin/
+patent=http\://patents.data.gov.uk/def/patents/
+default=http\://www.fluidops.com/resource/
+Settings=http\://www.fluidops.com/settings/
+research=http\://research.data.gov.uk/def/project/
+purl=http\://purl.org/stuff/project/
+rdf=http\://www.w3.org/1999/02/22-rdf-syntax-ns\#
+dc=http\://purl.org/dc/elements/1.1/
+Help=http\://www.fluidops.com/help/

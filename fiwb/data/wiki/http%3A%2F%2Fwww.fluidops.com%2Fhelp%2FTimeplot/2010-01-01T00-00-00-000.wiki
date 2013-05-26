@@ -1,0 +1,45 @@
+=== Timeplot Widget ===
+
+==== Functionalities ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.TimeplotWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.TimeplotWidget
+}}
+
+==== Supported Date Formats ====
+
+The value of the variable '''date''' should have one of the following formats:
+
+* yyyy-MM-dd'T'HH:mm:ss
+* EEE, d MMM yyyy HH:mm:ss Z
+* yyyy-MM-dd
+* yyyy
+
+==== Example ====
+
+'''Important note:''' The example on this page requires that example data is loaded, see [[Help:ExampleData | how to load example data]].
+
+Provided there are some projects with temporal and quantitative information, the widget could be embedded in the wiki page with the following code:
+<source>
+{{ #widget : Timeplot
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?start WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant . 
+      ?role <http://research.data.gov.uk/def/project/project> ?project . 
+      ?project <http://purl.org/stuff/project/startDate> ?start . 
+      ?role <http://research.data.gov.uk/def/project/region> ?region . }
+    GROUP BY ?start'
+  | value = 'sumGrant'
+  | date = 'start'
+}}
+</source>
+
+The resulted view :
+
+<img src="../images/help/Timeplot.PNG" />

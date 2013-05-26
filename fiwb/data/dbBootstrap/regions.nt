@@ -1,0 +1,29 @@
+<http://research.data.gov.uk/regions/rda/NorthEast><http://ammap.com/region/name> "GB_UKC".
+<http://research.data.gov.uk/regions/rda/NorthWest> <http://ammap.com/region/name> "GB_UKD".
+<http://research.data.gov.uk/regions/rda/YorkshireHumberside> <http://ammap.com/region/name> "GB_UKE".
+<http://research.data.gov.uk/regions/rda/EastMidlands> <http://ammap.com/region/name> "GB_UKF".
+<http://research.data.gov.uk/regions/rda/WestMidlands> <http://ammap.com/region/name> "GB_UKG".
+<http://research.data.gov.uk/regions/rda/EastOfEngland> <http://ammap.com/region/name> "GB_UKH".
+<http://research.data.gov.uk/regions/rda/London> <http://ammap.com/region/name> "GB_UKI".
+<http://research.data.gov.uk/regions/rda/SouthEast> <http://ammap.com/region/name> "GB_UKJ".
+<http://research.data.gov.uk/regions/rda/SouthWest> <http://ammap.com/region/name> "GB_UKK".
+<http://research.data.gov.uk/regions/rda/Wales> <http://ammap.com/region/name> "GB_UKL".
+<http://research.data.gov.uk/regions/rda/Scotland> <http://ammap.com/region/name> "GB_UKM".
+<http://research.data.gov.uk/regions/rda/NorthernIreland> <http://ammap.com/region/name> "GB_UKN".
+
+<http://dbpedia.org/resource/Baden-W%C3%BCrttemberg>  <http://ammap.com/region/name> "DE_BW" .
+<http://dbpedia.org/resource/Bavaria><http://ammap.com/region/name> "DE_BY" .
+<http://dbpedia.org/resource/Berlin><http://ammap.com/region/name> "DE_BE" .
+<http://dbpedia.org/resource/Brandenburg><http://ammap.com/region/name> "DE_BB" .
+<http://dbpedia.org/resource/Bremen><http://ammap.com/region/name> "DE_HB" .
+<http://dbpedia.org/resource/Hamburg><http://ammap.com/region/name> "DE_HH" .
+<http://dbpedia.org/resource/Hesse><http://ammap.com/region/name> "DE_HE" .
+<http://dbpedia.org/resource/Mecklenburg-Vorpommern><http://ammap.com/region/name> "DE_MV" .
+<http://dbpedia.org/resource/Lower_Saxony><http://ammap.com/region/name> "DE_NI" .
+<http://dbpedia.org/resource/North_Rhine-Westphalia><http://ammap.com/region/name> "DE_NW" .
+<http://dbpedia.org/resource/Rhineland-Palatinate><http://ammap.com/region/name> "DE_RP" .
+<http://dbpedia.org/resource/Saarland><http://ammap.com/region/name> "DE_SL" .
+<http://dbpedia.org/resource/Saxony><http://ammap.com/region/name> "DE_SN" .
+<http://dbpedia.org/resource/Saxony-Anhalt><http://ammap.com/region/name> "DE_ST" .
+<http://dbpedia.org/resource/Schleswig-Holstein><http://ammap.com/region/name> "DE_SH".
+<http://dbpedia.org/resource/Thuringia><http://ammap.com/region/name> "DE_TH" .

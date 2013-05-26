@@ -1,0 +1,114 @@
+=== Search Widget ===
+
+==== Functionality ====
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.SearchWidget
+| type = 'DESCRIPTION'
+}}
+
+The search widget allows to execute parameterized SPARQL queries, which are called ''query patterns'' in the following.
+A query pattern may contain parameters such as '?:input' that are replaced with the user input.
+Each parameter has a unique name, an associated UI component for the user input, and a type that specifies how the user input is processed.
+For parameters of type 'LUCENE', the individual keywords in the query string are concatenated using the AND operator. 
+For the types 'LITERAL' and 'LUCENE', the user input is quoted using double quotation marks ("").  User input of type 'URI' must be a valid URI.
+If no query pattern is specified, the user input is forwarded to the search servlet as query string.
+
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.SearchWidget
+}}
+
+==== Example ====
+
+===== Simple Search Input =====
+Simple search widget without query pattern. The user input is forwarded to the search servlet as query string. The search is conducted over wiki pages only.
+<source>
+{{
+#widget: Search
+| queries = {{
+    {{ queryTargets = 'WIKI' }}
+  }}
+}}
+</source>
+
+The search widget is rendered as follows.
+
+<img src="../images/help/searchWidget.png" />
+
+===== Single Parameter =====
+Query pattern with a single parameter ?:input, which is replaced with the value of a text input component.
+<source>
+{{
+#widget: Search
+| queries = {{
+    {{ queryPattern = 'SELECT * WHERE { ?subject rdfs:label ?:label }' 
+     | parameters = {{ {{ name='label' | parameterType=LITERAL | componentType=TEXTFIELD }} }}
+    }}
+  }}
+}}
+</source>
+
+===== Keyword Search =====
+Keyword search pattern that performs a full text search. The single parameter ?:input is replaced with the value of a text input component.
+<source>
+{{
+#widget: Search
+| queries = {{
+    {{ queryPattern = 'PREFIX search: <http://www.openrdf.org/contrib/lucenesail#> SELECT ?subject WHERE { ?subject search:matches ?match . ?match search:query ?:input . } LIMIT 1000' 
+     | parameters = {{ {{ name='input' | parameterType=LUCENE | componentType=TEXTFIELD }} }}
+    }}
+  }}
+}}
+</source>
+
+===== Multiple Parameters =====
+Complex query pattern with two parameters: ?:input is replaced with a text input component and ?:type with a dropdown box.
+<source>
+{{
+#widget: Search
+| queries = {{
+    {{ queryPattern = 'SELECT * WHERE { ?subject rdfs:label ?:input . ?subject rdf:type ?:type }' 
+     | parameters = {{
+        {{ name='input' | parameterType=LITERAL | componentType=TEXTFIELD }} |
+        {{ name='type' | parameterType=URI | componentType=DROPDOWN | values={{ foaf:Person | foaf:Organization }} }}
+      }}
+    }}
+  }}
+}}
+</source>
+
+===== Multiple Query Patterns =====
+Complex example with two query patterns. A tab pane allows the user to switch between query patterns. For each pattern, a list of parameters is specified.
+<source>
+{{
+#widget: Search
+| queries = {{
+    {{ label = 'Label'
+     | queryPattern = 'SELECT * WHERE { ?subject rdfs:label ?:label }' 
+     | parameters = {{ {{ name='label' | parameterType=LITERAL | componentType=TEXTFIELD }} }}
+    }} | 
+    {{ label = 'Type'
+     | queryPattern = 'SELECT DISTINCT ?subject WHERE { ?subject rdf:type ?:type }'
+     | parameters = {{ {{ name='type' | parameterType=URI | componentType=TEXTFIELD }} }}
+    }}
+  }}
+}}
+</source>
+
+===== Auto Suggestion =====
+Text input component with auto suggestion of URIs for parameter ?:type. The autoSuggest query is evaluated only once when rendering the widget. When the user starts typing, the query results are filtered.
+<source>
+{{
+#widget: com.fluidops.iwb.widget.SearchWidget
+| queries = {{
+    {{ queryPattern = 'SELECT DISTINCT ?subject WHERE { ?subject rdf:type ?:type }' 
+     | parameters = {{
+        {{ name='type' | parameterType=URI | componentType=TEXTFIELD | autoSuggest='SELECT ?subject WHERE { ?subject rdf:type owl:Class }' }}
+      }}
+    }}
+  }}
+}}
+</source>

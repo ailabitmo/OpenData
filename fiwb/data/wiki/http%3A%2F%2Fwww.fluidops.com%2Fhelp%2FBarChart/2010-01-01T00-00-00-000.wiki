@@ -1,0 +1,81 @@
+=== Bar Chart Widget ===
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.BarChartWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.BarChartWidget
+}}
+
+==== BarChart Examples ====
+===== Vertical Bars =====
+<source>
+{{ #widget : BarChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | height = '300'
+  | type = 'BAR_VERTICAL'
+  | colors = {{ '#93EA85' }}
+}}
+</source>
+
+<img src="../images/help/BarChart/VerticalBars.PNG" width="1024px" />
+
+===== Horizontal Bars =====
+<source>
+{{ #widget : BarChart
+  | query = '
+    SELECT ?org (COUNT(?project) AS ?countProjects) WHERE { 
+      ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+      ?org rdfs:label ?label .
+      ?org <http://research.data.gov.uk/def/project/project> ?project
+    FILTER regex(?label, "^Te.*Ltd$") }
+    GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' }}
+  | height = '300'
+  | type = 'BAR_HORIZONTAL'
+  | colors = {{ '#93EA85' }}
+}}
+</source>
+<img src="../images/help/BarChart/HorizontalBars.PNG" width="1024px" />
+
+===== Clustered Bars =====
+
+<source>
+{{ #widget : BarChart
+  | query = '
+      SELECT ?org (COUNT(?project) AS ?countProjects) (COUNT(?o) AS ?outgoingLinks) WHERE { 
+        ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> .
+        ?org rdfs:label ?label .
+        FILTER regex(?label, "^Te.*Ltd$")
+        {
+          ?org <http://research.data.gov.uk/def/project/project> ?project
+        }
+        UNION
+        {
+          ?org ?p ?o
+        }
+      }
+      GROUP BY ?org'
+  | input = 'org'
+  | output = {{ 'countProjects' | 'outgoingLinks' }}
+  | title = 'title'
+  | type = 'BAR_CLUSTERED'
+  | colors = {{ '#71BA6B' | '#5CA4FF' }}
+}}
+</source>
+
+<img src="../images/help/BarChart/ClusteredBars.PNG" width="1024px" />

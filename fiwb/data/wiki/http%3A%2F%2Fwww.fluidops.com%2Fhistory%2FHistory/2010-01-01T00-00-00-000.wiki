@@ -1,0 +1,2 @@
+= History <sup>[[Help:HistoricalData | <img width="19" src="../images/navigation/help_start.png" />]]</sup> =
+The feature is only available in the Enterprise Edition.

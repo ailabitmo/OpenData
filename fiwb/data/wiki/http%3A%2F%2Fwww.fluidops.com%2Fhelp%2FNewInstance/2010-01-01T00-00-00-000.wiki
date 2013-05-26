@@ -1,0 +1,44 @@
+=== New Instance Widget ===
+
+==== Functionalities ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.SimpleNewInstanceWidget
+| type = 'DESCRIPTION'
+}}
+
+Include the line below in any entity page, for example in the wiki page ''Person''.
+
+<source>
+{{ #widget: NewInstance }}
+</source>
+
+Your page will now include a text field, where you can enter the name of the resource you want to create. Confirm your selection by clicking on the ''OK'' button. The Information Workbench will automatically open the wiki page of this new entity. In our case the new resource will be of the type Person. (It has an outgoing edge rdf:type with subject Person.)
+
+All instances created by this widget are resolved in the default namespace. The text input field remains red, until a valid name is entered. The name of the new instance must not contain spaces. The New Instance widget checks, whether an entity with the desired name is already contained in the database to prevent overwriting of existing resources.
+
+<div style="margin-top:20px;text-align:center;">
+<img src="../images/help/NewInstanceWizard.png" width="364px" />
+</div>
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.SimpleNewInstanceWidget
+}}
+
+==== Example ====
+
+Here is an example configuration for a New Instance Wizard:
+
+<source>
+{{ #widget: NewInstance |
+randomizingType = 'UUID' |
+randomizingURIPattern = 'http://myNamespace/randomizedURI/$random$#id' |
+labelProperty = 'myLabel'
+}}
+</source>
+
+After putting this widget definition on a page myTestType, entering a text, say "My new instance" in the text input field and 
+clicking OK, a new instance with a URI similar to '''<nowiki>http://myNamespace/randomizedURI/006270e4-d5c9-4887-b1ee-43053c6c56ea#id</nowiki>''' 
+is created, with the outgoing properties ''(rdf:type - MyTestType)'' and ''(myLabel - "My new instance")''.

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<project name="fiwb" default="build" basedir=".">
+	<property name="root" location=".." />
+	
+
+	<target name="clean">		
+		<delete dir="${root}/temp" failonerror="true" />
+		<delete dir="${root}/artifacts" failonerror="true" />
+		<mkdir dir="${root}/artifacts" />
+	</target>	
+	
+	<target name="solutions" depends="clean">
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+            <classpath>
+                <pathelement location="${root}/build/ant-contrib/ant-contrib-1.0b3.jar"/>
+            </classpath>
+    	</taskdef>
+        <foreach target="solution" param="solution.base.path" inheritall="true">
+            <path>
+        	   <dirset dir="${root}/solutions" includes="*"/>
+        	</path>
+    	</foreach>
+	</target>
+	
+	<target name="solution">
+		<basename file="${solution.base.path}" property="solution.name"/>
+		<property name="solution.dest.path" value="${root}/temp/${solution.name}"/>
+		<property name="zip.path" value="${root}/artifacts/${solution.name}.zip"/>
+   		<mkdir dir="${solution.dest.path}/bin"/>
+		<manifest file="${solution.dest.path}/MANIFEST.MF">
+			<attribute name="project" value="${solution.name}" />
+		</manifest>
+		<if>
+		    <available file="${solution.base.path}/src"/>
+			<then>
+			    <path id="solution.classpath">
+			    	<fileset dir="${root}/lib/" includes="**/*.jar"/>
+			    	<fileset dir="${solution.base.path}" includes="lib/**/*.jar"/>
+			    </path>
+                <javac encoding="UTF-8" 
+                	classpathref="solution.classpath" 
+                	includeAntRuntime="false"
+                	destdir="${solution.dest.path}/bin" srcdir="${solution.base.path}/src" 
+                	debug="on" optimize="on" nowarn="on"
+					target="1.6" source="1.6"/>
+				<mkdir dir="${solution.dest.path}/lib"/>
+				<property name="solution.jar.path" value="${solution.dest.path}/lib/${solution.name}.jar"/>
+        	    <jar destfile="${solution.jar.path}" 
+        	    	manifest="${solution.dest.path}/MANIFEST.MF">
+					<fileset dir="${solution.dest.path}/bin" includes="**/*.class"/>
+        	    	<fileset dir="${solution.base.path}/src" includes="**/*.*" excludes="*.java"/>
+				</jar>
+		        <zip destfile="${zip.path}">
+		             <zipfileset file="${solution.jar.path}" prefix="lib/extensions"/>
+		        </zip>
+			</then>
+		</if>
+	    <zip destfile="${zip.path}" update="true">
+	    	<fileset dir="${solution.base.path}" excludes="src/**, test/**"/>
+	    	<zipfileset file="${solution.dest.path}/MANIFEST.MF" prefix="META-INF"/>
+	    </zip>
+	</target>
+	
+	<target name="build" depends="solutions" />
+	
+</project>

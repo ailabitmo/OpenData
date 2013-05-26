@@ -1,0 +1,39 @@
+=== Twitter Provider ===
+'''Note: This provider is only available in Information Workbench Enterprise Edition.'''
+
+==== Functionality ====
+
+The TwitterProvider extracts public tweets of Twitter users. A Twitter user in the Information Workbench 
+is represented by an URI located in the twitter namespace ''<nowiki>http://twitter.com/</nowiki>'' or ''twitter''. 
+The TwitterProvider will automatically populate their wiki pages with their [[Help:Twitter | Twitter feed]] 
+a [[Help:GMap | map showing their location ]] and further information like their followers for example.
+
+Go back to [[Help:Providers | Providers ]]
+
+==== Configuration Settings ====
+
+{| class="wikitable" 
+|-
+! Parameter
+! Description
+! Required
+|-
+| twitterAccounts 
+| Comma (",") separated list of twitter accounts. These are either given in the format "@twitterAccount" or if a corresponding foaf account is already in the local store in the form "foaf:foafId". 
+| &#10004;
+|-
+| lifetime 
+| The lifetime of the extracted data in hours 
+| &#10004;
+|}
+
+==== Example ====
+
+* Navigate to Admin:Providers and click on Add new provider, select 'Twitter Provider' from the dropdown menu.
+
+<img src="../images/help/TwitterProvider-form.png" width="688px" />
+
+* As with all providers, input a valid Identifier e.g. (myTwitterProvider) and Poll Interval e.g. 100.  
+* Enter a (comma separated) list of valid twitter names in the twitterAccounts input area.
+* Enter the life time of the data e.g. 100.
+* Click 'Submit'

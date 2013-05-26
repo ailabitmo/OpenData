@@ -1,0 +1,13 @@
+==  Loading Example Data into the Information Workbench ==
+
+In some help pages we make use of example data to demonstrate certain functionalities such as charts or our template mechanism. The provided example data contains business- and research related data from [http://data.gov.uk/ data.gov.uk] (which is used mainly in the example charts and queries) as well as some abbreviations for geographic regions (which are used for the HeatMap widget). To follow the examples yourself, please perform the following steps to import the sample data:
+
+# Navigate to [[Admin:Import | Admin:Import]]
+# Enter some context identifier, e.g. 'myContext'
+# Select the RDF files to import from the folder ''%IWB_HOME%/fiwb/data/dbBootstrap'' 
+# Select ''N-Triples'' as the data format
+# Click the ''Import RDF Data'' button
+
+Once, the RDF data is loaded, an information message will show up. Please repeat the above steps for all bootstrap files.
+
+In order to find the loaded RDF data in the Information Workbench, navigate to [[Admin:ContentOverview]] and search for the ''context identifier'' you were using.

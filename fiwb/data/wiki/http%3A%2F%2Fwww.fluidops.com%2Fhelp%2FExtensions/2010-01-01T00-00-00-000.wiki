@@ -1,0 +1,92 @@
+== Installing Extensions ==
+
+The Information Workbench can be configured, customized and extended in various ways, including:
+
+* Existing providers can be [[Help:Providers|added/configured]], custom providers can be [[Help:ProviderSDK|developed]].
+* Semantic data can be [[Help:RDFImport|imported]] along with [[Help:GettingStarted|namespace definitions]].
+* Wiki pages can be [[Help:Wiki|added]].
+* The system can be adapted to the environment by editing [[Help:Installation|property-configuration]] or other configuration files.
+
+While the Information Workbench easily allows to make use of these various configuration options, these customizations can also be packaged into a single artifact that can be installed all in one. The following sections describe the internal structure of such an artifact and how it can be installed.
+
+=== Installation of a Customization Artifact ===
+
+==== Installation at startup ====
+
+When the Information Workbench is started it checks the folder
+
+ apps
+
+for a zip-archive having the suffix <code>.zip</code>. The first one found is unpacked to a temporary folder and gets installed in the Information Workbench. After a successful installation the zip file is renamed to ''&lt;zipFile.zip&gt;.&lt;TIMESTAMP&gt;''.  The application is automatically restarted, if this is required to activate all changes of the solution. If the installation was only partially successful, the zip file is kept and the system will try to install again on the next (manual) restart.
+
+==== Installation at Runtime ====
+
+Given a URL of an solution artifact it can be installed at runtime through the remote API of the Information Workbench. This could for example be accessed through the [[Help:CLI|CLI]]. Once logged into the CLI a solution can be installed as follows:
+
+ getSolutionService install -solutionArtifact http://host/path/solution.zip
+ 
+Even if the solution requires a restart to become fully active, this restart is not triggered automatically. However it can be triggered manually by using the cli-command ''restart''. 
+ 
+=== Internal Structure of a Customization Artifact ===
+
+As stated before a customization artifact is shipped in a [http://en.wikipedia.org/wiki/Zip_%28file_format%29 zip]-file. The following table summarizes the internal structure of this file an how the various types of customization files are handled when the artifact is installed at startup.
+
+{|class="wikitable sortable"
+! File/Folder !! Description
+|-
+| config.prop || <code>config.prop</code> contains system wide configuration switches. The content of this file is merged with the application's <code>config.prop</code> file and written to the application's file. The "merge" result contains the following properties:
+* all properties (key, value) from the zip-file
+* all properties (key, value) from the application where key is not defined by the zip-files.
+|-
+| config/ || 
+|-
+| : images.prop || <code>images.prop</code> contains configuration for the [[Help:TableResult|TableResultWidget]]. The content of this file is merged with the application's <code>config/images.prop</code>.
+|-
+| : syspredicates.prop || <code>syspredicates.prop</code> lists predicates that are rendered in a special way. The content of this file is merged with the application's <code>config/syspredicates.prop</code>.
+|-
+| : wikibot.prop || <code>wikibot.prop</code> maps resource URI to web-sources for content that is not stored internally. The content of this file is merged with the application's <code>config/wikibot.prop</code>.
+|-
+| : namespaces.prop || <code>namespaces.prop</code> maps namespace-prefixes to full URIs. The namespaces defined in this file are registered with the application's namespace service.
+|-
+| : providers.prop || <code>providers.prop</code> lists providers that can be configured using the UI. The classes listed in this file are registered with the application's provider service.
+|-
+| : providers.xml || <code>provides.xml</code> contains configuration on which providers run when and how. The configuration in this file are registered with the application's provider service.
+|-
+| : widgets.prop || <code>widgets.prop</code> lists widgets that can be configured using the UI. The classes listed in this file are registered with the application's widget service.
+|-
+| : widgets.xml || <code>widgets.xml</code> contains configuration on which widgets are rendered for what resources. The configuration in this file is registered with the application's widget service.
+|-
+| lib/ ||
+|-
+| : extensions/ ||
+|-
+| :: <nowiki>*</nowiki>.jar || The jar files in this directory are simply copied to the application. After the next restart they become available in the application's classpath.
+|-
+| etc/ ||
+|-
+| : jetty.xml || The main configuration file of the application's servlet container [http://jetty.codehaus.org/jetty/ jetty] simply overwrites the corresponding default file of the application.
+|-
+| data/ ||
+|-
+| : dbBootstrap/ ||
+|-
+| :: <nowiki>*</nowiki>.nt || These files (in [http://www.w3.org/2001/sw/RDFCore/ntriples/ n-triples] format) are imported into the RDF store.
+|-
+| : ontologies/ ||
+|-
+| :: <nowiki>*</nowiki>.owl || These files (in [http://www.w3.org/TR/REC-rdf-syntax/ RDF/XML] format) are imported into the RDF store.
+|-
+| : wikiBootstrap*/ ||
+|-
+| :: &lt;resource-uri&gt; || The files are imported into the wiki-store. Filenames are assumed to be URL-encoded resource-URIs.
+|-
+| resources/ || The whole directory structure is simply copied into the application and thus available for custom code.
+|-
+| scripts/ || The whole directory structure is simply copied into the application and the scripts can be referenced in corresponding widgets.
+|-
+| webapps/ ||
+|-
+| : ROOT/ || The whole directory structure is simply copied into the application and all contained web-resources like images, css-files become available through the servlet-container.
+|}
+
+

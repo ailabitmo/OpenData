@@ -1,0 +1,21 @@
+== Social Media ==
+
+In this section we discuss the social media widgets in more detail.  The social media widgets are responsible for embedding content from social media sources into the Information Workbench.  The social media widgets are listed in the following table.
+
+{|class="wikitable"
+|-
+!Name
+!Description
+|-
+| [[ Help:News | News ]]
+| Entity related news feed from New York Times.
+|-
+| [[ Help:Skype | Skype ]]
+| Adds a Skype status button to a wiki page. On click the contact specified will be called.
+|-
+| [[ Help:Twitter | Twitter ]]
+| Incorporates Twitter feeds into wiki pages.
+|-
+| [[ Help:Youtube | Youtube ]]
+| Embeds YouTube videos in wiki pages.
+|}

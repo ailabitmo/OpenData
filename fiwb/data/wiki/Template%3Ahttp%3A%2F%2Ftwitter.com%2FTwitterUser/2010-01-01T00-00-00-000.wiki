@@ -1,0 +1,69 @@
+__NOTOC__
+
+== <span style="color:dimgray;">Twitter user: @</span><span style="font-size: 110%;color:salmon;font-weight:bold;">''$this.twitter:name$''</span> ==
+
+= <span style="color:dimgray;">Statistics </span>=
+<div style="color:dimgray;">
+<span style="font-weight:bold;">Location: </span> <span style="color:black;">$this.twitter:location$</span>
+
+<span style="font-weight:bold;">Status: </span><span style="color:black;">"''$this.twitter:status$''"</span>
+
+<span style="font-weight:bold;">Number of Friends: </span><span style="color:black;">$this.twitter:friendsCount$</span>
+
+<span style="font-weight:bold;">Number of followers: </span><span style="color:black;">$this.twitter:followersCount$</span>
+</div>
+
+
+= <span style="color:dimgray;">Users following $this.twitter:name$</span> =
+<div style="border-style:solid; border-width:8px;border-color:gainsboro;">
+{{ #widget : GMap
+  | markers = $SELECT ?image ?location  ?link (CONCAT("Location: ", ?location) AS ?description)
+    			WHERE { ?Follower <http://twitter.com/follows> ?? . 
+    			?Follower <http://twitter.com/location> ?location . 
+    			OPTIONAL {?Follower <http://dbpedia.org/ontology/thumbnail> ?image}  
+    			?Follower <http://twitter.com/location> ?address . 
+                BIND(?Follower AS ?link) }$
+  | asynch = true
+}}
+</div>
+</br>
+=<span style="color:dimgray;">Followers number growth statistics</span>=
+{{ #widget : LineChart
+  | input = 'date'
+  | output = {{ 'o' }}
+  | query = 'SELECT ?p ?o ?date
+WHERE {
+  GRAPH <http://www.fluidops.com/history/MetaContext> {
+    ?provider <http://www.fluidops.com/history/Provider/hasFullSnapshot> ?snapshotId .
+    ?snapshotId dc:date ?date .
+  }
+  GRAPH ?snapshotId {
+    ?? twitter:followersCount ?o
+  } 
+}ORDER BY ASC(?o)'
+  | historic = true
+  | height = '350'
+}}
+
+<br/>
+
+=<span style="color:dimgray;">Friends number growth statistics</span>=
+
+{{ #widget : LineChart
+  | input = 'date'
+  | output = {{ 'o' }}
+  | query = 'SELECT ?p ?o ?date
+WHERE {
+  GRAPH <http://www.fluidops.com/history/MetaContext> {
+    ?provider <http://www.fluidops.com/history/Provider/hasFullSnapshot> ?snapshotId .
+    ?snapshotId dc:date ?date .
+  }
+  GRAPH ?snapshotId {
+    ?? twitter:friendsCount ?o
+  }
+}ORDER BY ASC(?o)'
+  | historic = true
+  | height = '350'
+}}
+
+<br/>

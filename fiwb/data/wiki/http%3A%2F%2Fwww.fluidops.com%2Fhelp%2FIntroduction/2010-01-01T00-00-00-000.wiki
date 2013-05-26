@@ -1,0 +1,85 @@
+= Introduction =
+
+== What is the Information Workbench ==
+
+The Information Workbench is a platform for Linked Data applications that allows to
+* Semantically integrate and interlink data scattered among different systems, to provide a unified view on isolated data silos
+* Cross the chasm between enterprise-internal and public data, thus making public knowledge available internally
+* Leverage semantic technologies for improved search, presentation, and collaborative augmentation of data
+* Explore global Linked Open Data registries and integrate relevant data sets on demand
+* Rapidly build innovative Linked Data applications using W3C standards like RDF and SPARQL
+
+Linked data formats exhibit a high degree of interoperability and ease of reuse, making them ideal for publishing data, on the web, as Linked Open Data.  The same principles are becoming increasingly popular in enterprise, with internal data being represented as Linked Enterprise Data.  The Information Workbench allows one to harness the power of Linked Open (and Enterprise) Data, allowing for the development of linked data applications, that help to visualize, analyze and query data.
+
+=== The Information Workbench User Interface ===
+
+<img src="../images/help/iwbInterface.png" width="1024px" />
+
+=== Features and Scope ===
+
+The Information Workbench provides the following features:
+
+==== Collaboration ==== 
+* Knowledge Management
+** Capturing of structured and unstructured knowledge
+** Semantic annotation of resources using Semantic MediaWiki syntax or add free-text documentation
+** User management with fine-granular access control
+* Semantic Wiki
+** Semantic Wiki technology to easily annotate resources, establish relationships, or add free-text documentation
+** Extensible pool of predefined widgets and templates
+* Semantic Authoring
+** Editorial workflows for improved efficiency and automation
+** Change management and revision to enable standardized and efficient processes
+** Template-based authoring to create and fill in templates
+** PDF export functionality and convert any page of interest, chart or report in PDF
+** Auto suggestion
+
+
+==== Semantic Integration ====
+
+* Data Integration
+** Integration of  external sources, via providers and Google Refine
+** Integration of different types of data sources with the extensible provider concept
+** Integration of Linked Open Data sources and other data markets from the Web
+* Metadata Management
+** Consolidation and integration of metadataManage data from different sources
+** Unified view on metadata resources and their relationships
+* Linked Open Data Standards
+** Access to Linked Open Data Cloud
+** Management of very large amounts of information on the Data Web
+* Application Development
+** Standards support (RDF, SPARQL, SMW syntax, Void, DCAT, Linked Data publishing)
+** Standardized APIs and SDKs to implement your own widgets and mash-ups
+
+
+==== Business Intelligence & Data Visualization and Analytics ====
+
+* Customizable, widget-based User Interface
+** Customization of the user interface according to your preferences
+** A wide variety of existing widgets based on semantics of the data
+** Extension mechanisms to create own widgets
+* Charting and Reporting
+** User-defined dashboards and reports
+** Queries and charts that are directly embedded into Semantic Wiki pages
+** Historical data management and user-defined charts over historical data
+* Interactive Visualization
+** Exploration and navigation through your data using graphs, tables, and PivotViewer
+** Widgets to visualize different data modalities
+* Semantic Search
+** Structured queries on unstructured data
+** Hybrid search methods: Keyword Search, SPARQL, Pivot-based Search,  Faceted Search
+* Text Analytics and Enrichment
+** Analyze unstructured data, such as texts, posts and blogs
+** Extract patterns from large data sets
+
+=== Where to get Help ===
+
+For answers to any questions about using or extending the Information Workbench the following resources are available:
+
+*Information Workbench home page: 
+
+[http://www.fluidops.com/information-workbench/ www.fluidops.com/information-workbench]
+
+*Information Workbench mailing list: iwb-discussion (at) googlegroups.com 
+
+[http://groups.google.com/group/iwb-discussion groups.google.com/group/iwb-discussion]

@@ -1,0 +1,32 @@
+=== Heat Map Widget ===
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.HeatMapWidget
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.HeatMapWidget
+}}
+
+==== Example ====
+<source>
+{{ #widget : HeatMap
+  | query = 'SELECT (SUM(<http://www.w3.org/2001/XMLSchema#integer>(?grant)) AS ?sumGrant) ?regionname WHERE {
+      ?role <http://research.data.gov.uk/def/project/grant> ?grant .
+      ?role <http://research.data.gov.uk/def/project/region> ?region . 
+      ?region <http://ammap.com/region/name> ?regionname .
+      }
+    GROUP BY ?regionname '
+  | input = 'regionname'
+  | output = {{ 'sumGrant' }}
+  | width = '400'
+  | height = '400'
+  | map = 'united_kingdom_regions'
+}}
+</source>
+
+<img src="../images/help/Heatmap.PNG" width="300px" />

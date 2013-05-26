@@ -1,0 +1,23 @@
+__NOTOC__
+<table  class="start" style="width:100%">
+	<tr>
+		<td colspan=2 >
+			<h1 style="text-align:center;">  
+                  Information Workbench&#8482;	 Help Content
+        	</h1>
+        	<br />
+<div style="width:55%;float:left;">
+<p align="justify">On this page you will find the table of contents of the Information Workbench help pages.  The table of contents is split into three sections that focus on users, administrators and developers respectively.</p>
+</div>
+<div style="width:40%;float:left;margin-left:5%;">  
+'''Quick start'''
+search for a topic in help pages:
+{{ Help:HelpSearchWidget }}
+</div>
+     	</td>
+    </tr>
+</table>
+
+= Table of Contents =
+
+{{Help:TOC}}

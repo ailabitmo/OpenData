@@ -1,0 +1,43 @@
+== Authoring Semantic Data ==
+Each wiki page, or resource, can be associated with structured and semantically linked data.  The triple editor can be used to view and edit the semantically linked data that is associated with a resource.  To access the Triple Editor open the table view of the Information Workbench  click on the <img src="../images/navigation/table_hover.png" /> button.  A custom structured data view can be created and added to a resource with the [[Help:TripleEditorWidget | triple editor widget]].
+
+=== Adding Properties ===
+
+'''Step One: Adding a new property'''
+
+Adding a new property with the triple editor is easy, the first thing you should do is log in with a user account that has the access rights edit RDF data.  Open the Table view of a resource you want to add data to and change to edit mode, by clicking <img src="../images/help/TE-edit.png" />, then click on the add button.  The property you added will now be shown in the table of associated properties.
+
+
+<img src="../images/help/TE-propertyAdded.png" width="950px" />
+
+
+'''Step Two: Adding values to a property'''
+
+ To add a value for a newly added property, click on the New Entry field.  Type in the value to be added, e.g. value1, select the type from the dropdown box (literal or URI) and click the save changes button.  The property and value are now associated with the resource, and are displayed in the triple editor.
+
+
+<img src="../images/help/TE-valueAdded.png" width="950px" />  
+
+
+Multiple values can be added at the same time by clicking on the add value button and enter as many values as necessary.  Once all the values have been added click the Save Changes button, to save all of the values that have been added to properties.
+
+==== Editing Values ====
+
+To edit a value open the edit mode of the editor and click on the value that you want to edit.  The value will open in a text box allowing one to change the value, click <img src="../images/help/accept.png" /> to accept the changes.  Multiple values can be edited at a time, the changes will be saved once the Save Changes button is clicked.
+
+==== Removing Values ====
+To remove a value from a property click on the (Remove Entry) button, the value to be removed will be highlighted.  Values to be deleted will only be deleted when the save changes button is clicked.
+
+=== Removing Properties ===
+
+To remove a property from the triple editor you have to remove all of the values that are associated to it and save the changes.
+
+=== Validation of user input ===
+
+The triple editor supports built-in validation for the most common [http://www.w3.org/TR/xmlschema11-2/#built-in-datatypes XML schema types], including ''strings, integer, boolean, double, date''. In addition to these datatypes, the triple editor supports validation of URIs. 
+
+If some input cannot be validated for the given target type, the respective input field is marked red. Consider the following image as illustration:
+
+<img src="../images/help/TE-validation.png" />
+
+The validator that is applied depends on the target type of the respective property, which is either defined through the underlying ontology or manually configured in the triple editor instance. For details about the configuration please refer to the documentation of the [[Help:TripleEditorWidget| TripleEditorWidget]].

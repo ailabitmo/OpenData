@@ -1,0 +1,31 @@
+<source lang="xml">
+<settings>
+  <font>Tahoma</font>
+  <redraw>1</redraw>
+  <values>
+    <category>
+      <rotate>30</rotate>
+    </category>
+    <value>
+      <unit>$unit$</unit>
+    </value>
+  </values>
+  <balloon>
+    <color>FFFFFF</color>
+    <text_color>000000</text_color>
+    <border_width>2</border_width>
+    <border_color>000000</border_color>
+  </balloon>
+  <legend>
+    <enabled>0</enabled>
+  </legend>
+  <column>
+    <type>3d column</type>
+    <width>70</width>
+    <alpha>75</alpha>
+    <balloon_text><![CDATA[{description}: {value}$unit$</b><br/>({series})]]></balloon_text>
+    <grow_effect>strong</grow_effect>
+  </column>
+  <depth>20</depth>
+</settings>
+</source>

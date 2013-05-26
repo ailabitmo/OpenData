@@ -1,0 +1,9 @@
+2013-05-13 01:37:49,296 INFO [main] install.wiki - bootstrap all wiki pages from folder: .\data\wikiBootstrapADMIN
+2013-05-13 01:37:50,364 INFO [main] install.wiki - bootstrap all wiki pages from folder: .\data\wikiBootstrapGENERAL
+2013-05-13 01:37:51,945 INFO [main] install.wiki - bootstrap all wiki pages from folder: .\data\wikiBootstrapHELP
+2013-05-26 14:45:39,152 INFO [main] install - Installing solution solution (version: n/a)
+2013-05-26 14:45:39,865 INFO [main] install.wiki - bootstrap all wiki pages from folder: solutions\DemoSolution\data\wikiBootstrap
+2013-05-26 14:45:40,013 INFO [main] install - Installed Solution 'C:\Eclipse Juno\workspace\fiwb\.\apps\solution.ref', result: Status: INSTALLED_SUCCESSFULLY
+2013-05-26 14:46:55,724 INFO [main] install - Installing solution solution (version: n/a)
+2013-05-26 14:46:56,477 INFO [main] install.wiki - bootstrap all wiki pages from folder: solutions\DemoSolution\data\wikiBootstrap
+2013-05-26 14:46:56,489 INFO [main] install - Installed Solution 'C:\Eclipse Juno\workspace\fiwb\.\apps\solution.ref', result: Status: INSTALLED_SUCCESSFULLY

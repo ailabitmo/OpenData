@@ -1,0 +1,12 @@
+== Manual Cache Invalidation ==
+Manual Cache Invalidation provides you with the ability to manually clear caches of the Information Workbench. You may either clear individual caches or all of them at once. Currently, individual caches include
+
+*contexts
+*images
+*instances
+*inverse properties
+*labels
+*properties
+*types
+*auto suggestion
+*node neighborhood

@@ -1,0 +1,14 @@
+= Administration =
+In this section you will find out how to administer the Information Workbench, topics include;
+
+*[[Help:UserManagement | managing users]]
+*[[Help:WikiManagement | managing wiki pages]]
+*[[Help:Upload | uploading files]] 
+*[[Help:CLI | how to use the command line interface]]
+*[[Help:BackupDatabase | backing up the database]] 
+*[[Help:HistoricalData | historical data]] 
+*[[Help:StatusPage | system status]]
+*[[Help:Cache | manual cache invalidation]]
+*[[Help:Extensions | installing extensions]]
+
+

@@ -1,0 +1,205 @@
+<list>
+  <WidgetConfig>
+    <value class="uri">http://www.w3.org/2000/01/rdf-schema#Resource</value>
+    <widget>com.fluidops.iwb.widget.TripleEditorWidget</widget>
+    <preCondition></preCondition>
+    <input>{{
+	propertyConfiguration = {{ {{
+	showAlways = false |
+	queryPattern = &apos;SELECT ?x where {?x rdf:type owl:Class}&apos; |
+	property = &apos;rdf:type&apos;
+}} | {{
+	showAlways = false |
+	queryPattern = &apos;SELECT ?x where {?x rdf:type owl:Class}&apos; |
+	property = &apos;rdfs:range&apos;
+}} | {{
+	showAlways = false |
+	queryPattern = &apos;SELECT ?x where {?x rdf:type owl:Class}&apos; |
+	property = &apos;rdfs:domain&apos;
+}} | {{
+	showAlways = false |
+	queryPattern = &apos;SELECT ?x where {?x rdf:type owl:Class}&apos; |
+	property = &apos;rdfs:subClassOf&apos;
+}} }} |
+	limitProperties = false
+}}</input>
+    <applyToInstances>true</applyToInstances>
+  </WidgetConfig>
+  <WidgetConfig>
+    <value class="uri">http://www.w3.org/2000/01/rdf-schema#Resource</value>
+    <widget>com.fluidops.iwb.widget.GraphWidget</widget>
+    <input class="ConfigInput">
+    	{{
+        	graphType = 'hypertree' |
+        	query = 'CONSTRUCT {  ??  &lt;http://dbpedia.org/ontology/edge&gt; ?y . 
+				                       ?y rdfs:label ?l3 .
+				                       ?y &lt;http://dbpedia.org/ontology/edge&gt; ?a .
+				                       &lt;http://dbpedia.org/ontology/edge&gt; rdfs:label &quot; &quot;. 
+									   ??  rdfs:label ?l2 . 
+	                                   ?a rdfs:label  ?l . 
+									   ?a &lt;http://dbpedia.org/ontology/thumbnail&gt; ?pic .  } 
+									   
+	          WHERE {  {?? ?y ?a } UNION {?a ?y ?? }  OPTIONAL{ ??  rdfs:label ?l2 .} OPTIONAL {  ?a rdfs:label ?l. } OPTIONAL { ?a  &lt;http://dbpedia.org/ontology/thumbnail&gt; ?pic .} OPTIONAL {?y rdfs:label ?l3 .}
+	               }' |
+	        maxDepth = 2 |
+	        spreadFactor = 50 |
+	        thumbnails = false |
+		}}
+    </input>
+    <applyToInstances>true</applyToInstances>
+  </WidgetConfig> 
+  <WidgetConfig>
+    <value class="uri">http://www.w3.org/2002/07/owl#Class</value>
+    <widget>com.fluidops.iwb.widget.GraphWidget</widget>
+    <input class="ConfigInput">
+      {{
+        	graphType = 'forcedirectedgraph' |
+        	query = 'CONSTRUCT { 
+     								?? rdfs:subClass ?d .
+     								?d rdfs:label ?ld . 
+                                    ?? rdfs:subClassOf ?e .
+                                    ?e rdfs:label ?le . 
+     								
+     								?? rdfs:range ?property2 .
+     								?property2 rdfs:domain ?c . 
+                                    ?? rdfs:domain ?property1 . 
+     								?property1 rdfs:range ?b .
+     							    ?? rdfs:label ?la . 
+     							    ?b rdfs:label ?lb . 
+     							    ?c rdfs:label ?lc .
+     							    ?property1 rdfs:label ?lp1 . 
+     							    ?property2 rdfs:label ?lp2 .
+     							    rdfs:domain rdfs:label &quot;domain&quot; .
+     							    rdfs:range rdfs:label &quot;range&quot; .
+     							    rdfs:subClass rdfs:label &quot;subClass&quot; .
+     							    rdfs:subClassOf rdfs:label &quot;subClassOf&quot; .}
+          WHERE {
+						OPTIONAL {?? rdfs:label ?la .} 
+                        { 
+                        ?property2 rdfs:range ?? . OPTIONAL { ?property2 rdfs:label ?lp2 .}
+                        OPTIONAL { ?property2 rdfs:domain ?c . OPTIONAL { ?c rdfs:label ?lc .}}
+                        }
+                        UNION
+                        {
+                        ?property1 rdfs:domain ?? . OPTIONAL {	?property1 rdfs:label ?lp1 .  }
+						OPTIONAL { ?property1 rdfs:range ?b .  OPTIONAL { ?b rdfs:label ?lb . }}
+                        } 
+                        OPTIONAL
+                        {
+                          ?d rdfs:subClassOf ?? .
+                          ?d rdfs:label ?ld . 
+                        }
+                        OPTIONAL
+                        {
+                          ?? rdfs:subClassOf ?e .
+                          ?e rdfs:label ?le . 
+                        }
+     					}' |
+     	maxDepth = 2 |
+        spreadFactor = 50 |
+        thumbnails = false |
+ 	  }}
+    </input>
+    <applyToInstances>true</applyToInstances>
+  </WidgetConfig>
+    <WidgetConfig>
+    <value class="uri">http://www.w3.org/2002/07/owl#ObjectProperty</value>
+    <widget>com.fluidops.iwb.widget.GraphWidget</widget>
+    <input class="ConfigInput">
+    	{{
+     		graphType = 'forcedirectedgraph' |
+        	query = 'CONSTRUCT { 
+     								?? rdf:type &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .
+     								&lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; rdfs:label "ObjectProperty" .  
+     								
+     								?? rdfs:range ?class1 .
+     								?? rdfs:domain ?class2 . 
+
+     							    ?? rdfs:label ?l . 
+     							    ?class1 rdfs:label ?lc1 . 
+     							    ?class2 rdfs:label ?lc2 . 
+     							    
+     							    rdfs:domain rdfs:label "domain" .
+     							    rdfs:range rdfs:label "range" . }
+          WHERE {
+
+                        OPTIONAL {?? rdfs:label ?l .} 
+                        { 
+                        ?? rdfs:range ?class1 . OPTIONAL { ?class1 rdfs:label ?lc1 .}
+                        }
+                        UNION
+                        {
+                        ?? rdfs:domain ?class2 . OPTIONAL {	?class2 rdfs:label ?lc2 .  }
+                        } 
+     					}' | 
+			maxDepth = 4 |
+        	spreadFactor = 50 |
+        	thumbnails = false |
+ 	    }}
+    </input>
+    <applyToInstances>true</applyToInstances>
+  </WidgetConfig>
+  <WidgetConfig>
+    <value class="uri">http://www.w3.org/2002/07/owl#DatatypeProperty</value>
+    <widget>com.fluidops.iwb.widget.GraphWidget</widget>
+    <input class="ConfigInput">
+       {{
+        	graphType = 'forcedirectedgraph' |
+        	query = 'CONSTRUCT { 
+     								?? rdf:type &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .
+     								&lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; rdfs:label "DatatypeProperty" .  
+     								
+     								?? rdfs:range ?class1 .
+     								?? rdfs:domain ?class2 . 
+
+     							    ?? rdfs:label ?l . 
+     							    ?class1 rdfs:label ?lc1 . 
+     							    ?class2 rdfs:label ?lc2 . 
+     							    
+     							    rdfs:domain rdfs:label "domain" .
+     							    rdfs:range rdfs:label "range" . }
+          WHERE {
+
+                        OPTIONAL {?? rdfs:label ?l .} 
+                        { 
+                        ?? rdfs:range ?class1 . OPTIONAL { ?class1 rdfs:label ?lc1 .}
+                        }
+                        UNION
+                        {
+                        ?? rdfs:domain ?class2 . OPTIONAL {	?class2 rdfs:label ?lc2 .  }
+                        } 
+     					}' | 
+			maxDepth = 4 |
+        	spreadFactor = 50 |
+        	thumbnails = false |
+ 	    }}
+    </input>
+    <applyToInstances>true</applyToInstances>
+  </WidgetConfig>
+    <WidgetConfig>
+    <value class="uri">http://www.w3.org/2000/01/rdf-schema#Resource</value>
+    <widget>com.fluidops.iwb.widget.ImageWidget</widget>
+    <preCondition>ASK{ {?? foaf:img ?image} UNION {?? &lt;http://dbpedia.org/ontology/thumbnail&gt; ?image} UNION {?? foaf:depiction ?image} UNION {?? foaf:logo ?image} }</preCondition>
+    <input>$select ?image where{{?? foaf:img ?image} UNION {?? &lt;http://dbpedia.org/ontology/thumbnail&gt; ?image} UNION {?? foaf:depiction ?image} UNION {?? foaf:logo ?image}}$</input>
+    <applyToInstances>true</applyToInstances>
+  </WidgetConfig>
+  <WidgetConfig>
+    <value class="uri">http://xmlns.com/foaf/0.1/Document</value>
+    <widget>com.fluidops.iwb.widget.ImageWidget</widget>
+    <preCondition>ASK{?? &lt;http://purl.org/dc/elements/1.1/format&gt; ?format FILTER(CONTAINS(str(?format), &quot;image&quot;))}</preCondition>
+    <input>$this$</input>
+    <applyToInstances>true</applyToInstances>
+  </WidgetConfig>
+   <WidgetConfig>
+    <value class="uri">http://www.w3.org/2000/01/rdf-schema#Resource</value>
+    <widget>com.fluidops.iwb.widget.GMapWidget</widget>
+    <preCondition>ASK{ ?? &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; ?lat . 
+?? &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; ?lng }</preCondition>
+    <input>{{
+	markers = $select ?lat ?lng where
+{ ?? &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; ?lat . 
+?? &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; ?lng }$ |
+}}</input>
+    <applyToInstances>true</applyToInstances>
+  </WidgetConfig>
+</list>

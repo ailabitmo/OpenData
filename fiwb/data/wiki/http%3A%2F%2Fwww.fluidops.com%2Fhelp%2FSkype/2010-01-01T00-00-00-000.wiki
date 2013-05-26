@@ -1,0 +1,23 @@
+=== Skype Widget ===
+
+==== Functionality and Configuration ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.SkypeWidget
+| type = DESCRIPTION
+}}
+
+
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Example ====
+
+You can add the Skype widget to any page by embedding the following line of code.
+
+<source>
+{{ #widget: Skype | 'echo123' }}
+</source>
+
+Your wiki page will now contain a button displaying the online status of ''echo123''. Replace echo123 with any valid Skype name to see the online status of that person.  The image below shows what the widget looks like, for an off-line and online user.
+
+<img src="../images/help/skypeWidget.png" />

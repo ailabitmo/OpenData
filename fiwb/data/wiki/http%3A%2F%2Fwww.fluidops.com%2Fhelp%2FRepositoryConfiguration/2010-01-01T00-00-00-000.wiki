@@ -1,0 +1,115 @@
+== Repository Configuration ==
+
+The Information Workbench relies on the Openrdf Sesame framework (see [http://www.openrdf.org/ www.openrdf.org]) and thus allows to use any store compliant to the Sesame SAIL architecture as a repository. Examples include
+
+
+* Sesame Native Store
+* Sesame Memory Store
+* Sesame Remote repositories
+* Public SPARQL endpoints
+* Ontotext Owlim
+* SYSTAP bigdata
+* Oracle Database Semantic Technologies
+* Federation with FedX
+* Custom repositories
+
+In the following, we describe how the particular repositories can be configured.
+
+
+=== Sesame Native Store ===
+
+The Sesame Native Store is used as a default repository in the Information Workbench. RDF data is persisted and written to %IWB_HOME%/data/dbmodel on disk.
+
+Note, that the native store can be explicitly configured by setting '''repositoryType=native''' in config.prop
+
+=== Sesame Memory Store ===
+
+The Sesame Memory Store is an implementation of the Sesame Sail interface that stores its data in main memory and that can use a file for persistent storage. This Sail implementation supports single, isolated transactions.
+
+The memory store can be configured by setting '''repositoryType=memory''' in config.prop.
+
+=== Sesame Remote Repositories ===
+
+Repositories deployed in the Sesame workbench can be used in the Information Workbench using the following configuration in config.prop.
+
+<source>
+repositoryType=remoterepository
+repositoryServer=http://<HOST>:<PORT>/openrdf-sesame/
+repositoryName=<RepositoryName>
+</source>
+
+Note that with this mechanism it is easily possible to use a OWLIM repository (or any other Sesame triple store) and to achieve scalability.
+
+=== Public SPARQL Endpoints ===
+
+It is also possible to use public SPARQL endpoints as read-only repositories in the Information Workbench. This can be achieved with the following configuration in config.prop:
+
+<source>
+repositoryType=sparql
+endpoint = http://<HOST>/sparql
+</source>
+
+=== Ontotext OWLIM ===
+
+OWLIM is a commercial triple store offered by Ontotext. The simplest way to integrate an OWLIM repository is to deploy it in a Sesame Workbench on a Tomcat application server and to use it as remote repository as described above. This can be achieved with the following configuration in config.prop: 
+
+<source>
+repositoryType=remoterepository
+repositoryServer=http://<HOST>:<PORT>/openrdf-sesame/
+repositoryName=<RepositoryName>
+</source>
+
+Please refer to the [http://www.ontotext.com/owlim/documentation OWLIM documentation] for details about installations. 
+
+=== SYSTAP bigdata ===
+
+Bigdata is a commercial triple store offered by SYSTAP. The bigdata repository can be integrated as a Sesame remote repository on a Tomcat application server. This can be achieved with the following configuration in config.prop: 
+
+<source>
+repositoryType=remoterepository
+repositoryServer=http://<HOST>:<PORT>/openrdf-sesame/
+repositoryName=<RepositoryName>
+</source>
+
+Please refer to the [http://sourceforge.net/apps/mediawiki/bigdata bigdata documentation] for details about installations. Bigdata deployment in Sesame works for Sesame 2.6.x and Java 1.6 although the bigdata documentation refers to an older version of Sesame.
+
+=== Oracle Database Semantic Technologies ===
+
+The Information Workbench allows using Oracle Database Semantic Technologies as a read-only repository. We recommend setting up a SPARQL endpoint for Oracle, please see the [http://docs.oracle.com/cd/E11882_01/appdev.112/e25609/sem_jena.htm Developer's Guide] for further instructions. Once the endpoint is running, it can be accessed using the following configuration:
+
+<source>
+repositoryType=oracle
+endpoint=http://<HOST>:<PORT>/joseki/oracle
+</source>
+
+To load data into the repository, follow the instructions in [http://docs.oracle.com/cd/E11882_01/appdev.112/e25609/sdo_rdf_concepts.htm#sthref161 section 1.7] of the Oracle Database Semantic Technologies Developer's Guide.
+
+
+
+
+=== Federation with FedX ===
+
+The Information Workbench can integrate [http://www.fluidops.com/FedX FedX] as a backing repository to achieve federation of multiple (remote) RDF data sources. Details on the configuration are presented [[Help:FedX| here]]
+
+=== Using Custom Repositories ===
+
+In addition to the predefined configurations the Information Workbench allows to integrate custom Sesame repositories (e.g. to perform some initialization). This can be achieved as illustrated in the following example:
+
+<source>
+repositoryType = class=com.my.package.MyRepositoryFactory
+</source>
+
+where ''MyRepositoryFactory'' extends '''com.fluidops.iwb.util.RepositoryFactoryBase'''
+
+e.g. a Sesame Memory Store with RDFS inferencing support
+
+<source>
+public class InferencingMemoryRepositoryFactory extends RepositoryFactoryBase {
+
+	@Override
+	public Repository loadRepository() throws Exception {		
+		return  new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
+	}
+
+}
+</source>

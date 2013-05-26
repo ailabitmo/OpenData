@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+
+
+<head>
+<title>Ajax</title>
+
+<script type="text/javascript" src="ajax.js"></script>
+<link rel="stylesheet" type="text/css" href="/ajax/stylesheet_fajax.css"/>
+
+
+<style type="text/css">
+
+html {
+    font-size: 100.1%;
+}
+
+
+body {
+    width:          100%;
+    padding:        0;
+    border:         0;
+    margin:         0px;
+    margin-left:    0px;
+    font-family:    Arial, Helvetica, sans-serif;
+    font-size:      0.7em;
+}
+
+.flChart .legend {
+    float:left;
+    margin-left: 40px; 
+    width:150px; 
+    height: auto; 
+    border: 1px solid black
+}
+
+.flChart .legend .legendItem {
+    display: block;
+    width: 100%;
+    line-height: 20px;
+}
+
+.flChart .legend .legendTitle {
+    display: block;
+    line-height: 20px;
+    padding-left: 15px;
+    font-weight: bold;    
+}
+
+
+.flChart .legend .legendColor {
+    border:1px solid black;
+	display:block;
+	float:left;
+	height:8px;
+	margin:5px 8px;
+	width:12px;
+}
+
+
+body {
+    padding-left: 10px;
+}
+</style>
+</head>
+
+<body onload="javascript:fluInit()">
+
+<p>This is a sample chart (google engine)</p>
+<div id="myChartDemoGoogle"></div>
+
+
+<p>This is a sample chart (jchart engine)</p>
+<div id="myChartDemoJChart"></div>
+
+
+<!--  
+<p>This is a sample chart (jchart engine) - not dynamic</p>
+<div id="myChartDemoJChart1">
+ <div style="width:450px" class="flChart">  
+    <div  style="float:left; width:auto;"><img style="float:left;" src="http://localhost:50080/ChartServlet/?do=gen&type=pie2d&title=Aber+Hallo&data=%5B25.0%3B25.0%3B25.0%3B25.0%5D&colors=%5Bff0000%3B0000ff%3B00ff00%3Bffff00%5D&labels=%5BDaniel%3BAndreas%3BChristopher%3BHanjo%5D&w=250&h=250&l=false" alt="http://localhost:50080/ChartServlet/?do=gen&type=pie2d&title=Aber+Hallo&data=%5B25.0%3B25.0%3B25.0%3B25.0%5D&colors=%5Bff0000%3B0000ff%3B00ff00%3Bffff00%5D&labels=%5BDaniel%3BAndreas%3BChristopher%3BHanjo%5D&w=250&h=250&l=false"/></div>
+    <div class="legend">
+        <span class="legendTitle">Legend</span>
+        <span class="legendItem"><span class="legendColor"></span>Item1</span>
+    </div>
+ </div>
+</div>
+-->
+
+</body>
+</html>

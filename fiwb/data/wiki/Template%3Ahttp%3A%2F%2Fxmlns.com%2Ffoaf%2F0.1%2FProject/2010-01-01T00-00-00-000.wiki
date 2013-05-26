@@ -1,0 +1,45 @@
+=== $this.label$ ===
+
+
+== Project Description ==
+$this.dcterms:abstract$
+
+== Facts about this Project ==
+
+{| class="sortable wikitable" style="width:100%; float:left; margin:2em 0 2em 0em; font-size:95%"
+|-
+!style="background-color: seagreen"| Property
+!style="background-color: seagreen" width 26% |Value
+|-
+|style="background-color: honeydew"| Research Area
+|style="background-color: white"| $this.research:area$
+|-
+|style="background-color: white"| Funder
+|style="background-color: honeydew"| $this.research:funder$
+|-
+|style="background-color: honeydew"| Project ID
+|style="background-color: white"| $this.research:projectID$
+|-
+|style="background-color: white"| Grant
+|style="background-color: honeydew"| $this.research:grant$
+|-
+|style="background-color: honeydew"| Project Status:
+|style="background-color: white"| $this.research:projectStatus$
+|-
+|style="background-color: white"| Start Date
+|style="background-color: honeydew"| $this.purl:startDate$
+|-
+|style="background-color: honeydew"| Target Date
+|style="background-color: white"| $this.purl:targetDate$
+|}
+
+
+== Project Partners ==
+
+{{#widget: TableResult |
+query='SELECT ?Partner WHERE {
+?PartnerEnt research:project ?? .
+?PartnerEnt research:actor ?Partner
+}' 
+}}
+

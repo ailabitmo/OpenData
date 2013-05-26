@@ -1,0 +1,182 @@
+=== Data Input Widget ===
+==== Functionality ====
+The Data Input Wizard completely customizes the creation process of new instances and simplifies the modification of existing entities.  The most typical applications include:
+
+*For '''instance creation''': a form on the resource page of a class, which allows to '''add a fresh instance''' typed with that class.
+
+In this scenario, you could also configure the wizard to run through multiple steps, collecting all the associated information that a new instance of that type typically needs.
+
+Example: on the page of class foaf:Person, insert this widget to allow the quick creation of a new person (instance) right from the class page.
+
+*For '''modification''': a form included on individual instances, which allows to '''add additional properties''' to the resource.
+You would normally include such a form for all resources of a certain rdf:type by adding it to the type's template. Such a form may typically show a small number of properties (i.e., RDF predicates) to which any number of values (i.e., RDF objects) could be added.
+
+Example: in Template:foaf:Person (the template that renders all instances of rdf:type foaf:Person), add this widget to allow for insertion of additional values for foaf:depiction, i.e. for linking images to that person. Obviously, several depiction's could be added.
+
+*For '''modification''': a form on instances pages that allows to '''modify an existing value''' (i.e., change the RDF object for one specific RDF predicate).
+You would use this setup typically for properties, which are restrained either by the ontology or else by common sense to have at most or exactly one value.
+
+Example: in Template:foaf:Person, add this widget to allow updates on foaf:age. Obviously, the age of a person could be changed but in no case contradictory values for predicate foaf:age should be added.
+
+Go back to [[Help:Widgets | Widgets ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.widget.DataInputWidget
+}}
+
+==== Example ====
+
+The creation of a new instance can be divided into three parts:
+# ID (URI) generation - which URI will be used for the new instance?
+# Ontology usage - for which predicates does the new instance need any values according to the underlying ontology?
+# Inclusion of custom predicates - should values be added for additional predicates?
+However, only the first step is mandatory for creating any customized instances.
+
+As the data input widget accepts a large number of parameters we introduce its usage by example.
+Consider the example below, which demonstrates most instance creation features.
+In the example we create new instances of the type foaf:Project.
+
+To try out, embed the following configuration into the wiki page [[foaf:Project]].
+
+<source>
+{{ #widget : DataInput
+  | idTitle = 'Project wizard'
+  | idInput = {{
+   {{ predicate = 'ProjectName' | type = 'LITERAL'}} |
+   {{ predicate = 'Organization' | type = 'DROPDOWN' | query = 'SELECT DISTINCT ?org WHERE { ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> }'}} }}
+  | idWhitespaceReplacementChar = '_'
+  | idNameRule = 'http://www.example.org/projects/$ProjectName$'
+  | idLabelRule = '$ProjectName$ ($Organization$)'
+  | useOntology = true
+  | customInput = {{
+   {{ predicate = 'ContactPerson' | type = 'URI' | multiValue = true}} |
+   {{ predicate = 'dcterms:abstract' | type = 'TEXT' | multiValue = false}} |
+   {{ predicate = 'research:funder' | type = 'ONTOLOGY'}} }}
+}}
+</source>
+
+The Custom Instance Creation is invoked by calling the widget ''DataInput'' (first line).
+
+As a first and mandatory step the wizard needs to generate an ID for the new instance, i.e., its URI.
+
+=====Step 1: ID (URI) Creation (mandatory)=====
+In the example we use ''generic IDs'' to build the URIs.
+Generic IDs are composed of information provided by the user or data returned by a database query.
+This way, we generate URIs that are in fact unique and yet are composed of meaningful components, which effectively describe the resource.
+
+On the downside, this procedure requires us to set several parameters to detail ''how'' the ID is to be composed (lines 3-11 from above):
+<source>
+| idTitle = 'Project wizard'
+| idInput = {{
+    {{ predicate='ProjectName' | type='LITERAL' }} |
+    {{ predicate='Organization' | type='DROPDOWN'
+        | query='SELECT DISTINCT ?org WHERE { ?org rdf:type <http://xmlns.com/foaf/0.1/Organization> }' }}
+  }}
+| idNameRule = 'http://www.example.org/projects/$ProjectName$'
+| idLabelRule = '$ProjectName$ ($Organization$)'
+| idWhitespaceReplacementChar = '_'
+</source>
+
+* '''idTitle''' simply sets the title of the dialog displayed for ID generation.
+* Next, '''idInput''' defines the user input fields whose input is used to compose the ID.
+** As we may have ''several'' such input fields idInput sets a ''group'' of parameters. Parameter groups are quoted with double brackets rather than single quotes, just as the widget configuration itself. Similarly, parameters within the group are separated by the pipe symbol ('|'). Generally speaking, idInput configured for any two user input fields therefore looks like this: <nowiki>idInput = {{ SPECIFICATIONS_FOR_FIELD_1 | SPECIFICATIONS_FOR_FIELD_2 | ... }}</nowiki>
+** Each user input field in the above group again needs ''several'' parameters to be fully specified, namely a ''predicate'' (what kind of information is being entered) and a ''type'' (what kind of input field is offered to the user to enter the piece of information). Thus, each field specification again is a parameter group quoted in double brackets. In our example, SPECIFICATIONS_FOR_FIELD_1 therefore take the following shape: <nowiki>{{ predicate='ProjectName' | type='LITERAL' }}</nowiki>
+** Within each field specification the '''predicate''' parameter sets a name for the field. This name is displayed next to the input field to describe its meaning but it also acts as an identifier for later use (see below). This is why no spaces are allowed. 
+** The '''type''' parameter sets the type of each input field that the user should fill in for generating the URI of the new instance. Each type can be either one of a URI, a LITERAL, a DATE or a DROPDOWN menu, where the latter allows to choose from a set of values. In our example we set types for two user input fields, the first one being a literal (free text input) and the second one is to be based on a dropdown menu. The URI fields can be  filled with suggestions defined with the '''query''' parameter. It sets a SPARQL query to fill the suggestion list with the query results. If the '''query''' parameter is not defined, the suggestions in the URI fields will be generated based on the ontology. DATEs suggest a date in a pop-up. DROPDOWNs require either the parameter '''query''' or '''values''' to fill the menu with predefined options to choose from. In the example provided above, we query for all resources of type [[foaf:Organization]]. Note that specified queries must use 1-tuples in projection (i.e., there must be exactly one ?x variable present after the SELECT keyword). Using the '''values''' parameter you may specify constant values for the dropdown menu. As before, ''values'' is yet another nested parameter group, i.e., a list of ''value''s looks like this: <nowiki>values = {{ 'value1' | 'value2' | ...}}</nowiki>
+* Finally, '''idNameRule''' defines how all the information above should be combined to build the new URI. We simply specify a string pattern, which may contain any of the ''predicate''s as associated with user input fields. The ''predicate''s act as aliases to access the information specified by the user. We need to enclose ''predicate'' variables in $-symbols, e.g., ''$Organization$''. You can randomize the uri generation by adding ''$timestamp$'' to your '''idNameRule''' specification. The timestamp string will be automatically added to the new uri. Please note, that you are free to set any string pattern but the resulting IDs must be valid URIs.
+* If you wish, you could have the DataInput widget automatically generate an rdfs:label for your newly created instance based on the same information used for the creation of URIs. In case of our example, we did so. The parameter '''idLabelRule''' specifies a building rule for the rdfs:label, employing the same syntax as idNameRule. 
+* If you assume the possibility that a user might enter white spaces in any of the input fields, you must also set '''idWhitespaceReplacementChar'''. The parameter specifies a character (or character sequence) that will be used to replace every white space character in the generated ID.
+
+Note: in case if either '''idNameRule''' or '''idLabelRule''' only contain a reference to a single input predicate and no other symbols (e.g., $ProjectName$), the value should be further enclosed in double quotes, i.e.,
+<source>
+ idLabelRule='"$ProjectName$"'
+</source>
+
+=====Step 2: Adding Data by Ontology (optional)=====
+If an ontology is present, we can make use of it.
+The form can be prepopulated with all type-specific predicates derived from the underlying ontology.
+
+<source>
+| useOntology = 'true'
+</source>
+
+* '''useOntology''' turns this feature on and off. In our example, the wizard will add an additional page in which values for ontology predicates with range foaf:Project may be defined. The useOntology field is optional (defaults to false). During this step the user is also able to associate the new instance freely with any other resource or literal.
+
+=====Step 3: Adding Data by Custom Specification (optional)=====
+Finally, we can add custom predicates for which the user may as well specify values when creating a new instance.
+Settings for custom predicates mostly work along the lines of ID generation. Most conveniently, however, there is no need to set any name building rules in this case as the predicates associate the information with the newly created instance in a canonical manner.
+
+<source>
+| customInput = {{
+    {{ predicate='ContactPerson' | type='URI' | multiValue=true }} |
+    {{ predicate='dcterms:abstract' | type='TEXT' | multiValue=false }} |
+    {{ predicate='research:funder' | type='ONTOLOGY' }}
+  }}
+</source>
+
+* '''customInput''' again is a parameter group quoted in double brackets, which contains the specifications for all custom input fields.
+* In our example the user should specify a ContactPerson, an abstract and a research:funder for his project. The predicates are now used both as actual predicates to associate the user provided information with the newly created instance and to label the input fields.
+* '''type''' again specifies the appearance of and possible input to the fields. Available types again comprise URI, LITERAL, DATE and DROPDOWN, but there are also two further types available. TEXT will create a literal similar to type LITERAL, however having the advantage of a larger text input field. ONTOLOGY tries to infer the range of the predicate from the data store.
+* '''multiValue''' can be optionally used to specify whether the user can add more than one value to the corresponding predicate.
+
+There are further possibilities to customize the creation of new instances. One of the most interesting options is creating a custom input widget for a specific type on an arbitrary wiki page. This provides the advantage that the widget no longer needs to be bound to the type's page. The type of the instance the widget creates can be specified using the parameter '''types'''. You can define multiple types for a particular instance. Considering the example used before, instead of including this widget within the resource foaf:Project, we can integrate it into an arbitrary wiki page by adding the following line before the field idTypes.
+
+<source>
+| types = 'foaf:Project'
+</source>
+
+=====Other Configurations=====
+The above example already made use of most of the relevant parameters of this widget for instance creation.
+However, a few additional parameters could be employed for further fine tuning of the wizard.
+Please refer to the last section of this help page for a brief description of all available parameters.
+
+Also, while most instance creation wizards will use a configuration much like the one above, you could occasionally want to have a stripped down configuration with less parameters specified.
+Feel free to try around with the example, remove parts of its configuration and see how it affects the wizard.
+
+===== Modification of Existing Entities =====
+
+====== Modify/Edit Instances From Their Own Pages ======
+If you wish to add the wizard for modifications on existing instances you would most probably add the widget to the instances' type template.
+Thus, all the instances that render from the template would show your editing widget.
+
+The next example will show how to create a wizard allowing the user to enter two specific properties for any existing instance of type [[foaf:Project]]. The following piece of wiki code can be added to the page [[Template:foaf:Project]]. Now, whenever you are on the wiki page of an instance of foaf:Project the widget will be displayed.
+
+<source>
+{{
+#widget: DataInput
+| omitDescriptionPage = 'true'
+| customTitle = 'Project related information'
+| customInput = {{
+    {{predicate = 'research:area' | type = 'LITERAL'}} |
+    {{predicate = 'research:strategy' | type = 'DROPDOWN' | query = 'SELECT ?strategy WHERE { ?s research:strategy ?strategy }' }}
+  }}
+}}
+</source>
+
+The definition of this wizard is quite similar to the above example for customized instance creation. We mostly just omit the ID generation step as existing instances obviously already have an URI.
+
+* '''omitDescriptionPage''' switches off the "cover page" of the wizard, which normally displays a brief description before changes could be made on the next page (after clicking "next").
+* '''customTitle''', an optional parameter, sets a title for the wizard dialog.
+* '''customInput''' works exactly as for creating new instances, i.e., it is a parameter group where each entry specifies one user input field.
+
+====== Modify Any Specific Instance From Some Other Page ======
+If you wish to edit a resource other than the one currently displayed, there also is a way to do so.
+You can create a wizard located on an arbitrary wiki page, which allows the modification of an existing resource.
+However, you need to specify the resource in question explicitly.
+This can be done by setting the optional parameter subject in the wizard definition.
+Please note, that the argument provided for this parameter must be a valid URI.
+Additionally it is imperative, that the resource you modify already has a value for the predicate type.
+Incorporate the following configuration on any wiki page, to set a label for the entity ''Testpage''. As explained before, for making this example work, the resource Testpage must contain the predicate type with a valid value.
+
+<source>
+{{
+#widget: DataInput
+| subject = 'Testpage'
+| omitDescriptionPage = 'true'
+| customInput = {{
+    {{ predicate = 'label' | type = 'LITERAL' }}
+  }} 
+}}
+</source>

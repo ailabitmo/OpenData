@@ -1,0 +1,108 @@
+__NOTOC__
+== Importing RDF data ==
+
+The Information Workbench provides an intuitive user interface to import RDF data from various kinds of sources, including '''files''', '''web sources via URLs''', '''Google Refine projects''' and '''remote Sesame repositories'''. The interface is available at [[Admin:Import]]. Note that depending on the system configuration this page is only accessible for administrators.
+
+
+<img src="../images/help/RDFImport.png" />
+=== Configuration ===
+
+As a basic configuration for all import types the '''Target context''' and the '''Base URI''' can be specified. While the '''Base URI''' is optional, the required '''Target context''' defines the context the RDF data is imported to. Additionally you can define if the source context should be preserved (by checking '''use source context as target context'''). If you want to use this option make sure the context is defined in the source data. It is usually the case if the source of the data is a TRIG-file. The checkbox '''context editable''' offers the option to determine if the data in the imported context can be edited or not. The option is available only if the target context is defined, otherwise (if the source context is preserved) the source context configuration will apply. In the following we describe the configuration options for each kind of source. 
+
+==== Importing from a File ====
+
+In the '''File''' tab it is possible to import RDF data from a local file.
+
+{| class="wikitable" 
+! Configuration
+! Argument
+|-
+| RDF Data Format 
+| The format of the source data, default RDF/XML (Required).
+|-
+| Source file 
+| The location of the file to be imported (Required).
+|}
+
+==== Importing from a URL ====
+
+This feature allows to import RDF data from web sources, such as for instance ontologies. Consider as an example the [http://www.w3.org/TR/owl-guide/wine.rdf wine ontology]: <nowiki>http://www.w3.org/TR/owl-guide/wine.rdf</nowiki>
+
+{| class="wikitable" 
+! Configuration
+! Argument
+|-
+| RDF Data Format 
+| The format of the source data, default RDF/XML (Required).
+|-
+| Source URL 
+| Valid URL as the source of the data to import (Required).
+|}
+
+
+==== Importing from a Google Refine Project ====
+
+The '''Google Refine''' tab allows to import RDF data from an existing Refine project. See the [[Help:GoogleRefine|extended documentation]] for details.
+
+{| class="wikitable" 
+! Configuration
+! Argument
+|-
+| Project 
+| The identifying name of the source in the Google Refine (Required).
+|-
+| Engine
+| Specific parameters for the post request to get the source data from Google Refine (Required).
+|-
+| Format 
+| The format of the source data in Google Refine (Required).
+|- 
+| Post Request URL 
+| The URL to send the post request to Google Refine (Required).
+|}
+
+
+
+==== Importing from a Remote Repository ====
+
+Importing from a '''remote Sesame repository''' is the most advanced functionality since it offers various useful features, e.g. to select contexts to import. To start with the connection parameters need to be specified, as documented in the following:
+
+{| class="wikitable" 
+! Configuration
+! Argument
+|-
+| Source repository name 
+| The identifying name of the source repository (Required).
+|-
+| Source repository server 
+| The URL of the source repository server (Required), e.g. <nowiki>http://<HOST>:<PORT>/openrdf-sesame</nowiki>
+|}
+
+Clicking the '''Import RDF Data''' button opens a new UI in which all available contexts present in the source repository are listed, including a flag indicating whether the respective context has already been imported. The UI is illustrated and explained in the following.
+
+<img src="../images/help/RDFImportFromRepository.png" width="650px" />
+
+The interface offers a set of buttons to control the import:
+
+* '''Select all''': select all contexts that are listed in the table (across table pages)
+* '''Unselect all''': clear all selections
+* '''Reset filter''': clear the filtering
+* '''Filter already imported''': filter those contexts that have already be imported (i.e. those contexts that exist in the local repository)
+* '''Filter by regex''': opens a textarea which allows to specify regular expressions (one per line) to filter (see details below)
+
+Once the selection of contexts is done, the import can be started by clicking the '''Import RDF data''' button.
+
+<br/>
+'''Additional documentation for regex filtering:'''
+
+It is possible to filter contexts using a list of regular expressions, which can be specified one expression per line as illustrated in the following example:
+
+<source>
+http:\/\/test\.org\/ctx2
+http:\/\/someNamespace\/.*
+.*#asset
+</source>
+
+The first expression filters the context with the URI ''http://test.org/ctx2'', while the second expression can be used to filter for the namespace <nowiki>http://someNamespace/</nowiki>. The third expression filters all contexts that end with ''#asset''. Note that filtering in this UI means removing items from the table.
+
+Note that it is possible to specify a preset for the expressions in the file '''%IWB_HOME%/config/RDFImportPreset.conf'''.

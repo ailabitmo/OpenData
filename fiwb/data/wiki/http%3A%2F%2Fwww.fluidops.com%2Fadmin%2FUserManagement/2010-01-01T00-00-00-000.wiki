@@ -1,0 +1,4 @@
+= User Management <sup>[[Help:UserManagement | <img width="19" src="../images/navigation/help_start.png" />]]</sup> =
+<br/>
+
+{{#widget: com.fluidops.iwb.widget.UserManagementAdministrationWidget}}

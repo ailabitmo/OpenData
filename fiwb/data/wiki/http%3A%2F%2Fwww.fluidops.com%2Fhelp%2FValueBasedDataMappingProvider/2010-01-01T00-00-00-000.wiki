@@ -1,0 +1,116 @@
+=== Value Based Data Mapping Provider ===
+
+==== Functionality ====
+Like the [[Help:SilkProvider|Silk Provider]], the Value Based Data Mapping Provider allows for discovering links between resources. The classical use case is the generation of owl:sameAs links, identifying resources in the data-set that contain information about the same resource.
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.ValueBasedDataMappingProvider
+| type = 'DESCRIPTION'
+}}
+Go back to [[Help:Providers | Providers ]]
+
+==== Configuration Settings ====
+
+{{ #widget : com.fluidops.iwb.widget.DisplayConfigurationWidget
+| clazz = com.fluidops.iwb.provider.ValueBasedDataMappingProvider
+}}
+
+
+==== Example ====
+The basic idea of the Value Based Data Mapping Provider is to identify resources based on a shared set of properties. As an example, this covers complex path constraints, where two resources are defined to be identical if they point to the same resource when following particular paths in the data-set. As an example, imagine we have companies in a data-set and these companies are linked to persons in different ways, where the company information stem from different data sources, such that the same company might be present in the database using different URIs. To be more concrete, assume we have a URI ''Company1'' having direct links to their employees, and a URI ''Organization1'' pointing to their employees via departments, as modeled in the following:
+
+<div style="width:48%;float:left;">
+<source>
+Company1 employee JohnDoe .
+Company1 employee JaneDoe .
+Company2 employee FrankMartin .
+Company2 employee JohnSmith .
+</source>
+</div>
+<div style="width:48%;float:left;margin-left:4%;">
+<source>
+Organization1 department Development .
+JohnDoe worksIn Development .
+JaneDoe worksIn Development .
+PeteDoe worksIn Development .
+</source>
+</div>
+
+<div style="clear:both;" />
+
+As there is an overlap in the set of persons working for ''Company1'' and ''Organization1'', one might want to conclude that the two companies actually describe the same resource, and the Value Based Data Mapping Provider allows to discover (and, possibly, materialize such links). In the following we discuss an example specification for the Value Based Data Mapping Provider that allows us to detect such links.
+
+===== Parameter sourceQuery =====
+The source query is a SPARQL query with exactly two projection variables, ''?key'' and ''?value''. The query result is then grouped by ''?key'' and the values are matched against values specified in the ''targetQuery'' data-set to establish links between the ''?key'' values.
+
+In our running example, the keys are the organizations and the values are the persons working for the company. Following the pattern defined by ''Company1'', we define the parameter as follows:
+
+<source>
+sourceQuery := SELECT ?key ?value WHERE { ?key :employee ?value }
+</source>
+
+===== Parameter targetQuery =====
+The target query is a SPARQL query with exactly two projection variables, ''?key'' and ''?value''. The query result is then grouped by ''?key'' and the values are matched against values specified in the ''sourceQuery'' data-set to establish links between the ''?key'' values.
+
+As before, the keys are the organizations and the values are the persons working for the company. This time we follow the pattern defined by ''Organization1'' and define the parameter as follows:
+
+<source>
+sourceQuery := SELECT ?key ?value WHERE { ?key :department ?dep . ?value :worksIn ?dep }
+</source>
+
+===== Parameter matchType =====
+The ''sourceQuery'' and ''targetQuery'' defined before will give us the following mappings:
+
+<div style="width:48%;float:left;">
+''source mappings:''
+<source>
+?key: Company1 -> { JohnDoe, JaneDoe }
+?key: Company2 -> { FrankMartin, JohnSmith }
+</source>
+</div>
+<div style="width:48%;float:left;margin-left:4%;">
+''target mappings:''
+<source>
+?key: Organization1 -> { JohnDoe, JaneDoe, PeteDoe }
+</source>
+</div>
+
+<div style="clear:both;" />
+
+The ''matchType'' parameter now determines in which cases the ''?key'' values of the source and target mappings will be interlinked. There are four possible settings for this parameter:
+
+* ''EXACT'': this ''matchType'' interlinks all ''?key''-pairs from the source and target mapping that map to exactly the same set of values. This is actually never the case in our running example, so this setting would result in an empty set of links
+* ''JOINT_MEMBER'': this ''matchType'' interlinks all ''?key''-pairs from the source and target mapping which have at least one shared member. In our running example, this would hold for ''Company1'' and ''Organization1'', which share the two values ''JohnDoe'' and ''JaneDoe''. Consequently, these two would be interlinked.
+* ''SUBSET'': this ''matchType'' interlinks all ''?key''-pairs from the source and target mapping for which the set of source values is a subset of the set of target values.  In our running example, this would hold for ''Company1'' and ''Organization1'', as the set { JohnDoe, JaneDoe } is a subset of { JohnDoe, JaneDoe, PeteDoe }. Consequently, these two would be interlinked.
+* ''SUPERSET'': inverse of ''Subset''
+
+For the sake of this example, assume we choose ''JOINT_MEMBER''.
+
+===== Parameter linkType =====
+The link type specifies the property with which resources from the source and target dataset that have been interlinked are connected. The default is using the property ''owl:sameAs'', stating that the properties are identical. However, we can establish any (possibly user-defined) relationships between the resources. In our running example, we leave the configuration parameter blank, thus using the default ''owl:sameAs''.
+
+====== Parameter mappingType ======
+Finally, the mappingType defines how the extracted mapping statements are processed. The dropdown box in the provider configuration offers two alternative options:
+
+* ''MATERIALIZE_MAPPING'': the links that are computed are added to the database ''as is''
+* ''MERGE_MAPPED_RESOURCES'': the links are interpreted as ''owl:sameAs'' links and the links are ''applied'' to the database. This means that the source URIs and target URIs that are connected via links are unified. More concretely, whenever Silk extracts a link (A,<LINK>,B), every occurrence of B in the database is replaced with A.
+
+To wrap up the discussion, let's discuss the results for our running example. First note, that in both cases, our provider setup extracts a single link, stating that
+
+<source>
+Company1 owl:sameAs Organization1 .
+</source>
+
+Assuming that ''MATERIALIZE_MAPPING'' is set, this link is simply added to the database, such that the two resources are now interconnected. The more complex case is that ''MERGE_MAPPED_RESOURCES'' is used as ''mappingType''. In that case, every occurrence of ''Organization1'' in the database is replaced with ''Company1''. As a result, the original database is modified; once the provider run has finished, it will look as follows:
+
+<source>
+Company1 employee JohnDoe .
+Company1 employee JaneDoe .
+Company2 employee FrankMartin .
+Company2 employee JohnSmith .
+
+Company1 department Development .
+JohnDoe worksIn Development .
+JaneDoe worksIn Development .
+PeteDoe worksIn Development .
+</source>

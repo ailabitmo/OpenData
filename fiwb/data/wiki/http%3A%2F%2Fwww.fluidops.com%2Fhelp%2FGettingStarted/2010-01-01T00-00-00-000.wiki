@@ -1,0 +1,326 @@
+= Getting Started =
+
+The following sections will help you to get started with the Information Workbench before and after successfully installing and starting it on your server.
+
+
+== A Brief Introduction to RDF & SPARQL ==
+In order to understand the example scenarios in this document it is necessary to understand the underlying ideas of <a href="http://www.w3.org/RDF/">RDF (Resource Description Framework)</a> data model and the associated query language <a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL (SPARQL Protocol And RDF Query Language)</a>. If you are familiar with these technologies you can directly proceed reading this document. Otherwise, we give  [[Help:RDFandSPARQL | a (very) brief introduction here]].
+
+
+== Demonstrations ==
+To get a first feeling for the usability of the Information Workbench platform, you can
+
+# watch a short <a href="http://www.youtube.com/watch?v=DSzJs4SAS18">introduction video</a> or
+# directly use the features with a pre-populated database on our [http://iwb.fluidops.com public demonstrator]
+
+before you continue setting up and configuring your own Information Workbench installation.
+
+
+== Views ==
+
+The Information Workbench supports different [[ Help:Views | views ]] for each resource. On the left-hand side on every page you see four buttons each representing these different kinds of views.
+
+<img src="../images/help/views.png" width="263px"/>
+
+# In the ''Wiki View'', we see a freely customizable representation of any subset information related to the resource.
+# The ''Table View'' (or ''Structured Data View'') gives an overview of all attributes of the current resource including their values.
+# The ''Graph View'' provides an intuitive way to understand how resources are connected and to browse related resources.
+# In the ''Pivot View'' a graphical query interface is offered that allows  to search the information from the Table View and group them according to your specific information needs.
+
+Switch between any of the available views by clicking their respective symbol in the upper left corner of any resource page. Hover on each of the view symbols to see the name of the related view. In this document we will concentrate on the Wiki View demonstrating the possibilities that it offers.
+
+
+
+
+
+== Simple Examples to Start ==
+
+
+=== Importing RDF Data from a URL ===
+
+We demonstrate how to import a new RDF data-set by a simple four step manual. The data-set is called the wine ontology because it provides information about wines. <img src="../images/help/rdf-import.png" width="300px"/>
+
+# Go to [[Admin:Import | the import section ]] where you will see different possibilities to import data.
+# Enter a valid URI into the field 'Context' to give the imported dataset a descriptive name. Note that a context is a synonym for a named graph.
+# Switch to the tab 'URL' and enter <a href="http://www.w3.org/TR/owl-guide/wine.rdf">http://www.w3.org/TR/owl-guide/wine.rdf</a> into the input field 'URL source'.
+# Now click the button 'Import RDF Data'.
+
+
+If the import is successful you will see a link to the overview of the loaded data in the popup window with the success message.
+
+<img src="../images/help/wine.png" width="653px"/>
+
+Follow the link and look at the context overview including statistics about the imported data, the class hierarchy and the table with the triples.
+
+In the [[System:Context | list of contexts]] you will find all contexts available in the repository. Search for the imported context, click it and explore the context overview.
+
+=== Creating a Widget ===
+
+If you have successfully imported the wine ontology in the previous example step, you can visualize it now in form of a widget. Widgets are a very simple way to visualize and explore data from loaded ontologies. For example, a widget can be  a chart ([[Help:BarChart]], [[Help:Heatmap]], [[Help:LineChart]], [[Help:PieChart]], [[Help:RadarChart]], [[Help:StockChart]]) depending on the data that you want to visualize.  However, widgets are not limited to charts, a diverse range is included; for example from [[Help:TagCloud]] to [[Help:Twitter]] feeds. For a full list of all widgets supported see [[Help:Widgets]].
+
+
+For now we create a simple table widget from the result of a SPARQL query that returns different flavors of wines and their wine maker. We will have a look at other types of widgets later on in this tutorial.
+
+# Open any wiki page, e.g. [[AnyWikiPage | AnyWikiPage]].
+# Click 'Edit' in the upper right corner (in the wiki view). <img src="../images/help/edit.png" width="200px"/>
+# Paste this table widget configuration from below directly into the input text field and click 'save'.<source>
+{{#widget:TableResult
+|query=
+'SELECT DISTINCT ?wine ?flavor ?maker
+ WHERE { ?wine <http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasFlavor> ?flavor .
+         ?wine <http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasMaker> ?maker}'
+}}
+</source>
+
+
+The expected result is a table view with three columns displaying wines, their flavors and corresponding wine makers.
+
+<img src="../images/help/search-result2.png" width="1200px"/>
+
+To see other relations in your data you will need to change the query in the widget configuration.
+
+=== Using the SPARQL-Endpoint ===
+
+In this section we use a different dataset consisting of  business- and research-related data, see [[ Help:ExampleData | how to load example data ]] to learn how to load this data.  
+
+One the data has been loaded it is possible to query using SPARQL as follows.
+
+# Go to the SPARQL-Endpoint (http://localhost:8888/sparql if the IWB is run locally).
+# Copy the select query from below and paste it in the text area on the page 
+# Click ''submit''.
+
+Here is an example query:
+
+<source>
+SELECT DISTINCT ?project ?grant WHERE {
+       ?project rdf:type foaf:Project .
+       ?project <http://research.data.gov.uk/def/project/grant> ?grant . }
+</source>
+
+
+
+
+The successful result is a table containing the names of the projects and the corresponding grants.
+
+
+<img src="../images/help/search-result.png" width="1200px"/>
+
+More about searching and querying can be found [[Help:Search|here]].
+
+
+== More Advanced Examples ==
+
+We now present a small set of advanced examples on how to use the Information Workbench. So far, we have imported, visualized and queried RDF data.  This data however is likely to become out of data at some point in the future and would have to be manually loaded again, something which might not be completed on a regular basis, if at all. To resolve this issue the Information Workbench offers [[Admin:Providers | Data Providers]], i.e. data sources for which you can specify an interval after which the data in the Information Workbench is updated with respect to changes made in the specified data source.
+
+
+As a data basis for our examples we make use of the <a href="http://www.dbis.informatik.uni-goettingen.de/Mondial/#RDF">Mondial database</a>. This collection of data is provided by the University of G&ouml;ttingen. It contains a plethora of political, anthropological and geographical information. We will give three examples on how the Information Workbench may be utilized to process and display information about European countries and international organizations.
+
+We demonstrate how to add a new data provider using the user interface and to build table and chart widgets related to this data utilizing SPARQL queries.
+When you follow this tutorial it makes sense to keep this tutorial-page in one browser-window (respectively tab) and follow the individual steps in another browser window. That is why you might want to open links within this tutorial to administrative or demonstrative pages in a new browser window.
+
+
+=== Data Providers ===
+
+For each of the examples we need the data stored in Mondial.  For the purpose of this tutorial we are interested in two data sets, one containing the actual geographical data and the other one being metadata about the information itself. Therefore, we must add it as a new data provider to our list of providers. To do so follow these steps: <img src="../images/help/rdf-provider.png" width="400px"/>
+# Go to the [[ Admin:Providers | data provider area ]].
+# Press the '''Add Provider''' button beneath '''Data Provider'''.
+# Set the '''Provider''' type to '''RDFProvider'''.
+# Enter '''Identifier''' (urn:mondial). It is recommended that this name suffices the general <a href="http://tools.ietf.org/html/rfc2141">URN syntax</a>.
+# Enter '''Poll interval''' (1440) to specify how much time elapses until the Information Workbench checks if the data has been updated. The interval is stated in minutes.
+# Enter '''Location''' (http://www.dbis.informatik.uni-goettingen.de/Mondial/Mondial-RDF/mondial-europe.rdf) to specify the URL where the data is supplied.
+# Press '''Submit''' button to add the provider to the Information Workbench. The status of the newly added provider now displays 'running', indicating that its data is being imported.
+# Refresh page (the importing data process should be finished after a few moments).
+# Repeat steps 2 to 8 for the Mondial metadata. As '''Identifier''' we choose "urn:mondialMeta" and the location is <a href=http://www.dbis.informatik.uni-goettingen.de/Mondial/Mondial-RDF/mondial-meta.rdf>http://www.dbis.informatik.uni-goettingen.de/Mondial/Mondial-RDF/mondial-meta.rdf</a>.
+
+When you are finished, your provider list should look like the following screenshot.
+Clicking on the provider identifier in the '''Identifier''' column gives a complete overview of the data.
+
+<img src="../images/help/Provider.png" width="1000px"/>
+
+A new information provider may be added using the [[ Admin:Providers | web user interface ]]. In these examples we need to add an RDF source, which is addressed by a URL. For a detailed description on information providers see [[ Help:Providers | here ]]. New data providers which are not necessarily RDF can be added on the  [[ Admin:Providers | page for data providers]] as well. Pressing the '''Add Provider''' button beneath the Data Provider table lets you specify the details of a new information provider.
+
+In each of the examples below the Mondial data is addressed by a prefix, "mondial", rather than by its full URI. We can add prefixes to the namespace of the Information Workbench. This can be done by navigating to [[Admin:Namespaces]], clicking 'Add namespace' and entering the prefix and the corresponding url, in this case "mondial" and "http://www.semwebtech.org/mondial/10/meta#". Changes take effect instantly.
+
+(Alternatively namespaces can be edited in the configuration file ''namespaces.prop'' located in folder ''fiwb'' in your installation of the Information Workbench. Here we simply need to add one line: <nowiki>mondial=http://www.semwebtech.org/mondial/10/meta#</nowiki>. The Information Workbench needs to be restarted for the changes to take effect.)
+
+=== Wiki Pages and Widgets ===
+
+In this example, we will build a new wiki page to contain any set of fresh or generated information and use a widget to automatically visualize data from the Mondial database on that wiki page. Please note that you have to have successfully completed all preparation steps as described above before you can try out this example.
+
+First we need to create a new wiki page. You can simply type the URI of a nonexistent page in the browser, if a resource does not exist a blank page will be displayed.  Editing the empty page or resource and saving will add the new page to the Information Workbench.
+
+# Navigate to the URI of a non-existent resource, e.g. [[ExampleMondial]] or [[TestMondial]]. On our newly created resource we want to display information from the Mondial database rather than adding new facts manually.
+# Switch to the Wiki View (the topmost view on the list in the upper left corner). The wiki view should tell you that there is no text defined for this topic.
+# Click on '''Edit''' to switch to modify the contents of the wiki page.
+# We plan to create a pie chart, which displays the ten largest countries on the database according to their population size. To this end, we use the pie chart ''widget'' in the wiki page.
+# The following lines of code will create the pie chart:<source>
+{{ #widget : PieChart
+  | input = 'CountryName'
+  | output = {{ 'Population' }}
+  | query = '
+    SELECT DISTINCT ?CountryName ?Population WHERE {
+     ?Country rdf:type mondial:Country .
+     ?Country mondial:name ?CountryName .
+     ?Country mondial:population ?Population}
+     ORDER BY DESC(?Population)
+     LIMIT 10 '
+}}
+</source>
+# Click on '''Save''' to save your changes and return to the regular Wiki View mode.
+
+The query used inside the widget construction code returns the name of the country and its population. These values may be returned by using the predicates ''population'' and ''name''. ''mondial'' is the prefix we have previously defined in ''namespaces.prop''.
+
+Your wiki page should now look like this:
+
+<img src="../images/help/Countries.png" width="1000px"/>
+
+For a detailed introduction into the display of table widgets and chart widgets in the Information Workbench, please refer to [[ Help:Widgets | the widgets help page]].
+
+=== Templates and Widgets 1 ===
+
+In this example we will construct a '''template''' to define the wiki representation for all resources of a certain type and use widgets to visualize information from each resource.
+
+The Information Workbench supports the creation of template pages. These pages allow the construction of generic instances for an object of fixed type.
+In this example we want to create a template for the class Country, which will show information specifically related to an instance of type Country.
+We can create template pages by adding a '''prefix Template:''' to the type's URI. As the resource type in our case is <nowiki>mondial:Country</nowiki>, the resource of our new template is '''<nowiki>Template:mondial:Country</nowiki>'''.
+
+# Navigate to [[Template:mondial:Country]].
+# Click the '''Edit''' button.
+# Insert the following wiki code: <source>
+== $ this.mondial:name $ ==
+Type of government: $ this.mondial:government $
+</source>
+# Remove the white spaces in ''$ this.mondial:name $''.
+# Remove the white spaces in ''$ this.mondial:government $''.
+# '''Save''' your changes and return to the template's view.
+# Navigate to the wiki page of an arbitrary country, e.g. [[http://www.semwebtech.org/mondial/10/countries/D/ | Germany]] (<nowiki>http://www.semwebtech.org/mondial/10/countries/D/</nowiki>). The page should look similar to this:
+
+<img src="../images/help/germany.png" width="900px"/>
+
+
+Due to the definition in our template the wiki page of a country displays its name. Instances of the type Country are represented as URI. Their name as literal is accessed via the predicate <nowiki>mondial:name</nowiki>. If we want to display this value in the template in a generic way, we add the place holder ''$ this.mondial:name $'' (without the additional whitespaces between "this.mondial:name" and the two "$" signs embracing it, which are added here in ordner to avoid the variable being replaced by the corresponding value. The same applies to the following example). Other information like the type of government (mondial:government) can be accessed in the same way.
+
+
+You may wish to also see some more instances of type Country as a concrete example. To do so, simply query for countries by entering a SPARQL query in the search field in the upper right corner and pick a country of your choice:
+
+<source>SELECT DISTINCT ?CountryName ?Country WHERE { ?Country rdf:type mondial:Country . ?Country mondial:name ?CountryName . }</source>
+
+Next, we may want to list all organizations of which a country is a member and their abbreviations. The Information Workbench may display the results of a search query in tabular form on a wiki page. In the example below '' ?? '' is used as a wildcard for the specific country, which will later make use of the template.
+
+
+# Navigate to [[Template:mondial:Country]].
+# Click the '''Edit''' button.
+# Append the following wiki code: <source>
+{{#widget: TableResult | 
+  query = 'SELECT DISTINCT ?Abbreviation ?Name WHERE {
+            ?? mondial:isMember ?Organization .
+            ?Organization mondial:abbrev ?Abbreviation .
+            ?Organization mondial:name ?Name }
+            ORDER BY ASC(?Abbreviation)'
+}}
+</source>
+# '''Save''' your changes and return to the template's view.
+# Navigate to the wiki page of an arbitrary country, e.g. [[http://www.semwebtech.org/mondial/10/countries/D/ | Germany]] (<nowiki>http://www.semwebtech.org/mondial/10/countries/D/</nowiki>). The page should look similar to this:
+
+<img src="../images/help/germany2.png" width="900px"/>
+
+
+
+
+The next widget will display the five largest cities of a country in a horizontal bar chart.
+
+
+# Navigate to [[Template:mondial:Country]].
+# Click the '''Edit''' button.
+# Append the following wiki code: <source>
+{{#widget: BarChart | 
+  query = 'SELECT DISTINCT ?CityName ?Population WHERE {
+            ?City mondial:population ?Population .
+            ?City mondial:name ?CityName .
+            ?Province mondial:hasCity ?City.
+            ?? mondial:hasProvince ?Province }
+           ORDER BY DESC(?Population)
+           LIMIT 5' |
+   type = 'BAR_HORIZONTAL' |
+   input = 'CityName' |
+   output = {{ 'Population' }} |
+}}
+</source>
+# '''Save''' your changes and return to the template's view.
+# Navigate to the wiki page of an arbitrary country, e.g. [[http://www.semwebtech.org/mondial/10/countries/D/ | Germany]] (<nowiki>http://www.semwebtech.org/mondial/10/countries/D/</nowiki>). The page should look similar to this:
+
+
+As it can be seen in the query, cities are not directly connected to the countries they are located in. This information must be accessed via the province of the city, which in turn is situated in a country. The chart should look similar to this:
+
+
+
+<img src="../images/help/germany3.png" width="900px"/>
+
+Another example could be displaying all lakes of a country, that are deeper than 50 meters, in a vertical bar chart.
+
+
+# Navigate to [[Template:mondial:Country]].
+# Click the '''Edit''' button.
+# Append the following wiki code: <source>
+{{#widget: BarChart |
+ query = 'SELECT DISTINCT ?LakeName ?Depth WHERE {
+           ?Lake rdf:type mondial:Lake .
+           ?Lake mondial:name ?LakeName .
+           ?Lake mondial:depth ?Depth .
+           ?Lake mondial:locatedIn ??
+           FILTER( ?Depth > 50 ) }
+          ORDER BY DESC(?Depth)' |
+  type = 'BAR_VERTICAL' |
+  input = 'LakeName' |
+  output = {{ 'Depth' }} |
+}}
+</source>
+# '''Save''' your changes and return to the template's view.
+# Navigate to the wiki page of an arbitrary country, e.g. [[http://www.semwebtech.org/mondial/10/countries/D/ | Germany]] (<nowiki>http://www.semwebtech.org/mondial/10/countries/D/</nowiki>). The page should look similar to this:
+
+A lake is connected via the predicate '' mondial:locatedIn '' to a country. However the predicate '' mondial:locatedIn '' also relates to other objects, so here we state that the subject we are looking for is of the type '' mondial:lake '' by writing '' ?Lake rdf:type mondial:Lake ''. The chart should look similar to this:
+
+
+
+<img src="../images/help/germany4.png" width="900px"/>
+
+
+=== Templates and Widgets 2 ===
+
+In this last example we will practice the creation of templates in a different context, namely a  template for an organization.
+
+
+# Navigate to [[ Template:mondial:Organization | template for an organization ]].
+# Click the '''Edit''' button.
+# A table of an organization's members sorted alphabetically is created by inserting the following wiki code: <source>
+{{#widget: TableResult |
+ query = 'SELECT DISTINCT ?CountryName WHERE{
+   ?Country mondial:isMember ?? .
+   ?Country mondial:name ?CountryName}
+   ORDER BY ASC(?CountryName)'
+}}
+</source>
+# '''Save''' your changes and return to the template's view.
+# Navigate to the wiki page of an arbitrary organization, e.g. the [[http://www.semwebtech.org/mondial/10/organizations/OECD/| OECD]] (<nowiki>http://www.semwebtech.org/mondial/10/organizations/OECD/</nowiki>).
+
+The Information Workbench is also suited to display the results of complex queries. For example we could be interested in the names of rivers, which flow through a city where some organization's headquarters are located.
+
+# Navigate to [[ Template:mondial:Organization | template for an organization ]].
+# Click the '''Edit''' button.
+# A table of an organization's members sorted alphabetically is created by inserting the following wiki code: <source>
+{{#widget: TableResult |
+  query = 'SELECT DISTINCT ?RiverName ?Length WHERE{
+    ?River rdf:type mondial:River .
+    ?? mondial:hasHeadq ?Headquarters .
+    ?Headquarters mondial:locatedAt ?River .
+    ?River mondial:name ?RiverName .
+    ?River mondial:length ?Length }'
+}}
+</source>
+# '''Save''' your changes and return to the template's view.
+# Navigate to the wiki page of an arbitrary organization, e.g. the [[http://www.semwebtech.org/mondial/10/organizations/OECD/| OECD]] (<nowiki>http://www.semwebtech.org/mondial/10/organizations/OECD/</nowiki>).
+
+
+The resulting wiki page for the organization [[http://www.semwebtech.org/mondial/10/organizations/OECD/| OECD]] (<nowiki>http://www.semwebtech.org/mondial/10/organizations/OECD/</nowiki>) should look as follows:
+
+<img src="../images/help/Organization.png" width="1000px"/>

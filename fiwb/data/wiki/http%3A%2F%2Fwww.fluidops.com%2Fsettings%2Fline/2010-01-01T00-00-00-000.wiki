@@ -1,0 +1,110 @@
+<source lang="xml">
+<settings>
+  <equal_spacing>false</equal_spacing>
+  <margins>0</margins>                  
+
+  <number_format>  
+    <letters>
+      <letter number="1000">K</letter>
+      <letter number="1000000">M</letter>
+      <letter number="1000000000">B</letter>
+    </letters>      
+  </number_format>
+
+  <data_sets> 
+    <data_set>
+      <title>Hourly Aggregates</title>
+      <short>Hourly</short>
+      <color>ff0000</color>
+      <file_name>$query$</file_name>
+      <csv>
+        <separator>;</separator>
+        <date_format>YYYY-MM-DDThh:mm:ss</date_format>
+        <decimal_separator>.</decimal_separator>
+        <columns>
+          <column>date</column>
+          <column>out1</column>
+          <column>out2</column>
+          <column>out3</column>
+          <column>out4</column>
+          <column>out5</column>
+        </columns>         
+      </csv>
+    </data_set>
+  </data_sets>
+
+  <charts>
+    <chart>
+      <legend>
+         <value_color>0000ff</value_color>
+         <show_date>true</show_date>
+      </legend>
+
+      <values>
+        <x>
+          <bg_color>EEEEEE</bg_color>
+        </x>
+        <y_left>
+          <bg_color>000000</bg_color>
+          <digits_after_decimal>
+            <data>2</data>
+          </digits_after_decimal>
+        </y_left>
+      </values>
+
+      <border_alpha>100</border_alpha>
+      <title>$header$</title>
+      <graphs>
+        <graph>
+          <color>0000ff</color>
+          <fill_alpha>30</fill_alpha>
+          <title>$title$</title>
+          <type>line</type>
+          <bullet>square_outline</bullet>
+          <axis>right</axis>
+          <data_sources>
+            <close>out1</close>
+          </data_sources>
+          <legend>
+            <date title="0" key="0"><![CDATA[$title$ {close}]]></date>
+          </legend>
+        </graph>
+      </graphs>
+    </chart>  
+  </charts>
+
+
+  <period_selector>
+    <periods>
+      <period type="hh" count="6">6h</period>
+      <period type="DD" count="1">1D</period>
+      <period type="MM" count="1">1M</period>
+      <period type="MM" count="3">3M</period>
+      <period type="YYYY" count="1">1Y</period>
+      <period type="YYYY" count="3">3Y</period>
+      <period selected="true" type="MAX">MAX</period>
+    </periods>
+    <periods_title>Zoom:</periods_title>
+    <custom_period_title>Custom period:</custom_period_title> 
+  </period_selector>
+
+  <scroller>
+    <height>50</height>
+    <graph_data_source>$output$</graph_data_source>
+  </scroller>
+
+  <date_formats>
+    <legend>
+      <milliseconds>month DD, YYYY, hh:mm:ss</milliseconds>
+      <seconds>month DD, YYYY, hh:mm:ss</seconds>
+      <minutes>month DD, YYYY, hh:mm:ss</minutes>
+      <hours>month DD, YYYY, hh:mm</hours>
+      <days>month DD, YYYY</days>
+      <months>month, YYYY</months>
+      <years>YYYY</years>
+    </legend>
+  </date_formats>
+
+
+</settings>
+</source>

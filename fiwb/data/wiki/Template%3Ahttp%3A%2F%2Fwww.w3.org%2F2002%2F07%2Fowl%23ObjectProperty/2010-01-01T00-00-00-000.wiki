@@ -1,0 +1,64 @@
+__NOTOC__
+
+= Object Property: '$this.label$' =
+
+'''URI''': ''$this$''
+
+<div style="width:650px; padding-top:10px">
+{{ #widget : TripleEditor
+  | editMode = 'GROUPWISE'
+  | clusterByDomain = false
+  | propertyConfiguration = {{
+   {{ property = 'rdfs:label'}} |
+   {{ property = 'rdfs:comment' | componentType = 'TEXTAREA'}} }}
+  | showUnfilledProperties = true
+}}
+
+
+== Domain and Range ==
+This form allows editing of the range and domain definitions of this property.
+
+<div style="width:650px; padding-top:10px">
+{{ #widget : TripleEditor
+  | editMode = 'GROUPWISE'
+  | clusterByDomain = false
+  | propertyConfiguration = {{
+   {{ property = 'rdfs:range' | queryPattern = 'SELECT ?x WHERE { ?x rdf:type owl:Class }' | datatype = 'rdfs:Resource'}} |
+   {{ property = 'rdfs:domain' | queryPattern = 'SELECT ?x WHERE { ?x rdf:type owl:Class }' | datatype = 'rdfs:Resource'}} }}
+  | showUnfilledProperties = true
+}}
+</div>
+
+
+== Taxonomy ==
+
+This form allows editing of the taxonomic relations of this property.
+
+<div style="width:650px; padding-top:10px">
+{{ #widget : TripleEditor
+  | editMode = 'GROUPWISE'
+  | clusterByDomain = false
+  | propertyConfiguration = {{
+   {{ property = 'rdfs:subPropertyOf' | queryPattern = 'SELECT ?x WHERE { ?x rdf:type owl:ObjectProperty }' | datatype = 'rdfs:Resource'}} |
+   {{ property = 'owl:equivalentProperty' | queryPattern = 'SELECT ?x WHERE { ?x rdf:type owl:ObjectProperty }' | datatype = 'rdfs:Resource'}} |
+   {{ property = 'owl:inverseOf' | queryPattern = 'SELECT ?x WHERE { ?x rdf:type owl:ObjectProperty }' | datatype = 'rdfs:Resource'}} }}
+  | showUnfilledProperties = true
+}}
+</div>
+
+
+== Subproperties of this property ==
+
+<div style="width:650px; padding-top:10px; padding-bottom:10px">
+{{ #widget: TableResult
+| query = 'SELECT ?subProperty WHERE { ?subProperty rdfs:subPropertyOf ?? }'
+}}
+</div>
+
+== Triples with predicate $this.label$ ==
+
+<div style="width:650px; padding-top:10px; padding-bottom:10px">
+{{ #widget: TableResult
+| query = 'SELECT ?subject ?object WHERE { ?subject ?? ?object }'
+}}
+</div>

@@ -1,0 +1,43 @@
+= Special Pages <sup>[[Help:SpecialPages |<img width="19" src="../images/navigation/help_start.png" />]]</sup>=
+
+
+<table class="start" style="border-spacing: 20px 20px; width:100%">
+
+	<tr>
+<td valign="top" cellspacing-left="20" style="width:33%;">
+<h2> Data Management </h2>
+<div>
+
+* [[Admin:Constraints|Constraint Validation]]
+* [[owl:Class|Overview of all Classes]]
+* [[owl:DatatypeProperty|Overview of all Datatype Properties]]
+* [[owl:ObjectProperty|Overview of all Object Properties]]
+
+</div></td>
+
+<td valign="top" cellspacing-left="20" style="width:33%;">
+<div>
+<h2> Help Pages </h2>
+* [[Help:GettingStarted|Getting Started Tutorial]]
+* [[Help:Help|Help Pages]]
+* <a href="http://groups.google.com/group/iwb-discussion/subscribe">Mailing List</a>
+* <a href="http://www.mediawiki.org/wiki/Help:Formatting">Media Wiki Syntax</a>
+</div>
+
+	</td>
+
+<td valign="top" cellspacing-left="20" style="width:33%;">
+<div>
+<h2> IWB Management </h2>
+* [[Help:Settings|Chart Settings Overview]]
+* <a href="../sparql">Information Workbench SPARQL Endpoint</a>
+* [[Admin:WikiDiagnostics|Wiki Diagnostics]]
+</div>
+
+	</td>
+
+</tr>
+</table>
+
+
+
